@@ -30,6 +30,17 @@ struct TaxFactory {
         return federalTaxes
     }
 
+    static func localTaxBracketForLocalTax(_ localTax:LocalTaxType, taxableIncome:Double, taxYear year:TaxYear, filingType:FilingType) throws -> LocalTax? {
+        switch localTax {
+            case .none:
+                return nil
+            case let .city(city):
+                let brackets = try TaxBracketFactory.cityTaxBracketFor(city, taxYear: year, filingType: filingType, taxableIncome: taxableIncome)
+                let bracket = try TaxBracketFactory.findMatchingBracket(brackets, taxableIncome: taxableIncome)
+                return LocalTax(city:city, bracket: bracket, taxableIncome: taxableIncome)
+        }
+    }
+
     static func stateTaxFor(stateIncome:StateIncome, totalIncome:Double, taxYear year:TaxYear, filingType:FilingType) throws -> StateTax {
         let deductions = DeductionAmount.stateAmount(amount: stateIncome.deductions,
                                                      taxYear: year,
@@ -40,8 +51,11 @@ struct TaxFactory {
         let brackets = try TaxBracketFactory.stateTaxBracketFor(stateIncome.state, taxYear: year, filingType: filingType, taxableIncome:taxableIncome)
         let bracket = try TaxBracketFactory.findMatchingBracket(brackets, taxableIncome: taxableIncome)
 
+        let localTax = try localTaxBracketForLocalTax(stateIncome.localTax, taxableIncome: taxableIncome, taxYear: year, filingType: filingType)
+
         return StateTax(state:stateIncome.state,
                         bracket: bracket,
+                        localTax: localTax,
                         taxableIncome: taxableIncome,
                         deductions: deductions,
                         withholdings: stateIncome.withholdings,

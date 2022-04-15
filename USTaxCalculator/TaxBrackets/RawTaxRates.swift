@@ -5,19 +5,16 @@ struct RawStartingAtToTaxRateMap {}
 
 // state rates
 extension RawStartingAtToTaxRateMap {
-    static func progressiveMapsForState(state:StateOrCity) -> [TaxYear: [FilingType: [Double:Double]]] {
+    static func progressiveMapsForState(_ state:State) -> [TaxYear: [FilingType: [Double:Double]]] {
         switch state {
             case .NY: return self.progressiveNewYorkStateRates
-            case .NYC: return self.newYorkCityRates
             case .CA: return self.californiaRates
         }
     }
 
-    static func nonProgressiveRateMapsForState(state:StateOrCity) -> [TaxYear: [FilingType: [Double:Double]]] {
-        switch state {
-            case .NY: return self.nonProgressiveNewYorkStateRates
-            case .NYC: return [:]
-            case .CA: return [:]
+    static func progressiveMapsForCity(_ city:City) -> [TaxYear: [FilingType: [Double:Double]]] {
+        switch city {
+            case .NYC: return self.newYorkCityRates
         }
     }
 }
@@ -123,7 +120,7 @@ extension RawStartingAtToTaxRateMap {
     // this is slightly simplified - more math is involved to do these properly as above link shows.
     // That math is different for each bracket, which is rather complex.
     // Rates apply for incomes $107,650+
-    private static var nonProgressiveNewYorkStateRates: [TaxYear: [FilingType: [Double:Double]]] { get {
+    static var nonProgressiveNewYorkStateRates: [TaxYear: [FilingType: [Double:Double]]] { get {
         return [
             .y2021: [
                 .single: [

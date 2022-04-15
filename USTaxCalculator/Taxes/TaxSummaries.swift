@@ -16,7 +16,7 @@ struct TaxSummary {
 }
 
 extension TaxSummaries {
-    private static func sumofTaxes(_ taxes: [ExplainableTaxAmountProvider], credits:Double) -> Double {
+    private static func sumofTaxes(_ taxes: [Tax], credits:Double) -> Double {
         return taxes.reduce(-credits) { partialResult, tax in
             return partialResult + tax.taxAmount
         }

@@ -52,8 +52,12 @@ struct TaxSummaryFormatter {
             print("- \(stateTax.state) (at \(formatPercentage(stateTax.incomeRate)))")
             printCurrency("  Deductions:", -stateTax.deductions)
             printCurrency("  Taxable Income:", stateTax.taxableIncome)
-            printBracketRate("  Rate:", stateTax.bracket)
-            printCurrency("  Taxes:", stateTax.taxAmount, formatExplanation(stateTax, explanationsEnabled: printCalculationExplanations))
+            printCurrency("  - State Tax:", stateTax.stateOnlyTaxAmount, formatExplanation(stateTax, explanationsEnabled: printCalculationExplanations))
+            printBracketRate("    Rate:", stateTax.bracket)
+            if let localTax = stateTax.localTax {
+                printCurrency("  - Local Tax (\(localTax.city)):", localTax.taxAmount, formatExplanation(localTax, explanationsEnabled: printCalculationExplanations))
+                printBracketRate("    Local Rate:", localTax.bracket)
+            }
             printCurrency("", -stateTax.withholdings, "(withheld)")
             printCurrency("  To Pay:", stateTax.taxAmount - stateTax.withholdings)
         }
@@ -106,9 +110,9 @@ private extension TaxSummaryFormatter {
         return "\(left)\(spacing)\(right) \(appendix)"
     }
 
-    func formatExplanation(_ explanationProvider:ExplainableTaxAmountProvider, explanationsEnabled:Bool) -> String {
+    func formatExplanation(_ tax:Tax, explanationsEnabled:Bool) -> String {
         return (explanationsEnabled
-                ? String(repeating: " ", count: 15) + "Math: \(explanationProvider.taxCalculationExplanation)"
+                ? String(repeating: " ", count: 15) + "Math: \(tax.bracket.taxCalculationExplanation(tax.taxableIncome))"
                 : "")
     }
 

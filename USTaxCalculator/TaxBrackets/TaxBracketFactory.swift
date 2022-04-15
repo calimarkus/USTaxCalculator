@@ -3,6 +3,7 @@
 enum TaxBracketFactoryError: Error {
     case noMatchingTaxBracketFound
     case missingStateTaxRates
+    case missingCityTaxRates
     case missingFederalTaxRates
 }
 
@@ -34,21 +35,29 @@ extension TaxBracketFactory {
 
 // state tax brackets
 extension TaxBracketFactory {
-    static func stateTaxBracketFor(_ state:StateOrCity, taxYear year:TaxYear, filingType:FilingType, taxableIncome:Double) throws -> [TaxBracket] {
+    static func stateTaxBracketFor(_ state:State, taxYear year:TaxYear, filingType:FilingType, taxableIncome:Double) throws -> [TaxBracket] {
         if state == .NY && taxableIncome > 107650 {
-            // new york doesn't use progressive rates for incomes higher than 107650
+            // new york doesn't use progressive rates for incomes higher than 107,650
             // see comments on RawStartingAtToTaxRateMap.nonProgressiveNewYorkStateRates
-            if let map = RawStartingAtToTaxRateMap.nonProgressiveRateMapsForState(state: state)[year]?[filingType] {
+            if let map = RawStartingAtToTaxRateMap.nonProgressiveNewYorkStateRates[year]?[filingType] {
                 return SimpleTaxBracketGenerator.generateWithStartingAtToTaxRateMap(map)
             }
         } else {
             // use progressive rates as usual
-            if let map = RawStartingAtToTaxRateMap.progressiveMapsForState(state: state)[year]?[filingType] {
+            if let map = RawStartingAtToTaxRateMap.progressiveMapsForState(state)[year]?[filingType] {
                 return ProgressiveTaxBracketGenerator.generateWithStartingAtToTaxRateMap(map)
             }
         }
 
         throw TaxBracketFactoryError.missingStateTaxRates
+    }
+
+    static func cityTaxBracketFor(_ city:City, taxYear year:TaxYear, filingType:FilingType, taxableIncome:Double) throws -> [TaxBracket] {
+        if let map = RawStartingAtToTaxRateMap.progressiveMapsForCity(city)[year]?[filingType] {
+            return ProgressiveTaxBracketGenerator.generateWithStartingAtToTaxRateMap(map)
+        }
+
+        throw TaxBracketFactoryError.missingCityTaxRates
     }
 }
 

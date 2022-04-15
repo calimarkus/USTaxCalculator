@@ -6,10 +6,18 @@ enum StateIncomeError: Error {
     case illegalIncomeAmountAddition
 }
 
-enum StateOrCity : Comparable, Hashable {
+enum State : Comparable, Hashable {
     case NY
-    case NYC
     case CA
+}
+
+enum City : Comparable, Hashable {
+    case NYC
+}
+
+enum LocalTaxType : Equatable {
+    case none
+    case city(_ city:City)
 }
 
 enum IncomeAmount {
@@ -19,7 +27,7 @@ enum IncomeAmount {
 
 struct StateIncome {
     /// The state or city for this income
-    let state:StateOrCity
+    let state:State
 
     /// State Wages as listed on W-2, Box 16
     let wages:IncomeAmount
@@ -32,6 +40,9 @@ struct StateIncome {
 
     /// State Income that's not part of the wages on the W-2
     var additionalStateIncome:Double = 0.0
+
+    /// Any local taxes that apply to this state
+    var localTax:LocalTaxType = .none
 }
 
 extension StateIncome {
@@ -60,7 +71,7 @@ extension IncomeAmount {
 
 extension StateIncome {
     private func mergeWith(_ rhs:StateIncome) throws -> StateIncome {
-        guard state == rhs.state else {
+        guard state == rhs.state && localTax == rhs.localTax else {
             throw StateIncomeError.illegalStateIncomeAddition
         }
         return StateIncome(
@@ -68,11 +79,12 @@ extension StateIncome {
             wages: try wages.mergeWith(rhs.wages),
             withholdings: withholdings + rhs.withholdings,
             deductions: try deductions.mergeWith(rhs.deductions),
-            additionalStateIncome: additionalStateIncome + rhs.additionalStateIncome)
+            additionalStateIncome: additionalStateIncome + rhs.additionalStateIncome,
+            localTax: localTax)
     }
 
     static func merge(_ lhs:[StateIncome], _ rhs:[StateIncome]) throws -> [StateIncome] {
-        var leftStates:[StateOrCity : StateIncome] = [:]
+        var leftStates:[State : StateIncome] = [:]
         lhs.forEach { leftStates[$0.state] = $0 }
         let mergedRightStateIncomes:[StateIncome] = try rhs.map {
             if let matchingLeft = leftStates[$0.state] {

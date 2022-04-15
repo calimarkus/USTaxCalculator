@@ -7,8 +7,7 @@ let exampleIncome21 = Income(
     dividendsAndInterests: 4500,
     capitalGains: 20000,
     longtermCapitalGains: 16000,
-    stateIncomes: [StateIncome(state: .NY, wages: .fullFederal, withholdings: 12000),
-                   StateIncome(state: .NYC, wages: .fullFederal, withholdings: 0),
+    stateIncomes: [StateIncome(state: .NY, wages: .fullFederal, withholdings: 12000, localTax: .city(.NYC)),
                    StateIncome(state: .CA, wages: .partial(35000), withholdings: 2500)])
 
 let exampleTaxData2021 = try USTaxData(

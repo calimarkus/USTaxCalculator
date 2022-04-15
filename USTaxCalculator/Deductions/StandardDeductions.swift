@@ -2,10 +2,10 @@
 //
 
 struct StandardDeductions {
-    static func state(taxYear:TaxYear, state:StateOrCity, filingType:FilingType) -> Double {
+    static func state(taxYear:TaxYear, state:State, filingType:FilingType) -> Double {
         switch taxYear {
             case .y2021: switch state {
-                case .NY, .NYC:
+                case .NY:
                     // see https://www.tax.ny.gov/pit/file/standard_deductions.htm
                     switch filingType {
                         case .single: return 8000.0
@@ -19,7 +19,7 @@ struct StandardDeductions {
                     }
             }
             case .y2020: switch state {
-                case .NY, .NYC:
+                case .NY:
                     // see https://www.efile.com/new-york-tax-rates-forms-and-brackets/
                     switch filingType {
                         case .single: return 8000.0
