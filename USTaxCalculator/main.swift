@@ -16,7 +16,6 @@ let exampleTaxData2021 = try USTaxData(
     taxYear: .y2021,
     income: exampleIncome21,
     federalDeductions: DeductionAmount.standard(),
-    additionalFederalWithholding: 0,
     federalCredits: 500,
     stateCredits: [.NY: 3500]
 )
