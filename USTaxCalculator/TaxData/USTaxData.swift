@@ -35,14 +35,15 @@ struct USTaxData {
         /// The Income to use in the calculations
         income: Income,
 
+        /// Federal deductions that apply. .standard will utilize standard deductions
+        federalDeductions: DeductionAmount,
         /// Federal withholdings not listed on the W-2 (e.g. estimated payments, etc.)
         additionalFederalWithholding: Double,
-        /// Tax credits that apply to your state taxes
-        stateCredits: [State: Double],
+
         /// Tax credits that apply to your federal taxes
         federalCredits: Double,
-        /// Federal deductions that apply. .standard will utilize standard deductions
-        federalDeductions: DeductionAmount
+        /// Tax credits that apply to your state taxes
+        stateCredits: [State: Double]
     ) throws {
         self.title = title
         self.filingType = filingType

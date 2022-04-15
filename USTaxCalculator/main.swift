@@ -15,10 +15,10 @@ let exampleTaxData2021 = try USTaxData(
     filingType: .single,
     taxYear: .y2021,
     income: exampleIncome21,
+    federalDeductions: DeductionAmount.standard(),
     additionalFederalWithholding: 0,
-    stateCredits: [.NY: 3500],
     federalCredits: 500,
-    federalDeductions: DeductionAmount.standard()
+    stateCredits: [.NY: 3500]
 )
 
 let formatter = TaxSummaryFormatter(columnWidth: 39,
