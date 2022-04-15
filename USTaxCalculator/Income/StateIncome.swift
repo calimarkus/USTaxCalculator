@@ -67,6 +67,7 @@ extension StateIncome {
             state: state,
             wages: try wages.mergeWith(rhs.wages),
             withholdings: withholdings + rhs.withholdings,
+            deductions: try deductions.mergeWith(rhs.deductions),
             additionalStateIncome: additionalStateIncome + rhs.additionalStateIncome)
     }
 
