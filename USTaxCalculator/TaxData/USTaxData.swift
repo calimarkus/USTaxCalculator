@@ -36,14 +36,14 @@ struct USTaxData {
         income: Income,
 
         /// Federal deductions that apply. .standard will utilize standard deductions
-        federalDeductions: DeductionAmount,
+        federalDeductions: DeductionAmount = DeductionAmount.standard(),
         /// Federal withholdings not listed on the W-2 (e.g. estimated payments, etc.)
-        additionalFederalWithholding: Double,
+        additionalFederalWithholding: Double = 0.0,
 
         /// Tax credits that apply to your federal taxes
-        federalCredits: Double,
+        federalCredits: Double = 0.0,
         /// Tax credits that apply to your state taxes
-        stateCredits: [State: Double]
+        stateCredits: [State: Double] = [:]
     ) throws {
         self.title = title
         self.filingType = filingType
