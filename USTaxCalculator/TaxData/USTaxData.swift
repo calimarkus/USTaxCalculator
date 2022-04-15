@@ -34,11 +34,11 @@ struct USTaxData {
         /// The Income to use in the calculations
         income: Income,
 
-        /// Federal withholdings not listed on the W-2 (e.g. estimated payments)
+        /// Federal withholdings not listed on the W-2 (e.g. estimated payments, etc.)
         additionalFederalWithholding: Double,
-        /// State withholdings not listed on the W-2
+        /// Tax credits that apply to your state taxes
         stateCredits: Double,
-        /// Federal withholdings not listed on the W-2 (e.g. estimated payments)
+        /// Tax credits that apply to your federal taxes
         federalCredits: Double,
         /// Federal deductions that apply. .standard will utilize standard deductions
         federalDeductions: DeductionAmount
