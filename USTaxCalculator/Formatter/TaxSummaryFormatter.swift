@@ -32,7 +32,7 @@ struct TaxSummaryFormatter {
         print("")
         print("- Taxes:")
         if taxSummaries.federal.credits > 0 {
-            printCurrency("  - Tax Credits:", -taxSummaries.federal.credits)
+            printCurrency("  - Federal Credits:", -taxSummaries.federal.credits)
         }
         for fedTax in td.allFederalTaxes {
             printCurrency("  - \(fedTax.title) Tax:", fedTax.taxAmount, formatExplanation(fedTax, explanationsEnabled: printCalculationExplanations))
@@ -44,22 +44,24 @@ struct TaxSummaryFormatter {
 
         // States
         print("\nState Taxes:".uppercased())
-        if taxSummaries.states.credits > 0 {
-            printCurrency("- Tax Credits:", -taxSummaries.states.credits)
-        }
 
         for stateTax in td.stateTaxes {
+            let credit = td.stateCredits[stateTax.state] ?? 0.0
             print("- \(stateTax.state) (at \(formatPercentage(stateTax.incomeRate)))")
             printCurrency("  Deductions:", -stateTax.deductions)
             printCurrency("  Taxable Income:", stateTax.taxableIncome)
+            if credit > 0 {
+                printCurrency("  - State Credits:", -credit)
+            }
             printCurrency("  - State Tax:", stateTax.stateOnlyTaxAmount, formatExplanation(stateTax, explanationsEnabled: printCalculationExplanations))
             printBracketRate("    Rate:", stateTax.bracket)
             if let localTax = stateTax.localTax {
                 printCurrency("  - Local Tax (\(localTax.city)):", localTax.taxAmount, formatExplanation(localTax, explanationsEnabled: printCalculationExplanations))
                 printBracketRate("    Local Rate:", localTax.bracket)
+                printCurrency("  - Total:", stateTax.taxAmount - credit)
             }
             printCurrency("", -stateTax.withholdings, "(withheld)")
-            printCurrency("  To Pay:", stateTax.taxAmount - stateTax.withholdings)
+            printCurrency("  To Pay:", stateTax.taxAmount - stateTax.withholdings - credit)
         }
 
         printSumSeparator()

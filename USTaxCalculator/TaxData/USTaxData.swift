@@ -22,6 +22,7 @@ struct USTaxData {
 
     let allFederalTaxes: [FederalTax]
     let stateTaxes: [StateTax]
+    let stateCredits: [State: Double]
     let taxSummaries:TaxSummaries
 
     init (
@@ -37,7 +38,7 @@ struct USTaxData {
         /// Federal withholdings not listed on the W-2 (e.g. estimated payments, etc.)
         additionalFederalWithholding: Double,
         /// Tax credits that apply to your state taxes
-        stateCredits: Double,
+        stateCredits: [State: Double],
         /// Tax credits that apply to your federal taxes
         federalCredits: Double,
         /// Federal deductions that apply. .standard will utilize standard deductions
@@ -47,6 +48,7 @@ struct USTaxData {
         self.filingType = filingType
         self.taxYear = taxYear
         self.income = income
+        self.stateCredits = stateCredits
 
         self.federalDeductions = DeductionAmount.federalAmount(amount: federalDeductions, taxYear: taxYear, filingType: filingType)
         self.taxableFederalIncome = income.totalIncome - income.longtermCapitalGains - self.federalDeductions
@@ -70,8 +72,8 @@ struct USTaxData {
                                                       taxableFederalIncome: taxableFederalIncome,
                                                       federalWithholdings: income.federalWithholdings + additionalFederalWithholding,
                                                       federalCredits: federalCredits,
-                                                      stateCredits: stateCredits,
                                                       federalTaxes: allFederalTaxes,
-                                                      stateTaxes: stateTaxes)
+                                                      stateTaxes: stateTaxes,
+                                                      stateCredits: stateCredits)
     }
 }
