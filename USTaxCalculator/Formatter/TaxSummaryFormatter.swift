@@ -117,6 +117,7 @@ private extension TaxSummaryFormatter {
         formatter.numberStyle = .currency
         formatter.locale = self.locale
         formatter.maximumFractionDigits = 0
+        formatter.roundingMode = num >= 0 ? .ceiling : .floor
         return formatter.string(from: num as NSNumber)!
     }
 
