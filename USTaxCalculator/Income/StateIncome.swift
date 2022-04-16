@@ -40,6 +40,9 @@ struct StateIncome: Codable {
 
     /// Any local taxes that apply to this state
     var localTax: LocalTaxType = .none
+
+    /// If true, automatically calculates credits for any provided out-of-state income
+    var applyOutOfStateIncomeCredits = false
 }
 
 extension StateIncome {
@@ -75,7 +78,7 @@ private extension IncomeAmount {
 
 extension StateIncome {
     private func mergeWith(_ rhs: StateIncome) throws -> StateIncome {
-        guard state == rhs.state, localTax == rhs.localTax else {
+        guard state == rhs.state && localTax == rhs.localTax && applyOutOfStateIncomeCredits == rhs.applyOutOfStateIncomeCredits else {
             throw StateIncomeError.illegalStateIncomeAddition
         }
         return StateIncome(
@@ -83,7 +86,8 @@ extension StateIncome {
             wages: try wages.mergeWith(rhs.wages),
             withholdings: withholdings + rhs.withholdings,
             additionalStateIncome: additionalStateIncome + rhs.additionalStateIncome,
-            localTax: localTax)
+            localTax: localTax,
+            applyOutOfStateIncomeCredits: applyOutOfStateIncomeCredits)
     }
 
     static func merge(_ lhs: [StateIncome], _ rhs: [StateIncome]) throws -> [StateIncome] {
