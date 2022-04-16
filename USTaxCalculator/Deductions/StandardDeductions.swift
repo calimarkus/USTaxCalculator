@@ -3,29 +3,24 @@
 
 struct StandardDeductions {
     static func state(taxYear:TaxYear, state:State, filingType:FilingType) -> Double {
-        switch taxYear {
-            case .y2021: switch state {
-                case .NY:
+        switch state {
+            case .NY: switch taxYear {
+                case .y2021, .y2020:
                     // see https://www.tax.ny.gov/pit/file/standard_deductions.htm
-                    switch filingType {
-                        case .single: return 8000.0
-                        case .marriedJointly: return 16050.0
-                    }
-                case .CA:
-                    // see https://www.ftb.ca.gov/file/personal/deductions/index.html
-                    switch filingType {
-                        case .single: return 4803.0
-                        case .marriedJointly: return 9606.0
-                    }
-            }
-            case .y2020: switch state {
-                case .NY:
                     // see https://www.efile.com/new-york-tax-rates-forms-and-brackets/
                     switch filingType {
                         case .single: return 8000.0
                         case .marriedJointly: return 16050.0
                     }
-                case .CA:
+            }
+            case .CA: switch taxYear {
+                case .y2021:
+                    // see https://www.ftb.ca.gov/file/personal/deductions/index.html
+                    switch filingType {
+                        case .single: return 4803.0
+                        case .marriedJointly: return 9606.0
+                    }
+                case .y2020:
                     // see https://www.ftb.ca.gov/about-ftb/newsroom/tax-news/november-2020/standard-deductions-exemption-amounts-and-tax-rates-for-2020-tax-year.html
                     switch filingType {
                         case .single: return 4601.0
