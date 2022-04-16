@@ -4,37 +4,39 @@ What started as a small swift script to better understand some numbers of my tax
 
 ## Disclaimers ⚠️ 
 
+This is purely a fun side project, which helped me doublecheck a few calculations.
+
 - This is not tax advice.
 - I'm not a CPA, nor a tax consultant.
 - Don't blindly trust these numbers.
 - This code might miss many details & might contain mistakes.
 
-This is purely a fun side project, which helped me doublecheck a few calculations.
-
-## Supported Scenarios
-
-### Filing Modes
-
-- Single
-- Married jointly
-
-Married Separately & Head of Household not supported.
-This can easily be extended. See `RawTaxRates.swift`
-
-### Locations
-
-- Federal Taxes
-- CA
-- NY & NYC
-
-This can easily be extended. See `RawTaxRates.swift`
+## Supported Tax Scenarios
 
 ### Tax Years
 
 - 2020
 - 2021
 
-This can easily be extended. See `RawTaxRates.swift`
+### Filing Modes
+
+- Single
+- Married jointly
+
+Missing: Married Separately & Head of Household. Married Separately often has the same rates as single though.
+
+### Supported Locations
+
+- Federal Taxes
+- State Taxes: CA, NY
+- Local Taxes: NYC
+
+### Adding new scenarios
+
+New scenarios can easily be added:
+
+1) Add new cases to the `TaxYear`/`FilingType`/`State`/`City` enums.
+2) Add new taxrates to `RawTaxRates.swift`.
 
 ## Usage Example (see `main.swift`)
 
