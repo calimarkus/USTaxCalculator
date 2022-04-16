@@ -10,12 +10,14 @@ struct StateCredits {
 
     static func calculateAutomaticStateCredits(existingCredits: [TaxState:Double],
                                                allStateIncomes: [StateIncome],
+                                               stateTaxes: [StateTax],
+                                               totalIncome: Double,
                                                taxYear:TaxYear,
                                                filingType:FilingType) throws -> [TaxState:Double] {
         var credits = existingCredits
 
-        let eligableStateIncomes = allStateIncomes.filter { tax in
-            return tax.applyOutOfStateIncomeCredits
+        let eligableStateIncomes = allStateIncomes.filter { income in
+            return income.applyOutOfStateIncomeCredits
         }
 
         guard eligableStateIncomes.count > 0 else { return credits }
@@ -25,24 +27,26 @@ struct StateCredits {
 
         // sum up other states
         var outOfStateIncome = 0.0
-        try allStateIncomes.forEach { income in
-            if income.state != eligableStateIncome.state {
-                switch income.wages {
-                    case IncomeAmount.fullFederal:
-                        throw StateCreditsError.unexpectedStateIncome
-                    case let IncomeAmount.partial(amount):
-                        outOfStateIncome += amount + income.additionalStateIncome
+        try stateTaxes.forEach { tax in
+            if tax.state != eligableStateIncome.state {
+                if tax.incomeRate == 1.0 {
+                    throw StateCreditsError.unexpectedStateIncome
+                } else {
+                    outOfStateIncome += tax.taxableIncome * tax.incomeRate
                 }
             }
         }
 
         if outOfStateIncome > 0.0 {
-            let brackets = try TaxBracketFactory.stateTaxBracketFor(eligableStateIncome.state, taxYear: taxYear, filingType: filingType, taxableIncome:outOfStateIncome)
-            let bracket = try TaxBracketFactory.findMatchingBracket(brackets, taxableIncome: outOfStateIncome)
-            let credit = bracket.calculateTaxesForAmount(outOfStateIncome)
+            let existingTax = stateTaxes.first { tax in
+                tax.state == eligableStateIncome.state
+            }!
+//            let brackets = try TaxBracketFactory.stateTaxBracketFor(eligableStateIncome.state, taxYear: taxYear, filingType: filingType, taxableIncome:totalIncome)
+//            let bracket = try TaxBracketFactory.findMatchingBracket(brackets, taxableIncome: totalIncome)
+            let credit = existingTax.bracket.calculateTaxesForAmount(outOfStateIncome)
 
             credits[eligableStateIncome.state] = (credits[eligableStateIncome.state] ?? 0.0) + credit
-            print("outOfStateIncome: \(outOfStateIncome), bracket: \(bracket), credit: \(credit)")
+            print("outOfStateIncome: \(outOfStateIncome), bracket: \(existingTax.bracket), credit: \(credit)")
         }
 
         return credits

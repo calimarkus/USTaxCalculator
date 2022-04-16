@@ -115,6 +115,7 @@
 		7EF596DF283A254100870696 /* EditButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EF596DE283A254100870696 /* EditButton.swift */; };
 		7EF596E0283A254100870696 /* EditButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EF596DE283A254100870696 /* EditButton.swift */; };
 		7EF596E2283A268A00870696 /* EditableTaxDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EF596E1283A268A00870696 /* EditableTaxDataView.swift */; };
+		7EF7ABAB282AA9960035F038 /* StateCredits.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EF7ABAA282AA9960035F038 /* StateCredits.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -198,6 +199,7 @@
 		7EF596DC283A196200870696 /* LocalTaxDataState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalTaxDataState.swift; sourceTree = "<group>"; };
 		7EF596DE283A254100870696 /* EditButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditButton.swift; sourceTree = "<group>"; };
 		7EF596E1283A268A00870696 /* EditableTaxDataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditableTaxDataView.swift; sourceTree = "<group>"; };
+		7EF7ABAA282AA9960035F038 /* StateCredits.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StateCredits.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -407,6 +409,7 @@
 		7E572F07282910B300DDB15E /* Taxes */ = {
 			isa = PBXGroup;
 			children = (
+				7EF7ABAA282AA9960035F038 /* StateCredits.swift */,
 				7E572F08282910B300DDB15E /* TaxSummaries.swift */,
 				7E572F09282910B300DDB15E /* Tax.swift */,
 				7E572F0A282910B300DDB15E /* TaxFactory.swift */,
@@ -737,6 +740,7 @@
 				7EE085A4283137E800E3EDA3 /* TaxDataTabView.swift in Sources */,
 				7E572F2F282910B300DDB15E /* TaxFactory.swift in Sources */,
 				7E1239BD282E0D520048BD77 /* TaxListGroupView.swift in Sources */,
+				7EF7ABAB282AA9960035F038 /* StateCredits.swift in Sources */,
 				7E3C565D28322135002272F3 /* BracketInfoView.swift in Sources */,
 				7E572F31282910B300DDB15E /* ProgressiveTaxBracketGenerator.swift in Sources */,
 				7E572F26282910B300DDB15E /* StandardDeductions.swift in Sources */,

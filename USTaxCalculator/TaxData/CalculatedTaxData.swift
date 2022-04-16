@@ -47,12 +47,12 @@ struct CalculatedTaxData: Identifiable {
         federal = try FederalTaxData(input, taxYear: taxYear, filingType: filingType)
         self.input = input
 
-
         // calculate automatic state credits
         let stateCredits = try StateCredits.calculateAutomaticStateCredits(existingCredits: input.stateCredits,
                                                                             allStateIncomes: income.stateIncomes,
                                                                             taxYear: taxYear,
                                                                             filingType: filingType)
+
         // build state taxes
         stateTaxes = try input.income.stateIncomes.map { stateIncome in
             try TaxFactory.stateTaxFor(stateIncome: stateIncome,
