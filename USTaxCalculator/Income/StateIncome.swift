@@ -35,9 +35,6 @@ struct StateIncome {
     /// State Income Tax Withheld as listed on W-2, Box 17
     let withholdings:Double
 
-    /// State deductions that apply. .standard will utilize standard deductions
-    var deductions:DeductionAmount = DeductionAmount.standard()
-
     /// State Income that's not part of the wages on the W-2
     var additionalStateIncome:Double = 0.0
 
@@ -78,7 +75,6 @@ extension StateIncome {
             state: state,
             wages: try wages.mergeWith(rhs.wages),
             withholdings: withholdings + rhs.withholdings,
-            deductions: try deductions.mergeWith(rhs.deductions),
             additionalStateIncome: additionalStateIncome + rhs.additionalStateIncome,
             localTax: localTax)
     }

@@ -41,8 +41,13 @@ struct TaxFactory {
         }
     }
 
-    static func stateTaxFor(stateIncome:StateIncome, totalIncome:Double, taxYear year:TaxYear, filingType:FilingType) throws -> StateTax {
-        let deductions = DeductionAmount.stateAmount(amount: stateIncome.deductions,
+    static func stateTaxFor(stateIncome:StateIncome,
+                            stateDeductions: [State: DeductionAmount],
+                            totalIncome:Double,
+                            taxYear year:TaxYear,
+                            filingType:FilingType) throws -> StateTax {
+        let deductionAmount = stateDeductions[stateIncome.state] ?? DeductionAmount.standard()
+        let deductions = DeductionAmount.stateAmount(deductionAmount,
                                                      taxYear: year,
                                                      state: stateIncome.state,
                                                      filingType: filingType)

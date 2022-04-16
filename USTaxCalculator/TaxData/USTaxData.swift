@@ -26,7 +26,7 @@ struct USTaxData {
     let taxSummaries:TaxSummaries
 
     init (
-        /// An additional description for this data, which will be combined with the default title if provided like e.g. "title - Year 2021 (Single, NY+CA)"
+    /// An additional description for this data, which will be combined with the default title if provided like e.g. "title - Year 2021 (Single, NY+CA)"
         title:String?,
         /// true if the taxes are filed jointly as a married couple, otherwise single is assumed
         filingType: FilingType,
@@ -35,8 +35,11 @@ struct USTaxData {
         /// The Income to use in the calculations
         income: Income,
 
-        /// Federal deductions that apply. .standard will utilize standard deductions
+        /// Federal deductions that apply.
         federalDeductions: DeductionAmount = DeductionAmount.standard(),
+        /// State deductions that apply to each state. Missing states will utilize standard deductions.
+        stateDeductions: [State: DeductionAmount] = [:],
+
         /// Federal withholdings not listed on the W-2 (e.g. estimated payments, etc.)
         additionalFederalWithholding: Double = 0.0,
 
@@ -51,7 +54,7 @@ struct USTaxData {
         self.income = income
         self.stateCredits = stateCredits
 
-        self.federalDeductions = DeductionAmount.federalAmount(amount: federalDeductions, taxYear: taxYear, filingType: filingType)
+        self.federalDeductions = DeductionAmount.federalAmount(federalDeductions, taxYear: taxYear, filingType: filingType)
         self.taxableFederalIncome = income.totalIncome - income.longtermCapitalGains - self.federalDeductions
 
         // build federal taxes
@@ -63,6 +66,7 @@ struct USTaxData {
         // build state taxes
         self.stateTaxes = try income.stateIncomes.map { stateIncome in
             return try TaxFactory.stateTaxFor(stateIncome: stateIncome,
+                                              stateDeductions: stateDeductions,
                                               totalIncome: income.totalIncome,
                                               taxYear: taxYear,
                                               filingType: filingType)
