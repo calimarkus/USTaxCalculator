@@ -14,7 +14,7 @@ struct TaxSummaryFormatter {
         let taxSummaries = td.taxSummaries
 
         // output
-        let title = formattedTitle(taxData: td)
+        let title = FormattingHelper.formattedTitle(taxData: td)
         print(title)
         print(String(repeating:"=", count:title.count))
 
@@ -35,7 +35,7 @@ struct TaxSummaryFormatter {
             printCurrency("  - Federal Credits:", -taxSummaries.federal.credits)
         }
         for fedTax in td.allFederalTaxes {
-            printCurrency("  - \(fedTax.title) Tax:", fedTax.taxAmount, formatExplanation(fedTax, explanationsEnabled: printCalculationExplanations))
+            printCurrency("  - \(fedTax.title) Tax:", fedTax.taxAmount, FormattingHelper.formatExplanation(fedTax, explanationsEnabled: printCalculationExplanations))
             printBracketRate("    Rate:", fedTax.bracket)
         }
 
@@ -47,16 +47,16 @@ struct TaxSummaryFormatter {
 
         for stateTax in td.stateTaxes {
             let credit = td.stateCredits[stateTax.state] ?? 0.0
-            print("- \(stateTax.state) (at \(formatPercentage(stateTax.incomeRate)))")
+            print("- \(stateTax.state) (at \(FormattingHelper.formatPercentage(stateTax.incomeRate, locale: self.locale)))")
             printCurrency("  Deductions:", -stateTax.deductions)
             printCurrency("  Taxable Income:", stateTax.taxableIncome)
             if credit > 0 {
                 printCurrency("  - State Credits:", -credit)
             }
-            printCurrency("  - State Tax:", stateTax.stateOnlyTaxAmount, formatExplanation(stateTax, explanationsEnabled: printCalculationExplanations))
+            printCurrency("  - State Tax:", stateTax.stateOnlyTaxAmount, FormattingHelper.formatExplanation(stateTax, explanationsEnabled: printCalculationExplanations))
             printBracketRate("    Rate:", stateTax.bracket)
             if let localTax = stateTax.localTax {
-                printCurrency("  - Local Tax (\(localTax.city)):", localTax.taxAmount, formatExplanation(localTax, explanationsEnabled: printCalculationExplanations))
+                printCurrency("  - Local Tax (\(localTax.city)):", localTax.taxAmount, FormattingHelper.formatExplanation(localTax, explanationsEnabled: printCalculationExplanations))
                 printBracketRate("    Local Rate:", localTax.bracket)
                 printCurrency("  - Total:", stateTax.taxAmount - credit)
             }
@@ -77,14 +77,18 @@ struct TaxSummaryFormatter {
 
 // printing helpers
 private extension TaxSummaryFormatter {
+    func alignLeftRight(_ left:String, _ right:String, _ appendix:String="", shift:Int=0) -> String {
+        let spacing = String(repeating: " ", count: max(1, self.columnWidth+shift - left.count - right.count))
+        return "\(left)\(spacing)\(right) \(appendix)"
+    }
     func printCurrency(_ title:String, _ num:Double, _ appendix:String="") {
-        print(alignLeftRight(title, formatCurrency(num), appendix))
+        print(alignLeftRight(title, FormattingHelper.formatCurrency(num, locale: self.locale), appendix))
     }
     func printRate(_ title:String, _ rate:Double, appendix:String="") {
-        print(alignLeftRight(title, formatPercentage(rate), appendix, shift:1))
+        print(alignLeftRight(title, FormattingHelper.formatPercentage(rate, locale: self.locale), appendix, shift:1))
     }
     func printBracketRate(_ title:String, _ bracket:TaxBracket) {
-        printRate(title, bracket.rate, appendix:"(\(formattedBracketStart(bracket)))")
+        printRate(title, bracket.rate, appendix:"(\(FormattingHelper.formattedBracketStart(bracket, locale: self.locale)))")
     }
     func printSumSeparator() {
         print(alignLeftRight("", String(repeating:"-", count:self.separatorSize.width), shift:self.separatorSize.shift))
@@ -94,56 +98,5 @@ private extension TaxSummaryFormatter {
         printCurrency("", -summary.withholdings, "(withheld)")
         printCurrency("- To Pay (\(title)):", summary.outstandingPayment)
         printRate("  ->", summary.effectiveTaxRate, appendix: "(effective)")
-    }
-}
-
-// formatting helpers
-private extension TaxSummaryFormatter {
-    func formattedTitle(taxData:USTaxData) -> String {
-        var additionalTitle = ""
-        if let t = taxData.title { additionalTitle = "\(t) - " }
-        let statesString = taxData.stateTaxes.map { return "\($0.state)" }.joined(separator: "+")
-        let title = "\(additionalTitle)Year \(taxData.taxYear.rawValue) (\(taxData.filingType.rawValue), \(statesString))"
-        return title.uppercased()
-    }
-
-    func alignLeftRight(_ left:String, _ right:String, _ appendix:String="", shift:Int=0) -> String {
-        let spacing = String(repeating: " ", count: max(1, self.columnWidth+shift - left.count - right.count))
-        return "\(left)\(spacing)\(right) \(appendix)"
-    }
-
-    func formatExplanation(_ tax:Tax, explanationsEnabled:Bool) -> String {
-        return (explanationsEnabled
-                ? String(repeating: " ", count: 15) + "Math: \(tax.bracket.taxCalculationExplanation(tax.taxableIncome))"
-                : "")
-    }
-
-    func formatCurrency(_ num:Double) -> String {
-        let formatter = NumberFormatter()
-        formatter.numberStyle = .currency
-        formatter.locale = self.locale
-        formatter.maximumFractionDigits = 0
-        formatter.roundingMode = num >= 0 ? .ceiling : .floor
-        return formatter.string(from: num as NSNumber)!
-    }
-
-    func formatPercentage(_ rate:Double) -> String {
-        let formatter = NumberFormatter()
-        formatter.numberStyle = .percent
-        formatter.locale = self.locale
-        formatter.maximumFractionDigits = 1
-        formatter.minimumFractionDigits = 1
-
-        return formatter.string(from: rate as NSNumber)!
-    }
-
-    func formattedBracketStart(_ bracket:TaxBracket) -> String {
-        var val = bracket.startingAt / 1000.0
-        var symbol = "K"
-        if val > 1000.0 {
-            val /= 1000.0
-            symbol = "M"
-        }
-        return "\(formatCurrency(val))\(symbol)+"
     }
 }
