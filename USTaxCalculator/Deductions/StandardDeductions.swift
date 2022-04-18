@@ -2,7 +2,7 @@
 //
 
 struct StandardDeductions {
-    static func state(taxYear:TaxYear, state:State, filingType:FilingType) -> Double {
+    static func state(taxYear:TaxYear, state:TaxState, filingType:FilingType) -> Double {
         switch state {
             case .NY: switch taxYear {
                 case .y2021, .y2020:

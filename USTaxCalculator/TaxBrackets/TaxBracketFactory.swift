@@ -35,7 +35,7 @@ extension TaxBracketFactory {
 
 // state tax brackets
 extension TaxBracketFactory {
-    static func stateTaxBracketFor(_ state:State, taxYear year:TaxYear, filingType:FilingType, taxableIncome:Double) throws -> [TaxBracket] {
+    static func stateTaxBracketFor(_ state:TaxState, taxYear year:TaxYear, filingType:FilingType, taxableIncome:Double) throws -> [TaxBracket] {
         if state == .NY && taxableIncome > 107650 {
             // new york doesn't use progressive rates for incomes higher than 107,650
             // see comments on RawStartingAtToTaxRateMap.nonProgressiveNewYorkStateRates
@@ -52,7 +52,7 @@ extension TaxBracketFactory {
         throw TaxBracketFactoryError.missingStateTaxRates
     }
 
-    static func cityTaxBracketFor(_ city:City, taxYear year:TaxYear, filingType:FilingType, taxableIncome:Double) throws -> [TaxBracket] {
+    static func cityTaxBracketFor(_ city:TaxCity, taxYear year:TaxYear, filingType:FilingType, taxableIncome:Double) throws -> [TaxBracket] {
         if let map = RawStartingAtToTaxRateMap.progressiveMapsForCity(city)[year]?[filingType] {
             return ProgressiveTaxBracketGenerator.generateWithStartingAtToTaxRateMap(map)
         }

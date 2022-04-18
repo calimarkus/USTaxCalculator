@@ -28,7 +28,7 @@ struct FederalTax : Tax {
 
 struct StateTax : Tax {
     /// The underlying state
-    let state:State
+    let state:TaxState
 
     /// The underlying TaxBracket
     let bracket:TaxBracket
@@ -59,7 +59,7 @@ struct StateTax : Tax {
 
 struct LocalTax : Tax {
     /// The underlying city
-    let city:City
+    let city:TaxCity
 
     /// The underlying TaxBracket
     let bracket:TaxBracket

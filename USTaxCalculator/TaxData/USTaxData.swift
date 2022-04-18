@@ -22,7 +22,7 @@ struct USTaxData {
 
     let allFederalTaxes: [FederalTax]
     let stateTaxes: [StateTax]
-    let stateCredits: [State: Double]
+    let stateCredits: [TaxState: Double]
     let taxSummaries:TaxSummaries
 
     init (
@@ -38,7 +38,7 @@ struct USTaxData {
         /// Federal deductions that apply.
         federalDeductions: DeductionAmount = DeductionAmount.standard(),
         /// State deductions that apply to each state. Missing states will utilize standard deductions.
-        stateDeductions: [State: DeductionAmount] = [:],
+        stateDeductions: [TaxState: DeductionAmount] = [:],
 
         /// Federal withholdings not listed on the W-2 (e.g. estimated payments, etc.)
         additionalFederalWithholding: Double = 0.0,
@@ -46,7 +46,7 @@ struct USTaxData {
         /// Tax credits that apply to your federal taxes
         federalCredits: Double = 0.0,
         /// Tax credits that apply to your state taxes
-        stateCredits: [State: Double] = [:]
+        stateCredits: [TaxState: Double] = [:]
     ) throws {
         self.title = title
         self.filingType = filingType

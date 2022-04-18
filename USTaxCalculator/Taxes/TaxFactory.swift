@@ -42,7 +42,7 @@ struct TaxFactory {
     }
 
     static func stateTaxFor(stateIncome:StateIncome,
-                            stateDeductions: [State: DeductionAmount],
+                            stateDeductions: [TaxState: DeductionAmount],
                             totalIncome:Double,
                             taxYear year:TaxYear,
                             filingType:FilingType) throws -> StateTax {

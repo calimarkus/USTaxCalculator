@@ -22,7 +22,7 @@ extension TaxSummaries {
                              federalCredits: Double,
                              federalTaxes: [FederalTax],
                              stateTaxes: [StateTax],
-                             stateCredits: [State: Double]) -> TaxSummaries {
+                             stateCredits: [TaxState: Double]) -> TaxSummaries {
         // sum up federal
         let fedTaxes = federalTaxes.reduce(-federalCredits) { partialResult, tax in
             return partialResult + tax.taxAmount

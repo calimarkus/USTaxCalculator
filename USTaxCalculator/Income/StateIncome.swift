@@ -6,18 +6,18 @@ enum StateIncomeError: Error {
     case illegalIncomeAmountAddition
 }
 
-enum State : Comparable, Hashable {
+enum TaxState : Comparable, Hashable {
     case NY
     case CA
 }
 
-enum City : Comparable, Hashable {
+enum TaxCity : Comparable, Hashable {
     case NYC
 }
 
 enum LocalTaxType : Equatable {
     case none
-    case city(_ city:City)
+    case city(_ city:TaxCity)
 }
 
 enum IncomeAmount {
@@ -27,7 +27,7 @@ enum IncomeAmount {
 
 struct StateIncome {
     /// The state or city for this income
-    let state:State
+    let state:TaxState
 
     /// State Wages as listed on W-2, Box 16
     let wages:IncomeAmount
@@ -80,7 +80,7 @@ extension StateIncome {
     }
 
     static func merge(_ lhs:[StateIncome], _ rhs:[StateIncome]) throws -> [StateIncome] {
-        var leftStates:[State : StateIncome] = [:]
+        var leftStates:[TaxState : StateIncome] = [:]
         lhs.forEach { leftStates[$0.state] = $0 }
         let mergedRightStateIncomes:[StateIncome] = try rhs.map {
             if let matchingLeft = leftStates[$0.state] {
