@@ -6,10 +6,14 @@ import Foundation
 struct FormattingHelper {
     static func formattedTitle(taxData:USTaxData) -> String {
         var additionalTitle = ""
-        if let t = taxData.title { additionalTitle = "\(t) - " }
+        if let t = taxData.title { additionalTitle = "- \(t)" }
         let statesString = taxData.stateTaxes.map { return "\($0.state)" }.joined(separator: "+")
-        let title = "\(additionalTitle)Year \(taxData.taxYear.rawValue) (\(taxData.filingType.rawValue), \(statesString))"
+        let title = "Year \(taxData.taxYear.rawValue), \(taxData.filingType.rawValue), \(statesString) \(additionalTitle)"
         return title.uppercased()
+    }
+
+    static func formattedShortTitle(taxData:USTaxData) -> String {
+        return "\(taxData.title ?? taxData.filingType.rawValue) '\(String(taxData.taxYear.rawValue).suffix(2))"
     }
 
     static func formatExplanation(_ tax:Tax, explanationsEnabled:Bool) -> String {

@@ -30,7 +30,7 @@ struct TaxSummaryFormatter {
         printCurrency("- Taxable Income:", td.taxableFederalIncome)
 
         print("")
-        print("- Taxes:")
+        print("- Federal Taxes:")
         if taxSummaries.federal.credits > 0 {
             printCurrency("  - Federal Credits:", -taxSummaries.federal.credits)
         }
