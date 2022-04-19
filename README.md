@@ -68,4 +68,4 @@ let exampleTaxData2021 = try USTaxData(
 
 will be displayed like so:
 
-
+<img width="954" alt="screenshot" src="https://user-images.githubusercontent.com/807039/163984659-4661f1f5-7066-4d74-a5be-cb5eb3d652af.png">
