@@ -56,7 +56,7 @@ let exampleIncome21 = Income(
                    StateIncome(state: .CA, wages: .partial(35000), withholdings: 2500)])
 
 let exampleTaxData2021 = try USTaxData(
-    title: "Fictional Example",
+    title: "John Appleased",
     filingType: .single,
     taxYear: .y2021,
     income: exampleIncome21,
@@ -68,4 +68,6 @@ let exampleTaxData2021 = try USTaxData(
 
 will be displayed like so:
 
-<img width="954" alt="screenshot" src="https://user-images.githubusercontent.com/807039/163984659-4661f1f5-7066-4d74-a5be-cb5eb3d652af.png">
+<img width="945" alt="screenshot" src="https://user-images.githubusercontent.com/807039/167097872-4f42dde6-300c-49c6-aea8-4dc441219ba3.png">
+
+
