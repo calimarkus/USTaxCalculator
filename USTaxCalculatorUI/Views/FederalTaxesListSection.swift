@@ -12,20 +12,23 @@ struct FederalTaxesListSection: View {
     var summary:TaxSummary { get { return taxdata.taxSummaries.federal }}
 
     var body: some View {
-        Section(header: Text("Federal Taxes")) {
+        CollapsableSection(
+            title: "Federal Taxes",
+            collapsableContent: {
+                if summary.credits > 0 {
+                    CurrencyView(title:"Federal Credits", amount:-summary.credits)
+                }
 
-            if summary.credits > 0 {
-                CurrencyView(title:"Federal Credits", amount:-summary.credits)
+                ForEach(taxdata.allFederalTaxes) {
+                    CurrencyView(title:"\($0.title) Tax",
+                                 secondary: "(\(FormattingHelper.formatPercentage($0.bracket.rate)) over \(FormattingHelper.formattedBracketStart($0.bracket)))",
+                                 amount:$0.taxAmount)
+                }
+            },
+            fixedContent: {
+                TaxSummaryView(title: "Fed", summary: summary)
             }
-
-            ForEach(taxdata.allFederalTaxes) {
-                CurrencyView(title:"\($0.title) Tax",
-                             secondary: "(\(FormattingHelper.formatPercentage($0.bracket.rate)) over \(FormattingHelper.formattedBracketStart($0.bracket)))",
-                             amount:$0.taxAmount)
-            }
-
-            TaxSummaryView(title: "Fed", summary: summary)
-        }
+        )
     }
 }
 

@@ -16,40 +16,43 @@ struct StateTaxesListSection: View {
     }
 
     var body: some View {
-        Section(header: Text("State Taxes")) {
+        CollapsableSection(
+            title: "State Taxes",
+            collapsableContent: {
+                ForEach(taxdata.stateTaxes) { stateTax in
+                    CurrencyView(title:"\(stateTax.state)",
+                                 secondary: "(at \(FormattingHelper.formatPercentage(stateTax.incomeRate)))")
 
-            ForEach(taxdata.stateTaxes) { stateTax in
-                CurrencyView(title:"\(stateTax.state)",
-                             secondary: "(at \(FormattingHelper.formatPercentage(stateTax.incomeRate)))")
-                CurrencyView(title: "  Deductions", amount:-stateTax.deductions)
-                CurrencyView(title: "  Taxable Income", amount:stateTax.taxableIncome)
+                    CurrencyView(title: "  Deductions", amount:-stateTax.deductions)
+                    CurrencyView(title: "  Taxable Income", amount:stateTax.taxableIncome)
 
-                if creditsForState(stateTax.state) > 0.0 {
-                    CurrencyView(title:"  State Credits",
-                                 amount:-1 * creditsForState(stateTax.state))
+                    if creditsForState(stateTax.state) > 0.0 {
+                        CurrencyView(title:"  State Credits",
+                                     amount:-1 * creditsForState(stateTax.state))
+                    }
+
+                    CurrencyView(title:"  State Tax",
+                                 secondary: "(\(FormattingHelper.formatPercentage(stateTax.bracket.rate)) over \(FormattingHelper.formattedBracketStart(stateTax.bracket)))",
+                                 amount:stateTax.stateOnlyTaxAmount)
+
+                    if let localTax = stateTax.localTax {
+                        CurrencyView(title:"  Local Tax (\(localTax.city))",
+                                     secondary: "(\(FormattingHelper.formatPercentage(localTax.bracket.rate)) over \(FormattingHelper.formattedBracketStart(localTax.bracket)))",
+                                     amount: localTax.taxAmount)
+                        CurrencyView(title: "  Total",
+                                     amount: stateTax.taxAmount - creditsForState(stateTax.state))
+                    }
+
+                    CurrencyView(title:"  Withheld", amount:-stateTax.withholdings)
+                    CurrencyView(
+                        title: "  To Pay (\(stateTax.state))",
+                        amount: stateTax.taxAmount - stateTax.withholdings - creditsForState(stateTax.state))
                 }
-
-                CurrencyView(title:"  State Tax",
-                             secondary: "(\(FormattingHelper.formatPercentage(stateTax.bracket.rate)) over \(FormattingHelper.formattedBracketStart(stateTax.bracket)))",
-                             amount:stateTax.stateOnlyTaxAmount)
-
-                if let localTax = stateTax.localTax {
-                    CurrencyView(title:"  Local Tax (\(localTax.city))",
-                                 secondary: "(\(FormattingHelper.formatPercentage(localTax.bracket.rate)) over \(FormattingHelper.formattedBracketStart(localTax.bracket)))",
-                                 amount: localTax.taxAmount)
-                    CurrencyView(title: "  Total",
-                                 amount: stateTax.taxAmount - creditsForState(stateTax.state))
-                }
-
-                CurrencyView(title:"  Withheld", amount:-stateTax.withholdings)
-                CurrencyView(
-                    title: "  To Pay (\(stateTax.state))",
-                    amount: stateTax.taxAmount - stateTax.withholdings - creditsForState(stateTax.state))
-
+            },
+            fixedContent: {
+                TaxSummaryView(title: "State & Local", summary: summary)
             }
-
-            TaxSummaryView(title: "State & Local", summary: summary)
-        }
+        )
     }
 }
 

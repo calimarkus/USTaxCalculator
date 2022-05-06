@@ -25,6 +25,7 @@
 		7E004310280D0D7300DE9B6E /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E00430F280D0D7300DE9B6E /* Colors.swift */; };
 		7E4215D028059FDD0030C291 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E4215CF28059FDD0030C291 /* MainView.swift */; };
 		7E4215D72805A3800030C291 /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E4215D62805A3800030C291 /* MenuView.swift */; };
+		7E43AE1B2825546F004D5F2A /* CollapsableSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E43AE1A2825546F004D5F2A /* CollapsableSection.swift */; };
 		7E822CF12804515100096181 /* USTaxCalulatorApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E822CF02804515100096181 /* USTaxCalulatorApp.swift */; };
 		7E822CF32804515100096181 /* TaxDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E822CF22804515100096181 /* TaxDataView.swift */; };
 		7E822CF52804515200096181 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7E822CF42804515200096181 /* Assets.xcassets */; };
@@ -71,6 +72,7 @@
 		7E00430F280D0D7300DE9B6E /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		7E4215CF28059FDD0030C291 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		7E4215D62805A3800030C291 /* MenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuView.swift; sourceTree = "<group>"; };
+		7E43AE1A2825546F004D5F2A /* CollapsableSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollapsableSection.swift; sourceTree = "<group>"; };
 		7E822CED2804515100096181 /* USTaxCal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = USTaxCal.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7E822CF02804515100096181 /* USTaxCalulatorApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = USTaxCalulatorApp.swift; sourceTree = "<group>"; };
 		7E822CF22804515100096181 /* TaxDataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaxDataView.swift; sourceTree = "<group>"; };
@@ -195,6 +197,7 @@
 				7E4215D62805A3800030C291 /* MenuView.swift */,
 				7E822CF22804515100096181 /* TaxDataView.swift */,
 				7ED23001280C461B0017ADEF /* FederalIncomeListSection.swift */,
+				7E43AE1A2825546F004D5F2A /* CollapsableSection.swift */,
 				7ED22FFD280C41AC0017ADEF /* FederalTaxesListSection.swift */,
 				7ED2300B280C4E250017ADEF /* StateTaxesListSection.swift */,
 				7ED23009280C4DA60017ADEF /* TaxSummaryListView.swift */,
@@ -375,6 +378,7 @@
 				7E822CF32804515100096181 /* TaxDataView.swift in Sources */,
 				7E004304280D0B4F00DE9B6E /* TaxSummaries.swift in Sources */,
 				7E0042EB280D0B3A00DE9B6E /* ExampleData.swift in Sources */,
+				7E43AE1B2825546F004D5F2A /* CollapsableSection.swift in Sources */,
 				7E00430C280D0B4F00DE9B6E /* RawTaxRates.swift in Sources */,
 				7E004301280D0B4F00DE9B6E /* TaxSummaryFormatter.swift in Sources */,
 				7E822CF12804515100096181 /* USTaxCalulatorApp.swift in Sources */,
