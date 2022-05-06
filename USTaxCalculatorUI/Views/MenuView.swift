@@ -13,13 +13,11 @@ struct MenuView: View {
 
     var body: some View {
         List(selection: $dataset.selection) {
-            Section() {
-                ForEach(dataset.taxData) { taxdata in
-                    Label("\(FormattingHelper.formattedShortTitle(taxData: taxdata))",
-                          systemImage: "dollarsign.circle.fill").tag(dataset.taxData.firstIndex(where: { td in
-                        td.taxSummaries == taxdata.taxSummaries
-                    })!)
-                }
+            ForEach(dataset.taxData) { taxdata in
+                Label("\(FormattingHelper.formattedShortTitle(taxData: taxdata))",
+                      systemImage: "dollarsign.circle.fill").tag(dataset.taxData.firstIndex(where: { td in
+                    td.taxSummaries == taxdata.taxSummaries
+                })!)
             }
         }
         .listStyle(SidebarListStyle())
