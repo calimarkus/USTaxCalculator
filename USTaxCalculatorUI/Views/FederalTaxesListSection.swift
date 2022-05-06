@@ -32,7 +32,7 @@ struct FederalTaxesListSection: View {
 struct FederalTaxesListSection_Previews: PreviewProvider {
     static var previews: some View {
         List {
-            FederalTaxesListSection(taxdata: ExampleData.single21Data())
+            FederalTaxesListSection(taxdata: TaxDataSet().activeTaxData)
         }
     }
 }

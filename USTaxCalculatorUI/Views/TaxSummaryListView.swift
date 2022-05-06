@@ -21,7 +21,7 @@ struct TaxSummaryView: View {
 struct TaxSummaryView_Previews: PreviewProvider {
     static var previews: some View {
         List {
-            TaxSummaryView(title: "blah", summary: ExampleData.single21Data().taxSummaries.federal)
+            TaxSummaryView(title: "blah", summary: TaxDataSet().activeTaxData.taxSummaries.federal)
         }
     }
 }
