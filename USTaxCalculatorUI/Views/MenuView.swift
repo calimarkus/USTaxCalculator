@@ -17,7 +17,9 @@ struct MenuView: View {
             Section() {
                 ForEach(data) { taxdata in
                     Label("\(FormattingHelper.formattedShortTitle(taxData: taxdata))",
-                          systemImage: "dollarsign.circle.fill").tag(0)
+                          systemImage: "dollarsign.circle.fill").tag(data.firstIndex(where: { td in
+                        td.taxSummaries == taxdata.taxSummaries
+                    })!)
                 }
             }
         }

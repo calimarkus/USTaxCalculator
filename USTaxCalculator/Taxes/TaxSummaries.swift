@@ -1,13 +1,13 @@
 //
 //
 
-struct TaxSummaries {
+struct TaxSummaries : Equatable {
     let federal:TaxSummary
     let states:TaxSummary
     let total:TaxSummary
 }
 
-struct TaxSummary {
+struct TaxSummary : Equatable {
     let taxes:Double
     let credits:Double
     let withholdings:Double
