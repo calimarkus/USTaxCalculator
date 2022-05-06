@@ -9,15 +9,14 @@ extension USTaxData: Identifiable {
 
 struct MenuView: View {
 
-    let data:[USTaxData]
-    @State var selection: Set<Int> = [0]
+    @EnvironmentObject var dataset:TaxDataSet
 
     var body: some View {
-        List(selection: self.$selection) {
+        List(selection: $dataset.selection) {
             Section() {
-                ForEach(data) { taxdata in
+                ForEach(dataset.taxData) { taxdata in
                     Label("\(FormattingHelper.formattedShortTitle(taxData: taxdata))",
-                          systemImage: "dollarsign.circle.fill").tag(data.firstIndex(where: { td in
+                          systemImage: "dollarsign.circle.fill").tag(dataset.taxData.firstIndex(where: { td in
                         td.taxSummaries == taxdata.taxSummaries
                     })!)
                 }
@@ -29,6 +28,6 @@ struct MenuView: View {
 
 struct MenuView_Previews: PreviewProvider {
     static var previews: some View {
-        MenuView(data: [ExampleData.single21Data()])
+        MenuView().environmentObject(TaxDataSet())
     }
 }
