@@ -18,7 +18,7 @@ struct TaxFactory {
         if taxableFederalIncome > TaxBracketFactory.netInvestmentIncomeTaxTaxLimit(filingType: filingType) {
             let nii = try TaxBracketFactory.findMatchingBracket(TaxBracketFactory.netInvestmentIncomeBracketsFor(filingType: filingType),
                                                                 taxableIncome: taxableFederalIncome)
-            federalTaxes.append(FederalTax(title: "NII", bracket:nii, taxableIncome: income.totalCapitalGains))
+            federalTaxes.append(FederalTax(title: "Net Investment Income", bracket:nii, taxableIncome: income.totalCapitalGains))
         }
 
         if taxableFederalIncome > TaxBracketFactory.additionalMedicareTaxThreshhold(filingType: filingType) {
