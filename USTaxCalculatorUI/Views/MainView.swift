@@ -25,6 +25,7 @@ struct MainView: View {
 struct MainView_Previews: PreviewProvider {
     static var previews: some View {
         MainView()
+            .frame(width: 750.0, height: 500)
             .environmentObject(TaxDataSet())
     }
 }
