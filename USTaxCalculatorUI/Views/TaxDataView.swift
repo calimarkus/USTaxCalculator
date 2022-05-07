@@ -23,9 +23,7 @@ struct TaxDataView: View {
         .environment(\.defaultMinListHeaderHeight, 30)
         .toolbar {
             ToolbarItem(placement: .status) {
-                Button(action: {}) {
-                    Image(systemName: "square.and.arrow.up")
-                }
+                ExportAsTextButton(taxdata: taxdata)
             }
         }
     }
