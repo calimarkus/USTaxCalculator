@@ -18,7 +18,6 @@ struct TaxDataView: View {
         }
         .navigationTitle(FormattingHelper.formattedTitle(taxData: taxdata))
         .listStyle(.inset(alternatesRowBackgrounds: true))
-        .frame(minWidth: 600.0, minHeight: 400.0)
         .environment(\.defaultMinListRowHeight, 0)
         .environment(\.defaultMinListHeaderHeight, 30)
         .toolbar {
@@ -31,7 +30,7 @@ struct TaxDataView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        TaxDataView(taxdata: TaxDataSet().activeTaxData)
+        TaxDataView(taxdata: ExampleData.single21Data())
             .frame(width: 600.0, height: 1200.0)
 
     }

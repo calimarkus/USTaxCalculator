@@ -5,8 +5,12 @@ import SwiftUI
 
 class TaxDataSet: ObservableObject {
     @Published var selection: Set<Int> = [0]
-    var activeTaxData:USTaxData { get {
-        return taxData[selection.first!]
+    var activeTaxData:USTaxData? { get {
+        if let idx = selection.first {
+            return taxData[idx]
+        } else {
+            return nil
+        }
     }}
     let taxData:[USTaxData] = [ExampleData.single21Data(), ExampleData.single20Data()]
 }
@@ -17,7 +21,14 @@ struct MainView: View {
     var body: some View {
         NavigationView {
             MenuView()
-            TaxDataView(taxdata: dataset.activeTaxData)
+            Group {
+                if let taxdata = dataset.activeTaxData {
+                    TaxDataView(taxdata: taxdata)
+                } else {
+                    EmptyView()
+                }
+            }
+            .frame(minWidth: 600.0, minHeight: 400.0)
         }
     }
 }

@@ -31,6 +31,6 @@ struct ExportAsTextButton: View {
 
 struct ExportAsTextButton_Previews: PreviewProvider {
     static var previews: some View {
-        ExportAsTextButton(taxdata: TaxDataSet().activeTaxData)
+        ExportAsTextButton(taxdata: ExampleData.single21Data())
     }
 }

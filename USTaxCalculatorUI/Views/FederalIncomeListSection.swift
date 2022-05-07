@@ -28,7 +28,7 @@ struct FederalIncomeListSection: View {
 struct FederalIncomeListSection_Previews: PreviewProvider {
     static var previews: some View {
         List {
-            FederalIncomeListSection(taxdata: TaxDataSet().activeTaxData)
+            FederalIncomeListSection(taxdata: ExampleData.single21Data())
         }
     }
 }
