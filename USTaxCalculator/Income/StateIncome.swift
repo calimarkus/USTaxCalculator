@@ -6,44 +6,44 @@ enum StateIncomeError: Error {
     case illegalIncomeAmountAddition
 }
 
-enum TaxState : Comparable, Hashable {
+enum TaxState: Comparable, Hashable {
     case NY
     case CA
 }
 
-enum TaxCity : Comparable, Hashable {
+enum TaxCity: Comparable, Hashable {
     case NYC
 }
 
-enum LocalTaxType : Equatable {
+enum LocalTaxType: Equatable {
     case none
-    case city(_ city:TaxCity)
+    case city(_ city: TaxCity)
 }
 
 enum IncomeAmount {
     case fullFederal
-    case partial(_ income:Double)
+    case partial(_ income: Double)
 }
 
 struct StateIncome {
     /// The state or city for this income
-    let state:TaxState
+    let state: TaxState
 
     /// State Wages as listed on W-2, Box 16
-    let wages:IncomeAmount
+    let wages: IncomeAmount
 
     /// State Income Tax Withheld as listed on W-2, Box 17
-    let withholdings:Double
+    let withholdings: Double
 
     /// State Income that's not part of the wages on the W-2
-    var additionalStateIncome:Double = 0.0
+    var additionalStateIncome: Double = 0.0
 
     /// Any local taxes that apply to this state
-    var localTax:LocalTaxType = .none
+    var localTax: LocalTaxType = .none
 }
 
 extension StateIncome {
-    func incomeRateFor(federalIncome:Double) -> Double {
+    func incomeRateFor(federalIncome: Double) -> Double {
         switch wages {
             case .fullFederal: return 1.0
             case let .partial(income): return income / federalIncome
@@ -51,24 +51,24 @@ extension StateIncome {
     }
 }
 
-extension IncomeAmount {
-    fileprivate func mergeWith(_ rhs:IncomeAmount) throws -> IncomeAmount {
+private extension IncomeAmount {
+    func mergeWith(_ rhs: IncomeAmount) throws -> IncomeAmount {
         switch self {
             case .fullFederal: switch rhs {
-                case .fullFederal: return .fullFederal
-                case .partial: throw StateIncomeError.illegalIncomeAmountAddition
-            }
+                    case .fullFederal: return .fullFederal
+                    case .partial: throw StateIncomeError.illegalIncomeAmountAddition
+                }
             case let .partial(incomeLhs): switch rhs {
-                case .fullFederal: throw StateIncomeError.illegalIncomeAmountAddition
-                case let .partial(incomeRhs): return .partial(incomeLhs + incomeRhs)
-            }
+                    case .fullFederal: throw StateIncomeError.illegalIncomeAmountAddition
+                    case let .partial(incomeRhs): return .partial(incomeLhs + incomeRhs)
+                }
         }
     }
 }
 
 extension StateIncome {
-    private func mergeWith(_ rhs:StateIncome) throws -> StateIncome {
-        guard state == rhs.state && localTax == rhs.localTax else {
+    private func mergeWith(_ rhs: StateIncome) throws -> StateIncome {
+        guard state == rhs.state, localTax == rhs.localTax else {
             throw StateIncomeError.illegalStateIncomeAddition
         }
         return StateIncome(
@@ -79,10 +79,10 @@ extension StateIncome {
             localTax: localTax)
     }
 
-    static func merge(_ lhs:[StateIncome], _ rhs:[StateIncome]) throws -> [StateIncome] {
-        var leftStates:[TaxState : StateIncome] = [:]
+    static func merge(_ lhs: [StateIncome], _ rhs: [StateIncome]) throws -> [StateIncome] {
+        var leftStates: [TaxState: StateIncome] = [:]
         lhs.forEach { leftStates[$0.state] = $0 }
-        let mergedRightStateIncomes:[StateIncome] = try rhs.map {
+        let mergedRightStateIncomes: [StateIncome] = try rhs.map {
             if let matchingLeft = leftStates[$0.state] {
                 let merged = try matchingLeft.mergeWith($0)
                 leftStates.removeValue(forKey: $0.state)

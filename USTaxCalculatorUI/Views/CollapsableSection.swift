@@ -11,30 +11,29 @@ struct CustomLinkStyle: ButtonStyle {
 }
 
 struct CollapsableSection<CollapsableContent: View, FixedContent: View>: View {
+    @State var expanded: Bool = true
 
-    @State var expanded:Bool = true
-
-    let title:String
+    let title: String
     let collapsableContent: CollapsableContent
     let fixedContent: FixedContent
 
     init(title: String,
          @ViewBuilder collapsableContent: () -> CollapsableContent,
-         @ViewBuilder fixedContent: () -> FixedContent
-    ) {
+         @ViewBuilder fixedContent: () -> FixedContent)
+    {
         self.title = title
         self.collapsableContent = collapsableContent()
         self.fixedContent = fixedContent()
     }
 
     var body: some View {
-        Section(header: HStack(){
-            Button() { withAnimation { expanded.toggle() } } label: {
+        Section(header: HStack {
+            Button { withAnimation { expanded.toggle() } } label: {
                 Text(title)
                 Image(systemName: expanded ? "chevron.up.square.fill" : "chevron.down.square.fill")
             }.buttonStyle(CustomLinkStyle())
         }) {
-            if (expanded) {
+            if expanded {
                 collapsableContent
             }
             fixedContent

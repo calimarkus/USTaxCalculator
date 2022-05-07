@@ -1,12 +1,12 @@
 //
 //
 
-enum TaxYear : Int {
+enum TaxYear: Int {
     case y2020 = 2020
     case y2021 = 2021
 }
 
-enum FilingType : String {
+enum FilingType: String {
     case single = "Single"
     case marriedJointly = "Jointly"
 }
@@ -23,15 +23,15 @@ struct USTaxData {
     let allFederalTaxes: [FederalTax]
     let stateTaxes: [StateTax]
     let stateCredits: [TaxState: Double]
-    let taxSummaries:TaxSummaries
+    let taxSummaries: TaxSummaries
 
-    init (
-    /// An additional description for this data, which will be combined with the default title if provided like e.g. "title - Year 2021 (Single, NY+CA)"
-        title:String?,
+    init(
+        /// An additional description for this data, which will be combined with the default title if provided like e.g. "title - Year 2021 (Single, NY+CA)"
+        title: String?,
         /// true if the taxes are filed jointly as a married couple, otherwise single is assumed
         filingType: FilingType,
         /// the tax year for these taxes
-        taxYear:TaxYear,
+        taxYear: TaxYear,
         /// The Income to use in the calculations
         income: Income,
 
@@ -59,21 +59,21 @@ struct USTaxData {
 
         // build federal taxes
         self.allFederalTaxes = try TaxFactory.federalTaxesFor(income: income,
-                                                              taxableFederalIncome: self.taxableFederalIncome,
+                                                              taxableFederalIncome: taxableFederalIncome,
                                                               taxYear: taxYear,
-                                                              filingType:filingType)
+                                                              filingType: filingType)
 
         // build state taxes
         self.stateTaxes = try income.stateIncomes.map { stateIncome in
-            return try TaxFactory.stateTaxFor(stateIncome: stateIncome,
-                                              stateDeductions: stateDeductions,
-                                              totalIncome: income.totalIncome,
-                                              taxYear: taxYear,
-                                              filingType: filingType)
+            try TaxFactory.stateTaxFor(stateIncome: stateIncome,
+                                       stateDeductions: stateDeductions,
+                                       totalIncome: income.totalIncome,
+                                       taxYear: taxYear,
+                                       filingType: filingType)
         }
 
         // calculate tax summaries
-        self.taxSummaries = TaxSummaries.calculateFor(totalFederalIncome:income.totalIncome,
+        self.taxSummaries = TaxSummaries.calculateFor(totalFederalIncome: income.totalIncome,
                                                       taxableFederalIncome: taxableFederalIncome,
                                                       federalWithholdings: income.federalWithholdings + additionalFederalWithholding,
                                                       federalCredits: federalCredits,

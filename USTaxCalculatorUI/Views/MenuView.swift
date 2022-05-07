@@ -4,12 +4,11 @@
 import SwiftUI
 
 extension USTaxData: Identifiable {
-    var id:String { get { return "\(title ?? "")\(taxYear.rawValue)\(filingType.rawValue)" } }
+    var id: String { return "\(title ?? "")\(taxYear.rawValue)\(filingType.rawValue)" }
 }
 
 struct MenuView: View {
-
-    @EnvironmentObject var dataset:TaxDataSet
+    @EnvironmentObject var dataset: TaxDataSet
 
     var body: some View {
         List(selection: $dataset.selection) {

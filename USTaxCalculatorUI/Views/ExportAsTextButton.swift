@@ -4,17 +4,16 @@
 import SwiftUI
 
 struct ExportAsTextButton: View {
-
     @State private var showingPopover = false
 
-    let taxdata:USTaxData
-    var taxSummary:String { get {
+    let taxdata: USTaxData
+    var taxSummary: String {
         let formatter = TaxSummaryFormatter(columnWidth: 39, separatorSize: (width: 26, shift: 16))
         return formatter.taxDataSummary(taxdata)
-    }}
+    }
 
     var body: some View {
-        Button() {
+        Button {
             showingPopover = !showingPopover
             if showingPopover {
                 NSPasteboard.general.declareTypes([.string], owner: nil)

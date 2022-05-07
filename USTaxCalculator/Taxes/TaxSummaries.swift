@@ -1,18 +1,18 @@
 //
 //
 
-struct TaxSummaries : Equatable {
-    let federal:TaxSummary
-    let states:TaxSummary
-    let total:TaxSummary
+struct TaxSummaries: Equatable {
+    let federal: TaxSummary
+    let states: TaxSummary
+    let total: TaxSummary
 }
 
-struct TaxSummary : Equatable {
-    let taxes:Double
-    let credits:Double
-    let withholdings:Double
-    let effectiveTaxRate:Double
-    var outstandingPayment:Double { get { return taxes - withholdings } }
+struct TaxSummary: Equatable {
+    let taxes: Double
+    let credits: Double
+    let withholdings: Double
+    let effectiveTaxRate: Double
+    var outstandingPayment: Double { return taxes - withholdings }
 }
 
 extension TaxSummaries {
@@ -22,10 +22,11 @@ extension TaxSummaries {
                              federalCredits: Double,
                              federalTaxes: [FederalTax],
                              stateTaxes: [StateTax],
-                             stateCredits: [TaxState: Double]) -> TaxSummaries {
+                             stateCredits: [TaxState: Double]) -> TaxSummaries
+    {
         // sum up federal
         let fedTaxes = federalTaxes.reduce(-federalCredits) { partialResult, tax in
-            return partialResult + tax.taxAmount
+            partialResult + tax.taxAmount
         }
 
         let federal = TaxSummary(taxes: fedTaxes,
@@ -34,7 +35,7 @@ extension TaxSummaries {
                                  effectiveTaxRate: fedTaxes / totalFederalIncome)
 
         // sum up states
-        var stateWithholdingsTotal=0.0, stateCreditsTotal=0.0, totalStateTaxes=0.0
+        var stateWithholdingsTotal = 0.0, stateCreditsTotal = 0.0, totalStateTaxes = 0.0
         for tax in stateTaxes {
             let credits = stateCredits[tax.state] ?? 0.0
             stateWithholdingsTotal += tax.withholdings
@@ -56,4 +57,3 @@ extension TaxSummaries {
         return TaxSummaries(federal: federal, states: states, total: total)
     }
 }
-

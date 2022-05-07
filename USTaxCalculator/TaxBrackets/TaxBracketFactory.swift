@@ -7,11 +7,11 @@ enum TaxBracketFactoryError: Error {
     case missingFederalTaxRates
 }
 
-struct TaxBracketFactory {
-    static func findMatchingBracket(_ brackets:[TaxBracket], taxableIncome:Double) throws -> TaxBracket {
+enum TaxBracketFactory {
+    static func findMatchingBracket(_ brackets: [TaxBracket], taxableIncome: Double) throws -> TaxBracket {
         let sortedBrackets = brackets.sorted { $0.startingAt > $1.startingAt }
         let matchingBracket = sortedBrackets.first { bracket in
-            return taxableIncome > bracket.startingAt
+            taxableIncome > bracket.startingAt
         }
 
         if let b = matchingBracket {
@@ -25,7 +25,7 @@ struct TaxBracketFactory {
 // federal tax bracket
 extension TaxBracketFactory {
     // see https://www.nerdwallet.com/article/taxes/federal-income-tax-brackets
-    static func federalTaxBracketsFor(taxYear year:TaxYear, filingType:FilingType) throws -> [TaxBracket] {
+    static func federalTaxBracketsFor(taxYear year: TaxYear, filingType: FilingType) throws -> [TaxBracket] {
         if let map = RawStartingAtToTaxRateMap.federalProgressiveMaps[year]?[filingType] {
             return ProgressiveTaxBracketGenerator.generateWithStartingAtToTaxRateMap(map)
         }
@@ -35,8 +35,8 @@ extension TaxBracketFactory {
 
 // state tax brackets
 extension TaxBracketFactory {
-    static func stateTaxBracketFor(_ state:TaxState, taxYear year:TaxYear, filingType:FilingType, taxableIncome:Double) throws -> [TaxBracket] {
-        if state == .NY && taxableIncome > 107650 {
+    static func stateTaxBracketFor(_ state: TaxState, taxYear year: TaxYear, filingType: FilingType, taxableIncome: Double) throws -> [TaxBracket] {
+        if state == .NY, taxableIncome > 107650 {
             // new york doesn't use progressive rates for incomes higher than 107,650
             // see comments on RawStartingAtToTaxRateMap.nonProgressiveNewYorkStateRates
             if let map = RawStartingAtToTaxRateMap.nonProgressiveNewYorkStateRates[year]?[filingType] {
@@ -52,7 +52,7 @@ extension TaxBracketFactory {
         throw TaxBracketFactoryError.missingStateTaxRates
     }
 
-    static func cityTaxBracketFor(_ city:TaxCity, taxYear year:TaxYear, filingType:FilingType, taxableIncome:Double) throws -> [TaxBracket] {
+    static func cityTaxBracketFor(_ city: TaxCity, taxYear year: TaxYear, filingType: FilingType, taxableIncome: Double) throws -> [TaxBracket] {
         if let map = RawStartingAtToTaxRateMap.progressiveMapsForCity(city)[year]?[filingType] {
             return ProgressiveTaxBracketGenerator.generateWithStartingAtToTaxRateMap(map)
         }
@@ -68,10 +68,9 @@ extension TaxBracketFactory {
         return [TaxBracket(simpleRate: 0.2, startingAt: 501600),
                 TaxBracket(simpleRate: 0.15, startingAt: 80800),
                 TaxBracket(simpleRate: 0.0, startingAt: 0)]
-
     }
 
-    static func netInvestmentIncomeTaxTaxLimit(filingType:FilingType) -> Double {
+    static func netInvestmentIncomeTaxTaxLimit(filingType: FilingType) -> Double {
         switch filingType {
             case .single: return 200000.0
             case .marriedJointly: return 250000.0
@@ -79,12 +78,12 @@ extension TaxBracketFactory {
     }
 
     // see https://www.irs.gov/individuals/net-investment-income-tax
-    static func netInvestmentIncomeBracketsFor(filingType:FilingType) -> [TaxBracket] {
+    static func netInvestmentIncomeBracketsFor(filingType: FilingType) -> [TaxBracket] {
         return [TaxBracket(simpleRate: 0.038, startingAt: netInvestmentIncomeTaxTaxLimit(filingType: filingType)),
                 TaxBracket(simpleRate: 0.0, startingAt: 0)]
     }
 
-    static func additionalMedicareTaxThreshhold(filingType:FilingType) -> Double {
+    static func additionalMedicareTaxThreshhold(filingType: FilingType) -> Double {
         switch filingType {
             case .single: return 200000.0
             case .marriedJointly: return 250000.0
@@ -92,8 +91,8 @@ extension TaxBracketFactory {
     }
 
     // see https://www.healthline.com/health/medicare/additional-medicare-tax
-    static func additionalMedicareBracketsFor(filingType:FilingType) -> [TaxBracket] {
-        return [TaxBracket(fixedAmount:0, plus: 0.009, over: additionalMedicareTaxThreshhold(filingType: filingType)),
+    static func additionalMedicareBracketsFor(filingType: FilingType) -> [TaxBracket] {
+        return [TaxBracket(fixedAmount: 0, plus: 0.009, over: additionalMedicareTaxThreshhold(filingType: filingType)),
                 TaxBracket(simpleRate: 0.0, startingAt: 0)]
     }
 }

@@ -1,8 +1,7 @@
 //
 //
 
-struct ExampleData {
-
+enum ExampleData {
     private static func exampleIncome1() -> Income {
         return Income(
             wages: 220000,
@@ -48,5 +47,4 @@ struct ExampleData {
             federalCredits: 500,
             stateCredits: [.NY: 3500])
     }
-
 }

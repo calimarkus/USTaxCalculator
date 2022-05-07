@@ -4,25 +4,25 @@
 import Foundation
 
 extension String {
-    mutating func appendLine(_ string:String = "") {
+    mutating func appendLine(_ string: String = "") {
         self += string + "\n"
     }
 }
 
 struct TaxSummaryFormatter {
-    let columnWidth:Int
-    let separatorSize:(width:Int,shift:Int)
-    let includeCalculationExplanations:Bool = false
-    let locale:Locale = Locale(identifier: "en_US")
+    let columnWidth: Int
+    let separatorSize: (width: Int, shift: Int)
+    let includeCalculationExplanations: Bool = false
+    let locale: Locale = .init(identifier: "en_US")
 
-    func taxDataSummary(_ td:USTaxData) -> String {
+    func taxDataSummary(_ td: USTaxData) -> String {
         let income = td.income
         let taxSummaries = td.taxSummaries
 
         // output
         var summary = ""
         summary.appendLine(FormattingHelper.formattedTitle(taxData: td))
-        summary.appendLine(String(repeating:"=", count:summary.count))
+        summary.appendLine(String(repeating: "=", count: summary.count))
 
         // Federal
         summary.appendLine("\nFed Taxes:".uppercased())
@@ -53,7 +53,7 @@ struct TaxSummaryFormatter {
 
         for stateTax in td.stateTaxes {
             let credit = td.stateCredits[stateTax.state] ?? 0.0
-            summary.appendLine("- \(stateTax.state) (at \(FormattingHelper.formatPercentage(stateTax.incomeRate, locale: self.locale)))")
+            summary.appendLine("- \(stateTax.state) (at \(FormattingHelper.formatPercentage(stateTax.incomeRate, locale: locale)))")
             summary.appendLine(formattedCurrency("  Deductions:", -stateTax.deductions))
             summary.appendLine(formattedCurrency("  Taxable Income:", stateTax.taxableIncome))
             if credit > 0 {
@@ -80,28 +80,32 @@ struct TaxSummaryFormatter {
 
         return summary
     }
-
 }
 
 // printing helpers
 private extension TaxSummaryFormatter {
-    func alignLeftRight(_ left:String, _ right:String, _ appendix:String="", shift:Int=0) -> String {
-        let spacing = String(repeating: " ", count: max(1, self.columnWidth+shift - left.count - right.count))
+    func alignLeftRight(_ left: String, _ right: String, _ appendix: String = "", shift: Int = 0) -> String {
+        let spacing = String(repeating: " ", count: max(1, columnWidth + shift - left.count - right.count))
         return "\(left)\(spacing)\(right) \(appendix)"
     }
-    func formattedCurrency(_ title:String, _ num:Double, _ appendix:String="") -> String {
-        return alignLeftRight(title, FormattingHelper.formatCurrency(num, locale: self.locale), appendix)
+
+    func formattedCurrency(_ title: String, _ num: Double, _ appendix: String = "") -> String {
+        return alignLeftRight(title, FormattingHelper.formatCurrency(num, locale: locale), appendix)
     }
-    func formattedRate(_ title:String, _ rate:Double, appendix:String="") -> String {
-        return alignLeftRight(title, FormattingHelper.formatPercentage(rate, locale: self.locale), appendix, shift:1)
+
+    func formattedRate(_ title: String, _ rate: Double, appendix: String = "") -> String {
+        return alignLeftRight(title, FormattingHelper.formatPercentage(rate, locale: locale), appendix, shift: 1)
     }
-    func formattedBracketRate(_ title:String, _ bracket:TaxBracket) -> String {
-        return formattedRate(title, bracket.rate, appendix:"(\(FormattingHelper.formattedBracketStart(bracket, locale: self.locale)))")
+
+    func formattedBracketRate(_ title: String, _ bracket: TaxBracket) -> String {
+        return formattedRate(title, bracket.rate, appendix: "(\(FormattingHelper.formattedBracketStart(bracket, locale: locale)))")
     }
+
     func formattedSumSeparator() -> String {
-        return alignLeftRight("", String(repeating:"-", count:self.separatorSize.width), shift:self.separatorSize.shift)
+        return alignLeftRight("", String(repeating: "-", count: separatorSize.width), shift: separatorSize.shift)
     }
-    func formattedTaxSummary(_ summary:TaxSummary, title:String) -> String {
+
+    func formattedTaxSummary(_ summary: TaxSummary, title: String) -> String {
         var output = ""
         output.appendLine(formattedCurrency("- Total tax:", summary.taxes))
         output.appendLine(formattedCurrency("", -summary.withholdings, "(withheld)"))

@@ -4,8 +4,8 @@
 import SwiftUI
 
 struct FederalIncomeListSection: View {
-    let taxdata:USTaxData
-    var income:Income { get { return taxdata.income }}
+    let taxdata: USTaxData
+    var income: Income { return taxdata.income }
 
     var body: some View {
         CollapsableSection(
