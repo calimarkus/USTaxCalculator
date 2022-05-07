@@ -20,8 +20,5 @@ let exampleTaxData2021 = try USTaxData(
     stateCredits: [.NY: 3500]
 )
 
-let formatter = TaxSummaryFormatter(columnWidth: 39,
-                                    separatorSize: (width: 26, shift: 16),
-                                    printCalculationExplanations: false,
-                                    locale:Locale(identifier: "en_US"))
-formatter.printTaxDataSummary(exampleTaxData2021)
+let formatter = TaxSummaryFormatter(columnWidth: 39, separatorSize: (width: 26, shift: 16))
+print(formatter.taxDataSummary(exampleTaxData2021))
