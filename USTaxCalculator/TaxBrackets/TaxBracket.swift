@@ -43,9 +43,9 @@ extension TaxBracket {
     func taxCalculationExplanation(_ amount: Double) -> String {
         switch type {
             case .basic:
-                return "\(amount) * \(rate)"
+                return "\(FormattingHelper.formatCurrency(amount)) * \(FormattingHelper.formatPercentage(rate))"
             case let .progressive(fixedAmount):
-                return "\(fixedAmount) + (\(amount) - \(startingAt)) * \(rate)"
+                return "\(FormattingHelper.formatCurrency(fixedAmount)) + (\(FormattingHelper.formatCurrency(amount)) - \(FormattingHelper.formatCurrency(startingAt))) * \(FormattingHelper.formatPercentage(rate))"
         }
     }
 }

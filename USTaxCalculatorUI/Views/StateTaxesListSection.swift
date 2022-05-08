@@ -18,17 +18,19 @@ struct StateTaxesListSection: View {
                 AdditionView(title: "Deductions", amount: -stateTax.deductions)
                 CurrencyView(title: "Taxable Income", amount: stateTax.taxableIncome)
 
-                if stateCredits > 0.0 {
-                    AdditionView(title: "State Credits", amount: -1 * stateCredits)
-                }
-
                 if let localTax = stateTax.localTax {
                     CurrencyView(title: "State Tax",
                                  secondary: "(\(FormattingHelper.formattedBracketInfo(stateTax.bracket)))",
-                                 amount: stateTax.stateOnlyTaxAmount)
+                                 amount: stateTax.stateOnlyTaxAmount,
+                                 infoText: stateTax.bracket.taxCalculationExplanation(stateTax.taxableIncome))
                     CurrencyView(title: "Local Tax (\(localTax.city))",
                                  secondary: "(\(FormattingHelper.formattedBracketInfo(localTax.bracket)))",
-                                 amount: localTax.taxAmount)
+                                 amount: localTax.taxAmount,
+                                 infoText: localTax.bracket.taxCalculationExplanation(localTax.taxableIncome))
+                }
+
+                if stateCredits > 0.0 {
+                    AdditionView(title: "State Credits", amount: -1 * stateCredits)
                 }
             }
 
@@ -39,7 +41,9 @@ struct StateTaxesListSection: View {
             } else {
                 CurrencyView(title: "State Tax",
                              secondary: "(\(FormattingHelper.formattedBracketInfo(stateTax.bracket)))",
-                             amount: stateTax.taxAmount - stateCredits)
+                             amount: stateTax.taxAmount - stateCredits,
+                             infoText: "\(stateTax.bracket.taxCalculationExplanation(stateTax.taxableIncome))"
+                                 + "\(stateCredits > 0.0 ? " - \(FormattingHelper.formatCurrency(stateCredits))" : "")")
             }
 
             AdditionView(title: "Withheld", amount: -stateTax.withholdings)

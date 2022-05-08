@@ -4,7 +4,7 @@
 enum ExampleData {
     private static func exampleIncomeA_NY_CA() -> Income {
         return Income(
-            wages: 220000,
+            wages: 314000,
             medicareWages: 248000,
             federalWithholdings: 24000,
             dividendsAndInterests: 4500,
@@ -63,6 +63,7 @@ enum ExampleData {
             filingType: .single,
             taxYear: .y2020,
             income: exampleIncomeC_CA(),
-            federalDeductions: DeductionAmount.standard())
+            federalDeductions: DeductionAmount.standard(),
+            stateCredits: [.CA : 250])
     }
 }
