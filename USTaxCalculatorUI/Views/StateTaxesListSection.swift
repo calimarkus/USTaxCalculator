@@ -12,9 +12,9 @@ struct StateTaxesListSection: View {
     let stateCredits: Double
 
     var body: some View {
-        CollapsableSection(
-            title: "\(stateTax.state) Taxes (at \(FormattingHelper.formatPercentage(stateTax.incomeRate)))",
-            collapsableContent: {
+        let title = "\(stateTax.state) Taxes (at \(FormattingHelper.formatPercentage(stateTax.incomeRate)))"
+        CollapsableSection(title: title) { expanded in
+            if expanded {
                 AdditionView(title: "Deductions", amount: -stateTax.deductions)
                 CurrencyView(title: "Taxable Income", amount: stateTax.taxableIncome)
 
@@ -30,24 +30,24 @@ struct StateTaxesListSection: View {
                                  secondary: "(\(FormattingHelper.formattedBracketInfo(localTax.bracket)))",
                                  amount: localTax.taxAmount)
                 }
-            },
-            fixedContent: {
-                if let _ = stateTax.localTax {
-                    CurrencyView(title: "Total (State & Local)",
-                                 secondary: "(~ \(FormattingHelper.formatPercentage((stateTax.taxAmount - stateCredits) / stateTax.taxableIncome)))",
-                                 amount: stateTax.taxAmount - stateCredits)
-                } else {
-                    CurrencyView(title: "State Tax",
-                                 secondary: "(\(FormattingHelper.formattedBracketInfo(stateTax.bracket)))",
-                                 amount: stateTax.taxAmount - stateCredits)
-                }
-                AdditionView(title: "Withheld", amount: -stateTax.withholdings)
-                CurrencyView(
-                    title: "To Pay (\(stateTax.state))",
-                    amount: stateTax.taxAmount - stateTax.withholdings - stateCredits
-                )
             }
-        )
+
+            if let _ = stateTax.localTax {
+                CurrencyView(title: "Total (State & Local)",
+                             secondary: "(~ \(FormattingHelper.formatPercentage((stateTax.taxAmount - stateCredits) / stateTax.taxableIncome)))",
+                             amount: stateTax.taxAmount - stateCredits)
+            } else {
+                CurrencyView(title: "State Tax",
+                             secondary: "(\(FormattingHelper.formattedBracketInfo(stateTax.bracket)))",
+                             amount: stateTax.taxAmount - stateCredits)
+            }
+
+            AdditionView(title: "Withheld", amount: -stateTax.withholdings)
+            CurrencyView(
+                title: "To Pay (\(stateTax.state))",
+                amount: stateTax.taxAmount - stateTax.withholdings - stateCredits
+            )
+        }
     }
 }
 
