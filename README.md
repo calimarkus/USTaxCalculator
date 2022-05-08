@@ -40,24 +40,25 @@ New scenarios can easily be added:
 
 ## Usage Example (see `TaxDataView.swift`)
 
-All example numbers are fully fictional and don't represent anything real.
+All numbers & names are fully fictional examples & don't represent any real persons.
 
 This Input:
 
 ```swift
 let exampleIncome21 = Income(
-    wages: 220000,
+    wages: 314000,
     medicareWages: 248000,
     federalWithholdings: 24000,
     dividendsAndInterests: 4500,
     capitalGains: 20000,
     longtermCapitalGains: 16000,
     stateIncomes: [StateIncome(state: .NY, wages: .fullFederal, withholdings: 12000, localTax: .city(.NYC)),
-                   StateIncome(state: .CA, wages: .partial(35000), withholdings: 2500)])
+                   StateIncome(state: .CA, wages: .partial(35000), withholdings: 2500)]
+)
 
 let exampleTaxData2021 = try USTaxData(
-    title: "John Appleased",
-    filingType: .single,
+    title: "John & Sarah",
+    filingType: .marriedJointly,
     taxYear: .y2021,
     income: exampleIncome21,
     federalDeductions: DeductionAmount.standard(),
@@ -68,6 +69,6 @@ let exampleTaxData2021 = try USTaxData(
 
 will be displayed like so:
 
-<img width="945" alt="screenshot" src="https://user-images.githubusercontent.com/807039/167097872-4f42dde6-300c-49c6-aea8-4dc441219ba3.png">
+<img width="1088" alt="screenshot" src="https://user-images.githubusercontent.com/807039/167285855-40f1645c-d45a-44dd-9a59-28d6c621804f.png">
 
 
