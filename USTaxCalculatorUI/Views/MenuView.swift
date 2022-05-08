@@ -12,11 +12,16 @@ struct MenuView: View {
 
     var body: some View {
         List(selection: $dataset.selection) {
-            ForEach(dataset.taxData) { taxdata in
-                Label("\(FormattingHelper.formattedShortTitle(taxData: taxdata))",
-                      systemImage: "dollarsign.circle.fill").tag(dataset.taxData.firstIndex(where: { td in
-                    td.taxSummaries == taxdata.taxSummaries
-                })!)
+            ForEach(0 ..< dataset.taxData.count, id: \.self) { i in
+                if let taxdata = dataset.taxData[i] {
+                    HStack {
+                        Label("\(FormattingHelper.formattedShortTitle(taxData: taxdata))",
+                              systemImage: "dollarsign.circle.fill").tag(i)
+                        Text("(\(FormattingHelper.formattedStates(taxData: taxdata)), \(FormattingHelper.formattedTaxYearShort(taxData: taxdata)))")
+                            .foregroundColor(.secondary)
+                            .font(.subheadline)
+                    }
+                }
             }
         }
         .listStyle(SidebarListStyle())
