@@ -4,8 +4,10 @@
 import SwiftUI
 
 struct EmptyView: View {
+    @Binding var showIncomeEntryPopover: Bool
+
     var body: some View {
-        VStack(spacing:0.0) {
+        VStack(spacing: 0.0) {
             Image(systemName: "pencil.circle.fill")
                 .imageScale(.large)
                 .font(.system(size: 42, weight: .bold))
@@ -13,7 +15,7 @@ struct EmptyView: View {
                 .padding()
                 .navigationTitle("")
             Button {
-                // tbd
+                showIncomeEntryPopover.toggle()
             } label: {
                 Text("Add a dataset")
             }.padding()
@@ -22,8 +24,9 @@ struct EmptyView: View {
 }
 
 struct EmptyView_Previews: PreviewProvider {
+    @State static var show: Bool = false
     static var previews: some View {
-        EmptyView()
+        EmptyView(showIncomeEntryPopover: $show)
             .padding()
     }
 }

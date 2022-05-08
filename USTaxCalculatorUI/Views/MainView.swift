@@ -20,6 +20,7 @@ class TaxDataSet: ObservableObject {
 
 struct MainView: View {
     @EnvironmentObject var dataset: TaxDataSet
+    @State var showIncomeEntryPopover: Bool = false
 
     var body: some View {
         NavigationView {
@@ -28,7 +29,7 @@ struct MainView: View {
                 if let taxdata = dataset.activeTaxData {
                     TaxDataView(taxdata: taxdata)
                 } else {
-                    EmptyView()
+                    EmptyView(showIncomeEntryPopover: $showIncomeEntryPopover)
                 }
             }
             .frame(minWidth: 400.0, minHeight: 400.0)
@@ -40,9 +41,11 @@ struct MainView: View {
                 }
                 ToolbarItem(placement: .status) {
                     Button {
-                        // TBD
+                        showIncomeEntryPopover.toggle()
                     } label: {
                         Image(systemName: "plus")
+                    }.popover(isPresented: $showIncomeEntryPopover) {
+                        IncomeEntryView()
                     }
                 }
             }
