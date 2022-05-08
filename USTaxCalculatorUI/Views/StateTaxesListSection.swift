@@ -54,7 +54,7 @@ struct StateTaxesListSection: View {
 struct StateTaxesListSection_Previews: PreviewProvider {
     static var previews: some View {
         List {
-            StateTaxesListSection(stateTax: ExampleData.single21Data().stateTaxes.first!,
+            StateTaxesListSection(stateTax: ExampleData.exampleTaxDataJohnAndSarah_21().stateTaxes.first!,
                                   stateCredits: 350.0)
         }
     }

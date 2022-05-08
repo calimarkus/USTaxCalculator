@@ -30,6 +30,6 @@ struct ExportAsTextButton: View {
 
 struct ExportAsTextButton_Previews: PreviewProvider {
     static var previews: some View {
-        ExportAsTextButton(taxdata: ExampleData.single21Data())
+        ExportAsTextButton(taxdata: ExampleData.exampleTaxDataJohnAndSarah_21())
     }
 }

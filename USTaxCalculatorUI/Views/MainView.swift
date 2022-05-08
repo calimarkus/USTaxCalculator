@@ -13,7 +13,9 @@ class TaxDataSet: ObservableObject {
         }
     }
 
-    let taxData: [USTaxData] = [ExampleData.single21Data(), ExampleData.single20Data()]
+    let taxData: [USTaxData] = [ExampleData.exampleTaxDataJohnAndSarah_21(),
+                                ExampleData.exampleTaxDataJackHouston_21(),
+                                ExampleData.exampleTaxDataJackHouston_20()]
 }
 
 struct MainView: View {

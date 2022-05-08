@@ -37,7 +37,7 @@ struct TaxDataView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        TaxDataView(taxdata: ExampleData.single21Data())
+        TaxDataView(taxdata: ExampleData.exampleTaxDataJohnAndSarah_21())
             .frame(width: 600.0, height: 1200.0)
     }
 }
