@@ -8,7 +8,9 @@ struct ExportAsTextButton: View {
 
     let taxdata: USTaxData
     var taxSummary: String {
-        let formatter = TaxSummaryFormatter(columnWidth: 39, separatorSize: (width: 26, shift: 16))
+        let formatter = TaxSummaryFormatter(columnWidth: 39,
+                                            separatorSize: (width: 26, shift: 16),
+                                            includeCalculationExplanations: true)
         return formatter.taxDataSummary(taxdata)
     }
 

@@ -12,8 +12,8 @@ extension String {
 struct TaxSummaryFormatter {
     let columnWidth: Int
     let separatorSize: (width: Int, shift: Int)
-    let includeCalculationExplanations: Bool = false
-    let locale: Locale = .init(identifier: "en_US")
+    var includeCalculationExplanations: Bool = false
+    var locale: Locale = .init(identifier: "en_US")
 
     func taxDataSummary(_ td: USTaxData) -> String {
         let income = td.income
@@ -41,7 +41,7 @@ struct TaxSummaryFormatter {
             summary.appendLine(formattedCurrency("  - Federal Credits:", -taxSummaries.federal.credits))
         }
         for fedTax in td.allFederalTaxes {
-            summary.appendLine(formattedCurrency("  - \(fedTax.title) Tax:", fedTax.taxAmount, FormattingHelper.formatExplanation(fedTax, explanationsEnabled: includeCalculationExplanations)))
+            summary.appendLine(formattedCurrency("  - \(fedTax.title) Tax:", fedTax.taxAmount, includeCalculationExplanations ? formattedExplanation(fedTax) : ""))
             summary.appendLine(formattedBracketRate("    Rate:", fedTax.bracket))
         }
 
@@ -59,10 +59,10 @@ struct TaxSummaryFormatter {
             if credit > 0 {
                 summary.appendLine(formattedCurrency("  - State Credits:", -credit))
             }
-            summary.appendLine(formattedCurrency("  - State Tax:", stateTax.stateOnlyTaxAmount, FormattingHelper.formatExplanation(stateTax, explanationsEnabled: includeCalculationExplanations)))
+            summary.appendLine(formattedCurrency("  - State Tax:", stateTax.stateOnlyTaxAmount, includeCalculationExplanations ? formattedExplanation(stateTax) : ""))
             summary.appendLine(formattedBracketRate("    Rate:", stateTax.bracket))
             if let localTax = stateTax.localTax {
-                summary.appendLine(formattedCurrency("  - Local Tax (\(localTax.city)):", localTax.taxAmount, FormattingHelper.formatExplanation(localTax, explanationsEnabled: includeCalculationExplanations)))
+                summary.appendLine(formattedCurrency("  - Local Tax (\(localTax.city)):", localTax.taxAmount, includeCalculationExplanations ? formattedExplanation(localTax) : ""))
                 summary.appendLine(formattedBracketRate("    Local Rate:", localTax.bracket))
                 summary.appendLine(formattedCurrency("  - Total:", stateTax.taxAmount - credit))
             }
@@ -103,6 +103,10 @@ private extension TaxSummaryFormatter {
 
     func formattedSumSeparator() -> String {
         return alignLeftRight("", String(repeating: "-", count: separatorSize.width), shift: separatorSize.shift)
+    }
+
+    func formattedExplanation(_ tax: Tax) -> String {
+        return String(repeating: " ", count: 15) + "Math: \(tax.bracket.taxCalculationExplanation(tax.taxableIncome))"
     }
 
     func formattedTaxSummary(_ summary: TaxSummary, title: String) -> String {

@@ -23,12 +23,6 @@ struct FormattingHelper {
         return "\(taxData.title ?? taxData.filingType.rawValue)"
     }
 
-    static func formatExplanation(_ tax: Tax, explanationsEnabled: Bool) -> String {
-        return (explanationsEnabled
-            ? String(repeating: " ", count: 15) + "Math: \(tax.bracket.taxCalculationExplanation(tax.taxableIncome))"
-            : "")
-    }
-
     static func formatCurrency(_ num: Double, locale: Locale? = nil) -> String {
         let formatter = NumberFormatter()
         formatter.numberStyle = .currency
