@@ -27,11 +27,6 @@ struct TaxDataView: View {
         .listStyle(.inset(alternatesRowBackgrounds: true))
         .environment(\.defaultMinListRowHeight, 0)
         .environment(\.defaultMinListHeaderHeight, 30)
-        .toolbar {
-            ToolbarItem(placement: .status) {
-                ExportAsTextButton(taxdata: taxdata)
-            }
-        }
     }
 }
 

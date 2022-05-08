@@ -32,6 +32,20 @@ struct MainView: View {
                 }
             }
             .frame(minWidth: 400.0, minHeight: 400.0)
+            .toolbar {
+                ToolbarItem(placement: .status) {
+                    if let taxdata = dataset.activeTaxData {
+                        ExportAsTextButton(taxdata: taxdata)
+                    }
+                }
+                ToolbarItem(placement: .status) {
+                    Button {
+                        // TBD
+                    } label: {
+                        Image(systemName: "plus")
+                    }
+                }
+            }
         }
     }
 }
