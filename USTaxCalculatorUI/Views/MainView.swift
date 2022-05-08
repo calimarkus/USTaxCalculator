@@ -29,7 +29,7 @@ struct MainView: View {
                     EmptyView()
                 }
             }
-            .frame(minWidth: 600.0, minHeight: 400.0)
+            .frame(minWidth: 400.0, minHeight: 400.0)
         }
     }
 }

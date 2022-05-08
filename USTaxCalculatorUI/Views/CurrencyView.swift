@@ -8,7 +8,7 @@ struct AdditionView: View {
     let amount: Double
 
     var body: some View {
-        CurrencyView(appendix: title, amount: amount, isAddition: true)
+        CurrencyView(title: title, amount: amount, isMathValue: true)
     }
 }
 
@@ -25,25 +25,25 @@ struct SumView: View {
 struct CurrencyView: View {
     var title: String = ""
     var secondary: String = ""
-    var appendix: String = ""
     var amount: Double = 0.0
-    var isAddition: Bool = false
+    var isMathValue: Bool = false
     var boldValue: Bool = false
-    var colon: Bool = true
 
     var titleText: String {
-        let colon = (title.count > 0 && amount != 0.0 && self.colon ? ":" : "")
-        return "\(title)\(colon)"
+        let colon = (title.count > 0 && amount != 0.0 ? ":" : "")
+        let spacing = (isMathValue ? "  " : "")
+        return "\(spacing)\(title)\(colon)"
     }
 
     var amountText: String {
-        let plus = (isAddition && amount >= 0 ? "+" : "")
+        let plus = (isMathValue && amount >= 0 ? "+" : "")
         return "\(plus)\(FormattingHelper.formatCurrency(amount))"
     }
 
     var body: some View {
         HStack(alignment: .bottom) {
             Text(titleText)
+                .foregroundColor(isMathValue ? .secondary : .primary)
             if secondary.count > 0 {
                 Text(secondary)
                     .font(.subheadline)
@@ -54,13 +54,8 @@ struct CurrencyView: View {
                 Text(amountText)
                     .font(.system(.body, design: .monospaced))
                     .fontWeight(boldValue ? .bold : .regular)
-                    .foregroundColor(amount < 0 ? Color.tax.negativeAmount : nil)
+                    .foregroundColor(isMathValue && amount < 0 ? Color.tax.negativeAmount : nil)
             }
-            Spacer(minLength: 10).frame(maxWidth: 10)
-            HStack {
-                Text(appendix.count > 0 ? "(\(appendix))" : "")
-                Spacer()
-            }.frame(width: 150)
         }
     }
 }
@@ -73,6 +68,7 @@ struct CurrencyView_Previews: PreviewProvider {
             AdditionView(title: "Beta", amount: 25.25)
             AdditionView(title: "Gamma", amount: -12.23)
             SumView(title: "Totes", amount: 123.53 + 25.25)
+            CurrencyView(title: "Gamma", amount: -12.23)
         }
     }
 }

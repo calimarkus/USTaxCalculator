@@ -10,7 +10,15 @@ struct TaxDataView: View {
         List {
             FederalIncomeListSection(taxdata: taxdata)
             FederalTaxesListSection(taxdata: taxdata)
-            StateTaxesListSection(taxdata: taxdata)
+            ForEach(taxdata.stateTaxes) { stateTax in
+                StateTaxesListSection(stateTax: stateTax,
+                                      stateCredits: taxdata.stateCredits[stateTax.state] ?? 0.0)
+            }
+            if taxdata.stateTaxes.count > 1 {
+                Section(header: Text("States Total")) {
+                    TaxSummaryView(summary: taxdata.taxSummaries.states)
+                }
+            }
             Section(header: Text("Total")) {
                 TaxSummaryView(summary: taxdata.taxSummaries.total)
             }

@@ -50,4 +50,8 @@ struct FormattingHelper {
         }
         return "\(formatCurrency(val, locale: locale))\(symbol)+"
     }
+
+    static func formattedBracketInfo(_ bracket: TaxBracket, locale: Locale? = nil) -> String {
+        return "\(formatPercentage(bracket.rate, locale: locale)) over \(formattedBracketStart(bracket, locale: locale))"
+    }
 }

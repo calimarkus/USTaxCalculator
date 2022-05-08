@@ -15,14 +15,14 @@ struct FederalTaxesListSection: View {
         CollapsableSection(
             title: "Federal Taxes",
             collapsableContent: {
-                if summary.credits > 0 {
-                    CurrencyView(title: "Federal Credits", amount: -summary.credits)
-                }
-
                 ForEach(taxdata.allFederalTaxes) {
                     CurrencyView(title: "\($0.title) Tax",
-                                 secondary: "(\(FormattingHelper.formatPercentage($0.bracket.rate)) over \(FormattingHelper.formattedBracketStart($0.bracket)))",
+                                 secondary: "(\(FormattingHelper.formattedBracketInfo($0.bracket)))",
                                  amount: $0.taxAmount)
+                }
+                
+                if summary.credits > 0 {
+                    AdditionView(title: "Federal Credits", amount: -summary.credits)
                 }
             },
             fixedContent: {
