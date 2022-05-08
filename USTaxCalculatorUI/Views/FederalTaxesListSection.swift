@@ -8,11 +8,13 @@ extension FederalTax: Identifiable {
 }
 
 struct FederalTaxesListSection: View {
+    @EnvironmentObject var collapseState: SectionCollapseState
+
     let taxdata: USTaxData
     var summary: TaxSummary { return taxdata.taxSummaries.federal }
 
     var body: some View {
-        CollapsableSection(title: "Federal Taxes") { expanded in
+        CollapsableSection(title: "Federal Taxes", expanded: $collapseState.federal) { expanded in
             if expanded {
                 ForEach(taxdata.allFederalTaxes) { tax in
                     CurrencyView(title: "\(tax.title) Tax",

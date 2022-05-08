@@ -4,11 +4,13 @@
 import SwiftUI
 
 struct FederalIncomeListSection: View {
+    @EnvironmentObject var collapseState: SectionCollapseState
+
     let taxdata: USTaxData
     var income: Income { return taxdata.income }
 
     var body: some View {
-        CollapsableSection(title: "Income") { expanded in
+        CollapsableSection(title: "Income", expanded: $collapseState.income) { expanded in
             if expanded {
                 CurrencyView(title: "Wages", amount: income.wages)
                 AdditionView(title: "Capital gains", amount: income.totalCapitalGains)

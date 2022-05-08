@@ -8,12 +8,14 @@ extension StateTax: Identifiable {
 }
 
 struct StateTaxesListSection: View {
+    @EnvironmentObject var collapseState: SectionCollapseState
+
     let stateTax: StateTax
     let stateCredits: Double
 
     var body: some View {
         let title = "\(stateTax.state) Taxes (at \(FormattingHelper.formatPercentage(stateTax.incomeRate)))"
-        CollapsableSection(title: title) { expanded in
+        CollapsableSection(title: title, expanded: collapseState.stateBinding(for: stateTax.state)) { expanded in
             if expanded {
                 AdditionView(title: "Deductions", amount: -stateTax.deductions)
                 CurrencyView(title: "Taxable Income", amount: stateTax.taxableIncome)
