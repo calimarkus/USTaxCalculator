@@ -5,7 +5,6 @@ import SwiftUI
 
 struct MainView: View {
     @EnvironmentObject var dataset: TaxDataSet
-    @EnvironmentObject var collapseState: SectionCollapseState
     @State var showIncomeEntryPopover: Bool = false
 
     var body: some View {
@@ -27,18 +26,7 @@ struct MainView: View {
                 }
                 ToolbarItem(placement: .status) {
                     if let taxdata = dataset.activeTaxData {
-                        Button {
-                            withAnimation {
-                                let newState = !collapseState.income
-                                collapseState.income = newState
-                                collapseState.federal = newState
-                                for i in 0 ..< collapseState.states.count {
-                                    collapseState.states[taxdata.stateTaxes[i].state] = newState
-                                }
-                            }
-                        } label: {
-                            Image(systemName: "rectangle.expand.vertical")
-                        }
+                        CollapseAllSectionsButton(allStates: taxdata.stateTaxes.map { $0.state })
                     }
                 }
                 ToolbarItem(placement: .status) {
