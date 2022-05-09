@@ -13,7 +13,7 @@ struct MainView: View {
             MenuView(dataset: dataset)
             Group {
                 if let taxdata = dataset.activeTaxData {
-                    TaxDataView(collapseState: collapseState,
+                    TaxDataListView(collapseState: collapseState,
                                 taxdata: taxdata)
                 } else {
                     EmptyView(showIncomeEntryPopover: $showIncomeEntryPopover)

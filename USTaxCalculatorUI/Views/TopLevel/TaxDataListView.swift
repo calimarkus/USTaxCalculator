@@ -3,7 +3,7 @@
 
 import SwiftUI
 
-struct TaxDataView: View {
+struct TaxDataListView: View {
     @ObservedObject var collapseState: SectionCollapseState
 
     let taxdata: USTaxData
@@ -37,7 +37,7 @@ struct TaxDataView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        TaxDataView(collapseState: SectionCollapseState(),
+        TaxDataListView(collapseState: SectionCollapseState(),
                     taxdata: ExampleData.exampleTaxDataJohnAndSarah_21())
             .frame(width: 600.0, height: 1200.0)
     }
