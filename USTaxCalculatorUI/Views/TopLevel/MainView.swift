@@ -3,36 +3,6 @@
 
 import SwiftUI
 
-class SectionCollapseState: ObservableObject {
-    @Published var income: Bool = true
-    @Published var federal: Bool = true
-    @Published var states: [TaxState: Bool] = [:]
-
-    func stateBinding(for state: TaxState) -> Binding<Bool> {
-        return Binding(get: {
-            self.states[state, default: true]
-        }, set: {
-            self.states[state] = $0
-        })
-    }
-}
-
-class TaxDataSet: ObservableObject {
-    @Published var selection: Set<Int> = [0]
-
-    var activeTaxData: USTaxData? {
-        if let idx = selection.first {
-            return taxData[idx]
-        } else {
-            return nil
-        }
-    }
-
-    let taxData: [USTaxData] = [ExampleData.exampleTaxDataJohnAndSarah_21(),
-                                ExampleData.exampleTaxDataJackHouston_21(),
-                                ExampleData.exampleTaxDataJackHouston_20()]
-}
-
 struct MainView: View {
     @EnvironmentObject var dataset: TaxDataSet
     @EnvironmentObject var collapseState: SectionCollapseState
