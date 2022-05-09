@@ -4,14 +4,19 @@
 import SwiftUI
 
 struct TaxDataView: View {
+    @ObservedObject var collapseState: SectionCollapseState
+
     let taxdata: USTaxData
 
     var body: some View {
         List {
-            FederalIncomeListSection(taxdata: taxdata)
-            FederalTaxesListSection(taxdata: taxdata)
+            FederalIncomeListSection(collapseState: collapseState,
+                                     taxdata: taxdata)
+            FederalTaxesListSection(collapseState: collapseState,
+                                    taxdata: taxdata)
             ForEach(taxdata.stateTaxes) { stateTax in
-                StateTaxesListSection(stateTax: stateTax,
+                StateTaxesListSection(collapseState: collapseState,
+                                      stateTax: stateTax,
                                       stateCredits: taxdata.stateCredits[stateTax.state] ?? 0.0)
             }
             if taxdata.stateTaxes.count > 1 {
@@ -32,7 +37,8 @@ struct TaxDataView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        TaxDataView(taxdata: ExampleData.exampleTaxDataJohnAndSarah_21())
+        TaxDataView(collapseState: SectionCollapseState(),
+                    taxdata: ExampleData.exampleTaxDataJohnAndSarah_21())
             .frame(width: 600.0, height: 1200.0)
     }
 }

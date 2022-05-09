@@ -8,7 +8,7 @@ extension StateTax: Identifiable {
 }
 
 struct StateTaxesListSection: View {
-    @EnvironmentObject var collapseState: SectionCollapseState
+    @ObservedObject var collapseState: SectionCollapseState
 
     let stateTax: StateTax
     let stateCredits: Double
@@ -60,7 +60,8 @@ struct StateTaxesListSection: View {
 struct StateTaxesListSection_Previews: PreviewProvider {
     static var previews: some View {
         List {
-            StateTaxesListSection(stateTax: ExampleData.exampleTaxDataJohnAndSarah_21().stateTaxes.first!,
+            StateTaxesListSection(collapseState: SectionCollapseState(),
+                                  stateTax: ExampleData.exampleTaxDataJohnAndSarah_21().stateTaxes.first!,
                                   stateCredits: 350.0)
         }
     }

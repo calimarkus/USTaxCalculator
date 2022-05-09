@@ -10,9 +10,8 @@ struct USTaxCalulatorApp: App {
 
     var body: some Scene {
         WindowGroup {
-            MainView()
-                .environmentObject(modelData)
-                .environmentObject(collapseState)
+            MainView(dataset: modelData,
+                     collapseState: collapseState)
         }
     }
 }

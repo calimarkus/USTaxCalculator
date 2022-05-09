@@ -4,7 +4,7 @@
 import SwiftUI
 
 struct FederalIncomeListSection: View {
-    @EnvironmentObject var collapseState: SectionCollapseState
+    @ObservedObject var collapseState: SectionCollapseState
 
     let taxdata: USTaxData
     var income: Income { return taxdata.income }
@@ -28,7 +28,8 @@ struct FederalIncomeListSection: View {
 struct FederalIncomeListSection_Previews: PreviewProvider {
     static var previews: some View {
         List {
-            FederalIncomeListSection(taxdata: ExampleData.exampleTaxDataJohnAndSarah_21())
+            FederalIncomeListSection(collapseState: SectionCollapseState(),
+                                     taxdata: ExampleData.exampleTaxDataJohnAndSarah_21())
         }
     }
 }

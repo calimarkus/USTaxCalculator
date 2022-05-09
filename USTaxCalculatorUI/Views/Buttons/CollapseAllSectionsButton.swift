@@ -5,7 +5,7 @@ import SwiftUI
 
 struct CollapseAllSectionsButton: View {
     let allStates: [TaxState]
-    @EnvironmentObject var collapseState: SectionCollapseState
+    @ObservedObject var collapseState: SectionCollapseState
 
     var body: some View {
         Button {
@@ -25,7 +25,8 @@ struct CollapseAllSectionsButton: View {
 
 struct CollapseAllSectionsButton_Previews: PreviewProvider {
     static var previews: some View {
-        CollapseAllSectionsButton(allStates: [.CA, .NY])
+        CollapseAllSectionsButton(allStates: [.CA, .NY],
+                                  collapseState:SectionCollapseState())
             .padding()
     }
 }

@@ -8,7 +8,7 @@ extension FederalTax: Identifiable {
 }
 
 struct FederalTaxesListSection: View {
-    @EnvironmentObject var collapseState: SectionCollapseState
+    @ObservedObject var collapseState: SectionCollapseState
 
     let taxdata: USTaxData
     var summary: TaxSummary { return taxdata.taxSummaries.federal }
@@ -35,7 +35,8 @@ struct FederalTaxesListSection: View {
 struct FederalTaxesListSection_Previews: PreviewProvider {
     static var previews: some View {
         List {
-            FederalTaxesListSection(taxdata: ExampleData.exampleTaxDataJohnAndSarah_21())
+            FederalTaxesListSection(collapseState: SectionCollapseState(),
+                                    taxdata: ExampleData.exampleTaxDataJohnAndSarah_21())
         }
     }
 }

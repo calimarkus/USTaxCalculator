@@ -4,15 +4,17 @@
 import SwiftUI
 
 struct MainView: View {
-    @EnvironmentObject var dataset: TaxDataSet
+    @ObservedObject var dataset: TaxDataSet
+    @ObservedObject var collapseState: SectionCollapseState
     @State var showIncomeEntryPopover: Bool = false
 
     var body: some View {
         NavigationView {
-            MenuView()
+            MenuView(dataset: dataset)
             Group {
                 if let taxdata = dataset.activeTaxData {
-                    TaxDataView(taxdata: taxdata)
+                    TaxDataView(collapseState: collapseState,
+                                taxdata: taxdata)
                 } else {
                     EmptyView(showIncomeEntryPopover: $showIncomeEntryPopover)
                 }
@@ -26,7 +28,8 @@ struct MainView: View {
                 }
                 ToolbarItem(placement: .status) {
                     if let taxdata = dataset.activeTaxData {
-                        CollapseAllSectionsButton(allStates: taxdata.stateTaxes.map { $0.state })
+                        CollapseAllSectionsButton(allStates: taxdata.stateTaxes.map { $0.state },
+                                                  collapseState:collapseState)
                     }
                 }
                 ToolbarItem(placement: .status) {
@@ -45,8 +48,8 @@ struct MainView: View {
 
 struct MainView_Previews: PreviewProvider {
     static var previews: some View {
-        MainView()
+        MainView(dataset: TaxDataSet(),
+                 collapseState: SectionCollapseState())
             .frame(width: 750.0, height: 500)
-            .environmentObject(TaxDataSet())
     }
 }

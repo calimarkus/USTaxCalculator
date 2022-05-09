@@ -8,7 +8,7 @@ extension USTaxData: Identifiable {
 }
 
 struct MenuView: View {
-    @EnvironmentObject var dataset: TaxDataSet
+    @ObservedObject var dataset: TaxDataSet
 
     var body: some View {
         List(selection: $dataset.selection) {
@@ -30,6 +30,6 @@ struct MenuView: View {
 
 struct MenuView_Previews: PreviewProvider {
     static var previews: some View {
-        MenuView().environmentObject(TaxDataSet())
+        MenuView(dataset: TaxDataSet())
     }
 }
