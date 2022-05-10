@@ -6,17 +6,18 @@ import SwiftUI
 struct MainView: View {
     @ObservedObject var dataset: TaxDataSet
     @ObservedObject var collapseState: SectionCollapseState
-    @State var showIncomeEntryPopover: Bool = false
 
     var body: some View {
         NavigationView {
             MenuView(dataset: dataset)
             Group {
-                if let taxdata = dataset.activeTaxData {
+                if dataset.showEntryForm {
+                    TaxDataEntryView()
+                } else if let taxdata = dataset.activeTaxData {
                     TaxDataListView(collapseState: collapseState,
-                                taxdata: taxdata)
+                                    taxdata: taxdata)
                 } else {
-                    EmptyView(showIncomeEntryPopover: $showIncomeEntryPopover)
+                    EmptyView(dataset: dataset)
                 }
             }
             .frame(minWidth: 400.0, minHeight: 400.0)
@@ -29,16 +30,15 @@ struct MainView: View {
                 ToolbarItem(placement: .status) {
                     if let taxdata = dataset.activeTaxData {
                         CollapseAllSectionsButton(allStates: taxdata.stateTaxes.map { $0.state },
-                                                  collapseState:collapseState)
+                                                  collapseState: collapseState)
                     }
                 }
                 ToolbarItem(placement: .status) {
                     Button {
-                        showIncomeEntryPopover.toggle()
+//                        showIncomeEntryPopover.toggle()
+                        dataset.showEntryForm = true
                     } label: {
                         Image(systemName: "plus")
-                    }.popover(isPresented: $showIncomeEntryPopover) {
-                        TaxDataEntryView()
                     }
                 }
             }

@@ -4,14 +4,28 @@
 import Foundation
 
 class TaxDataSet: ObservableObject {
-    @Published var selection: Set<Int> = [0]
+    @Published var selection: Set<Int> = [0] {
+        didSet {
+            if !selection.isEmpty {
+                showEntryForm = false
+            }
+        }
+    }
+
+    @Published var showEntryForm: Bool = false {
+        didSet {
+            if showEntryForm {
+                selection = []
+            }
+        }
+    }
 
     var activeTaxData: USTaxData? {
-        if let idx = selection.first {
+        if !showEntryForm, let idx = selection.first {
             return taxData[idx]
-        } else {
-            return nil
         }
+
+        return nil
     }
 
     let taxData: [USTaxData] = [ExampleData.exampleTaxDataJohnAndSarah_21(),
