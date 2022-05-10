@@ -3,72 +3,59 @@
 
 import SwiftUI
 
-enum IncomeAmountInput {
-    case fullFederal
-    case partial
-}
+class StateIncomeInput {
+    var income: StateIncome = .init()
 
-enum LocalTaxTypeInput {
-    case none
-    case nyc
-}
-
-struct StateIncomeInput {
-    /// The state or city for this income
-    var state: TaxState = .CA
-
-    /// State Wages as listed on W-2, Box 16
-    var wages: IncomeAmountInput = .fullFederal
-    var partialIncome: String = ""
-
-    /// State Income Tax Withheld as listed on W-2, Box 17
-    var withholdings: String = ""
-
-    /// State Income that's not part of the wages on the W-2
-    var additionalStateIncome: String = ""
-
-    /// Any local taxes that apply to this state
-    var localTax: LocalTaxTypeInput = .none
-}
-
-extension StateIncomeInput: Identifiable {
-    var id: UUID { UUID() }
+    func partialIncomeBinding() -> Binding<Double> {
+        return Binding {
+            switch self.income.wages {
+                case .fullFederal: return 0.0
+                case let .partial(val): return val
+            }
+        } set: { val in
+            self.income.wages = .partial(val)
+        }
+    }
 }
 
 struct StateIncomeEntryView: View {
-    @Binding var income: StateIncomeInput
+    @Binding var incomeInput: StateIncomeInput
 
     var body: some View {
         Section(header: Text("State Income").fontWeight(.bold)) {
-            Picker("State", selection: $income.state) {
+            Picker("State", selection: $incomeInput.income.state) {
                 Text("CA").tag(TaxState.CA)
                 Text("NY").tag(TaxState.NY)
             }
-            Picker("Wages", selection: $income.wages) {
-                Text("Full Federal Amount").tag(IncomeAmountInput.fullFederal)
-                Text("Partial Amount").tag(IncomeAmountInput.partial)
+            Picker("Wages", selection: $incomeInput.income.wages) {
+                Text("Full Federal Amount").tag(IncomeAmount.fullFederal)
+                Text("Partial Amount").tag(IncomeAmount.partial(0.0))
             }.pickerStyle(.inline)
 
-            if income.wages == .partial {
-                TextField("Partial Income", text: $income.partialIncome)
-            }
+            // TBD: only show, if .partial is selected
+            CurrencyValueInputView(caption: "Partial Income",
+                                   subtitle: " (W-2, Box 16)",
+                                   amount: incomeInput.partialIncomeBinding())
 
-            TextField("State Withholdings", text: $income.withholdings)
-            TextField("Additional State Income", text: $income.additionalStateIncome)
+            CurrencyValueInputView(caption: "State Withholdings",
+                                   subtitle: " (W-2, Box 17)",
+                                   amount: $incomeInput.income.withholdings)
+            CurrencyValueInputView(caption: "Additional State Income",
+                                   amount: $incomeInput.income.additionalStateIncome)
 
-            Picker("Local Tax", selection: $income.localTax) {
-                Text("None").tag(LocalTaxTypeInput.none)
-                Text("NYC").tag(LocalTaxTypeInput.nyc)
+            Picker("Local Tax", selection: $incomeInput.income.localTax) {
+                Text("None").tag(LocalTaxType.none)
+                Text("NYC").tag(LocalTaxType.city(.NYC))
             }
         }
     }
 }
 
 struct StateIncomeEntryView_Previews: PreviewProvider {
-    @State static var stateIncomeInput:StateIncomeInput = StateIncomeInput()
+    @State static var stateIncomeInput: StateIncomeInput = .init()
     static var previews: some View {
         Form {
-            StateIncomeEntryView(income: $stateIncomeInput)
+            StateIncomeEntryView(incomeInput: $stateIncomeInput)
         }
         .frame(height: 400.0)
     }

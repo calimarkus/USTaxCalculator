@@ -3,21 +3,21 @@
 
 struct Income {
     /// Wages as listed on W-2, Box 1
-    let wages: Double
+    var wages = 0.0
     /// Medicare Wages as listed on W-2, Box 5
-    let medicareWages: Double
+    var medicareWages = 0.0
     /// Federal Income Tax Withheld as listed on W-2, Box 2
-    let federalWithholdings: Double
+    var federalWithholdings = 0.0
 
     /// Any Interests & Dividends (e.g. from Bank Accounts, Investments) as listed on 1099-INT, 1099-DIV
-    let dividendsAndInterests: Double
+    var dividendsAndInterests = 0.0
     /// Capital Gains excluding dividends and interests (e.g. from Investments) - as listed on e.g. 1099-B
-    let capitalGains: Double
+    var capitalGains = 0.0
     /// Longterm Gains as listed on e.g. 1099-B (these are taxed lower than shortterm gains)
-    let longtermCapitalGains: Double
+    var longtermCapitalGains = 0.0
 
     /// State Income Information for all states, as listed on W-2
-    let stateIncomes: [StateIncome]
+    var stateIncomes: [StateIncome] = []
 
     /// Computed combined capital gains (dividends + capital gains)
     var totalCapitalGains: Double { return dividendsAndInterests + capitalGains }

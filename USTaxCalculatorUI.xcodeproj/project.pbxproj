@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7E1672EC282A0970009185B2 /* CurrencyValueInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E1672EB282A0970009185B2 /* CurrencyValueInputView.swift */; };
 		7E572F10282910B300DDB15E /* USTaxCalulatorApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E572EDE282910B300DDB15E /* USTaxCalulatorApp.swift */; };
 		7E572F11282910B300DDB15E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7E572EDF282910B300DDB15E /* Assets.xcassets */; };
 		7E572F12282910B300DDB15E /* ExampleData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E572EE1282910B300DDB15E /* ExampleData.swift */; };
@@ -62,6 +63,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		7E1672EB282A0970009185B2 /* CurrencyValueInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyValueInputView.swift; sourceTree = "<group>"; };
 		7E572EDD282910B300DDB15E /* USTaxCalculatorUI.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = USTaxCalculatorUI.entitlements; sourceTree = "<group>"; };
 		7E572EDE282910B300DDB15E /* USTaxCalulatorApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = USTaxCalulatorApp.swift; sourceTree = "<group>"; };
 		7E572EDF282910B300DDB15E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -190,6 +192,7 @@
 			children = (
 				7E572EF1282910B300DDB15E /* IncomeEntryView.swift */,
 				7E572EF2282910B300DDB15E /* StateIncomeEntryView.swift */,
+				7E1672EB282A0970009185B2 /* CurrencyValueInputView.swift */,
 			);
 			path = Input;
 			sourceTree = "<group>";
@@ -443,6 +446,7 @@
 				7E572F2E282910B300DDB15E /* Tax.swift in Sources */,
 				7E572F29282910B300DDB15E /* StateIncome.swift in Sources */,
 				7E572F22282910B300DDB15E /* TaxDataListView.swift in Sources */,
+				7E1672EC282A0970009185B2 /* CurrencyValueInputView.swift in Sources */,
 				7E572F28282910B300DDB15E /* Income.swift in Sources */,
 				7E572F27282910B300DDB15E /* DeductionAmount.swift in Sources */,
 				7E572F10282910B300DDB15E /* USTaxCalulatorApp.swift in Sources */,

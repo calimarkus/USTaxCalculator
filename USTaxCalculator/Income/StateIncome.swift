@@ -15,28 +15,28 @@ enum TaxCity: Comparable, Hashable {
     case NYC
 }
 
-enum LocalTaxType: Equatable {
+enum LocalTaxType: Equatable, Hashable {
     case none
     case city(_ city: TaxCity)
 }
 
-enum IncomeAmount {
+enum IncomeAmount: Hashable {
     case fullFederal
     case partial(_ income: Double)
 }
 
 struct StateIncome {
     /// The state or city for this income
-    let state: TaxState
+    var state: TaxState = TaxState.CA
 
     /// State Wages as listed on W-2, Box 16
-    let wages: IncomeAmount
+    var wages: IncomeAmount = .fullFederal
 
     /// State Income Tax Withheld as listed on W-2, Box 17
-    let withholdings: Double
+    var withholdings = 0.0
 
     /// State Income that's not part of the wages on the W-2
-    var additionalStateIncome: Double = 0.0
+    var additionalStateIncome = 0.0
 
     /// Any local taxes that apply to this state
     var localTax: LocalTaxType = .none
