@@ -20,6 +20,7 @@ class StateIncomeInput {
 
 struct StateIncomeEntryView: View {
     @Binding var incomeInput: StateIncomeInput
+    let onRemove: () -> ()
 
     var body: some View {
         Section(header: Text("State Income").fontWeight(.bold)) {
@@ -32,10 +33,11 @@ struct StateIncomeEntryView: View {
                 Text("Partial Amount").tag(IncomeAmount.partial(0.0))
             }.pickerStyle(.inline)
 
-            // TBD: only show, if .partial is selected
-            CurrencyValueInputView(caption: "Partial Income",
-                                   subtitle: " (W-2, Box 16)",
-                                   amount: incomeInput.partialIncomeBinding())
+            if case .partial = incomeInput.income.wages {
+                CurrencyValueInputView(caption: "Partial Income",
+                                       subtitle: " (W-2, Box 16)",
+                                       amount: incomeInput.partialIncomeBinding())
+            }
 
             CurrencyValueInputView(caption: "State Withholdings",
                                    subtitle: " (W-2, Box 17)",
@@ -47,6 +49,10 @@ struct StateIncomeEntryView: View {
                 Text("None").tag(LocalTaxType.none)
                 Text("NYC").tag(LocalTaxType.city(.NYC))
             }
+
+            Button("Remove State") {
+                onRemove()
+            }
         }
     }
 }
@@ -55,8 +61,9 @@ struct StateIncomeEntryView_Previews: PreviewProvider {
     @State static var stateIncomeInput: StateIncomeInput = .init()
     static var previews: some View {
         Form {
-            StateIncomeEntryView(incomeInput: $stateIncomeInput)
+            StateIncomeEntryView(incomeInput: $stateIncomeInput,
+                                 onRemove: {})
         }
-        .frame(height: 400.0)
+        .padding()
     }
 }
