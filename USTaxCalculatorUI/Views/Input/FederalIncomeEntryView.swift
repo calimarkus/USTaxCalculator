@@ -3,7 +3,7 @@
 
 import SwiftUI
 
-struct FederalIncomeEntryView: View {
+struct FederalTaxDataEntryView: View {
     @Binding var income: Income
 
     var body: some View {
@@ -33,11 +33,11 @@ struct FederalIncomeEntryView: View {
     }
 }
 
-struct FederalIncomeEntryView_Previews: PreviewProvider {
+struct FederalTaxDataEntryView_Previews: PreviewProvider {
     @State static var income: Income = .init()
     static var previews: some View {
         Form {
-            FederalIncomeEntryView(income: $income)
+            FederalTaxDataEntryView(income: $income)
         }
         .padding()
     }

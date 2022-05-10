@@ -38,7 +38,7 @@ struct MainView: View {
                     } label: {
                         Image(systemName: "plus")
                     }.popover(isPresented: $showIncomeEntryPopover) {
-                        IncomeEntryView()
+                        TaxDataEntryView()
                     }
                 }
             }

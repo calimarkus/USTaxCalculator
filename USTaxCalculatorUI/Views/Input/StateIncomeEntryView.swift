@@ -18,7 +18,7 @@ class StateIncomeInput {
     }
 }
 
-struct StateIncomeEntryView: View {
+struct StateTaxDataEntryView: View {
     @Binding var incomeInput: StateIncomeInput
     let onRemove: () -> ()
 
@@ -57,11 +57,11 @@ struct StateIncomeEntryView: View {
     }
 }
 
-struct StateIncomeEntryView_Previews: PreviewProvider {
+struct StateTaxDataEntryView_Previews: PreviewProvider {
     @State static var stateIncomeInput: StateIncomeInput = .init()
     static var previews: some View {
         Form {
-            StateIncomeEntryView(incomeInput: $stateIncomeInput,
+            StateTaxDataEntryView(incomeInput: $stateIncomeInput,
                                  onRemove: {})
         }
         .padding()

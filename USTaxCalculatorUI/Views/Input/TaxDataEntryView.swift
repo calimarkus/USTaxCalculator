@@ -3,7 +3,7 @@
 
 import SwiftUI
 
-struct IncomeEntryView: View {
+struct TaxDataEntryView: View {
     @State var income: Income = .init()
     @State var stateIncomes: [StateIncomeInput] = []
 
@@ -13,7 +13,7 @@ struct IncomeEntryView: View {
                 Color.secondary
                     .opacity(0.25)
                     .frame(height: 44.0)
-                Text("New Income")
+                Text("New Tax Data")
                     .font(.title3)
                     .bold()
             }
@@ -22,10 +22,10 @@ struct IncomeEntryView: View {
                 .opacity(0.5)
             ScrollView {
                 Form {
-                    FederalIncomeEntryView(income: $income)
+                    FederalTaxDataEntryView(income: $income)
 
                     ForEach(0 ..< stateIncomes.count, id: \.self) { i in
-                        StateIncomeEntryView(incomeInput: $stateIncomes[i]) {
+                        StateTaxDataEntryView(incomeInput: $stateIncomes[i]) {
                             stateIncomes.remove(at: i)
                         }
                     }
@@ -49,8 +49,8 @@ struct IncomeEntryView: View {
     }
 }
 
-struct IncomeEntryView_Previews: PreviewProvider {
+struct TaxDataEntryView_Previews: PreviewProvider {
     static var previews: some View {
-        IncomeEntryView()
+        TaxDataEntryView()
     }
 }
