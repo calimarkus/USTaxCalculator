@@ -9,7 +9,7 @@ struct CurrencyValueInputView: View {
     @Binding var amount: Double
 
     var body: some View {
-        HStack {
+        HStack(spacing: 0.0) {
             VStack(alignment: .trailing) {
                 Text(caption)
                 if let subtitle = subtitle {
@@ -18,10 +18,8 @@ struct CurrencyValueInputView: View {
                         .foregroundColor(.secondary)
                 }
             }
-            TextField("",
-                      value: $amount,
-                      format: .currency(code: "USD"))
-            .font(.title3)
+            TextField("", value: $amount, format: .currency(code: "USD"))
+                .font(.title3)
         }
     }
 }

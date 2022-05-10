@@ -59,7 +59,6 @@ enum ExampleData {
 
     static func exampleTaxDataJackHouston_20() -> USTaxData {
         return try! USTaxData(TaxDataInput(
-            title: "Jack Houston",
             filingType: .single,
             taxYear: .y2020,
             income: exampleIncomeC_CA(),

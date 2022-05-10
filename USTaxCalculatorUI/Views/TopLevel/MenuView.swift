@@ -4,7 +4,7 @@
 import SwiftUI
 
 extension USTaxData: Identifiable {
-    var id: String { return "\(title ?? "")\(taxYear.rawValue)\(filingType.rawValue)" }
+    var id: String { return "\(title)\(taxYear.rawValue)\(filingType.rawValue)" }
 }
 
 struct MenuView: View {

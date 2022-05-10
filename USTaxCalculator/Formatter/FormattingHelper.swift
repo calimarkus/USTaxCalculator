@@ -5,8 +5,7 @@ import Foundation
 
 struct FormattingHelper {
     static func formattedTitle(taxData: USTaxData) -> String {
-        var additionalTitle = ""
-        if let t = taxData.title { additionalTitle = "- \(t)" }
+        let additionalTitle = taxData.title.count > 0 ? "- \(taxData.title)" : ""
         let title = "Year \(taxData.taxYear.rawValue), \(taxData.filingType.rawValue), \(formattedStates(taxData: taxData)) \(additionalTitle)"
         return title.uppercased()
     }
@@ -20,7 +19,7 @@ struct FormattingHelper {
     }
 
     static func formattedShortTitle(taxData: USTaxData) -> String {
-        return "\(taxData.title ?? taxData.filingType.rawValue)"
+        return "\(taxData.title.count > 0 ? taxData.title : taxData.filingType.rawValue)"
     }
 
     static func formatCurrency(_ num: Double, locale: Locale? = nil) -> String {

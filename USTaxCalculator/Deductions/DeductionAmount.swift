@@ -1,7 +1,7 @@
 //
 //
 
-enum DeductionAmount {
+enum DeductionAmount: Hashable {
     case standard(additionalDeductions: Double = 0.0)
     case custom(_ amount: Double)
 }

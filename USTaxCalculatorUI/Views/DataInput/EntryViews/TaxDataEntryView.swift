@@ -8,34 +8,23 @@ struct TaxDataEntryView: View {
 
     var body: some View {
         VStack(spacing: 0.0) {
-            ZStack {
-                Color.secondary
-                    .opacity(0.25)
-                    .frame(height: 44.0)
-                Text("New Tax Data")
-                    .font(.title3)
-                    .bold()
-            }
-            Color.secondary
-                .frame(height: 1.0)
-                .opacity(0.5)
+            EntryViewTitle(
+                title: "New Tax Data",
+                onSave: {
+                    dump(input)
+                },
+                onAddState: {
+                    input.income.stateIncomes.append(StateIncome())
+                })
             ScrollView {
                 Form {
+                    BasicTaxDataEntryView(input: $input)
                     FederalTaxDataEntryView(income: $input.income)
 
+                    // states
                     ForEach(0 ..< input.income.stateIncomes.count, id: \.self) { i in
                         StateTaxDataEntryView(income: $input.income.stateIncomes[i]) {
                             input.income.stateIncomes.remove(at: i)
-                        }
-                    }
-
-                    HStack {
-                        Button("Add State") {
-                            input.income.stateIncomes.append(StateIncome())
-                        }
-                        Spacer()
-                        Button("Save") {
-                            dump(input)
                         }
                     }
                 }
