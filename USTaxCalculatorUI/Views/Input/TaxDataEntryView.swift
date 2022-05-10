@@ -4,8 +4,7 @@
 import SwiftUI
 
 struct TaxDataEntryView: View {
-    @State var income: Income = .init()
-    @State var stateIncomes: [StateIncomeInput] = []
+    @State var input: TaxDataInput = .init()
 
     var body: some View {
         VStack(spacing: 0.0) {
@@ -22,23 +21,21 @@ struct TaxDataEntryView: View {
                 .opacity(0.5)
             ScrollView {
                 Form {
-                    FederalTaxDataEntryView(income: $income)
+                    FederalTaxDataEntryView(income: $input.income)
 
-                    ForEach(0 ..< stateIncomes.count, id: \.self) { i in
-                        StateTaxDataEntryView(incomeInput: $stateIncomes[i]) {
-                            stateIncomes.remove(at: i)
+                    ForEach(0 ..< input.income.stateIncomes.count, id: \.self) { i in
+                        StateTaxDataEntryView(income: $input.income.stateIncomes[i]) {
+                            input.income.stateIncomes.remove(at: i)
                         }
                     }
 
                     HStack {
                         Button("Add State") {
-                            stateIncomes.append(StateIncomeInput())
+                            input.income.stateIncomes.append(StateIncome())
                         }
                         Spacer()
                         Button("Save") {
-                            var merged = income
-                            merged.stateIncomes = stateIncomes.map { $0.income }
-                            print(merged)
+                            dump(input)
                         }
                     }
                 }

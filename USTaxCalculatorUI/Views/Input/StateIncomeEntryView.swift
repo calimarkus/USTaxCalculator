@@ -3,8 +3,43 @@
 
 import SwiftUI
 
-class StateIncomeInput {
-    var income: StateIncome = .init()
+struct StateTaxDataEntryView: View {
+    @Binding var income: StateIncome
+    let onRemove: () -> ()
+
+    var body: some View {
+        Section(header: Text("State Income").fontWeight(.bold)) {
+            Picker("State", selection: $income.state) {
+                Text("CA").tag(TaxState.CA)
+                Text("NY").tag(TaxState.NY)
+            }
+            Picker("Wages", selection: $income.wages) {
+                Text("Full Federal Amount").tag(IncomeAmount.fullFederal)
+                Text("Partial Amount").tag(IncomeAmount.partial(0.0))
+            }.pickerStyle(.inline)
+
+            if case .partial = income.wages {
+                CurrencyValueInputView(caption: "Partial Income",
+                                       subtitle: " (W-2, Box 16)",
+                                       amount: partialIncomeBinding())
+            }
+
+            CurrencyValueInputView(caption: "State Withholdings",
+                                   subtitle: " (W-2, Box 17)",
+                                   amount: $income.withholdings)
+            CurrencyValueInputView(caption: "Additional State Income",
+                                   amount: $income.additionalStateIncome)
+
+            Picker("Local Tax", selection: $income.localTax) {
+                Text("None").tag(LocalTaxType.none)
+                Text("NYC").tag(LocalTaxType.city(.NYC))
+            }
+
+            Button("Remove State") {
+                onRemove()
+            }
+        }
+    }
 
     func partialIncomeBinding() -> Binding<Double> {
         return Binding {
@@ -18,50 +53,11 @@ class StateIncomeInput {
     }
 }
 
-struct StateTaxDataEntryView: View {
-    @Binding var incomeInput: StateIncomeInput
-    let onRemove: () -> ()
-
-    var body: some View {
-        Section(header: Text("State Income").fontWeight(.bold)) {
-            Picker("State", selection: $incomeInput.income.state) {
-                Text("CA").tag(TaxState.CA)
-                Text("NY").tag(TaxState.NY)
-            }
-            Picker("Wages", selection: $incomeInput.income.wages) {
-                Text("Full Federal Amount").tag(IncomeAmount.fullFederal)
-                Text("Partial Amount").tag(IncomeAmount.partial(0.0))
-            }.pickerStyle(.inline)
-
-            if case .partial = incomeInput.income.wages {
-                CurrencyValueInputView(caption: "Partial Income",
-                                       subtitle: " (W-2, Box 16)",
-                                       amount: incomeInput.partialIncomeBinding())
-            }
-
-            CurrencyValueInputView(caption: "State Withholdings",
-                                   subtitle: " (W-2, Box 17)",
-                                   amount: $incomeInput.income.withholdings)
-            CurrencyValueInputView(caption: "Additional State Income",
-                                   amount: $incomeInput.income.additionalStateIncome)
-
-            Picker("Local Tax", selection: $incomeInput.income.localTax) {
-                Text("None").tag(LocalTaxType.none)
-                Text("NYC").tag(LocalTaxType.city(.NYC))
-            }
-
-            Button("Remove State") {
-                onRemove()
-            }
-        }
-    }
-}
-
 struct StateTaxDataEntryView_Previews: PreviewProvider {
-    @State static var stateIncomeInput: StateIncomeInput = .init()
+    @State static var stateIncome: StateIncome = .init()
     static var previews: some View {
         Form {
-            StateTaxDataEntryView(incomeInput: $stateIncomeInput,
+            StateTaxDataEntryView(income: $stateIncome,
                                  onRemove: {})
         }
         .padding()
