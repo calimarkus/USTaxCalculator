@@ -20,6 +20,15 @@ struct EmptyView: View {
             }.padding()
         }
         .navigationTitle("")
+        .toolbar {
+            ToolbarItem(placement: .status) {
+                Button {
+                    dataset.showEntryForm = true
+                } label: {
+                    Image(systemName: "plus")
+                }
+            }
+        }
     }
 }
 
