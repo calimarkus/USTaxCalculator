@@ -15,33 +15,13 @@ struct MainView: View {
                     TaxDataEntryView()
                 } else if let taxdata = dataset.activeTaxData {
                     TaxDataListView(collapseState: collapseState,
+                                    dataset: dataset,
                                     taxdata: taxdata)
                 } else {
                     EmptyView(dataset: dataset)
                 }
             }
             .frame(minWidth: 400.0, minHeight: 400.0)
-            .toolbar {
-                ToolbarItem(placement: .status) {
-                    if let taxdata = dataset.activeTaxData {
-                        ExportAsTextButton(taxdata: taxdata)
-                    }
-                }
-                ToolbarItem(placement: .status) {
-                    if let taxdata = dataset.activeTaxData {
-                        CollapseAllSectionsButton(allStates: taxdata.stateTaxes.map { $0.state },
-                                                  collapseState: collapseState)
-                    }
-                }
-                ToolbarItem(placement: .status) {
-                    Button {
-//                        showIncomeEntryPopover.toggle()
-                        dataset.showEntryForm = true
-                    } label: {
-                        Image(systemName: "plus")
-                    }
-                }
-            }
         }
     }
 }

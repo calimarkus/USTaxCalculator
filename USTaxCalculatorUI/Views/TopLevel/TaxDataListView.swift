@@ -5,6 +5,7 @@ import SwiftUI
 
 struct TaxDataListView: View {
     @ObservedObject var collapseState: SectionCollapseState
+    @ObservedObject var dataset: TaxDataSet
 
     let taxdata: USTaxData
 
@@ -31,13 +32,30 @@ struct TaxDataListView: View {
         .navigationTitle(FormattingHelper.formattedTitle(taxData: taxdata))
         .listStyle(.inset(alternatesRowBackgrounds: true))
         .environment(\.defaultMinListHeaderHeight, 30)
+        .toolbar {
+            ToolbarItem(placement: .status) {
+                ExportAsTextButton(taxdata: taxdata)
+            }
+            ToolbarItem(placement: .status) {
+                CollapseAllSectionsButton(allStates: taxdata.stateTaxes.map { $0.state },
+                                          collapseState: collapseState)
+            }
+            ToolbarItem(placement: .status) {
+                Button {
+                    dataset.showEntryForm = true
+                } label: {
+                    Image(systemName: "plus")
+                }
+            }
+        }
     }
 }
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         TaxDataListView(collapseState: SectionCollapseState(),
-                    taxdata: ExampleData.exampleTaxDataJohnAndSarah_21())
+                        dataset: TaxDataSet(),
+                        taxdata: ExampleData.exampleTaxDataJohnAndSarah_21())
             .frame(width: 600.0, height: 1200.0)
     }
 }

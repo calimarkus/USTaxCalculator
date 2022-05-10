@@ -17,7 +17,7 @@ struct MenuView: View {
                     HStack {
                         Label("\(FormattingHelper.formattedShortTitle(taxData: taxdata))",
                               systemImage: "dollarsign.circle.fill").tag(i)
-                        Text("(\(FormattingHelper.formattedStates(taxData: taxdata)), \(FormattingHelper.formattedTaxYearShort(taxData: taxdata)))")
+                        Text("(\(FormattingHelper.formattedStates(states: taxdata.stateTaxes.map { $0.state })), \(FormattingHelper.formattedTaxYearShort(taxData: taxdata)))")
                             .foregroundColor(.secondary)
                             .font(.subheadline)
                     }

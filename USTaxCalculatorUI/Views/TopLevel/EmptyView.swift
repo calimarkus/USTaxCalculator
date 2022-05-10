@@ -16,7 +16,7 @@ struct EmptyView: View {
             Button {
                 dataset.showEntryForm = true
             } label: {
-                Text("Add new tax data")
+                Text("Add a new entry")
             }.padding()
         }
         .navigationTitle("")

@@ -45,7 +45,6 @@
 		7E572F32282910B300DDB15E /* TaxBracket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E572F0E282910B300DDB15E /* TaxBracket.swift */; };
 		7E572F33282910B300DDB15E /* RawTaxRates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E572F0F282910B300DDB15E /* RawTaxRates.swift */; };
 		7EF0C16E282A3F5B00C6CDD7 /* BasicTaxDataEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EF0C16D282A3F5B00C6CDD7 /* BasicTaxDataEntryView.swift */; };
-		7EF0C170282A3FC000C6CDD7 /* EntryViewTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EF0C16F282A3FC000C6CDD7 /* EntryViewTitle.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -108,7 +107,6 @@
 		7E822CFE2804515300096181 /* USTaxCalTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = USTaxCalTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7E822D082804515300096181 /* USTaxCalUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = USTaxCalUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7EF0C16D282A3F5B00C6CDD7 /* BasicTaxDataEntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicTaxDataEntryView.swift; sourceTree = "<group>"; };
-		7EF0C16F282A3FC000C6CDD7 /* EntryViewTitle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryViewTitle.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -312,7 +310,6 @@
 		7EF0C171282A407F00C6CDD7 /* Components */ = {
 			isa = PBXGroup;
 			children = (
-				7EF0C16F282A3FC000C6CDD7 /* EntryViewTitle.swift */,
 				7E1672EB282A0970009185B2 /* CurrencyValueInputView.swift */,
 			);
 			path = Components;
@@ -486,7 +483,6 @@
 				7E572F13282910B300DDB15E /* SectionCollapseState.swift in Sources */,
 				7E572F32282910B300DDB15E /* TaxBracket.swift in Sources */,
 				7E572F16282910B300DDB15E /* FederalTaxesListSection.swift in Sources */,
-				7EF0C170282A3FC000C6CDD7 /* EntryViewTitle.swift in Sources */,
 				7E572F15282910B300DDB15E /* Colors.swift in Sources */,
 				7E572F2D282910B300DDB15E /* TaxSummaries.swift in Sources */,
 				7E572F1A282910B300DDB15E /* CurrencyView.swift in Sources */,

@@ -9,7 +9,17 @@ struct StateTaxDataEntryView: View {
     let onRemove: () -> ()
 
     var body: some View {
-        Section(header: Text("State Income \(idx+1)").fontWeight(.bold)) {
+        Section {
+            HStack {
+                Text("State Income \(idx + 1)")
+                    .fontWeight(.bold)
+                Spacer()
+                if idx > 0 {
+                    Button("Remove") {
+                        onRemove()
+                    }
+                }
+            }
             Picker("State", selection: $income.state) {
                 Text("CA").tag(TaxState.CA)
                 Text("NY").tag(TaxState.NY)
@@ -34,10 +44,6 @@ struct StateTaxDataEntryView: View {
             Picker("Local Tax", selection: $income.localTax) {
                 Text("None").tag(LocalTaxType.none)
                 Text("NYC").tag(LocalTaxType.city(.NYC))
-            }
-
-            Button("Remove State Income \(idx+1)") {
-                onRemove()
             }
         }
     }

@@ -5,13 +5,27 @@ import Foundation
 
 struct FormattingHelper {
     static func formattedTitle(taxData: USTaxData) -> String {
-        let additionalTitle = taxData.title.count > 0 ? "- \(taxData.title)" : ""
-        let title = "Year \(taxData.taxYear.rawValue), \(taxData.filingType.rawValue), \(formattedStates(taxData: taxData)) \(additionalTitle)"
+        return formattedTitle(title: taxData.title,
+                              taxyear: taxData.taxYear,
+                              filingType: taxData.filingType,
+                              states: taxData.income.stateIncomes.map { $0.state })
+    }
+
+    static func formattedTitle(taxDataInput: TaxDataInput) -> String {
+        return formattedTitle(title: taxDataInput.title,
+                              taxyear: taxDataInput.taxYear,
+                              filingType: taxDataInput.filingType,
+                              states: taxDataInput.income.stateIncomes.map { $0.state })
+    }
+
+    private static func formattedTitle(title: String, taxyear:TaxYear, filingType:FilingType, states:[TaxState]) -> String {
+        let additionalTitle = title.count > 0 ? "- \(title)" : ""
+        let title = "Year \(taxyear.rawValue), \(filingType.rawValue), \(formattedStates(states: states)) \(additionalTitle)"
         return title.uppercased()
     }
 
-    static func formattedStates(taxData: USTaxData) -> String {
-        return taxData.stateTaxes.map { "\($0.state)" }.joined(separator: "+")
+    static func formattedStates(states:[TaxState]) -> String {
+        return states.map { "\($0)" }.joined(separator: "+")
     }
 
     static func formattedTaxYearShort(taxData: USTaxData) -> String {
