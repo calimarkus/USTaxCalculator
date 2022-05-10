@@ -13,7 +13,7 @@ struct StateTaxDataEntryView: View {
                 Text("CA").tag(TaxState.CA)
                 Text("NY").tag(TaxState.NY)
             }
-            Picker("Wages", selection: $income.wages) {
+            Picker("State Wages", selection: partialIncomePickerBinding()) {
                 Text("Full Federal Amount").tag(IncomeAmount.fullFederal)
                 Text("Partial Amount").tag(IncomeAmount.partial(0.0))
             }.pickerStyle(.inline)
@@ -21,7 +21,7 @@ struct StateTaxDataEntryView: View {
             if case .partial = income.wages {
                 CurrencyValueInputView(caption: "Partial Income",
                                        subtitle: " (W-2, Box 16)",
-                                       amount: partialIncomeBinding())
+                                       amount: partialIncomeValueBinding())
             }
 
             CurrencyValueInputView(caption: "State Withholdings",
@@ -41,7 +41,18 @@ struct StateTaxDataEntryView: View {
         }
     }
 
-    func partialIncomeBinding() -> Binding<Double> {
+    func partialIncomePickerBinding() -> Binding<IncomeAmount> {
+        return Binding {
+            switch self.income.wages {
+                case .fullFederal: return .fullFederal
+                case .partial: return .partial(0.0)
+            }
+        } set: { val in
+            self.income.wages = val
+        }
+    }
+
+    func partialIncomeValueBinding() -> Binding<Double> {
         return Binding {
             switch self.income.wages {
                 case .fullFederal: return 0.0

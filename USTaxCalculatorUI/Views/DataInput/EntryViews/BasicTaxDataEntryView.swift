@@ -20,17 +20,17 @@ struct BasicTaxDataEntryView: View {
                 Text("2020").tag(TaxYear.y2020)
             }
 
-            Picker("Deductions", selection: $input.federalDeductions) {
-                Text("Standard").tag(DeductionAmount.standard(additionalDeductions: 0.0))
-                Text("Custom").tag(DeductionAmount.custom(0.0))
+            Picker("Deductions", selection: deductionPickerBinding()) {
+                Text("Standard deduction + additional amount:").tag(DeductionAmount.standard(additionalDeductions: 0.0))
+                Text("Custom amount:").tag(DeductionAmount.custom(0.0))
             }.pickerStyle(.inline)
 
             if case .standard = input.federalDeductions {
-                CurrencyValueInputView(caption: "Additional deductions",
-                                       amount: deductionBinding(customDeduction:false))
+                CurrencyValueInputView(caption: "",
+                                       amount: deductionValueBinding(customDeduction: false))
             } else {
-                CurrencyValueInputView(caption: "Custom deductions",
-                                       amount: deductionBinding(customDeduction:true))
+                CurrencyValueInputView(caption: "",
+                                       amount: deductionValueBinding(customDeduction: true))
             }
 
             CurrencyValueInputView(caption: "Additional Withholdings",
@@ -41,7 +41,18 @@ struct BasicTaxDataEntryView: View {
         }
     }
 
-    func deductionBinding(customDeduction:Bool) -> Binding<Double> {
+    func deductionPickerBinding() -> Binding<DeductionAmount> {
+        return Binding {
+            switch self.input.federalDeductions {
+                case .standard: return .standard(additionalDeductions: 0.0)
+                case .custom: return .custom(0.0)
+            }
+        } set: { val in
+            self.input.federalDeductions = val
+        }
+    }
+
+    func deductionValueBinding(customDeduction: Bool) -> Binding<Double> {
         return Binding {
             switch self.input.federalDeductions {
                 case let .standard(val): return val
