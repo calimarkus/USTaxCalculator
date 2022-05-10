@@ -12,7 +12,7 @@ struct MainView: View {
             MenuView(dataset: dataset)
             Group {
                 if dataset.showEntryForm {
-                    TaxDataEntryView()
+                    TaxDataEntryView(dataset: dataset)
                 } else if let taxdata = dataset.activeTaxData {
                     TaxDataListView(collapseState: collapseState,
                                     dataset: dataset,

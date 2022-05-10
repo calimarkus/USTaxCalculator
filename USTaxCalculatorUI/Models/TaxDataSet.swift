@@ -28,7 +28,7 @@ class TaxDataSet: ObservableObject {
         return nil
     }
 
-    let taxData: [USTaxData] = [ExampleData.exampleTaxDataJohnAndSarah_21(),
-                                ExampleData.exampleTaxDataJackHouston_21(),
-                                ExampleData.exampleTaxDataJackHouston_20()]
+    @Published var taxData: [USTaxData] = [ExampleData.exampleTaxDataJohnAndSarah_21(),
+                                           ExampleData.exampleTaxDataJackHouston_21(),
+                                           ExampleData.exampleTaxDataJackHouston_20()]
 }

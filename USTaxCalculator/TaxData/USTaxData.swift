@@ -57,7 +57,7 @@ struct USTaxData {
         stateCredits = input.stateCredits
 
         federalDeductions = DeductionAmount.federalAmount(input.federalDeductions, taxYear: taxYear, filingType: filingType)
-        taxableFederalIncome = income.totalIncome - income.longtermCapitalGains - federalDeductions
+        taxableFederalIncome = max(0.0, income.totalIncome - income.longtermCapitalGains - federalDeductions)
 
         // build federal taxes
         allFederalTaxes = try TaxFactory.federalTaxesFor(income: income,

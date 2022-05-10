@@ -5,7 +5,7 @@ import SwiftUI
 
 struct AdditionView: View {
     var title: String
-    let amount: Double
+    let amount: Double?
 
     var body: some View {
         CurrencyView(title: title, amount: amount, isMathValue: true)
@@ -15,7 +15,7 @@ struct AdditionView: View {
 struct SumView: View {
     var title: String
     var secondary: String = ""
-    let amount: Double
+    let amount: Double?
 
     var body: some View {
         CurrencyView(title: title, secondary: secondary, amount: amount, boldValue: true)
@@ -25,7 +25,7 @@ struct SumView: View {
 struct CurrencyView: View {
     var title: String = ""
     var secondary: String = ""
-    var amount: Double = 0.0
+    var amount: Double? = nil
     var isMathValue: Bool = false
     var boldValue: Bool = false
     var infoText: String? = nil
@@ -36,9 +36,10 @@ struct CurrencyView: View {
         return "\(spacing)\(title)\(colon)"
     }
 
-    var amountText: String {
-        let plus = (isMathValue && amount >= 0 ? "+" : "")
-        return "\(plus)\(FormattingHelper.formatCurrency(amount))"
+    func amountText(amount: Double) -> String {
+        let sanitizedAmount = amount == 0.0 ? abs(amount) : amount
+        let plus = (isMathValue && sanitizedAmount > 0 ? "+" : "")
+        return "\(plus)\(FormattingHelper.formatCurrency(sanitizedAmount))"
     }
 
     var body: some View {
@@ -54,8 +55,8 @@ struct CurrencyView: View {
 
             Spacer(minLength: 20)
 
-            if amount != 0.0 {
-                ExplainableValueButton(valueText: amountText,
+            if let amount = amount {
+                ExplainableValueButton(valueText: amountText(amount: amount),
                                        infoText: infoText,
                                        bold: boldValue,
                                        valueColor: isMathValue && amount < 0 ? Color.tax.negativeAmount : nil)
@@ -74,6 +75,8 @@ struct CurrencyView_Previews: PreviewProvider {
                 AdditionView(title: "Gamma", amount: -12.23)
                 SumView(title: "Total", amount: 123.53 + 25.25)
                 CurrencyView(title: "PS", amount: -12.23)
+                CurrencyView(title: "PS", amount: 0.0)
+                AdditionView(title: "Gamma", amount: -0.0)
             }
         }
         .listStyle(.inset(alternatesRowBackgrounds: true))

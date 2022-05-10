@@ -52,7 +52,7 @@ enum TaxFactory {
                                                      taxYear: year,
                                                      state: stateIncome.state,
                                                      filingType: filingType)
-        let taxableIncome = totalIncome + stateIncome.additionalStateIncome - deductions
+        let taxableIncome = max(0.0, totalIncome + stateIncome.additionalStateIncome - deductions)
 
         let brackets = try TaxBracketFactory.stateTaxBracketFor(stateIncome.state, taxYear: year, filingType: filingType, taxableIncome: taxableIncome)
         let bracket = try TaxBracketFactory.findMatchingBracket(brackets, taxableIncome: taxableIncome)

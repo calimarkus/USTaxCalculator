@@ -12,7 +12,7 @@ struct MenuView: View {
 
     var body: some View {
         List(selection: $dataset.selection) {
-            ForEach(0 ..< dataset.taxData.count, id: \.self) { i in
+            ForEach(dataset.taxData.indices, id: \.self) { i in
                 if let taxdata = dataset.taxData[i] {
                     HStack {
                         Label("\(FormattingHelper.formattedShortTitle(taxData: taxdata))",

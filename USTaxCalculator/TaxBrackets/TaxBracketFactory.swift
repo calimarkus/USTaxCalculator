@@ -11,7 +11,7 @@ enum TaxBracketFactory {
     static func findMatchingBracket(_ brackets: [TaxBracket], taxableIncome: Double) throws -> TaxBracket {
         let sortedBrackets = brackets.sorted { $0.startingAt > $1.startingAt }
         let matchingBracket = sortedBrackets.first { bracket in
-            taxableIncome > bracket.startingAt
+            taxableIncome >= bracket.startingAt
         }
 
         if let b = matchingBracket {
