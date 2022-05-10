@@ -15,14 +15,14 @@ enum ExampleData {
     }
 
     static func exampleTaxDataJohnAndSarah_21() -> USTaxData {
-        return try! USTaxData(
+        return try! USTaxData(TaxDataInput(
             title: "John & Sarah",
             filingType: .marriedJointly,
             taxYear: .y2021,
             income: exampleIncomeA_NY_CA(),
             federalDeductions: DeductionAmount.standard(),
             federalCredits: 500,
-            stateCredits: [.NY: 3500])
+            stateCredits: [.NY: 3500]))
     }
 
     private static func exampleIncomeB_NY() -> Income {
@@ -37,13 +37,13 @@ enum ExampleData {
     }
 
     static func exampleTaxDataJackHouston_21() -> USTaxData {
-        return try! USTaxData(
+        return try! USTaxData(TaxDataInput(
             title: "Jack Houston",
             filingType: .single,
             taxYear: .y2021,
             income: exampleIncomeB_NY(),
             federalDeductions: DeductionAmount.standard(),
-            federalCredits: 730)
+            federalCredits: 730))
     }
 
     private static func exampleIncomeC_CA() -> Income {
@@ -58,12 +58,12 @@ enum ExampleData {
     }
 
     static func exampleTaxDataJackHouston_20() -> USTaxData {
-        return try! USTaxData(
+        return try! USTaxData(TaxDataInput(
             title: "Jack Houston",
             filingType: .single,
             taxYear: .y2020,
             income: exampleIncomeC_CA(),
             federalDeductions: DeductionAmount.standard(),
-            stateCredits: [.CA : 250])
+            stateCredits: [.CA: 250]))
     }
 }
