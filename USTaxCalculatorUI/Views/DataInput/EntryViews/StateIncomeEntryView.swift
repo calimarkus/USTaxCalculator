@@ -5,10 +5,11 @@ import SwiftUI
 
 struct StateTaxDataEntryView: View {
     @Binding var income: StateIncome
+    let idx: Int
     let onRemove: () -> ()
 
     var body: some View {
-        Section(header: Text("State Income").fontWeight(.bold)) {
+        Section(header: Text("State Income \(idx+1)").fontWeight(.bold)) {
             Picker("State", selection: $income.state) {
                 Text("CA").tag(TaxState.CA)
                 Text("NY").tag(TaxState.NY)
@@ -35,7 +36,7 @@ struct StateTaxDataEntryView: View {
                 Text("NYC").tag(LocalTaxType.city(.NYC))
             }
 
-            Button("Remove State") {
+            Button("Remove State Income \(idx+1)") {
                 onRemove()
             }
         }
@@ -69,7 +70,8 @@ struct StateTaxDataEntryView_Previews: PreviewProvider {
     static var previews: some View {
         Form {
             StateTaxDataEntryView(income: $stateIncome,
-                                 onRemove: {})
+                                  idx: 0,
+                                  onRemove: {})
         }
         .padding()
     }

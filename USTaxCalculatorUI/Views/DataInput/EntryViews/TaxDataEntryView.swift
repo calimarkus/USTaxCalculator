@@ -22,16 +22,16 @@ struct TaxDataEntryView: View {
                     FederalTaxDataEntryView(income: $input.income)
 
                     // states
-                    ForEach(0 ..< input.income.stateIncomes.count, id: \.self) { i in
-                        StateTaxDataEntryView(income: $input.income.stateIncomes[i]) {
+                    ForEach(input.income.stateIncomes.indices, id: \.self) { i in
+                        StateTaxDataEntryView(income: $input.income.stateIncomes[i], idx: i) {
                             input.income.stateIncomes.remove(at: i)
                         }
                     }
                 }
                 .padding()
             }
-            .frame(minWidth: 500, minHeight: 400)
         }
+        .frame(minWidth: 500, minHeight: 400)
     }
 }
 
