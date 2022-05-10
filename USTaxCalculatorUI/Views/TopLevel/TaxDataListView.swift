@@ -30,7 +30,6 @@ struct TaxDataListView: View {
         }
         .navigationTitle(FormattingHelper.formattedTitle(taxData: taxdata))
         .listStyle(.inset(alternatesRowBackgrounds: true))
-        .environment(\.defaultMinListRowHeight, 0)
         .environment(\.defaultMinListHeaderHeight, 30)
     }
 }
