@@ -8,18 +8,18 @@ struct EmptyView: View {
 
     var body: some View {
         VStack(spacing: 0.0) {
-            Image(systemName: "pencil.circle.fill")
-                .imageScale(.large)
-                .font(.system(size: 42, weight: .bold))
-            Text("Nothing selected.")
-                .padding()
-                .navigationTitle("")
+            Text("Nothing selected")
+                .padding(10.0)
+                .font(.largeTitle)
+                .foregroundColor(.secondary)
+                .opacity(0.5)
             Button {
                 showIncomeEntryPopover.toggle()
             } label: {
                 Text("Add a dataset")
             }.padding()
         }
+        .navigationTitle("")
     }
 }
 
