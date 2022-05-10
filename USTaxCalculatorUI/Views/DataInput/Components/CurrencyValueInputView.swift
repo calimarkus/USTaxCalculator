@@ -35,6 +35,8 @@ struct CurrencyValueInputView_Previews: PreviewProvider {
             CurrencyValueInputView(caption: "Field 2",
                                    subtitle: "(Form XYZ)",
                                    amount: $amountB)
+            CurrencyValueInputView(caption: "",
+                                   amount: $amountA)
         }
         .padding()
     }

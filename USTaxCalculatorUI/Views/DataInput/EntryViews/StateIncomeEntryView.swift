@@ -30,14 +30,25 @@ struct StateTaxDataEntryView: View {
                 Text("CA").tag(TaxState.CA)
                 Text("NY").tag(TaxState.NY)
             }
-            Picker("State Wages", selection: partialIncomePickerBinding()) {
-                Text("Full Federal Amount").tag(IncomeAmount.fullFederal)
-                Text("Partial Amount").tag(IncomeAmount.partial(0.0))
+            Picker(selection: partialIncomePickerBinding()) {
+                HStack {
+                    Text("Full Federal Amount")
+                    Text("(matching W-2, Box 1)")
+                        .font(.footnote)
+                        .foregroundColor(.secondary)
+                }.tag(IncomeAmount.fullFederal)
+                Text("Partial Amount:").tag(IncomeAmount.partial(0.0))
+            } label: {
+                VStack(alignment: .trailing) {
+                    Text("State Wages")
+                    Text("(W-2, Box 16)")
+                        .font(.footnote)
+                        .foregroundColor(.secondary)
+                }
             }.pickerStyle(.inline)
 
             if case .partial = income.wages {
-                CurrencyValueInputView(caption: "Partial Income",
-                                       subtitle: " (W-2, Box 16)",
+                CurrencyValueInputView(caption: "",
                                        amount: partialIncomeValueBinding())
             }
 
