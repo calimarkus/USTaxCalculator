@@ -11,13 +11,19 @@ struct StateTaxDataEntryView: View {
     var body: some View {
         Section {
             HStack {
-                Text("State Income \(idx + 1)")
-                    .fontWeight(.bold)
-                Spacer()
+                let buttonTitle = "State Income \(idx + 1) (\(income.state))"
+                let buttonText = Text(buttonTitle).fontWeight(.bold)
                 if idx > 0 {
-                    Button("Remove") {
+                    Button {
                         onRemove()
+                    } label: {
+                        Image(systemName: "minus.circle.fill")
+                        buttonText
                     }
+                    .buttonStyle(.plain)
+                    .padding(.top, 10.0)
+                } else {
+                    buttonText
                 }
             }
             Picker("State", selection: $income.state) {
@@ -77,6 +83,9 @@ struct StateTaxDataEntryView_Previews: PreviewProvider {
         Form {
             StateTaxDataEntryView(income: $stateIncome,
                                   idx: 0,
+                                  onRemove: {})
+            StateTaxDataEntryView(income: $stateIncome,
+                                  idx: 1,
                                   onRemove: {})
         }
         .padding()
