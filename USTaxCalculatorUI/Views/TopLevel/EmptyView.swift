@@ -14,7 +14,7 @@ struct EmptyView: View {
                 .foregroundColor(.secondary)
                 .opacity(0.5)
             Button {
-                dataset.showEntryForm = true
+                dataset.addNewEntry()
             } label: {
                 Text("Add a new entry")
             }.padding()
@@ -23,7 +23,7 @@ struct EmptyView: View {
         .toolbar {
             ToolbarItem(placement: .status) {
                 Button {
-                    dataset.showEntryForm = true
+                    dataset.addNewEntry()
                 } label: {
                     Image(systemName: "plus")
                 }

@@ -21,6 +21,11 @@ struct MenuView: View {
                             .foregroundColor(.secondary)
                             .font(.subheadline)
                     }
+                    .contextMenu {
+                        Button("Edit") {
+                            dataset.editEntry(index: i)
+                        }
+                    }
                 }
             }
         }

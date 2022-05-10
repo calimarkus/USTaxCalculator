@@ -33,7 +33,7 @@ struct StateEntryTab: View {
 }
 
 struct StateEntryTab_Previews: PreviewProvider {
-    @State static var input: TaxDataInput = .init(income: Income(stateIncomes: [StateIncome(), StateIncome()]))
+    @State static var input: TaxDataInput = .emptyInput()
 
     static var previews: some View {
         TabView {

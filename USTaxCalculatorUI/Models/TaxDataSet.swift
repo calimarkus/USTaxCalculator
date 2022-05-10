@@ -8,6 +8,7 @@ class TaxDataSet: ObservableObject {
         didSet {
             if !selection.isEmpty {
                 showEntryForm = false
+                editingIndex = nil
             }
         }
     }
@@ -17,6 +18,26 @@ class TaxDataSet: ObservableObject {
             if showEntryForm {
                 selection = []
             }
+        }
+    }
+
+    @Published var editingIndex: Int?
+
+    func addNewEntry() {
+        editingIndex = nil
+        showEntryForm = true
+    }
+
+    func editEntry(index: Int) {
+        editingIndex = index
+        showEntryForm = true
+    }
+
+    var taxDataInputForEditing: TaxDataInput {
+        if let index = editingIndex {
+            return taxData[index].input
+        } else {
+            return .emptyInput()
         }
     }
 

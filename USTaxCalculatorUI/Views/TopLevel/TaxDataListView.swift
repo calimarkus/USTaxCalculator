@@ -42,7 +42,7 @@ struct TaxDataListView: View {
             }
             ToolbarItem(placement: .status) {
                 Button {
-                    dataset.showEntryForm = true
+                    dataset.addNewEntry()
                 } label: {
                     Image(systemName: "plus")
                 }

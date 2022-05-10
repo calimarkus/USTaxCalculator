@@ -19,7 +19,7 @@ struct TaxDataInput {
     /// the tax year for these taxes
     var taxYear: TaxYear = .y2021
     /// The Income to use in the calculations
-    var income: Income = Income()
+    var income: Income = .init()
 
     /// Federal deductions that apply.
     var federalDeductions: DeductionAmount = .standard()
@@ -33,6 +33,10 @@ struct TaxDataInput {
     var federalCredits: Double = 0.0
     /// Tax credits that apply to your state taxes
     var stateCredits: [TaxState: Double] = [:]
+
+    static func emptyInput() -> TaxDataInput {
+        return .init(income: Income(stateIncomes: [StateIncome()]))
+    }
 }
 
 struct USTaxData {
@@ -49,12 +53,15 @@ struct USTaxData {
     let stateCredits: [TaxState: Double]
     let taxSummaries: TaxSummaries
 
+    let input: TaxDataInput
+
     init(_ input: TaxDataInput) throws {
         title = input.title
         filingType = input.filingType
         taxYear = input.taxYear
         income = input.income
         stateCredits = input.stateCredits
+        self.input = input
 
         federalDeductions = DeductionAmount.federalAmount(input.federalDeductions, taxYear: taxYear, filingType: filingType)
         taxableFederalIncome = max(0.0, income.totalIncome - income.longtermCapitalGains - federalDeductions)
