@@ -42,7 +42,7 @@ struct TaxDataListView: View {
             }
             ToolbarItem(placement: .status) {
                 Button {
-                    appState.addNewEntry()
+                    appState.navigationState = .addNewEntry
                 } label: {
                     Image(systemName: "plus")
                 }

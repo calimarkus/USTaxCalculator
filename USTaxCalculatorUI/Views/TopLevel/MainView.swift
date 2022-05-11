@@ -11,15 +11,21 @@ struct MainView: View {
         NavigationView {
             MenuView(appState: appState)
             Group {
-                if appState.showEntryForm {
-                    TaxDataEntryView(appState: appState,
-                                     input: appState.taxDataInputForEditing)
-                } else if let taxdata = appState.activeTaxData {
-                    TaxDataListView(collapseState: collapseState,
-                                    appState: appState,
-                                    taxdata: taxdata)
-                } else {
-                    EmptyView(appState: appState)
+                switch appState.navigationState {
+                    case .empty:
+                        EmptyView(appState: appState)
+                    case .addNewEntry:
+                        TaxDataEntryView(appState: appState)
+                    case .entry(let entryIndex, let isEditing):
+                        if isEditing {
+                            TaxDataEntryView(appState: appState,
+                                             input: appState.taxdata[entryIndex].input,
+                                             isEditing: isEditing)
+                        } else {
+                            TaxDataListView(collapseState: collapseState,
+                                            appState: appState,
+                                            taxdata: appState.taxdata[entryIndex])
+                        }
                 }
             }
             .frame(minWidth: 400.0, minHeight: 400.0)

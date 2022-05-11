@@ -11,9 +11,9 @@ struct MenuView: View {
     @ObservedObject var appState: GlobalAppState
 
     var body: some View {
-        List(selection: $appState.selection) {
-            ForEach(appState.taxData.indices, id: \.self) { i in
-                if let taxdata = appState.taxData[i] {
+        List(selection: appState.selectionBinding()) {
+            ForEach(appState.taxdata.indices, id: \.self) { i in
+                if let taxdata = appState.taxdata[i] {
                     HStack {
                         Label(title: {
                             VStack(alignment: .leading) {
@@ -28,7 +28,7 @@ struct MenuView: View {
                     }
                     .contextMenu {
                         Button("Edit") {
-                            appState.editEntry(index: i)
+                            appState.navigationState = .entry(entryIndex: i, isEditing: true)
                         }
                     }
                 }

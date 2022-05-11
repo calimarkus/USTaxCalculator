@@ -14,7 +14,7 @@ struct EmptyView: View {
                 .foregroundColor(.secondary)
                 .opacity(0.5)
             Button {
-                appState.addNewEntry()
+                appState.navigationState = .addNewEntry
             } label: {
                 Text("Add a new entry")
             }.padding()
@@ -23,7 +23,7 @@ struct EmptyView: View {
         .toolbar {
             ToolbarItem(placement: .status) {
                 Button {
-                    appState.addNewEntry()
+                    appState.navigationState = .addNewEntry
                 } label: {
                     Image(systemName: "plus")
                 }

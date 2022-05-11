@@ -6,6 +6,7 @@ import SwiftUI
 struct TaxDataEntryView: View {
     @ObservedObject var appState: GlobalAppState
     @State var input: TaxDataInput = .emptyInput()
+    @State var isEditing: Bool = false
 
     var body: some View {
         TabView {
@@ -26,14 +27,7 @@ struct TaxDataEntryView: View {
                 Button {
                     do {
                         let taxdata = try USTaxData(input)
-                        if let editingIndex = appState.editingIndex {
-                            appState.taxData.remove(at: editingIndex)
-                            appState.taxData.insert(taxdata, at: editingIndex)
-                            appState.selection = [editingIndex]
-                        } else {
-                            appState.taxData.append(taxdata)
-                            appState.selection = [appState.taxData.count - 1]
-                        }
+                        appState.saveData(taxdata)
                     } catch {
                         // TBD - handle invalid inputs
                     }

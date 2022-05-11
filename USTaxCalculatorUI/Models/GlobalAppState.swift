@@ -3,53 +3,38 @@
 
 import Foundation
 
+enum NavigationState {
+    case empty
+    case addNewEntry
+    case entry(entryIndex: Int, isEditing: Bool = false)
+}
+
 class GlobalAppState: ObservableObject {
-    @Published var selection: Set<Int> = [0] {
-        didSet {
-            if !selection.isEmpty {
-                showEntryForm = false
-                editingIndex = nil
-            }
+    @Published var taxdata: [USTaxData]
+    @Published var navigationState: NavigationState
+
+    init() {
+        let data = [ExampleData.exampleTaxDataJohnAndSarah_21(),
+                    ExampleData.exampleTaxDataJackHouston_21(),
+                    ExampleData.exampleTaxDataJackHouston_20()]
+
+        taxdata = data
+        navigationState = .entry(entryIndex: 0, isEditing: false)
+    }
+
+    func saveData(_ newData: USTaxData) {
+        switch navigationState {
+            case .empty:
+                break
+            case .addNewEntry:
+                taxdata.append(newData)
+                navigationState = .entry(entryIndex: taxdata.count - 1)
+            case .entry(let entryIndex, let isEditing):
+                if isEditing {
+                    taxdata.remove(at: entryIndex)
+                    taxdata.insert(newData, at: entryIndex)
+                    navigationState = .entry(entryIndex: entryIndex)
+                }
         }
     }
-
-    @Published var showEntryForm: Bool = false {
-        didSet {
-            if showEntryForm {
-                selection = []
-            }
-        }
-    }
-
-    @Published var editingIndex: Int?
-
-    func addNewEntry() {
-        editingIndex = nil
-        showEntryForm = true
-    }
-
-    func editEntry(index: Int) {
-        editingIndex = index
-        showEntryForm = true
-    }
-
-    var taxDataInputForEditing: TaxDataInput {
-        if let index = editingIndex {
-            return taxData[index].input
-        } else {
-            return .emptyInput()
-        }
-    }
-
-    var activeTaxData: USTaxData? {
-        if !showEntryForm, let idx = selection.first {
-            return taxData[idx]
-        }
-
-        return nil
-    }
-
-    @Published var taxData: [USTaxData] = [ExampleData.exampleTaxDataJohnAndSarah_21(),
-                                           ExampleData.exampleTaxDataJackHouston_21(),
-                                           ExampleData.exampleTaxDataJackHouston_20()]
 }
