@@ -19,8 +19,7 @@ struct MainView: View {
                     case .entry(let entryIndex, let isEditing):
                         if isEditing {
                             TaxDataEntryView(appState: appState,
-                                             input: appState.taxdata[entryIndex].input,
-                                             isEditing: isEditing)
+                                             input: appState.taxdata[entryIndex].input)
                         } else if appState.taxdata.count > entryIndex {
                             TaxDataListView(collapseState: collapseState,
                                             appState: appState,

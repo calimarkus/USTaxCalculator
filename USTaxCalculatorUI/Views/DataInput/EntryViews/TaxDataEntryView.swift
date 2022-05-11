@@ -6,7 +6,6 @@ import SwiftUI
 struct TaxDataEntryView: View {
     @ObservedObject var appState: GlobalAppState
     @State var input: TaxDataInput = .emptyInput()
-    @State var isEditing: Bool = false
 
     var body: some View {
         TabView {
