@@ -26,6 +26,9 @@ struct MenuView: View {
                         Button("Edit") {
                             appState.navigationState = .entry(entryIndex: i, isEditing: true)
                         }
+                        Button("Delete", role: .destructive) {
+                            appState.taxdata.remove(at: i)
+                        }
                     }
                 }
             }

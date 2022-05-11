@@ -21,10 +21,12 @@ struct MainView: View {
                             TaxDataEntryView(appState: appState,
                                              input: appState.taxdata[entryIndex].input,
                                              isEditing: isEditing)
-                        } else {
+                        } else if appState.taxdata.count > entryIndex {
                             TaxDataListView(collapseState: collapseState,
                                             appState: appState,
                                             taxdata: appState.taxdata[entryIndex])
+                        } else {
+                            EmptyView(appState: appState)
                         }
                 }
             }
