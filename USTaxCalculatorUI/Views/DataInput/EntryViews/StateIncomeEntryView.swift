@@ -74,31 +74,11 @@ struct StateIncomeEntryView: View {
                                    amount: $stateIncome.withholdings)
 
             CurrencyValueInputView(caption: "Tax Credits",
-                                   amount: stateCreditsBinding($input.stateCredits,
-                                                               for: stateIncome.state))
+                                   amount: TaxDataInput.stateCreditsBinding($input.stateCredits,
+                                                                            for: stateIncome.state))
 
-            DeductionsPickerView(deductions: stateDeductionsBinding($input.stateDeductions, for: stateIncome.state))
+            DeductionsPickerView(deductions: TaxDataInput.stateDeductionsBinding($input.stateDeductions, for: stateIncome.state))
         }
-    }
-
-    func stateDeductionsBinding(_ stateDeductions: Binding<[TaxState: DeductionAmount]>,
-                                for state: TaxState) -> Binding<DeductionAmount>
-    {
-        return Binding(get: {
-            stateDeductions.wrappedValue[state, default: DeductionAmount.standard(additionalDeductions: 0.0)]
-        }, set: {
-            stateDeductions.wrappedValue[state] = $0
-        })
-    }
-
-    func stateCreditsBinding(_ stateCredits: Binding<[TaxState: Double]>,
-                             for state: TaxState) -> Binding<Double>
-    {
-        return Binding(get: {
-            stateCredits.wrappedValue[state, default: 0.0]
-        }, set: {
-            stateCredits.wrappedValue[state] = $0
-        })
     }
 }
 
