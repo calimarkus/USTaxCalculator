@@ -15,11 +15,16 @@ struct MenuView: View {
             ForEach(appState.taxData.indices, id: \.self) { i in
                 if let taxdata = appState.taxData[i] {
                     HStack {
-                        Label("\(FormattingHelper.formattedShortTitle(taxData: taxdata))",
-                              systemImage: "dollarsign.circle.fill").tag(i)
-                        Text("(\(FormattingHelper.formattedStates(states: taxdata.stateTaxes.map { $0.state })), \(FormattingHelper.formattedTaxYearShort(taxData: taxdata)))")
-                            .foregroundColor(.secondary)
-                            .font(.subheadline)
+                        Label(title: {
+                            VStack(alignment: .leading) {
+                                Text(titleForTaxdata(taxdata: taxdata))
+                                Text(infoTextForTaxdata(taxdata: taxdata))
+                                    .foregroundColor(.secondary)
+                                    .font(.subheadline)
+                            }
+                        }, icon: {
+                            Image(systemName: "dollarsign.circle.fill")
+                        }).tag(i)
                     }
                     .contextMenu {
                         Button("Edit") {
@@ -30,6 +35,16 @@ struct MenuView: View {
             }
         }
         .listStyle(SidebarListStyle())
+    }
+
+    func titleForTaxdata(taxdata: USTaxData) -> String {
+        return (FormattingHelper.formattedShortTitle(taxData: taxdata))
+    }
+
+    func infoTextForTaxdata(taxdata: USTaxData) -> String {
+        let states = FormattingHelper.formattedStates(states: taxdata.stateTaxes.map { $0.state })
+        let taxyear = FormattingHelper.formattedTaxYearShort(taxData: taxdata)
+        return "\(states), \(taxyear)"
     }
 }
 
