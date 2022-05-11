@@ -35,5 +35,6 @@ struct StateEntryTab_Previews: PreviewProvider {
     static var previews: some View {
         StateEntryTab(input: $input)
             .padding()
+            .frame(height: 600)
     }
 }

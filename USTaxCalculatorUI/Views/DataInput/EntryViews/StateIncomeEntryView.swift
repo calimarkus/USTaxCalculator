@@ -10,34 +10,34 @@ struct StateIncomeEntryView: View {
     let idx: Int
 
     var body: some View {
-        Section {
-            HStack {
-                let buttonTitle = "State Income \(idx + 1) (\(stateIncome.state))"
-                let buttonText = Text(buttonTitle).fontWeight(.bold)
-                if idx > 0 {
-                    Button {
-                        input.income.stateIncomes.remove(at: idx)
-                    } label: {
-                        Image(systemName: "minus.circle.fill")
-                        buttonText
-                    }
-                    .buttonStyle(.plain)
-                    .padding(.top, 10.0)
-                } else {
+        HStack {
+            let buttonTitle = "\(stateIncome.state) Taxes"
+            let buttonText = Text(buttonTitle).fontWeight(.bold)
+            if idx > 0 {
+                Button {
+                    input.income.stateIncomes.remove(at: idx)
+                } label: {
+                    Image(systemName: "minus.circle.fill")
                     buttonText
                 }
+                .buttonStyle(.plain)
+                .padding(.top, 10.0)
+            } else {
+                buttonText
             }
+        }.padding(.top, idx == 0 ? 0 : 20.0)
 
-            Picker("State", selection: $stateIncome.state) {
-                Text("CA").tag(TaxState.CA)
-                Text("NY").tag(TaxState.NY)
-            }
+        Picker("State", selection: $stateIncome.state) {
+            Text("CA").tag(TaxState.CA)
+            Text("NY").tag(TaxState.NY)
+        }
 
-            Picker("Local Tax", selection: $stateIncome.localTax) {
-                Text("None").tag(LocalTaxType.none)
-                Text("NYC").tag(LocalTaxType.city(.NYC))
-            }
+        Picker("Local Tax", selection: $stateIncome.localTax) {
+            Text("None").tag(LocalTaxType.none)
+            Text("NYC").tag(LocalTaxType.city(.NYC))
+        }
 
+        Section(header: Text("Income").fontWeight(.bold)) {
             Picker(selection: IncomeAmount.pickerSelectionBinding($stateIncome.wages)) {
                 HStack {
                     Text("Full Federal Amount")
@@ -62,7 +62,9 @@ struct StateIncomeEntryView: View {
                 CurrencyValueInputView(caption: "",
                                        amount: IncomeAmount.partialValueBinding($stateIncome.wages))
             }
+        }
 
+        Section(header: Text("Tax Reductions").fontWeight(.bold)) {
             CurrencyValueInputView(caption: "Withholdings",
                                    subtitle: " (W-2, Box 17)",
                                    amount: $stateIncome.withholdings)
@@ -109,6 +111,6 @@ struct StateIncomeEntryView_Previews: PreviewProvider {
                                  idx: 1)
         }
         .padding()
-        .frame(height: 600)
+        .frame(height: 800)
     }
 }
