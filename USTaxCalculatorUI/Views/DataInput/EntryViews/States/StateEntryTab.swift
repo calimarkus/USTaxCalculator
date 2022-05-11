@@ -10,7 +10,7 @@ struct StateEntryTab: View {
         ScrollView {
             Form {
                 ForEach(input.income.stateIncomes.indices, id: \.self) { i in
-                    StateIncomeEntryView(input: $input,
+                    SingleStateEntryView(input: $input,
                                          stateIncome: $input.income.stateIncomes[i],
                                          idx: i)
                 }

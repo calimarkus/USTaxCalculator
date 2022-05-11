@@ -7,7 +7,7 @@ struct FederalTaxDataEntryView: View {
     @Binding var income: Income
 
     var body: some View {
-        Spacer(minLength: 20.0)
+        Spacer().frame(height: 20.0)
         Section(header: Text("W-2 Income").fontWeight(.bold)) {
             CurrencyValueInputView(caption: "Wages",
                                    subtitle: " (W-2, Box 1)",
@@ -20,7 +20,7 @@ struct FederalTaxDataEntryView: View {
                                    amount: $income.federalWithholdings)
         }
 
-        Spacer(minLength: 20.0)
+        Spacer().frame(height: 20.0)
         Section(header: Text("Investment Income").fontWeight(.bold)) {
             CurrencyValueInputView(caption: "Dividends & Interests",
                                    subtitle: "(Forms 1099-INT, 1099-DIV)",

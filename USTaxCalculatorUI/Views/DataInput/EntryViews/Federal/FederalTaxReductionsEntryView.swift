@@ -3,11 +3,11 @@
 
 import SwiftUI
 
-struct TaxReductionsEntryView: View {
+struct FederalTaxReductionsEntryView: View {
     @Binding var input: TaxDataInput
 
     var body: some View {
-        Spacer(minLength: 20.0)
+        Spacer().frame(height: 20.0)
         Section(header: Text("Tax Reductions").fontWeight(.bold)) {
             DeductionsPickerView(deductions: $input.federalDeductions)
             CurrencyValueInputView(caption: "Tax Credits",
@@ -19,12 +19,12 @@ struct TaxReductionsEntryView: View {
     }
 }
 
-struct TaxReductionsEntryView_Previews: PreviewProvider {
+struct FederalTaxReductionsEntryView_Previews: PreviewProvider {
     @State static var input: TaxDataInput = .init()
 
     static var previews: some View {
         Form {
-            TaxReductionsEntryView(input: $input)
+            FederalTaxReductionsEntryView(input: $input)
         }.padding()
     }
 }

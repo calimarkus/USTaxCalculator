@@ -11,7 +11,7 @@ struct FederalEntryTab: View {
             Form {
                 BasicTaxDataEntryView(input: $input)
                 FederalTaxDataEntryView(income: $input.income)
-                TaxReductionsEntryView(input: $input)
+                FederalTaxReductionsEntryView(input: $input)
             }
             .frame(maxWidth: 500)
             .padding()
