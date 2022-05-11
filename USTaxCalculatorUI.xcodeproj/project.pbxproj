@@ -12,6 +12,8 @@
 		7E05977B282B45EB0067DB7D /* DeductionsPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E05977A282B45EB0067DB7D /* DeductionsPickerView.swift */; };
 		7E05977D282B4AE50067DB7D /* FederalTaxReductionsEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E05977C282B4AE50067DB7D /* FederalTaxReductionsEntryView.swift */; };
 		7E107F54282B9A5E00E2B64A /* GlobalAppStateSelectionBinding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E107F53282B9A5E00E2B64A /* GlobalAppStateSelectionBinding.swift */; };
+		7E107F56282BC32000E2B64A /* StateTitleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E107F55282BC32000E2B64A /* StateTitleButton.swift */; };
+		7E107F58282BC6C000E2B64A /* AddStateButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E107F57282BC6C000E2B64A /* AddStateButton.swift */; };
 		7E1672EC282A0970009185B2 /* CurrencyValueInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E1672EB282A0970009185B2 /* CurrencyValueInputView.swift */; };
 		7E1672EE282A3341009185B2 /* FederalIncomeEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E1672ED282A3341009185B2 /* FederalIncomeEntryView.swift */; };
 		7E5074CF282B7BDD000C4398 /* TaxDataInputBindings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E5074CE282B7BDD000C4398 /* TaxDataInputBindings.swift */; };
@@ -33,7 +35,6 @@
 		7E572F1C282910B300DDB15E /* ExplainableValueButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E572EEE282910B300DDB15E /* ExplainableValueButton.swift */; };
 		7E572F1D282910B300DDB15E /* ExportAsTextButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E572EEF282910B300DDB15E /* ExportAsTextButton.swift */; };
 		7E572F1E282910B300DDB15E /* TaxDataEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E572EF1282910B300DDB15E /* TaxDataEntryView.swift */; };
-		7E572F1F282910B300DDB15E /* SingleStateEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E572EF2282910B300DDB15E /* SingleStateEntryView.swift */; };
 		7E572F20282910B300DDB15E /* CollapsableSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E572EF4282910B300DDB15E /* CollapsableSection.swift */; };
 		7E572F21282910B300DDB15E /* EmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E572EF6282910B300DDB15E /* EmptyView.swift */; };
 		7E572F22282910B300DDB15E /* TaxDataListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E572EF7282910B300DDB15E /* TaxDataListView.swift */; };
@@ -81,6 +82,8 @@
 		7E05977A282B45EB0067DB7D /* DeductionsPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeductionsPickerView.swift; sourceTree = "<group>"; };
 		7E05977C282B4AE50067DB7D /* FederalTaxReductionsEntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FederalTaxReductionsEntryView.swift; sourceTree = "<group>"; };
 		7E107F53282B9A5E00E2B64A /* GlobalAppStateSelectionBinding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalAppStateSelectionBinding.swift; sourceTree = "<group>"; };
+		7E107F55282BC32000E2B64A /* StateTitleButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateTitleButton.swift; sourceTree = "<group>"; };
+		7E107F57282BC6C000E2B64A /* AddStateButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddStateButton.swift; sourceTree = "<group>"; };
 		7E1672EB282A0970009185B2 /* CurrencyValueInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyValueInputView.swift; sourceTree = "<group>"; };
 		7E1672ED282A3341009185B2 /* FederalIncomeEntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FederalIncomeEntryView.swift; sourceTree = "<group>"; };
 		7E5074CE282B7BDD000C4398 /* TaxDataInputBindings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaxDataInputBindings.swift; sourceTree = "<group>"; };
@@ -103,7 +106,6 @@
 		7E572EEE282910B300DDB15E /* ExplainableValueButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExplainableValueButton.swift; sourceTree = "<group>"; };
 		7E572EEF282910B300DDB15E /* ExportAsTextButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExportAsTextButton.swift; sourceTree = "<group>"; };
 		7E572EF1282910B300DDB15E /* TaxDataEntryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaxDataEntryView.swift; sourceTree = "<group>"; };
-		7E572EF2282910B300DDB15E /* SingleStateEntryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SingleStateEntryView.swift; sourceTree = "<group>"; };
 		7E572EF4282910B300DDB15E /* CollapsableSection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollapsableSection.swift; sourceTree = "<group>"; };
 		7E572EF6282910B300DDB15E /* EmptyView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmptyView.swift; sourceTree = "<group>"; };
 		7E572EF7282910B300DDB15E /* TaxDataListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaxDataListView.swift; sourceTree = "<group>"; };
@@ -171,7 +173,8 @@
 			isa = PBXGroup;
 			children = (
 				7ED9F867282A82CD007A5CE5 /* StateEntryTab.swift */,
-				7E572EF2282910B300DDB15E /* SingleStateEntryView.swift */,
+				7E107F57282BC6C000E2B64A /* AddStateButton.swift */,
+				7E107F55282BC32000E2B64A /* StateTitleButton.swift */,
 				7E5074D2282B7CD6000C4398 /* BasicStateInfoEntryView.swift */,
 				7E5074D4282B7E2B000C4398 /* StateIncomeEntryView.swift */,
 				7E5074D6282B7F28000C4398 /* StateTaxReductionsEntryView.swift */,
@@ -205,11 +208,11 @@
 		7E572EE5282910B300DDB15E /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				7E572EF5282910B300DDB15E /* TopLevel */,
 				7E572EE6282910B300DDB15E /* TaxDataList */,
 				7E572EEC282910B300DDB15E /* Buttons */,
 				7E572EF0282910B300DDB15E /* DataInput */,
 				7E572EF3282910B300DDB15E /* Generic Views */,
-				7E572EF5282910B300DDB15E /* TopLevel */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -513,7 +516,6 @@
 				7E572F1E282910B300DDB15E /* TaxDataEntryView.swift in Sources */,
 				7E572F23282910B300DDB15E /* MainView.swift in Sources */,
 				7E572F25282910B300DDB15E /* USTaxData.swift in Sources */,
-				7E572F1F282910B300DDB15E /* SingleStateEntryView.swift in Sources */,
 				7E059779282B43A70067DB7D /* IncomeAmountBindings.swift in Sources */,
 				7E572F2E282910B300DDB15E /* Tax.swift in Sources */,
 				7E572F29282910B300DDB15E /* StateIncome.swift in Sources */,
@@ -540,12 +542,14 @@
 				7E572F16282910B300DDB15E /* FederalTaxesListSection.swift in Sources */,
 				7E572F15282910B300DDB15E /* Colors.swift in Sources */,
 				7E572F2D282910B300DDB15E /* TaxSummaries.swift in Sources */,
+				7E107F58282BC6C000E2B64A /* AddStateButton.swift in Sources */,
 				7E5074D7282B7F28000C4398 /* StateTaxReductionsEntryView.swift in Sources */,
 				7E572F1A282910B300DDB15E /* CurrencyView.swift in Sources */,
 				7E5074D5282B7E2B000C4398 /* StateIncomeEntryView.swift in Sources */,
 				7E1672EE282A3341009185B2 /* FederalIncomeEntryView.swift in Sources */,
 				7E5074D3282B7CD6000C4398 /* BasicStateInfoEntryView.swift in Sources */,
 				7E572F1C282910B300DDB15E /* ExplainableValueButton.swift in Sources */,
+				7E107F56282BC32000E2B64A /* StateTitleButton.swift in Sources */,
 				7E05977B282B45EB0067DB7D /* DeductionsPickerView.swift in Sources */,
 				7E059777282B37910067DB7D /* DeductionAmountBindings.swift in Sources */,
 				7E572F2F282910B300DDB15E /* TaxFactory.swift in Sources */,

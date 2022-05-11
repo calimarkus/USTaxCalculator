@@ -10,19 +10,22 @@ struct StateEntryTab: View {
         ScrollView {
             Form {
                 ForEach(input.income.stateIncomes.indices, id: \.self) { i in
-                    SingleStateEntryView(input: $input,
-                                         stateIncome: $input.income.stateIncomes[i],
-                                         idx: i)
+                    if i > 0 {
+                        Spacer().frame(height: 20.0)
+                    }
+
+                    let stateIncome = $input.income.stateIncomes[i]
+                    StateTitleButton(stateIncome: stateIncome,
+                                     showRemoveButton: i > 0) {
+                        input.income.stateIncomes.remove(at: i)
+                    }
+                    BasicStateInfoEntryView(stateIncome: stateIncome)
+                    StateIncomeEntryView(stateIncome: stateIncome)
+                    StateTaxReductionsEntryView(input: $input, stateIncome: stateIncome)
                 }
-                Button {
+                AddStateButton {
                     input.income.stateIncomes.append(StateIncome())
-                } label: {
-                    Image(systemName: "plus.circle.fill")
-                    Text("Add State")
-                        .fontWeight(.bold)
                 }
-                .buttonStyle(.plain)
-                .padding(.top, 10.0)
             }
             .frame(maxWidth: 500)
             .padding()
@@ -31,11 +34,11 @@ struct StateEntryTab: View {
 }
 
 struct StateEntryTab_Previews: PreviewProvider {
-    @State static var input: TaxDataInput = .emptyInput()
+    @State static var input: TaxDataInput = TaxDataInput(income:Income(stateIncomes:[StateIncome(), StateIncome()]))
 
     static var previews: some View {
         StateEntryTab(input: $input)
             .padding()
-            .frame(height: 600)
+            .frame(height: 900)
     }
 }

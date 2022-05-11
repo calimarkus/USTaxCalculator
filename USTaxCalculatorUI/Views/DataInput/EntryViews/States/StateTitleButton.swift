@@ -1,0 +1,42 @@
+//
+//
+
+import SwiftUI
+
+struct StateTitleButton: View {
+    @Binding var stateIncome: StateIncome
+    let showRemoveButton: Bool
+    let onRemove: () -> ()
+
+    var body: some View {
+        HStack {
+            let buttonTitle = "\(stateIncome.state) Taxes"
+            let titleView = Text(buttonTitle).fontWeight(.bold)
+            if showRemoveButton {
+                Button {
+                    onRemove()
+                } label: {
+                    Image(systemName: "minus.circle.fill")
+                    titleView
+                }
+                .buttonStyle(.plain)
+                .padding(.top, 10.0)
+            } else {
+                titleView
+            }
+        }
+    }
+}
+
+struct StateTitleButton_Previews: PreviewProvider {
+    @State static var stateIncome: StateIncome = .init()
+
+    static var previews: some View {
+        VStack(alignment: .leading) {
+            StateTitleButton(stateIncome: $stateIncome,
+                             showRemoveButton: false) {}
+            StateTitleButton(stateIncome: $stateIncome,
+                             showRemoveButton: true) {}
+        }.padding()
+    }
+}

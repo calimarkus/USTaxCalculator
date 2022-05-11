@@ -27,13 +27,13 @@ struct StateIncomeEntryView: View {
                 }
             }.pickerStyle(.inline)
 
-            CurrencyValueInputView(caption: "Additional State Income",
-                                   amount: $stateIncome.additionalStateIncome)
-
             if case .partial = stateIncome.wages {
                 CurrencyValueInputView(caption: "",
                                        amount: IncomeAmount.partialValueBinding($stateIncome.wages))
             }
+
+            CurrencyValueInputView(caption: "Additional State Income",
+                                   amount: $stateIncome.additionalStateIncome)
         }
     }
 }
