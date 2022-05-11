@@ -10,7 +10,13 @@ struct TaxDataEntryView: View {
     var body: some View {
         TabView {
             FederalEntryTab(input: $input)
+                .tabItem {
+                    Text("Federal Income")
+                }
             StateEntryTab(input: $input)
+                .tabItem {
+                    Text("State Income")
+                }
         }
         .padding()
         .frame(minWidth: 500, minHeight: 400)

@@ -14,9 +14,6 @@ struct FederalEntryTab: View {
             }
             .padding()
         }
-        .tabItem {
-            Text("Federal Income")
-        }
     }
 }
 
@@ -24,10 +21,8 @@ struct FederalEntryTab_Previews: PreviewProvider {
     @State static var input: TaxDataInput = .init()
 
     static var previews: some View {
-        TabView {
-            FederalEntryTab(input: $input)
-        }
-        .padding()
-        .frame(height: 640.0)
+        FederalEntryTab(input: $input)
+            .padding()
+            .frame(height: 600.0)
     }
 }

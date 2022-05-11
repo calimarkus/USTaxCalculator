@@ -26,9 +26,6 @@ struct StateEntryTab: View {
             }
             .padding()
         }
-        .tabItem {
-            Text("State Income")
-        }
     }
 }
 
@@ -36,10 +33,7 @@ struct StateEntryTab_Previews: PreviewProvider {
     @State static var input: TaxDataInput = .emptyInput()
 
     static var previews: some View {
-        TabView {
-            StateEntryTab(input: $input)
-        }
-        .padding()
-        .frame(height: 640.0)
+        StateEntryTab(input: $input)
+            .padding()
     }
 }
