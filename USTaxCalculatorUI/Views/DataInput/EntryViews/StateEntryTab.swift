@@ -10,9 +10,9 @@ struct StateEntryTab: View {
         ScrollView {
             Form {
                 ForEach(input.income.stateIncomes.indices, id: \.self) { i in
-                    StateTaxDataEntryView(income: $input.income.stateIncomes[i], idx: i) {
-                        input.income.stateIncomes.remove(at: i)
-                    }
+                    StateIncomeEntryView(input: $input,
+                                          stateIncome: $input.income.stateIncomes[i],
+                                          idx: i)
                 }
                 Button {
                     input.income.stateIncomes.append(StateIncome())

@@ -3,19 +3,20 @@
 
 import SwiftUI
 
-struct StateTaxDataEntryView: View {
-    @Binding var income: StateIncome
+struct StateIncomeEntryView: View {
+    @Binding var input: TaxDataInput
+    @Binding var stateIncome: StateIncome
+
     let idx: Int
-    let onRemove: () -> ()
 
     var body: some View {
         Section {
             HStack {
-                let buttonTitle = "State Income \(idx + 1) (\(income.state))"
+                let buttonTitle = "State Income \(idx + 1) (\(stateIncome.state))"
                 let buttonText = Text(buttonTitle).fontWeight(.bold)
                 if idx > 0 {
                     Button {
-                        onRemove()
+                        input.income.stateIncomes.remove(at: idx)
                     } label: {
                         Image(systemName: "minus.circle.fill")
                         buttonText
@@ -26,11 +27,13 @@ struct StateTaxDataEntryView: View {
                     buttonText
                 }
             }
-            Picker("State", selection: $income.state) {
+
+            Picker("State", selection: $stateIncome.state) {
                 Text("CA").tag(TaxState.CA)
                 Text("NY").tag(TaxState.NY)
             }
-            Picker(selection: IncomeAmount.pickerSelectionBinding($income.wages)) {
+
+            Picker(selection: IncomeAmount.pickerSelectionBinding($stateIncome.wages)) {
                 HStack {
                     Text("Full Federal Amount")
                     Text("(matching W-2, Box 1)")
@@ -40,25 +43,25 @@ struct StateTaxDataEntryView: View {
                 Text("Partial Amount:").tag(IncomeAmount.partial(0.0))
             } label: {
                 VStack(alignment: .trailing) {
-                    Text("State Wages")
+                    Text("Wages")
                     Text("(W-2, Box 16)")
                         .font(.footnote)
                         .foregroundColor(.secondary)
                 }
             }.pickerStyle(.inline)
 
-            if case .partial = income.wages {
+            if case .partial = stateIncome.wages {
                 CurrencyValueInputView(caption: "",
-                                       amount: IncomeAmount.partialValueBinding($income.wages))
+                                       amount: IncomeAmount.partialValueBinding($stateIncome.wages))
             }
 
-            CurrencyValueInputView(caption: "State Withholdings",
+            CurrencyValueInputView(caption: "Withholdings",
                                    subtitle: " (W-2, Box 17)",
-                                   amount: $income.withholdings)
-            CurrencyValueInputView(caption: "Additional State Income",
-                                   amount: $income.additionalStateIncome)
+                                   amount: $stateIncome.withholdings)
+            CurrencyValueInputView(caption: "Additional Income",
+                                   amount: $stateIncome.additionalStateIncome)
 
-            Picker("Local Tax", selection: $income.localTax) {
+            Picker("Local Tax", selection: $stateIncome.localTax) {
                 Text("None").tag(LocalTaxType.none)
                 Text("NYC").tag(LocalTaxType.city(.NYC))
             }
@@ -66,17 +69,19 @@ struct StateTaxDataEntryView: View {
     }
 }
 
-struct StateTaxDataEntryView_Previews: PreviewProvider {
+struct StateIncomeEntryView_Previews: PreviewProvider {
+    @State static var input: TaxDataInput = .emptyInput()
     @State static var stateIncome: StateIncome = .init()
     static var previews: some View {
         Form {
-            StateTaxDataEntryView(income: $stateIncome,
-                                  idx: 0,
-                                  onRemove: {})
-            StateTaxDataEntryView(income: $stateIncome,
-                                  idx: 1,
-                                  onRemove: {})
+            StateIncomeEntryView(input: $input,
+                                 stateIncome: $stateIncome,
+                                 idx: 0)
+            StateIncomeEntryView(input: $input,
+                                 stateIncome: $stateIncome,
+                                 idx: 1)
         }
         .padding()
+        .frame(height: 600)
     }
 }
