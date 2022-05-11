@@ -30,12 +30,14 @@ struct StateIncomeEntryView: View {
         Picker("State", selection: $stateIncome.state) {
             Text("CA").tag(TaxState.CA)
             Text("NY").tag(TaxState.NY)
-        }
+        }.frame(maxWidth: 180)
 
         Picker("Local Tax", selection: $stateIncome.localTax) {
             Text("None").tag(LocalTaxType.none)
             Text("NYC").tag(LocalTaxType.city(.NYC))
-        }
+        }.frame(maxWidth: 180)
+
+        Spacer(minLength: 20.0)
 
         Section(header: Text("Income").fontWeight(.bold)) {
             Picker(selection: IncomeAmount.pickerSelectionBinding($stateIncome.wages)) {
@@ -63,6 +65,8 @@ struct StateIncomeEntryView: View {
                                        amount: IncomeAmount.partialValueBinding($stateIncome.wages))
             }
         }
+
+        Spacer(minLength: 20.0)
 
         Section(header: Text("Tax Reductions").fontWeight(.bold)) {
             CurrencyValueInputView(caption: "Withholdings",

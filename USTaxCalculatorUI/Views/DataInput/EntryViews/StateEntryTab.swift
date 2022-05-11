@@ -24,6 +24,7 @@ struct StateEntryTab: View {
                 .buttonStyle(.plain)
                 .padding(.top, 10.0)
             }
+            .frame(maxWidth: 500)
             .padding()
         }
     }

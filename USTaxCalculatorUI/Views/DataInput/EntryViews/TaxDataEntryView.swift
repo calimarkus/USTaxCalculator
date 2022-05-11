@@ -19,7 +19,7 @@ struct TaxDataEntryView: View {
                 }
         }
         .padding()
-        .frame(minWidth: 500, minHeight: 400)
+        .frame(minHeight: 400)
         .navigationTitle("\(FormattingHelper.formattedTitle(taxDataInput: input))")
         .toolbar {
             ToolbarItem(placement: .status) {

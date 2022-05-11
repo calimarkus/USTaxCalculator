@@ -13,6 +13,7 @@ struct FederalEntryTab: View {
                 FederalTaxDataEntryView(income: $input.income)
                 TaxReductionsEntryView(input: $input)
             }
+            .frame(maxWidth: 500)
             .padding()
         }
     }
@@ -24,6 +25,6 @@ struct FederalEntryTab_Previews: PreviewProvider {
     static var previews: some View {
         FederalEntryTab(input: $input)
             .padding()
-            .frame(height: 600.0)
+            .frame(height: 700.0)
     }
 }

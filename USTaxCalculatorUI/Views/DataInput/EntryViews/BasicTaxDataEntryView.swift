@@ -13,7 +13,7 @@ struct BasicTaxDataEntryView: View {
             Picker("Tax Year", selection: $input.taxYear) {
                 Text("2021").tag(TaxYear.y2021)
                 Text("2020").tag(TaxYear.y2020)
-            }
+            }.frame(maxWidth: 180)
 
             Picker("Filing Type", selection: $input.filingType) {
                 Text("Single").tag(FilingType.single)
