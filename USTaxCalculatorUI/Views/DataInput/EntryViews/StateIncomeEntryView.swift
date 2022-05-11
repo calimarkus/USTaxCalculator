@@ -33,6 +33,11 @@ struct StateIncomeEntryView: View {
                 Text("NY").tag(TaxState.NY)
             }
 
+            Picker("Local Tax", selection: $stateIncome.localTax) {
+                Text("None").tag(LocalTaxType.none)
+                Text("NYC").tag(LocalTaxType.city(.NYC))
+            }
+
             Picker(selection: IncomeAmount.pickerSelectionBinding($stateIncome.wages)) {
                 HStack {
                     Text("Full Federal Amount")
@@ -50,6 +55,9 @@ struct StateIncomeEntryView: View {
                 }
             }.pickerStyle(.inline)
 
+            CurrencyValueInputView(caption: "Additional State Income",
+                                   amount: $stateIncome.additionalStateIncome)
+
             if case .partial = stateIncome.wages {
                 CurrencyValueInputView(caption: "",
                                        amount: IncomeAmount.partialValueBinding($stateIncome.wages))
@@ -58,14 +66,33 @@ struct StateIncomeEntryView: View {
             CurrencyValueInputView(caption: "Withholdings",
                                    subtitle: " (W-2, Box 17)",
                                    amount: $stateIncome.withholdings)
-            CurrencyValueInputView(caption: "Additional Income",
-                                   amount: $stateIncome.additionalStateIncome)
 
-            Picker("Local Tax", selection: $stateIncome.localTax) {
-                Text("None").tag(LocalTaxType.none)
-                Text("NYC").tag(LocalTaxType.city(.NYC))
-            }
+            CurrencyValueInputView(caption: "Tax Credits",
+                                   amount: stateCreditsBinding($input.stateCredits,
+                                                               for: stateIncome.state))
+
+            DeductionsPickerView(deductions: stateDeductionsBinding($input.stateDeductions, for: stateIncome.state))
         }
+    }
+
+    func stateDeductionsBinding(_ stateDeductions: Binding<[TaxState: DeductionAmount]>,
+                                for state: TaxState) -> Binding<DeductionAmount>
+    {
+        return Binding(get: {
+            stateDeductions.wrappedValue[state, default: DeductionAmount.standard(additionalDeductions: 0.0)]
+        }, set: {
+            stateDeductions.wrappedValue[state] = $0
+        })
+    }
+
+    func stateCreditsBinding(_ stateCredits: Binding<[TaxState: Double]>,
+                             for state: TaxState) -> Binding<Double>
+    {
+        return Binding(get: {
+            stateCredits.wrappedValue[state, default: 0.0]
+        }, set: {
+            stateCredits.wrappedValue[state] = $0
+        })
     }
 }
 
