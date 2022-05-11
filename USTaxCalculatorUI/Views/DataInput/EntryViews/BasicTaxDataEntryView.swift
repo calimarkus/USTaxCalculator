@@ -20,20 +20,7 @@ struct BasicTaxDataEntryView: View {
                 Text("2020").tag(TaxYear.y2020)
             }
 
-            Picker("Deductions", selection: DeductionAmount.pickerSelectionBinding($input.federalDeductions)) {
-                Text("Standard deduction + additional amount:").tag(DeductionAmount.standard(additionalDeductions: 0.0))
-                Text("Custom amount:").tag(DeductionAmount.custom(0.0))
-            }.pickerStyle(.inline)
-
-            if case .standard = input.federalDeductions {
-                CurrencyValueInputView(caption: "",
-                                       amount: DeductionAmount.valueBinding($input.federalDeductions,
-                                                                            isCustomDeduction: false))
-            } else {
-                CurrencyValueInputView(caption: "",
-                                       amount: DeductionAmount.valueBinding($input.federalDeductions,
-                                                                            isCustomDeduction: true))
-            }
+            DeductionsPickerView(deductions: $input.federalDeductions)
 
             CurrencyValueInputView(caption: "Additional Withholdings",
                                    subtitle: "E.g. estimated payments",
