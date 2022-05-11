@@ -3,10 +3,6 @@
 
 import SwiftUI
 
-extension CalculatedTaxData: Identifiable {
-    var id: String { return "\(title)\(taxYear.rawValue)\(filingType.rawValue)" }
-}
-
 struct MenuView: View {
     @ObservedObject var appState: GlobalAppState
 

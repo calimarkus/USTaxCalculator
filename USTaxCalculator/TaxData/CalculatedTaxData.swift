@@ -1,7 +1,11 @@
 //
 //
 
-struct CalculatedTaxData {
+import Foundation
+
+struct CalculatedTaxData: Identifiable {
+    let id = UUID()
+
     let title: String
     let filingType: FilingType
     let taxYear: TaxYear
