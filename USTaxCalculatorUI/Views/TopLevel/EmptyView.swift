@@ -4,7 +4,7 @@
 import SwiftUI
 
 struct EmptyView: View {
-    @ObservedObject var dataset: TaxDataSet
+    @ObservedObject var appState: GlobalAppState
 
     var body: some View {
         VStack(spacing: 0.0) {
@@ -14,7 +14,7 @@ struct EmptyView: View {
                 .foregroundColor(.secondary)
                 .opacity(0.5)
             Button {
-                dataset.addNewEntry()
+                appState.addNewEntry()
             } label: {
                 Text("Add a new entry")
             }.padding()
@@ -23,7 +23,7 @@ struct EmptyView: View {
         .toolbar {
             ToolbarItem(placement: .status) {
                 Button {
-                    dataset.addNewEntry()
+                    appState.addNewEntry()
                 } label: {
                     Image(systemName: "plus")
                 }
@@ -33,9 +33,9 @@ struct EmptyView: View {
 }
 
 struct EmptyView_Previews: PreviewProvider {
-    @State static var dataset: TaxDataSet = TaxDataSet()
+    @State static var appState: GlobalAppState = .init()
     static var previews: some View {
-        EmptyView(dataset: dataset)
+        EmptyView(appState: appState)
             .padding()
     }
 }

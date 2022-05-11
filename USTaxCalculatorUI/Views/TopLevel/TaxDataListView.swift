@@ -5,7 +5,7 @@ import SwiftUI
 
 struct TaxDataListView: View {
     @ObservedObject var collapseState: SectionCollapseState
-    @ObservedObject var dataset: TaxDataSet
+    @ObservedObject var appState: GlobalAppState
 
     let taxdata: USTaxData
 
@@ -42,7 +42,7 @@ struct TaxDataListView: View {
             }
             ToolbarItem(placement: .status) {
                 Button {
-                    dataset.addNewEntry()
+                    appState.addNewEntry()
                 } label: {
                     Image(systemName: "plus")
                 }
@@ -54,7 +54,7 @@ struct TaxDataListView: View {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         TaxDataListView(collapseState: SectionCollapseState(),
-                        dataset: TaxDataSet(),
+                        appState: GlobalAppState(),
                         taxdata: ExampleData.exampleTaxDataJohnAndSarah_21())
             .frame(width: 600.0, height: 1200.0)
     }

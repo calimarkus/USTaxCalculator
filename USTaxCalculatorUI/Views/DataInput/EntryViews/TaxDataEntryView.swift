@@ -4,7 +4,7 @@
 import SwiftUI
 
 struct TaxDataEntryView: View {
-    @ObservedObject var dataset: TaxDataSet
+    @ObservedObject var appState: GlobalAppState
     @State var input: TaxDataInput = .emptyInput()
 
     var body: some View {
@@ -26,13 +26,13 @@ struct TaxDataEntryView: View {
                 Button {
                     do {
                         let taxdata = try USTaxData(input)
-                        if let editingIndex = dataset.editingIndex {
-                            dataset.taxData.remove(at: editingIndex)
-                            dataset.taxData.insert(taxdata, at: editingIndex)
-                            dataset.selection = [editingIndex]
+                        if let editingIndex = appState.editingIndex {
+                            appState.taxData.remove(at: editingIndex)
+                            appState.taxData.insert(taxdata, at: editingIndex)
+                            appState.selection = [editingIndex]
                         } else {
-                            dataset.taxData.append(taxdata)
-                            dataset.selection = [dataset.taxData.count - 1]
+                            appState.taxData.append(taxdata)
+                            appState.selection = [appState.taxData.count - 1]
                         }
                     } catch {
                         // TBD - handle invalid inputs
@@ -46,9 +46,9 @@ struct TaxDataEntryView: View {
 }
 
 struct TaxDataEntryView_Previews: PreviewProvider {
-    @State static var dataset: TaxDataSet = .init()
+    @State static var appState: GlobalAppState = .init()
     static var previews: some View {
-        TaxDataEntryView(dataset: dataset)
+        TaxDataEntryView(appState: appState)
             .frame(height: 640)
     }
 }

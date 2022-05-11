@@ -4,22 +4,22 @@
 import SwiftUI
 
 struct MainView: View {
-    @ObservedObject var dataset: TaxDataSet
+    @ObservedObject var appState: GlobalAppState
     @ObservedObject var collapseState: SectionCollapseState
 
     var body: some View {
         NavigationView {
-            MenuView(dataset: dataset)
+            MenuView(appState: appState)
             Group {
-                if dataset.showEntryForm {
-                    TaxDataEntryView(dataset: dataset,
-                                     input: dataset.taxDataInputForEditing)
-                } else if let taxdata = dataset.activeTaxData {
+                if appState.showEntryForm {
+                    TaxDataEntryView(appState: appState,
+                                     input: appState.taxDataInputForEditing)
+                } else if let taxdata = appState.activeTaxData {
                     TaxDataListView(collapseState: collapseState,
-                                    dataset: dataset,
+                                    appState: appState,
                                     taxdata: taxdata)
                 } else {
-                    EmptyView(dataset: dataset)
+                    EmptyView(appState: appState)
                 }
             }
             .frame(minWidth: 400.0, minHeight: 400.0)
@@ -29,7 +29,7 @@ struct MainView: View {
 
 struct MainView_Previews: PreviewProvider {
     static var previews: some View {
-        MainView(dataset: TaxDataSet(),
+        MainView(appState: GlobalAppState(),
                  collapseState: SectionCollapseState())
             .frame(width: 750.0, height: 500)
     }

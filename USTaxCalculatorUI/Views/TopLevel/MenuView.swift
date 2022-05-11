@@ -8,12 +8,12 @@ extension USTaxData: Identifiable {
 }
 
 struct MenuView: View {
-    @ObservedObject var dataset: TaxDataSet
+    @ObservedObject var appState: GlobalAppState
 
     var body: some View {
-        List(selection: $dataset.selection) {
-            ForEach(dataset.taxData.indices, id: \.self) { i in
-                if let taxdata = dataset.taxData[i] {
+        List(selection: $appState.selection) {
+            ForEach(appState.taxData.indices, id: \.self) { i in
+                if let taxdata = appState.taxData[i] {
                     HStack {
                         Label("\(FormattingHelper.formattedShortTitle(taxData: taxdata))",
                               systemImage: "dollarsign.circle.fill").tag(i)
@@ -23,7 +23,7 @@ struct MenuView: View {
                     }
                     .contextMenu {
                         Button("Edit") {
-                            dataset.editEntry(index: i)
+                            appState.editEntry(index: i)
                         }
                     }
                 }
@@ -35,6 +35,6 @@ struct MenuView: View {
 
 struct MenuView_Previews: PreviewProvider {
     static var previews: some View {
-        MenuView(dataset: TaxDataSet())
+        MenuView(appState: GlobalAppState())
     }
 }

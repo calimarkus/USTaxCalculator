@@ -3,7 +3,7 @@
 
 import Foundation
 
-class TaxDataSet: ObservableObject {
+class GlobalAppState: ObservableObject {
     @Published var selection: Set<Int> = [0] {
         didSet {
             if !selection.isEmpty {
