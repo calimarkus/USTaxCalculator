@@ -10,7 +10,7 @@ enum NavigationState {
 }
 
 class GlobalAppState: ObservableObject {
-    @Published var taxdata: [USTaxData]
+    @Published var taxdata: [CalculatedTaxData]
     @Published var navigationState: NavigationState
 
     init() {
@@ -22,7 +22,7 @@ class GlobalAppState: ObservableObject {
         navigationState = .entry(entryIndex: 0, isEditing: false)
     }
 
-    func saveData(_ newData: USTaxData) {
+    func saveData(_ newData: CalculatedTaxData) {
         switch navigationState {
             case .empty:
                 break

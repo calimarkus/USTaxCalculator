@@ -15,13 +15,13 @@ struct TaxSummaryFormatter {
     var includeCalculationExplanations: Bool = false
     var locale: Locale = .init(identifier: "en_US")
 
-    func taxDataSummary(_ td: USTaxData) -> String {
+    func taxDataSummary(_ td: CalculatedTaxData) -> String {
         let income = td.income
         let taxSummaries = td.taxSummaries
 
         // output
         var summary = ""
-        summary.appendLine(FormattingHelper.formattedTitle(taxData: td))
+        summary.appendLine(FormattingHelper.formattedTitle(taxdata: td))
         summary.appendLine(String(repeating: "=", count: summary.count))
 
         // Federal

@@ -26,7 +26,7 @@ struct TaxDataEntryView: View {
             ToolbarItem(placement: .status) {
                 Button {
                     do {
-                        let taxdata = try USTaxData(input)
+                        let taxdata = try CalculatedTaxData(input)
                         appState.saveData(taxdata)
                     } catch {
                         // TBD - handle invalid inputs

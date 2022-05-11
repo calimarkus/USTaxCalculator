@@ -14,8 +14,8 @@ enum ExampleData {
                            StateIncome(state: .CA, wages: .partial(35000), withholdings: 2500)])
     }
 
-    static func exampleTaxDataJohnAndSarah_21() -> USTaxData {
-        return try! USTaxData(TaxDataInput(
+    static func exampleTaxDataJohnAndSarah_21() -> CalculatedTaxData {
+        return try! CalculatedTaxData(TaxDataInput(
             title: "John & Sarah",
             filingType: .marriedJointly,
             taxYear: .y2021,
@@ -36,8 +36,8 @@ enum ExampleData {
             stateIncomes: [StateIncome(state: .NY, wages: .fullFederal, withholdings: 9800, localTax: .city(.NYC))])
     }
 
-    static func exampleTaxDataJackHouston_21() -> USTaxData {
-        return try! USTaxData(TaxDataInput(
+    static func exampleTaxDataJackHouston_21() -> CalculatedTaxData {
+        return try! CalculatedTaxData(TaxDataInput(
             title: "Jack Houston",
             filingType: .single,
             taxYear: .y2021,
@@ -57,8 +57,8 @@ enum ExampleData {
             stateIncomes: [StateIncome(state: .CA, wages: .fullFederal, withholdings: 4400)])
     }
 
-    static func exampleTaxDataJackHouston_20() -> USTaxData {
-        return try! USTaxData(TaxDataInput(
+    static func exampleTaxDataJackHouston_20() -> CalculatedTaxData {
+        return try! CalculatedTaxData(TaxDataInput(
             filingType: .single,
             taxYear: .y2020,
             income: exampleIncomeC_CA(),

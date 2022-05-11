@@ -10,7 +10,7 @@ extension FederalTax: Identifiable {
 struct FederalTaxesListSection: View {
     @ObservedObject var collapseState: SectionCollapseState
 
-    let taxdata: USTaxData
+    let taxdata: CalculatedTaxData
     var summary: TaxSummary { return taxdata.taxSummaries.federal }
 
     var body: some View {

@@ -4,11 +4,11 @@
 import Foundation
 
 struct FormattingHelper {
-    static func formattedTitle(taxData: USTaxData) -> String {
-        return formattedTitle(title: taxData.title,
-                              taxyear: taxData.taxYear,
-                              filingType: taxData.filingType,
-                              states: taxData.income.stateIncomes.map { $0.state })
+    static func formattedTitle(taxdata: CalculatedTaxData) -> String {
+        return formattedTitle(title: taxdata.title,
+                              taxyear: taxdata.taxYear,
+                              filingType: taxdata.filingType,
+                              states: taxdata.income.stateIncomes.map { $0.state })
     }
 
     static func formattedTitle(taxDataInput: TaxDataInput) -> String {
@@ -28,11 +28,11 @@ struct FormattingHelper {
         return states.map { "\($0)" }.joined(separator: "+")
     }
 
-    static func formattedTaxYearShort(taxData: USTaxData) -> String {
+    static func formattedTaxYearShort(taxData: CalculatedTaxData) -> String {
         return "'" + String(taxData.taxYear.rawValue).suffix(2)
     }
 
-    static func formattedShortTitle(taxData: USTaxData) -> String {
+    static func formattedShortTitle(taxData: CalculatedTaxData) -> String {
         return "\(taxData.title.count > 0 ? taxData.title : taxData.filingType.rawValue)"
     }
 

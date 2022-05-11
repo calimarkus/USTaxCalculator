@@ -3,7 +3,7 @@
 
 import SwiftUI
 
-extension USTaxData: Identifiable {
+extension CalculatedTaxData: Identifiable {
     var id: String { return "\(title)\(taxYear.rawValue)\(filingType.rawValue)" }
 }
 
@@ -37,11 +37,11 @@ struct MenuView: View {
         .listStyle(SidebarListStyle())
     }
 
-    func titleForTaxdata(taxdata: USTaxData) -> String {
+    func titleForTaxdata(taxdata: CalculatedTaxData) -> String {
         return (FormattingHelper.formattedShortTitle(taxData: taxdata))
     }
 
-    func infoTextForTaxdata(taxdata: USTaxData) -> String {
+    func infoTextForTaxdata(taxdata: CalculatedTaxData) -> String {
         let states = FormattingHelper.formattedStates(states: taxdata.stateTaxes.map { $0.state })
         let taxyear = FormattingHelper.formattedTaxYearShort(taxData: taxdata)
         return "\(states), \(taxyear)"

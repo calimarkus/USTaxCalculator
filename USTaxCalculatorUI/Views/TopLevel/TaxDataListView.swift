@@ -7,7 +7,7 @@ struct TaxDataListView: View {
     @ObservedObject var collapseState: SectionCollapseState
     @ObservedObject var appState: GlobalAppState
 
-    let taxdata: USTaxData
+    let taxdata: CalculatedTaxData
 
     var body: some View {
         List {
@@ -29,7 +29,7 @@ struct TaxDataListView: View {
                 TaxSummaryView(summary: taxdata.taxSummaries.total)
             }
         }
-        .navigationTitle(FormattingHelper.formattedTitle(taxData: taxdata))
+        .navigationTitle(FormattingHelper.formattedTitle(taxdata: taxdata))
         .listStyle(.inset(alternatesRowBackgrounds: true))
         .environment(\.defaultMinListHeaderHeight, 30)
         .toolbar {

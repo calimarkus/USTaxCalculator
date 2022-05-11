@@ -6,7 +6,7 @@ import SwiftUI
 struct ExportAsTextButton: View {
     @State private var showingPopover = false
 
-    let taxdata: USTaxData
+    let taxdata: CalculatedTaxData
     var taxSummary: String {
         let formatter = TaxSummaryFormatter(columnWidth: 39,
                                             separatorSize: (width: 26, shift: 16),

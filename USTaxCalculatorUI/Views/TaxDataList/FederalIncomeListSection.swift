@@ -6,7 +6,7 @@ import SwiftUI
 struct FederalIncomeListSection: View {
     @ObservedObject var collapseState: SectionCollapseState
 
-    let taxdata: USTaxData
+    let taxdata: CalculatedTaxData
     var income: Income { return taxdata.income }
 
     var body: some View {
