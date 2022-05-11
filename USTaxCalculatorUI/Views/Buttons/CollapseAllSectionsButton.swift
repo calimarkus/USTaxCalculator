@@ -26,7 +26,7 @@ struct CollapseAllSectionsButton: View {
 struct CollapseAllSectionsButton_Previews: PreviewProvider {
     static var previews: some View {
         CollapseAllSectionsButton(allStates: [.CA, .NY],
-                                  collapseState:SectionCollapseState())
+                                  collapseState: SectionCollapseState())
             .padding()
     }
 }

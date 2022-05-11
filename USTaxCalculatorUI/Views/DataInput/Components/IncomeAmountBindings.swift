@@ -4,7 +4,7 @@
 import SwiftUI
 
 extension IncomeAmount {
-    static func pickerSelectionBinding(_ amount:Binding<IncomeAmount>) -> Binding<IncomeAmount> {
+    static func pickerSelectionBinding(_ amount: Binding<IncomeAmount>) -> Binding<IncomeAmount> {
         return Binding {
             switch amount.wrappedValue {
                 case .fullFederal: return .fullFederal
@@ -15,7 +15,7 @@ extension IncomeAmount {
         }
     }
 
-    static func partialValueBinding(_ amount:Binding<IncomeAmount>) -> Binding<Double> {
+    static func partialValueBinding(_ amount: Binding<IncomeAmount>) -> Binding<Double> {
         return Binding {
             switch amount.wrappedValue {
                 case .fullFederal: return 0.0

@@ -11,8 +11,8 @@ struct StateEntryTab: View {
             Form {
                 ForEach(input.income.stateIncomes.indices, id: \.self) { i in
                     StateIncomeEntryView(input: $input,
-                                          stateIncome: $input.income.stateIncomes[i],
-                                          idx: i)
+                                         stateIncome: $input.income.stateIncomes[i],
+                                         idx: i)
                 }
                 Button {
                     input.income.stateIncomes.append(StateIncome())
