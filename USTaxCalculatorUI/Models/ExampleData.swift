@@ -5,7 +5,7 @@ enum ExampleData {
     private static func exampleIncomeA_NY_CA() -> Income {
         return Income(
             wages: 314000,
-            medicareWages: 248000,
+            medicareWages: 389000,
             federalWithholdings: 24000,
             dividendsAndInterests: 4500,
             capitalGains: 20000,
