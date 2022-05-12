@@ -8,7 +8,10 @@ struct AdditionView: View {
     let amount: Double
 
     var body: some View {
-        CurrencyView(title: title, amount: amount, isMathValue: true, isSecondaryLabel: true)
+        CurrencyView(title: title,
+                     amount: amount,
+                     showPlusMinus: true,
+                     isSecondaryLabel: true)
     }
 }
 
@@ -28,24 +31,24 @@ struct CurrencyView: View {
     var amount: Double
     var infoText: String? = nil
 
-    var isMathValue: Bool = false
+    var showPlusMinus: Bool = false
     var isSecondaryLabel: Bool = false
     var boldValue: Bool = false
 
     var titleText: String {
         let colon = (title.count > 0 && amount != 0.0 ? ":" : "")
-        let spacing = (isMathValue ? "  " : "")
+        let spacing = (isSecondaryLabel ? "  " : "")
         return "\(spacing)\(title)\(colon)"
     }
 
     func amountText(amount: Double) -> String {
         let sanitizedAmount = amount == 0.0 ? abs(amount) : amount
-        let plus = (isMathValue && sanitizedAmount > 0 ? "+" : "")
+        let plus = (showPlusMinus && sanitizedAmount > 0 ? "+" : "")
         return "\(plus)\(FormattingHelper.formatCurrency(sanitizedAmount))"
     }
 
     var valueFormat: LabeledValueFormat {
-        if isMathValue && amount < 0 {
+        if showPlusMinus && amount < 0 {
             return .negative
         } else if boldValue {
             return .bold
