@@ -24,7 +24,7 @@ struct StateTaxesListSection: View {
                     CurrencyView(title: "State Tax",
                                  subtitle: "(\(FormattingHelper.formattedBracketInfo(stateTax.bracket)))",
                                  amount: stateTax.stateOnlyTaxAmount,
-                                 infoText: stateTax.bracket.taxCalculationExplanation(stateTax.taxableIncome))
+                                 infoText: stateTax.stateOnlyTaxExplanation)
                     CurrencyView(title: "Local Tax (\(localTax.city))",
                                  subtitle: "(\(FormattingHelper.formattedBracketInfo(localTax.bracket)))",
                                  amount: localTax.taxAmount,
@@ -41,11 +41,11 @@ struct StateTaxesListSection: View {
                              subtitle: "(~ \(FormattingHelper.formatPercentage((stateTax.taxAmount - stateCredits) / stateTax.taxableIncome)))",
                              amount: stateTax.taxAmount - stateCredits)
             } else {
+                let creditInfo = "\(stateCredits > 0.0 ? " - \(FormattingHelper.formatCurrency(stateCredits))" : "")"
                 CurrencyView(title: "State Tax",
                              subtitle: "(\(FormattingHelper.formattedBracketInfo(stateTax.bracket)))",
                              amount: stateTax.taxAmount - stateCredits,
-                             infoText: "\(stateTax.bracket.taxCalculationExplanation(stateTax.taxableIncome))"
-                                 + "\(stateCredits > 0.0 ? " - \(FormattingHelper.formatCurrency(stateCredits))" : "")")
+                             infoText: stateTax.stateOnlyTaxExplanation + creditInfo)
             }
 
             AdditionView(title: "Withheld", amount: -stateTax.withholdings)
@@ -61,8 +61,11 @@ struct StateTaxesListSection_Previews: PreviewProvider {
     static var previews: some View {
         List {
             StateTaxesListSection(collapseState: SectionCollapseState(),
-                                  stateTax: ExampleData.exampleTaxDataJohnAndSarah_21().stateTaxes.first!,
+                                  stateTax: ExampleData.exampleTaxDataJohnAndSarah_21().stateTaxes[0],
                                   stateCredits: 350.0)
-        }
+            StateTaxesListSection(collapseState: SectionCollapseState(),
+                                  stateTax: ExampleData.exampleTaxDataJohnAndSarah_21().stateTaxes[1],
+                                  stateCredits: 350.0)
+        }.frame(height: 600.0)
     }
 }

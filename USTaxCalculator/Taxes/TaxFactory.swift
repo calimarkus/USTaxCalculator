@@ -65,6 +65,7 @@ enum TaxFactory {
                         taxableIncome: taxableIncome,
                         deductions: deductions,
                         withholdings: stateIncome.withholdings,
-                        incomeRate: stateIncome.incomeRateFor(federalIncome: totalIncome))
+                        incomeRate: stateIncome.incomeRateGivenFederalIncome(totalIncome),
+                        stateAttributedIncome: stateIncome.attributableIncomeGivenFederalIncome(totalIncome))
     }
 }

@@ -43,10 +43,17 @@ struct StateIncome {
 }
 
 extension StateIncome {
-    func incomeRateFor(federalIncome: Double) -> Double {
+    func incomeRateGivenFederalIncome(_ federalIncome: Double) -> Double {
         switch wages {
             case .fullFederal: return 1.0
             case let .partial(income): return income / federalIncome
+        }
+    }
+
+    func attributableIncomeGivenFederalIncome(_ federalIncome: Double) -> Double {
+        switch wages {
+            case .fullFederal: return federalIncome
+            case let .partial(income): return income
         }
     }
 }

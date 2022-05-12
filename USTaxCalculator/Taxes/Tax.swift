@@ -45,8 +45,11 @@ struct StateTax: Tax {
     /// Withholdings that apply to this bracket
     let withholdings: Double
 
-    /// The income rate for this bracket (only relevant in multi state situations)
+    /// The income rate for this state - stateAttributableIncome / totalIncome (only relevant in multi state situations)
     var incomeRate: Double = 1.0
+
+    /// The income attributed to this state (only relevant in multi state situations)
+    var stateAttributedIncome: Double = 0.0
 
     /// The taxes coming from this bracket AND the local bracket
     var taxAmount: Double { return stateOnlyTaxAmount + (localTax?.taxAmount ?? 0.0) }
@@ -55,6 +58,12 @@ struct StateTax: Tax {
     /// see https://turbotax.intuit.com/tax-tips/state-taxes/multiple-states-figuring-whats-owed-when-you-live-and-work-in-more-than-one-state/L79OKm3jI
     /// using "Common method 1" for multi state taxes
     var stateOnlyTaxAmount: Double { return bracket.calculateTaxesForAmount(taxableIncome) * incomeRate }
+
+    var stateOnlyTaxExplanation: String {
+        let bracketInfo = bracket.taxCalculationExplanation(taxableIncome)
+        let additionalInfo = incomeRate < 1.0 ? " * \(FormattingHelper.formatPercentage(incomeRate))" : ""
+        return bracketInfo + additionalInfo
+    }
 }
 
 struct LocalTax: Tax {
