@@ -16,11 +16,13 @@ struct FederalTaxesListSection: View {
     var body: some View {
         CollapsableSection(title: "Federal Taxes", expandedBinding: $collapseState.federal) { expanded in
             if expanded {
-                ForEach(taxdata.allFederalTaxes) { tax in
+                ForEach(taxdata.allFederalTaxes.indices, id:\.self) { i in
+                    let tax = taxdata.allFederalTaxes[i]
                     CurrencyView(title: "\(tax.title) Tax",
                                  subtitle: "(\(FormattingHelper.formattedBracketInfo(tax.bracket)))",
                                  amount: tax.taxAmount,
-                                 infoText: tax.bracket.taxCalculationExplanation(tax.taxableIncome))
+                                 infoText: tax.bracket.taxCalculationExplanation(tax.taxableIncome),
+                                 showPlusMinus: i > 0)
                 }
 
                 if summary.credits > 0 {

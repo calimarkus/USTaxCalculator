@@ -44,7 +44,8 @@ struct StateTaxesListSection: View {
                     CurrencyView(title: "Local Tax (\(localTax.city))",
                                  subtitle: "(\(FormattingHelper.formattedBracketInfo(localTax.bracket)))",
                                  amount: localTax.taxAmount,
-                                 infoText: localTax.bracket.taxCalculationExplanation(localTax.taxableIncome))
+                                 infoText: localTax.bracket.taxCalculationExplanation(localTax.taxableIncome),
+                                 showPlusMinus: true)
                 }
 
                 if stateCredits > 0.0 {
