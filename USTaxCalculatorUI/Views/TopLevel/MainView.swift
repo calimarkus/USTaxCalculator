@@ -15,10 +15,12 @@ struct MainView: View {
                     case .empty:
                         EmptyView(appState: appState)
                     case .addNewEntry:
-                        TaxDataEntryView(appState: appState)
+                        TaxDataEntryView(title: "New Entry",
+                                         appState: appState)
                     case .entry(let entryIndex, let isEditing):
                         if isEditing {
-                            TaxDataEntryView(appState: appState,
+                            TaxDataEntryView(title: "Editing",
+                                             appState: appState,
                                              input: appState.taxdata[entryIndex].input)
                         } else if appState.taxdata.count > entryIndex {
                             TaxDataListView(collapseState: collapseState,

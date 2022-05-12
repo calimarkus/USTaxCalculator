@@ -4,6 +4,7 @@
 import SwiftUI
 
 struct TaxDataEntryView: View {
+    let title: String
     @ObservedObject var appState: GlobalAppState
     @State var input: TaxDataInput = .emptyInput()
 
@@ -20,7 +21,7 @@ struct TaxDataEntryView: View {
         }
         .padding()
         .frame(minHeight: 400)
-        .navigationTitle("\(FormattingHelper.formattedTitle(taxDataInput: input))")
+        .navigationTitle("\(title): \(FormattingHelper.formattedTitle(taxDataInput: input))")
         .toolbar {
             ToolbarItem(placement: .status) {
                 Button {
@@ -41,7 +42,7 @@ struct TaxDataEntryView: View {
 struct TaxDataEntryView_Previews: PreviewProvider {
     @State static var appState: GlobalAppState = .init()
     static var previews: some View {
-        TaxDataEntryView(appState: appState)
+        TaxDataEntryView(title: "test", appState: appState)
             .frame(height: 640)
     }
 }
