@@ -43,18 +43,9 @@ struct CurrencyView: View {
     }
 
     var body: some View {
-        HStack {
-            Text(titleText)
-                .foregroundColor(isMathValue ? .secondary : .primary)
-
-            if secondary.count > 0 {
-                Text(secondary)
-                    .font(.subheadline)
-                    .foregroundColor(.secondary)
-            }
-
-            Spacer(minLength: 20)
-
+        LabeledValueView(title: titleText,
+                         subtitle: secondary,
+                         isSecondary: isMathValue) {
             if let amount = amount {
                 ExplainableView(infoText: infoText) {
                     Text(amountText(amount: amount))
@@ -63,6 +54,31 @@ struct CurrencyView: View {
                         .foregroundColor(isMathValue && amount < 0 ? Color.tax.negativeAmount : nil)
                 }
             }
+        }
+    }
+}
+
+struct LabeledValueView<Content: View>: View {
+    var title: String = ""
+    var subtitle: String = ""
+    var isSecondary: Bool = false
+
+    @ViewBuilder let valueView: () -> Content
+
+    var body: some View {
+        HStack {
+            Text(title)
+                .foregroundColor(isSecondary ? .secondary : .primary)
+
+            if subtitle.count > 0 {
+                Text(subtitle)
+                    .font(.subheadline)
+                    .foregroundColor(.secondary)
+            }
+
+            Spacer(minLength: 20)
+
+            valueView()
         }
     }
 }
@@ -77,7 +93,7 @@ struct CurrencyView_Previews: PreviewProvider {
                 AdditionView(title: "Gamma", amount: -12.23)
                 SumView(title: "Total", amount: 123.53 + 25.25)
                 CurrencyView(title: "PS", amount: -12.23)
-                CurrencyView(title: "PS", amount: 0.0)
+                CurrencyView(title: "PS", secondary: "(some explanation)", amount: 0.0)
                 AdditionView(title: "Gamma", amount: -0.0)
             }
         }
