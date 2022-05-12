@@ -56,10 +56,12 @@ struct CurrencyView: View {
             Spacer(minLength: 20)
 
             if let amount = amount {
-                ExplainableValueButton(valueText: amountText(amount: amount),
-                                       infoText: infoText,
-                                       bold: boldValue,
-                                       valueColor: isMathValue && amount < 0 ? Color.tax.negativeAmount : nil)
+                ExplainableView(infoText: infoText) {
+                    Text(amountText(amount: amount))
+                        .font(.system(.body, design: .monospaced))
+                        .fontWeight(boldValue ? .bold : .regular)
+                        .foregroundColor(isMathValue && amount < 0 ? Color.tax.negativeAmount : nil)
+                }
             }
         }
     }

@@ -3,26 +3,19 @@
 
 import SwiftUI
 
-struct ExplainableValueButton: View {
+struct ExplainableView<Content: View>: View {
     @State private var showingPopover = false
 
-    let valueText: String
     var infoText: String? = nil
-    var bold: Bool = false
-    var valueColor: Color? = nil
+    @ViewBuilder let content: () -> Content
 
     var body: some View {
-        let text = Text(valueText)
-            .font(.system(.body, design: .monospaced))
-            .fontWeight(bold ? .bold : .regular)
-            .foregroundColor(valueColor)
-
         HStack {
             if let info = infoText {
                 Button {
                     showingPopover = !showingPopover
                 } label: {
-                    text
+                    content()
                     Image(systemName: "info.circle")
                         .foregroundColor(.secondary)
                 }
@@ -33,7 +26,7 @@ struct ExplainableValueButton: View {
                         .font(.system(.body, design: .monospaced))
                 }
             } else {
-                text
+                content()
                 Spacer().frame(width: 23)
             }
         }
@@ -42,17 +35,19 @@ struct ExplainableValueButton: View {
 
 struct ExplainableValueButton_Previews: PreviewProvider {
     static var previews: some View {
-        VStack {
-            ExplainableValueButton(valueText: "$20.00")
-            ExplainableValueButton(valueText: "$500.50",
-                                   infoText: "additional info")
-            ExplainableValueButton(valueText: "$123.00",
-                                   infoText: "additional info",
-                                   bold: true)
-            ExplainableValueButton(valueText: "$200.00",
-                                   infoText: "additional info",
-                                   bold: false,
-                                   valueColor: .orange)
+        VStack(alignment: .trailing) {
+            ExplainableView {
+                Text("$20.00").font(.system(.body, design: .monospaced))
+            }
+            ExplainableView(infoText: "") {
+                Text("$500.50").font(.system(.body, design: .monospaced))
+            }
+            ExplainableView(infoText: "") {
+                Text("$123.00").font(.system(.body, design: .monospaced)).fontWeight(.bold)
+            }
+            ExplainableView(infoText: "") {
+                Text("$200.00").font(.system(.body, design: .monospaced)).foregroundColor(.orange)
+            }
         }.padding()
     }
 }
