@@ -30,9 +30,21 @@ struct ExplainableView<Content: View, InfoContent: View>: View {
                     Spacer()
                     Image(systemName: "info.circle")
                         .foregroundColor(.secondary)
+                    #if os(macOS)
                         .popover(isPresented: $showingPopover, arrowEdge: .trailing) {
                             infoContent
                         }
+                    #endif
+
+                    #if os(iOS)
+                        NavigationLink(isActive: $showingPopover) {
+                            ScrollView {
+                                infoContent
+                            }
+                        } label: {
+                            EmptyView()
+                        }
+                    #endif
                 }.frame(width: ExplainableColumnSize.width)
             }
         }
@@ -40,7 +52,7 @@ struct ExplainableView<Content: View, InfoContent: View>: View {
     }
 }
 
-struct ExplainableValueButton_Previews: PreviewProvider {
+struct ExplainableView_Previews: PreviewProvider {
     static var previews: some View {
         VStack(alignment: .trailing) {
             HStack(spacing: 0.0) {

@@ -136,15 +136,18 @@ struct ExplainableCurrencyView: View {
             ExplainableView {
                 CurrencyViewText(config)
             } infoContent: {
-                if let info = infoText {
-                    Text(info)
-                        .font(.system(.body, design: .monospaced))
-                        .padding()
-                } else if let bracketGroup = infoBracketGroup {
-                    BracketInfoView(bracketGroup: bracketGroup,
-                                    activeBracket: activeBracket,
-                                    taxableIncome: taxableIncome)
+                Group {
+                    if let info = infoText {
+                        Text(info)
+                            .font(.system(.body, design: .monospaced))
+                            .padding()
+                    } else if let bracketGroup = infoBracketGroup {
+                        BracketInfoView(bracketGroup: bracketGroup,
+                                        activeBracket: activeBracket,
+                                        taxableIncome: taxableIncome)
+                    }
                 }
+                .navigationTitle(config.title)
             }
         }
     }
@@ -172,6 +175,7 @@ struct LabeledExplainableValueView: View {
                         .font(.system(.body, design: .monospaced))
                 }
                 .padding(20.0)
+                .navigationTitle(titleText)
             }
         }
     }
@@ -208,14 +212,13 @@ struct LabeledValueView<Content: View>: View {
             }
 
             HStack {
-                Text(title)
-                    .foregroundColor(isSecondaryLabel ? .secondary : .primary)
-
-                if subtitle.count > 0 {
-                    Text(subtitle)
-                        .font(.subheadline)
-                        .foregroundColor(.secondary)
+                #if os(macOS)
+                titleLabel()
+                #elseif os(iOS)
+                VStack(alignment: .leading) {
+                    titleLabel()
                 }
+                #endif
 
                 Spacer(minLength: 20)
 
@@ -223,6 +226,18 @@ struct LabeledValueView<Content: View>: View {
             }
             .padding(.top, -0.5)
             .padding(.bottom, -0.5)
+        }
+    }
+
+    @ViewBuilder
+    func titleLabel() -> some View {
+        Text(title)
+            .foregroundColor(isSecondaryLabel ? .secondary : .primary)
+
+        if subtitle.count > 0 {
+            Text(subtitle)
+                .font(.subheadline)
+                .foregroundColor(.secondary)
         }
     }
 }

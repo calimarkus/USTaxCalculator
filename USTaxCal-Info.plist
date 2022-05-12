@@ -5,14 +5,34 @@
 	<key>CFBundleDocumentTypes</key>
 	<array>
 		<dict>
-			<key>NSUbiquitousDocumentUserActivityType</key>
-			<string>$(PRODUCT_BUNDLE_IDENTIFIER).entry</string>
+			<key>LSHandlerRank</key>
+			<string>Default</string>
 			<key>LSItemContentTypes</key>
 			<array>
 				<string>com.ustaxcalc.item</string>
 			</array>
-			<key>CFBundleTypeRole</key>
-			<string>Editor</string>
+		</dict>
+	</array>
+	<key>UTExportedTypeDeclarations</key>
+	<array>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.json</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>Tax Document</string>
+			<key>UTTypeIconFiles</key>
+			<array/>
+			<key>UTTypeIdentifier</key>
+			<string>com.ustaxcalc.item</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>ustaxcalc</string>
+				</array>
+			</dict>
 		</dict>
 	</array>
 	<key>UTImportedTypeDeclarations</key>
@@ -22,6 +42,12 @@
 			<array>
 				<string>public.json</string>
 			</array>
+			<key>UTTypeDescription</key>
+			<string>Tax Document</string>
+			<key>UTTypeIconFiles</key>
+			<array/>
+			<key>UTTypeIdentifier</key>
+			<string>com.ustaxcalc.item</string>
 			<key>UTTypeTagSpecification</key>
 			<dict>
 				<key>public.filename-extension</key>
@@ -29,10 +55,6 @@
 					<string>ustaxcalc</string>
 				</array>
 			</dict>
-			<key>UTTypeDescription</key>
-			<string>Tax Document</string>
-			<key>UTTypeIdentifier</key>
-			<string>com.ustaxcalc.item</string>
 		</dict>
 	</array>
 </dict>

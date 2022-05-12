@@ -7,38 +7,70 @@ struct StateEntryTab: View {
     @Binding var input: TaxDataInput
 
     var body: some View {
-        ScrollView {
-            Form {
-                ForEach(input.income.stateIncomes.indices, id: \.self) { i in
-                    if i > 0 {
-                        Spacer().frame(height: 20.0)
-                    }
-
-                    let stateIncome = $input.income.stateIncomes[i]
-                    StateTitleButton(stateIncome: stateIncome,
-                                     showRemoveButton: i > 0) {
-                        input.income.stateIncomes.remove(at: i)
-                    }
-                    BasicStateInfoEntryView(stateIncome: stateIncome)
-                    StateIncomeEntryView(stateIncome: stateIncome)
-                    StateTaxReductionsEntryView(input: $input, stateIncome: stateIncome)
+        #if os(macOS)
+            ScrollView {
+                HStack {
+                    Spacer()
+                    form()
+                        .frame(maxWidth: 500)
+                        .padding()
+                    Spacer()
                 }
-                AddStateButton {
+            }
+        #else
+            form()
+        #endif
+    }
+
+    @ViewBuilder
+    func form() -> some View {
+        Form {
+            ForEach(input.income.stateIncomes.indices, id: \.self) { i in
+                let notFirstSection = i > 0
+                let stateIncome = $input.income.stateIncomes[i]
+
+                if notFirstSection { macOnlySpacer() }
+                BasicStateInfoEntryView(stateIncome: stateIncome, headerContent: {
+                    StateTitleButton(stateIncome: stateIncome, showRemoveButton: notFirstSection) {
+                        withAnimation {
+                            removeIncomeAtIndex(i)
+                        }
+                    }
+                })
+                macOnlySpacer()
+                StateIncomeEntryView(stateIncome: stateIncome)
+                macOnlySpacer()
+                StateTaxReductionsEntryView(input: $input, stateIncome: stateIncome)
+            }
+
+            AddStateButton {
+                withAnimation {
                     input.income.stateIncomes.append(StateIncome())
                 }
             }
-            .frame(maxWidth: 500)
-            .padding()
         }
+    }
+
+    @ViewBuilder
+    func macOnlySpacer() -> some View {
+        #if os(macOS)
+            Spacer().frame(height: 20.0)
+        #endif
+    }
+
+    func removeIncomeAtIndex(_ idx: Int) {
+        input.income.stateIncomes.remove(at: idx)
     }
 }
 
 struct StateEntryTab_Previews: PreviewProvider {
-    @State static var input: TaxDataInput = TaxDataInput(income:Income(stateIncomes:[StateIncome(), StateIncome()]))
+    @State static var input: TaxDataInput = .init(income: Income(stateIncomes: [StateIncome(), StateIncome()]))
 
     static var previews: some View {
         StateEntryTab(input: $input)
+        #if os(macOS)
             .padding()
-            .frame(height: 900)
+            .frame(height: 900.0)
+        #endif
     }
 }

@@ -17,8 +17,12 @@ struct ExportAsTextButton: View {
         Button {
             showingPopover = !showingPopover
             if showingPopover {
+                #if os(macOS)
                 NSPasteboard.general.declareTypes([.string], owner: nil)
                 NSPasteboard.general.setString(taxSummary, forType: .string)
+                #elseif os(iOS)
+                UIPasteboard.general.string = taxSummary
+                #endif
             }
         } label: {
             Image(systemName: "square.and.arrow.up")

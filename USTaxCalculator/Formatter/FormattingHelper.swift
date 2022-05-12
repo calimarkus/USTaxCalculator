@@ -5,23 +5,19 @@ import Foundation
 
 struct FormattingHelper {
     static func formattedTitle(taxdata: CalculatedTaxData) -> String {
-        return formattedTitle(title: taxdata.title,
-                              taxyear: taxdata.taxYear,
+        return formattedTitle(taxyear: taxdata.taxYear,
                               filingType: taxdata.filingType,
                               states: taxdata.income.stateIncomes.map { $0.state })
     }
 
     static func formattedTitle(taxDataInput: TaxDataInput) -> String {
-        return formattedTitle(title: taxDataInput.title,
-                              taxyear: taxDataInput.taxYear,
+        return formattedTitle(taxyear: taxDataInput.taxYear,
                               filingType: taxDataInput.filingType,
                               states: taxDataInput.income.stateIncomes.map { $0.state })
     }
 
-    private static func formattedTitle(title: String, taxyear:TaxYear, filingType:FilingType, states:[TaxState]) -> String {
-        let additionalTitle = title.count > 0 ? "- \(title)" : ""
-        let title = "Year \(taxyear.rawValue), \(filingType.rawValue), \(formattedStates(states: states)) \(additionalTitle)"
-        return title.uppercased()
+    private static func formattedTitle(taxyear:TaxYear, filingType:FilingType, states:[TaxState]) -> String {
+        return "Year \(taxyear.rawValue), \(filingType.rawValue), \(formattedStates(states: states))"
     }
 
     static func formattedStates(states:[TaxState]) -> String {
@@ -30,10 +26,6 @@ struct FormattingHelper {
 
     static func formattedTaxYearShort(taxData: CalculatedTaxData) -> String {
         return "'" + String(taxData.taxYear.rawValue).suffix(2)
-    }
-
-    static func formattedShortTitle(taxData: CalculatedTaxData) -> String {
-        return "\(taxData.title.count > 0 ? taxData.title : taxData.filingType.rawValue)"
     }
 
     static func formatCurrency(_ num: Double, locale: Locale? = nil) -> String {

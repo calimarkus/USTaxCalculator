@@ -9,21 +9,20 @@ struct StateTitleButton: View {
     let onRemove: () -> ()
 
     var body: some View {
-        HStack {
-            let buttonTitle = "\(stateIncome.state) Taxes"
-            let titleView = Text(buttonTitle).fontWeight(.bold)
-            if showRemoveButton {
-                Button {
-                    onRemove()
-                } label: {
-                    Image(systemName: "minus.circle.fill")
-                    titleView
-                }
-                .buttonStyle(.plain)
-                .padding(.top, 10.0)
-            } else {
+        let buttonTitle = "\(stateIncome.state) Taxes"
+        let titleView = Text(buttonTitle).fontWeight(.bold)
+        if showRemoveButton {
+            Button {
+                onRemove()
+            } label: {
+                Image(systemName: "minus.circle.fill")
                 titleView
             }
+            #if os(macOS)
+            .buttonStyle(.plain)
+            #endif
+        } else {
+            titleView
         }
     }
 }

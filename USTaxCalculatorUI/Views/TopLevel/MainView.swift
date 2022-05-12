@@ -19,24 +19,26 @@ struct MainView: View {
                                 taxdata: taxdata)
             }
         }
+        #if os(macOS)
         .frame(minWidth: 500.0, minHeight: 500.0)
+        #endif
         .toolbar {
-            ToolbarItemGroup {
+            ToolbarItemGroup(placement: toolbarPlacement) {
                 if !appState.isEditing {
                     ExportAsTextButton(taxDataInput: $document.taxDataInput)
                 }
 
-                Button {
-                    appState.isEditing.toggle()
-                } label: {
-                    if appState.isEditing {
-                        Text("Done")
-                    } else {
-                        Image(systemName: "square.and.pencil")
-                    }
-                }
+                EditButton(isEditing: $appState.isEditing)
             }
         }
+    }
+
+    var toolbarPlacement: ToolbarItemPlacement {
+        #if os(macOS)
+            return .automatic
+        #elseif os(iOS)
+            return .navigationBarTrailing
+        #endif
     }
 }
 

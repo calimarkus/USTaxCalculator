@@ -7,20 +7,26 @@ struct FederalTaxDataEntryView: View {
     @Binding var income: Income
 
     var body: some View {
+        #if os(macOS)
         Spacer().frame(height: 20.0)
+        #endif
+
         Section(header: Text("W-2 Income").fontWeight(.bold)) {
             CurrencyValueInputView(caption: "Wages",
-                                   subtitle: " (W-2, Box 1)",
+                                   subtitle: "(W-2, Box 1)",
                                    amount: $income.wages)
             CurrencyValueInputView(caption: "Medicare Wages",
-                                   subtitle: " (W-2, Box 5)",
+                                   subtitle: "(W-2, Box 5)",
                                    amount: $income.medicareWages)
             CurrencyValueInputView(caption: "Federal Withholdings",
-                                   subtitle: " (W-2, Box 2)",
+                                   subtitle: "(W-2, Box 2)",
                                    amount: $income.federalWithholdings)
         }
 
+        #if os(macOS)
         Spacer().frame(height: 20.0)
+        #endif
+
         Section(header: Text("Investment Income").fontWeight(.bold)) {
             CurrencyValueInputView(caption: "Dividends & Interests",
                                    subtitle: "(Forms 1099-INT, 1099-DIV)",
@@ -41,6 +47,8 @@ struct FederalTaxDataEntryView_Previews: PreviewProvider {
         Form {
             FederalTaxDataEntryView(income: $income)
         }
+        #if os(macOS)
         .padding()
+        #endif
     }
 }

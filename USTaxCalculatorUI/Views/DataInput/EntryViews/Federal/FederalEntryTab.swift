@@ -7,14 +7,27 @@ struct FederalEntryTab: View {
     @Binding var input: TaxDataInput
 
     var body: some View {
-        ScrollView {
-            Form {
-                BasicTaxDataEntryView(input: $input)
-                FederalTaxDataEntryView(income: $input.income)
-                FederalTaxReductionsEntryView(input: $input)
+        #if os(macOS)
+            ScrollView {
+                HStack {
+                    Spacer()
+                    form()
+                        .frame(maxWidth: 500)
+                        .padding()
+                    Spacer()
+                }
             }
-            .frame(maxWidth: 500)
-            .padding()
+        #else
+            form()
+        #endif
+    }
+
+    @ViewBuilder
+    func form() -> some View {
+        Form {
+            BasicTaxDataEntryView(input: $input)
+            FederalTaxDataEntryView(income: $input.income)
+            FederalTaxReductionsEntryView(input: $input)
         }
     }
 }
@@ -24,7 +37,9 @@ struct FederalEntryTab_Previews: PreviewProvider {
 
     static var previews: some View {
         FederalEntryTab(input: $input)
+        #if os(macOS)
             .padding()
             .frame(height: 700.0)
+        #endif
     }
 }

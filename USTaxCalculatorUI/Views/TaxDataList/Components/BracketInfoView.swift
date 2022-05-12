@@ -59,7 +59,9 @@ struct BracketInfoView: View {
             }
         }
         .padding(20.0)
+        #if os(macOS)
         .frame(minWidth: BracketInfoSize.minWidth)
+        #endif
     }
 }
 
@@ -154,12 +156,14 @@ extension BracketTableView {
             HStack(spacing: 0.0) {
                 Text("\(FormattingHelper.formatPercentage(bracket.rate))")
 
+                #if os(macOS)
                 if bracket.isProgressive && bracket.startingAt > 0.0 {
                     Text("of amount over \(FormattingHelper.formatCurrency(bracket.startingAt))")
                         .font(.subheadline)
                         .foregroundColor(.secondary)
                         .padding(.leading, 6.0)
                 }
+                #endif
 
                 Spacer()
             }

@@ -100,7 +100,10 @@ struct TaxSummaryFormatter {
 
         // output
         var summary = ""
-        summary.appendLine(FormattingHelper.formattedTitle(taxdata: td))
+        if td.title.count > 0 {
+            summary.appendLine(td.title.uppercased())
+        }
+        summary.appendLine(FormattingHelper.formattedTitle(taxdata: td).uppercased())
         summary.appendLine(String(repeating: "=", count: summary.count))
 
         // Federal

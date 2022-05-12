@@ -8,17 +8,19 @@ struct DeductionsPickerView: View {
 
     var body: some View {
         Picker("Deductions", selection: DeductionAmount.pickerSelectionBinding($deductions)) {
-            Text("Standard deduction + additional amount:").tag(DeductionAmount.standard(additionalDeductions: 0.0))
+            Text("Standard deduction").tag(DeductionAmount.standard(additionalDeductions: 0.0))
             Text("Custom amount:").tag(DeductionAmount.custom(0.0))
-        }.pickerStyle(.inline)
+        }
+        #if os(macOS)
+        .pickerStyle(.inline)
+        #endif
 
         if case .standard = deductions {
-            CurrencyValueInputView(caption: "",
+            CurrencyValueInputView(caption: "Additional amount:",
                                    amount: DeductionAmount.valueBinding($deductions,
                                                                         isCustomDeduction: false))
         } else {
-            CurrencyValueInputView(caption: "",
-                                   amount: DeductionAmount.valueBinding($deductions,
+            CurrencyValueInputView(amount: DeductionAmount.valueBinding($deductions,
                                                                         isCustomDeduction: true))
         }
     }

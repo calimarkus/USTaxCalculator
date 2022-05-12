@@ -20,13 +20,19 @@ struct TaxDataTabView<Content: View>: View {
 
     var body: some View {
         ScrollView {
-            VStack(alignment: .leading) {
-                content
+            HStack {
+                Spacer()
+                VStack(alignment: .leading) {
+                    content
+                }
+                .frame(maxWidth: 680)
+                .padding()
+                Spacer()
             }
         }
-        .padding()
         .id(tab)
         .tabItem {
+            Image(systemName: "dollarsign.circle.fill")
             Text(tab.rawValue)
         }
     }

@@ -8,11 +8,9 @@ struct StateTaxReductionsEntryView: View {
     @Binding var stateIncome: StateIncome
 
     var body: some View {
-        Spacer().frame(height: 20.0)
-
         Section(header: Text("Tax Reductions").fontWeight(.bold)) {
             CurrencyValueInputView(caption: "Withholdings",
-                                   subtitle: " (W-2, Box 17)",
+                                   subtitle: "(W-2, Box 17)",
                                    amount: $stateIncome.withholdings)
 
             CurrencyValueInputView(caption: "Tax Credits",
@@ -32,6 +30,9 @@ struct StateTaxReductionsEntryView_Previews: PreviewProvider {
         Form {
             StateTaxReductionsEntryView(input: $input,
                                         stateIncome: $stateIncome)
-        }.padding()
+        }
+        #if os(macOS)
+        .padding()
+        #endif
     }
 }
