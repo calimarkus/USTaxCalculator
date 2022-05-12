@@ -22,11 +22,11 @@ struct StateTaxesListSection: View {
 
                 if let localTax = stateTax.localTax {
                     CurrencyView(title: "State Tax",
-                                 secondary: "(\(FormattingHelper.formattedBracketInfo(stateTax.bracket)))",
+                                 subtitle: "(\(FormattingHelper.formattedBracketInfo(stateTax.bracket)))",
                                  amount: stateTax.stateOnlyTaxAmount,
                                  infoText: stateTax.bracket.taxCalculationExplanation(stateTax.taxableIncome))
                     CurrencyView(title: "Local Tax (\(localTax.city))",
-                                 secondary: "(\(FormattingHelper.formattedBracketInfo(localTax.bracket)))",
+                                 subtitle: "(\(FormattingHelper.formattedBracketInfo(localTax.bracket)))",
                                  amount: localTax.taxAmount,
                                  infoText: localTax.bracket.taxCalculationExplanation(localTax.taxableIncome))
                 }
@@ -38,11 +38,11 @@ struct StateTaxesListSection: View {
 
             if let _ = stateTax.localTax {
                 CurrencyView(title: "Total (State & Local)",
-                             secondary: "(~ \(FormattingHelper.formatPercentage((stateTax.taxAmount - stateCredits) / stateTax.taxableIncome)))",
+                             subtitle: "(~ \(FormattingHelper.formatPercentage((stateTax.taxAmount - stateCredits) / stateTax.taxableIncome)))",
                              amount: stateTax.taxAmount - stateCredits)
             } else {
                 CurrencyView(title: "State Tax",
-                             secondary: "(\(FormattingHelper.formattedBracketInfo(stateTax.bracket)))",
+                             subtitle: "(\(FormattingHelper.formattedBracketInfo(stateTax.bracket)))",
                              amount: stateTax.taxAmount - stateCredits,
                              infoText: "\(stateTax.bracket.taxCalculationExplanation(stateTax.taxableIncome))"
                                  + "\(stateCredits > 0.0 ? " - \(FormattingHelper.formatCurrency(stateCredits))" : "")")

@@ -18,7 +18,7 @@ struct FederalTaxesListSection: View {
             if expanded {
                 ForEach(taxdata.allFederalTaxes) { tax in
                     CurrencyView(title: "\(tax.title) Tax",
-                                 secondary: "(\(FormattingHelper.formattedBracketInfo(tax.bracket)))",
+                                 subtitle: "(\(FormattingHelper.formattedBracketInfo(tax.bracket)))",
                                  amount: tax.taxAmount,
                                  infoText: tax.bracket.taxCalculationExplanation(tax.taxableIncome))
                 }

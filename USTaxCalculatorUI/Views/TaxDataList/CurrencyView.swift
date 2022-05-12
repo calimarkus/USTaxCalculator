@@ -5,7 +5,7 @@ import SwiftUI
 
 struct AdditionView: View {
     var title: String
-    let amount: Double?
+    let amount: Double
 
     var body: some View {
         CurrencyView(title: title, amount: amount, isMathValue: true)
@@ -14,21 +14,22 @@ struct AdditionView: View {
 
 struct SumView: View {
     var title: String
-    var secondary: String = ""
-    let amount: Double?
+    var subtitle: String = ""
+    let amount: Double
 
     var body: some View {
-        CurrencyView(title: title, secondary: secondary, amount: amount, boldValue: true)
+        CurrencyView(title: title, subtitle: subtitle, amount: amount, boldValue: true)
     }
 }
 
 struct CurrencyView: View {
     var title: String = ""
-    var secondary: String = ""
-    var amount: Double? = nil
+    var subtitle: String = ""
+    var amount: Double
+    var infoText: String? = nil
+
     var isMathValue: Bool = false
     var boldValue: Bool = false
-    var infoText: String? = nil
 
     var titleText: String {
         let colon = (title.count > 0 && amount != 0.0 ? ":" : "")
@@ -42,16 +43,51 @@ struct CurrencyView: View {
         return "\(plus)\(FormattingHelper.formatCurrency(sanitizedAmount))"
     }
 
+    var valueFormat: LabeledValueFormat {
+        if isMathValue && amount < 0 {
+            return .negative
+        } else if boldValue {
+            return .bold
+        } else {
+            return .normal
+        }
+    }
+
+    var body: some View {
+        LabeledExplainableValueView(titleText: titleText,
+                                    subtitle: subtitle,
+                                    valueText: amountText(amount: amount),
+                                    infoText: infoText,
+                                    isSecondaryLabel: isMathValue,
+                                    valueFormat: valueFormat)
+    }
+}
+
+enum LabeledValueFormat {
+    case normal
+    case bold
+    case negative
+}
+
+struct LabeledExplainableValueView: View {
+    var titleText: String
+    var subtitle: String = ""
+    var valueText: String = ""
+    var infoText: String? = nil
+
+    var isSecondaryLabel: Bool = false
+    var valueFormat: LabeledValueFormat = .normal
+
     var body: some View {
         LabeledValueView(title: titleText,
-                         subtitle: secondary,
-                         isSecondary: isMathValue) {
-            if let amount = amount {
+                         subtitle: subtitle,
+                         isSecondaryLabel: isSecondaryLabel) {
+            if valueText.count > 0 {
                 ExplainableView(infoText: infoText) {
-                    Text(amountText(amount: amount))
+                    Text(valueText)
                         .font(.system(.body, design: .monospaced))
-                        .fontWeight(boldValue ? .bold : .regular)
-                        .foregroundColor(isMathValue && amount < 0 ? Color.tax.negativeAmount : nil)
+                        .fontWeight(valueFormat == .bold ? .bold : .regular)
+                        .foregroundColor(valueFormat == .negative ? Color.tax.negativeAmount : nil)
                 }
             }
         }
@@ -61,14 +97,14 @@ struct CurrencyView: View {
 struct LabeledValueView<Content: View>: View {
     var title: String = ""
     var subtitle: String = ""
-    var isSecondary: Bool = false
+    var isSecondaryLabel: Bool = false
 
     @ViewBuilder let valueView: () -> Content
 
     var body: some View {
         HStack {
             Text(title)
-                .foregroundColor(isSecondary ? .secondary : .primary)
+                .foregroundColor(isSecondaryLabel ? .secondary : .primary)
 
             if subtitle.count > 0 {
                 Text(subtitle)
@@ -87,13 +123,12 @@ struct CurrencyView_Previews: PreviewProvider {
     static var previews: some View {
         List {
             Section {
-                CurrencyView(title: "No Value Row")
                 CurrencyView(title: "Alpha", amount: 123.53, infoText: "info")
                 AdditionView(title: "Beta", amount: 25.25)
                 AdditionView(title: "Gamma", amount: -12.23)
                 SumView(title: "Total", amount: 123.53 + 25.25)
                 CurrencyView(title: "PS", amount: -12.23)
-                CurrencyView(title: "PS", secondary: "(some explanation)", amount: 0.0)
+                CurrencyView(title: "PS", subtitle: "(some explanation)", amount: 0.0)
                 AdditionView(title: "Gamma", amount: -0.0)
             }
         }

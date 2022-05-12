@@ -13,7 +13,7 @@ struct TaxSummaryView: View {
         AdditionView(title: "Withheld", amount: -summary.withholdings)
         SumView(
             title: title.count > 0 ? "To Pay (\(title))" : "To Pay",
-            secondary: "(~ \(FormattingHelper.formatPercentage(summary.effectiveTaxRate)))",
+            subtitle: "(~ \(FormattingHelper.formatPercentage(summary.effectiveTaxRate)))",
             amount: summary.outstandingPayment)
     }
 }
