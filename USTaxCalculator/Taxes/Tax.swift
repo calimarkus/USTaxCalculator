@@ -36,8 +36,11 @@ struct StateTax: Tax {
     /// An additional local tax applying to this state
     var localTax: LocalTax? = nil
 
-    /// The taxable income for this specific Bracket
+    /// The taxable income for this state
     let taxableIncome: Double
+
+    /// State Income that's not part of the wages on the W-2
+    var additionalStateIncome: Double = 0.0
 
     /// Deductions that apply to this bracket
     let deductions: Double

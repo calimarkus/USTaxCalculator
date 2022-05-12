@@ -17,6 +17,7 @@ struct TaxDataListView: View {
                                     taxdata: taxdata)
             ForEach(taxdata.stateTaxes) { stateTax in
                 StateTaxesListSection(collapseState: collapseState,
+                                      totalIncome: taxdata.income.totalIncome,
                                       stateTax: stateTax,
                                       stateCredits: taxdata.stateCredits[stateTax.state] ?? 0.0)
             }

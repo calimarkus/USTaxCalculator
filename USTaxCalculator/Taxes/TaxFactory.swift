@@ -63,6 +63,7 @@ enum TaxFactory {
                         bracket: bracket,
                         localTax: localTax,
                         taxableIncome: taxableIncome,
+                        additionalStateIncome: stateIncome.additionalStateIncome,
                         deductions: deductions,
                         withholdings: stateIncome.withholdings,
                         incomeRate: stateIncome.incomeRateGivenFederalIncome(totalIncome),

@@ -8,7 +8,7 @@ struct AdditionView: View {
     let amount: Double
 
     var body: some View {
-        CurrencyView(title: title, amount: amount, isMathValue: true)
+        CurrencyView(title: title, amount: amount, isMathValue: true, isSecondaryLabel: true)
     }
 }
 
@@ -29,6 +29,7 @@ struct CurrencyView: View {
     var infoText: String? = nil
 
     var isMathValue: Bool = false
+    var isSecondaryLabel: Bool = false
     var boldValue: Bool = false
 
     var titleText: String {
@@ -58,7 +59,7 @@ struct CurrencyView: View {
                                     subtitle: subtitle,
                                     valueText: amountText(amount: amount),
                                     infoText: infoText,
-                                    isSecondaryLabel: isMathValue,
+                                    isSecondaryLabel: isSecondaryLabel,
                                     valueFormat: valueFormat)
     }
 }

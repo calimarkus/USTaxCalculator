@@ -10,15 +10,31 @@ extension StateTax: Identifiable {
 struct StateTaxesListSection: View {
     @ObservedObject var collapseState: SectionCollapseState
 
+    let totalIncome: Double
     let stateTax: StateTax
     let stateCredits: Double
 
     var body: some View {
-        let title = "\(stateTax.state) Taxes (at \(FormattingHelper.formatPercentage(stateTax.incomeRate)))"
+        let title = "\(stateTax.state) Taxes"
         CollapsableSection(title: title, expanded: collapseState.stateBinding(for: stateTax.state)) { expanded in
             if expanded {
-                AdditionView(title: "Deductions", amount: -stateTax.deductions)
-                CurrencyView(title: "Taxable Income", amount: stateTax.taxableIncome)
+                CurrencyView(title: "Total Income", amount: totalIncome)
+                if stateTax.additionalStateIncome > 0.0 {
+                    AdditionView(title: "Additional State Income",
+                                 amount: stateTax.additionalStateIncome)
+                }
+                AdditionView(title: "State Deductions", amount: -stateTax.deductions)
+                SumView(title: "Taxable Income", amount: stateTax.taxableIncome)
+
+                if stateTax.incomeRate < 1.0 {
+                    CurrencyView(title: "State Attributed Income",
+                                 amount: stateTax.stateAttributedIncome)
+
+                    let info = "\(FormattingHelper.formatCurrency(stateTax.stateAttributedIncome)) / \(FormattingHelper.formatCurrency(totalIncome))"
+                    LabeledExplainableValueView(titleText: "State Income Rate",
+                                                valueText: "\(FormattingHelper.formatPercentage(stateTax.incomeRate))",
+                                                infoText: info)
+                }
 
                 if let localTax = stateTax.localTax {
                     CurrencyView(title: "State Tax",
@@ -37,9 +53,9 @@ struct StateTaxesListSection: View {
             }
 
             if let _ = stateTax.localTax {
-                CurrencyView(title: "Total (State & Local)",
-                             subtitle: "(~ \(FormattingHelper.formatPercentage((stateTax.taxAmount - stateCredits) / stateTax.taxableIncome)))",
-                             amount: stateTax.taxAmount - stateCredits)
+                SumView(title: "Total (State & Local)",
+                        subtitle: "(~ \(FormattingHelper.formatPercentage((stateTax.taxAmount - stateCredits) / stateTax.taxableIncome)))",
+                        amount: stateTax.taxAmount - stateCredits)
             } else {
                 let creditInfo = "\(stateCredits > 0.0 ? " - \(FormattingHelper.formatCurrency(stateCredits))" : "")"
                 CurrencyView(title: "State Tax",
@@ -60,12 +76,15 @@ struct StateTaxesListSection: View {
 struct StateTaxesListSection_Previews: PreviewProvider {
     static var previews: some View {
         List {
+            let exampleData = ExampleData.exampleTaxDataJohnAndSarah_21()
             StateTaxesListSection(collapseState: SectionCollapseState(),
-                                  stateTax: ExampleData.exampleTaxDataJohnAndSarah_21().stateTaxes[0],
-                                  stateCredits: 350.0)
+                                  totalIncome: exampleData.income.totalIncome,
+                                  stateTax: exampleData.stateTaxes[0],
+                                  stateCredits: exampleData.stateCredits[exampleData.stateTaxes[0].state] ?? 0.0)
             StateTaxesListSection(collapseState: SectionCollapseState(),
-                                  stateTax: ExampleData.exampleTaxDataJohnAndSarah_21().stateTaxes[1],
-                                  stateCredits: 350.0)
+                                  totalIncome: exampleData.income.totalIncome,
+                                  stateTax: exampleData.stateTaxes[1],
+                                  stateCredits: exampleData.stateCredits[exampleData.stateTaxes[1].state] ?? 0.0)
         }.frame(height: 600.0)
     }
 }
