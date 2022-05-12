@@ -10,7 +10,16 @@ enum NavigationState {
 }
 
 class GlobalAppState: ObservableObject {
-    @Published var taxdata: [CalculatedTaxData]
+    @Published var taxdata: [CalculatedTaxData] {
+        didSet {
+            if taxdata.count == 0 {
+                navigationState = .empty
+            } else if case .entry(let entryIndex, _) = navigationState, entryIndex >= taxdata.count {
+                navigationState = .entry(entryIndex: taxdata.count - 1)
+            }
+        }
+    }
+
     @Published var navigationState: NavigationState
 
     init() {

@@ -24,8 +24,6 @@ struct MainView: View {
                             TaxDataListView(collapseState: collapseState,
                                             appState: appState,
                                             taxdata: appState.taxdata[entryIndex])
-                        } else {
-                            EmptyView(appState: appState)
                         }
                 }
             }
