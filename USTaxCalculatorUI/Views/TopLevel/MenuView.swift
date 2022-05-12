@@ -34,6 +34,11 @@ struct MenuView: View {
             }
         }
         .listStyle(SidebarListStyle())
+        .onDeleteCommand {
+            if let idx = appState.selectionBinding().wrappedValue.first {
+                appState.taxdata.remove(at: idx)
+            }
+        }
     }
 
     func titleForTaxdata(taxdata: CalculatedTaxData) -> String {
