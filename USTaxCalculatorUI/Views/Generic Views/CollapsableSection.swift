@@ -28,9 +28,11 @@ struct CollapsableSection<CollapsableContent: View>: View {
             Button {
                 withAnimation { expanded.toggle() }
             } label: {
-                Text(title)
+                Text(title).font(.title3)
                 Image(systemName: expanded ? "chevron.up.square.fill" : "chevron.down.square.fill")
-            }.buttonStyle(CustomLinkStyle())
+            }
+            .buttonStyle(CustomLinkStyle())
+            .padding(.bottom, 10.0)
         }) {
             content(expanded)
         }
