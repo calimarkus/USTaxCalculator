@@ -14,7 +14,7 @@ struct FederalTaxesListSection: View {
     var summary: TaxSummary { return taxdata.taxSummaries.federal }
 
     var body: some View {
-        CollapsableSection(title: "Federal Taxes", expanded: $collapseState.federal) { expanded in
+        CollapsableSection(title: "Federal Taxes", expandedBinding: $collapseState.federal) { expanded in
             if expanded {
                 ForEach(taxdata.allFederalTaxes) { tax in
                     CurrencyView(title: "\(tax.title) Tax",

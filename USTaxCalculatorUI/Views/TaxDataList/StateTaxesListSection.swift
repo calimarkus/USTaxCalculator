@@ -16,7 +16,7 @@ struct StateTaxesListSection: View {
 
     var body: some View {
         let title = "\(stateTax.state) Taxes"
-        CollapsableSection(title: title, expanded: collapseState.stateBinding(for: stateTax.state)) { expanded in
+        CollapsableSection(title: title, expandedBinding: collapseState.stateBinding(for: stateTax.state)) { expanded in
             if expanded {
                 CurrencyView(title: "Total Income", amount: totalIncome)
                 if stateTax.additionalStateIncome > 0.0 {

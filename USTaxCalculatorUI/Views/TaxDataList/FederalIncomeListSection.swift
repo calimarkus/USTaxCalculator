@@ -10,7 +10,7 @@ struct FederalIncomeListSection: View {
     var income: Income { return taxdata.income }
 
     var body: some View {
-        CollapsableSection(title: "Income", expanded: $collapseState.income) { expanded in
+        CollapsableSection(title: "Income", expandedBinding: $collapseState.income) { expanded in
             if expanded {
                 CurrencyView(title: "Wages", amount: income.wages)
                 AdditionView(title: "Capital gains", amount: income.totalCapitalGains)

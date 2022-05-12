@@ -22,11 +22,11 @@ struct TaxDataListView: View {
                                       stateCredits: taxdata.stateCredits[stateTax.state] ?? 0.0)
             }
             if taxdata.stateTaxes.count > 1 {
-                Section(header: Text("States Total")) {
+                CollapsableSection(title: "States Total") { _ in
                     TaxSummaryView(summary: taxdata.taxSummaries.states)
                 }
             }
-            Section(header: Text("Total")) {
+            CollapsableSection(title: "Total") { _ in
                 TaxSummaryView(summary: taxdata.taxSummaries.total)
             }
         }
