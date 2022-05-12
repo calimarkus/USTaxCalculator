@@ -116,7 +116,7 @@ struct LabeledValueView<Content: View>: View {
             Spacer(minLength: 20)
 
             valueView()
-        }
+        }.padding(1.0)
     }
 }
 
