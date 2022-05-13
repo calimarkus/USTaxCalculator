@@ -10,29 +10,33 @@ struct TaxDataListView: View {
     let taxdata: CalculatedTaxData
 
     var body: some View {
-        List {
-            FederalIncomeListSection(collapseState: collapseState,
-                                     taxdata: taxdata)
-            FederalTaxesListSection(collapseState: collapseState,
-                                    taxdata: taxdata)
-            ForEach(taxdata.stateTaxes) { stateTax in
-                StateTaxesListSection(collapseState: collapseState,
-                                      totalIncome: taxdata.income.totalIncome,
-                                      stateTax: stateTax,
-                                      stateCredits: taxdata.stateCredits[stateTax.state] ?? 0.0)
-            }
-            if taxdata.stateTaxes.count > 1 {
-                CollapsableSection(title: "States Total") { _ in
-                    TaxSummaryView(summary: taxdata.taxSummaries.states)
+        ScrollView {
+            VStack(alignment: .leading) {
+                FederalIncomeListSection(collapseState: collapseState,
+                                         taxdata: taxdata)
+                FederalTaxesListSection(collapseState: collapseState,
+                                        taxdata: taxdata)
+                ForEach(taxdata.stateTaxes) { stateTax in
+                    StateTaxesListSection(collapseState: collapseState,
+                                          totalIncome: taxdata.income.totalIncome,
+                                          stateTax: stateTax,
+                                          stateCredits: taxdata.stateCredits[stateTax.state] ?? 0.0)
                 }
-            }
-            CollapsableSection(title: "Total") { _ in
-                TaxSummaryView(summary: taxdata.taxSummaries.total)
-            }
+                if taxdata.stateTaxes.count > 1 {
+                    NonCollapsableSection(title: "States Total") {
+                        TaxListGroupView {
+                            TaxSummaryView(summary: taxdata.taxSummaries.states)
+                        }
+                    }
+                }
+                NonCollapsableSection(title: "Total") {
+                    TaxListGroupView {
+                        TaxSummaryView(summary: taxdata.taxSummaries.total)
+                    }
+                }
+            }.padding()
         }
         .navigationTitle(FormattingHelper.formattedTitle(taxdata: taxdata))
-        .listStyle(.inset(alternatesRowBackgrounds: true))
-        .environment(\.defaultMinListHeaderHeight, 30)
         .toolbar {
             ToolbarItem(placement: .status) {
                 ExportAsTextButton(taxdata: taxdata)

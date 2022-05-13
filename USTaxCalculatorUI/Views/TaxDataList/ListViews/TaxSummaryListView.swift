@@ -20,8 +20,8 @@ struct TaxSummaryView: View {
 
 struct TaxSummaryView_Previews: PreviewProvider {
     static var previews: some View {
-        List {
+        TaxListGroupView {
             TaxSummaryView(title: "blah", summary: ExampleData.exampleTaxDataJohnAndSarah_21().taxSummaries.federal)
-        }
+        }.padding()
     }
 }
