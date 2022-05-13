@@ -18,8 +18,7 @@ You can compile and run the app and use it as is to input some data and review i
 
 <img width="1194" alt="screenshot2" src="https://user-images.githubusercontent.com/807039/167646074-9625bff6-e7f4-41cd-9d30-877f11c3383d.png">
 
-<img width="1291" alt="screenshot1" src="https://user-images.githubusercontent.com/807039/167646098-611e65bb-a99d-41b3-9709-1e9c1dc7729e.png">
-
+<img width="1170" alt="Screen Shot 2022-05-13 at 6 03 48 PM" src="https://user-images.githubusercontent.com/807039/168250217-6360448e-3849-4760-ae6e-cd15a9809526.png">
 
 ## Supported Tax Scenarios
 
