@@ -16,10 +16,13 @@ struct FederalIncomeListSection: View {
             TaxListGroupView {
                 if expanded {
                     CurrencyView(title: "Wages", amount: income.wages)
-                    AdditionView(title: "Capital gains", amount: income.totalCapitalGains)
+                    CurrencyView(title: "Capital gains",
+                                 amount: income.totalCapitalGains,
+                                 showPlusMinus: true)
                     SumView(title: "Total Income", amount: income.totalIncome)
                     if income.longtermCapitalGains > 0 {
-                        AdditionView(title: "Longterm gains", amount: -income.longtermCapitalGains)
+                        AdditionView(title: "Longterm gains",
+                                     amount: -income.longtermCapitalGains)
                     }
                     AdditionView(title: "Deductions", amount: -taxdata.federalDeductions)
                 }
@@ -31,8 +34,9 @@ struct FederalIncomeListSection: View {
 
 struct FederalIncomeListSection_Previews: PreviewProvider {
     static var previews: some View {
-        FederalIncomeListSection(collapseState: SectionCollapseState(),
-                                 taxdata: ExampleData.exampleTaxDataJohnAndSarah_21())
-        .padding()
+        FederalIncomeListSection(
+            collapseState: SectionCollapseState(),
+            taxdata: ExampleData.exampleTaxDataJohnAndSarah_21()
+        ).padding()
     }
 }

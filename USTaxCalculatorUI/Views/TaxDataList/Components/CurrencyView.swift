@@ -125,17 +125,14 @@ struct LabeledValueView<Content: View>: View {
 
 struct CurrencyView_Previews: PreviewProvider {
     static var previews: some View {
-        List {
-            Section {
-                CurrencyView(title: "Alpha", amount: 123.53, infoText: "info")
-                AdditionView(title: "Beta", amount: 25.25)
-                AdditionView(title: "Gamma", amount: -12.23)
-                SumView(title: "Total", amount: 123.53 + 25.25)
-                CurrencyView(title: "PS", amount: -12.23)
-                CurrencyView(title: "PS", subtitle: "(some explanation)", amount: 0.0)
-                AdditionView(title: "Gamma", amount: -0.0)
-            }
-        }
-        .listStyle(.inset(alternatesRowBackgrounds: true))
+        TaxListGroupView {
+            CurrencyView(title: "Alpha", amount: 123.53, infoText: "info")
+            AdditionView(title: "Beta", amount: 25.25)
+            AdditionView(title: "Gamma", amount: -12.23)
+            SumView(title: "Total", amount: 123.53 + 25.25)
+            CurrencyView(title: "PS", amount: -12.23)
+            CurrencyView(title: "PS", subtitle: "(some explanation)", amount: 0.0)
+            AdditionView(title: "Gamma", amount: -0.0)
+        }.padding()
     }
 }
