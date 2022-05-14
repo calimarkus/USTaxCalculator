@@ -22,7 +22,7 @@ enum ExampleData {
             income: exampleIncomeA_NY_CA(),
             federalDeductions: DeductionAmount.standard(),
             federalCredits: 500,
-            stateCredits: [.NY: 3500]))
+            stateCredits: [.NY: 3500, .CA: 100]))
     }
 
     private static func exampleIncomeB_NY() -> Income {

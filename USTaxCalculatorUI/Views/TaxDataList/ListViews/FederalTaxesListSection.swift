@@ -25,14 +25,10 @@ struct FederalTaxesListSection: View {
                                      infoText: tax.bracket.taxCalculationExplanation(tax.taxableIncome),
                                      showPlusMinus: i > 0)
                     }
-
-                    if summary.credits > 0 {
-                        AdditionView(title: "Federal Credits", amount: -summary.credits)
-                    }
                 }
             }
             TaxListGroupView {
-                TaxSummaryView(title: "Fed", summary: summary)
+                TaxSummaryView(summary: summary, expanded: expanded)
             }
         }
     }

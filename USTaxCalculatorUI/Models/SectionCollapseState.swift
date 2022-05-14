@@ -6,6 +6,7 @@ import SwiftUI
 class SectionCollapseState: ObservableObject {
     @Published var income: Bool = true
     @Published var federal: Bool = true
+    @Published var summary: Bool = true
     @Published var states: [TaxState: Bool] = [:]
 
     func stateBinding(for state: TaxState) -> Binding<Bool> {
@@ -24,6 +25,7 @@ class SectionCollapseState: ObservableObject {
         let collapsed = isAllCollapsed
         income = collapsed
         federal = collapsed
+        summary = collapsed
         for state in allStates {
             states[state] = collapsed
         }

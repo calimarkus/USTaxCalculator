@@ -6,11 +6,19 @@ import SwiftUI
 struct TaxSummaryView: View {
     var title: String = ""
     let summary: TaxSummary
+    var expanded: Bool = true
 
     var body: some View {
-        SumView(title: title.count > 0 ? "Total Taxes (\(title))" : "Total Taxes",
+        SumView(title: title.count > 0 ? "Total (\(title))" : "Total",
                 amount: summary.taxes)
-        AdditionView(title: "Withheld", amount: -summary.withholdings)
+
+        if expanded {
+            if summary.credits > 0 {
+                AdditionView(title: "Credits", amount: -summary.credits)
+            }
+            AdditionView(title: "Withheld", amount: -summary.withholdings)
+        }
+
         SumView(
             title: title.count > 0 ? "To Pay (\(title))" : "To Pay",
             subtitle: "(~ \(FormattingHelper.formatPercentage(summary.effectiveTaxRate)))",
