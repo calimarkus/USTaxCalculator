@@ -16,6 +16,7 @@ struct TaxDataListView: View {
                                          taxdata: taxdata)
                 FederalTaxesListSection(collapseState: collapseState,
                                         taxdata: taxdata)
+
                 ForEach(taxdata.stateTaxes) { stateTax in
                     StateTaxesListSection(collapseState: collapseState,
                                           totalIncome: taxdata.income.totalIncome,
@@ -24,18 +25,8 @@ struct TaxDataListView: View {
                                           stateCredits: taxdata.stateCredits[stateTax.state] ?? 0.0)
                 }
 
-                CollapsableSection(title: "Total", expandedBinding: $collapseState.summary) { expanded in
-                    if taxdata.stateTaxes.count > 1 {
-                        TaxListGroupView {
-                            TaxSummaryView(title: FormattingHelper.formattedStates(states: taxdata.stateTaxes.map { $0.state }),
-                                           summary: taxdata.taxSummaries.stateTotal,
-                                           expanded: expanded)
-                        }
-                    }
-                    TaxListGroupView {
-                        TaxSummaryView(summary: taxdata.taxSummaries.total, expanded: expanded)
-                    }
-                }
+                TaxSummaryListSection(collapseState: collapseState,
+                                      taxdata: taxdata)
             }.padding()
         }
         .navigationTitle(FormattingHelper.formattedTitle(taxdata: taxdata))
