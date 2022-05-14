@@ -15,4 +15,17 @@ class SectionCollapseState: ObservableObject {
             self.states[state] = $0
         })
     }
+
+    var isAllCollapsed: Bool {
+        !income
+    }
+
+    func toggleAll(allStates: [TaxState]) {
+        let collapsed = isAllCollapsed
+        income = collapsed
+        federal = collapsed
+        for state in allStates {
+            states[state] = collapsed
+        }
+    }
 }

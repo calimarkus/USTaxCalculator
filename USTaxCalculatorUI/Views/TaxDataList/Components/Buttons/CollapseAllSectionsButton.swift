@@ -7,23 +7,14 @@ struct CollapseAllSectionsButton: View {
     let allStates: [TaxState]
     @ObservedObject var collapseState: SectionCollapseState
 
-    var isCollapsed: Bool {
-        !collapseState.income
-    }
-
     var body: some View {
         Button {
             withAnimation {
-                let collapsed = isCollapsed
-                collapseState.income = collapsed
-                collapseState.federal = collapsed
-                for state in allStates {
-                    collapseState.states[state] = collapsed
-                }
+                collapseState.toggleAll(allStates: allStates)
             }
         } label: {
-            Image(systemName: isCollapsed ? "rectangle.expand.vertical" : "rectangle.compress.vertical")
-                .help(isCollapsed ? "Expand all" : "Collapse all")
+            Image(systemName: collapseState.isAllCollapsed ? "rectangle.expand.vertical" : "rectangle.compress.vertical")
+                .help(collapseState.isAllCollapsed ? "Expand all" : "Collapse all")
         }
     }
 }
