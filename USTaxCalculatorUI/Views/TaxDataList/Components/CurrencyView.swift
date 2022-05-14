@@ -47,13 +47,11 @@ struct CurrencyView: View {
         return "\(plus)\(FormattingHelper.formatCurrency(sanitizedAmount))"
     }
 
-    var valueFormat: LabeledValueFormat {
+    var valueColor: Color? {
         if showPlusMinus && amount < 0 {
-            return .negative
-        } else if boldValue {
-            return .bold
+            return .tax.taxReducingAmount
         } else {
-            return .normal
+            return nil
         }
     }
 
@@ -63,14 +61,9 @@ struct CurrencyView: View {
                                     valueText: amountText(amount: amount),
                                     infoText: infoText,
                                     isSecondaryLabel: isSecondaryLabel,
-                                    valueFormat: valueFormat)
+                                    boldValue: boldValue,
+                                    valueColor: valueColor)
     }
-}
-
-enum LabeledValueFormat {
-    case normal
-    case bold
-    case negative
 }
 
 struct LabeledExplainableValueView: View {
@@ -80,7 +73,8 @@ struct LabeledExplainableValueView: View {
     var infoText: String? = nil
 
     var isSecondaryLabel: Bool = false
-    var valueFormat: LabeledValueFormat = .normal
+    var boldValue: Bool = false
+    var valueColor: Color? = nil
 
     var body: some View {
         LabeledValueView(title: titleText,
@@ -90,8 +84,8 @@ struct LabeledExplainableValueView: View {
                 ExplainableView(infoText: infoText) {
                     Text(valueText)
                         .font(.system(.body, design: .monospaced))
-                        .fontWeight(valueFormat == .bold ? .bold : .regular)
-                        .foregroundColor(valueFormat == .negative ? Color.tax.negativeAmount : nil)
+                        .fontWeight(boldValue ? .bold : .regular)
+                        .foregroundColor(valueColor)
                 }
             }
         }

@@ -47,9 +47,8 @@ struct StateTaxesListSection: View {
                         CurrencyView(title: "Local Tax (\(localTax.city))",
                                      subtitle: "(\(FormattingHelper.formattedBracketInfo(localTax.bracket)))",
                                      amount: localTax.taxAmount,
-                                     infoText: localTax.bracket.taxCalculationExplanation(localTax.taxableIncome),
-                                     showPlusMinus: true)
-                        SumView(title: "Total (State & Local)",
+                                     infoText: localTax.bracket.taxCalculationExplanation(localTax.taxableIncome))
+                        SumView(title: "Total",
                                 subtitle: "(~ \(FormattingHelper.formatPercentage(stateTax.taxAmount / stateTax.taxableIncome)))",
                                 amount: stateTax.taxAmount)
                     }
