@@ -31,6 +31,16 @@ struct MainView: View {
             }
             .frame(minWidth: 400.0, minHeight: 400.0)
         }
+        .toolbar {
+            ToolbarItem(placement: .navigation) {
+                Button {
+                    NSApp.sendAction(#selector(NSSplitViewController.toggleSidebar(_:)), to: nil, from: nil)
+                } label: {
+                    Image(systemName: "sidebar.left")
+                        .help("Toggle sidebar")
+                }
+            }
+        }
     }
 }
 

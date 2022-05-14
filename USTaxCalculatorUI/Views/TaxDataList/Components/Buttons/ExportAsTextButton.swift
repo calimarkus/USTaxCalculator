@@ -26,6 +26,7 @@ struct ExportAsTextButton: View {
                 .popover(isPresented: $showingPopover) {
                     Text("Copied to clipboard!").padding()
                 }
+                .help("Export as Text")
         }
     }
 }
@@ -33,5 +34,6 @@ struct ExportAsTextButton: View {
 struct ExportAsTextButton_Previews: PreviewProvider {
     static var previews: some View {
         ExportAsTextButton(taxdata: ExampleData.exampleTaxDataJohnAndSarah_21())
+            .padding()
     }
 }

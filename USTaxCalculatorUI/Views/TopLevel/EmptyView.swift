@@ -22,11 +22,7 @@ struct EmptyView: View {
         .navigationTitle("")
         .toolbar {
             ToolbarItem(placement: .status) {
-                Button {
-                    appState.navigationState = .addNewEntry
-                } label: {
-                    Image(systemName: "plus")
-                }
+                AddEntryButton(appState: appState)
             }
         }
     }
