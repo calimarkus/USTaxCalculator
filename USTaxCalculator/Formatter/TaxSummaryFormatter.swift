@@ -71,7 +71,7 @@ struct TaxSummaryFormatter {
         }
 
         summary.appendLine(formattedSumSeparator())
-        summary.appendLine(formattedTaxSummary(taxSummaries.states, title: "State Total"))
+        summary.appendLine(formattedTaxSummary(taxSummaries.stateTotal, title: "State Total"))
 
         // Summary
         summary.appendLine("\nSummary:".uppercased())

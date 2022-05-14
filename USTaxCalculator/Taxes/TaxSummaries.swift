@@ -3,7 +3,8 @@
 
 struct TaxSummaries: Equatable {
     let federal: TaxSummary
-    let states: TaxSummary
+    let states: [TaxState: TaxSummary]
+    let stateTotal: TaxSummary
     let total: TaxSummary
 }
 
@@ -35,25 +36,31 @@ extension TaxSummaries {
                                  effectiveTaxRate: fedTaxes / totalFederalIncome)
 
         // sum up states
+        var states: [TaxState: TaxSummary] = [:]
         var stateWithholdingsTotal = 0.0, stateCreditsTotal = 0.0, totalStateTaxes = 0.0
         for tax in stateTaxes {
             let credits = stateCredits[tax.state] ?? 0.0
             stateWithholdingsTotal += tax.withholdings
             totalStateTaxes += tax.taxAmount - credits
             stateCreditsTotal += credits
+
+            states[tax.state] = TaxSummary(taxes: tax.taxAmount,
+                                           credits: credits,
+                                           withholdings: tax.withholdings,
+                                           effectiveTaxRate: tax.taxAmount / totalFederalIncome)
         }
 
-        let states = TaxSummary(taxes: totalStateTaxes,
-                                credits: stateCreditsTotal,
-                                withholdings: stateWithholdingsTotal,
-                                effectiveTaxRate: totalStateTaxes / totalFederalIncome)
+        let stateTotal = TaxSummary(taxes: totalStateTaxes,
+                                    credits: stateCreditsTotal,
+                                    withholdings: stateWithholdingsTotal,
+                                    effectiveTaxRate: totalStateTaxes / totalFederalIncome)
 
         // sum up total
-        let total = TaxSummary(taxes: federal.taxes + states.taxes,
-                               credits: federal.credits + states.credits,
-                               withholdings: federal.withholdings + states.withholdings,
-                               effectiveTaxRate: (federal.taxes + states.taxes) / totalFederalIncome)
+        let total = TaxSummary(taxes: federal.taxes + stateTotal.taxes,
+                               credits: federal.credits + stateTotal.credits,
+                               withholdings: federal.withholdings + stateTotal.withholdings,
+                               effectiveTaxRate: (federal.taxes + stateTotal.taxes) / totalFederalIncome)
 
-        return TaxSummaries(federal: federal, states: states, total: total)
+        return TaxSummaries(federal: federal, states: states, stateTotal: stateTotal, total: total)
     }
 }

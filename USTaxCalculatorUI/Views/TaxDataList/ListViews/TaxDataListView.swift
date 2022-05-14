@@ -25,7 +25,7 @@ struct TaxDataListView: View {
                 if taxdata.stateTaxes.count > 1 {
                     NonCollapsableSection(title: "States Total") {
                         TaxListGroupView {
-                            TaxSummaryView(summary: taxdata.taxSummaries.states)
+                            TaxSummaryView(summary: taxdata.taxSummaries.stateTotal)
                         }
                     }
                 }
