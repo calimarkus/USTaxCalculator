@@ -10,6 +10,7 @@ struct TaxSummaryView: View {
 
     var body: some View {
         SumView(title: title.count > 0 ? "Total (\(title))" : "Total",
+                subtitle: "(~ \(FormattingHelper.formatPercentage(summary.effectiveTaxRate)) effective)",
                 amount: summary.taxes)
 
         if expanded {
@@ -19,9 +20,9 @@ struct TaxSummaryView: View {
             AdditionView(title: "Withheld", amount: -summary.withholdings)
         }
 
+        let paymentTitle = summary.outstandingPayment < 0 ? "Tax Refund" : "To Pay"
         SumView(
-            title: title.count > 0 ? "To Pay (\(title))" : "To Pay",
-            subtitle: "(~ \(FormattingHelper.formatPercentage(summary.effectiveTaxRate)))",
+            title: title.count > 0 ? "\(paymentTitle) (\(title))" : paymentTitle,
             amount: summary.outstandingPayment)
     }
 }

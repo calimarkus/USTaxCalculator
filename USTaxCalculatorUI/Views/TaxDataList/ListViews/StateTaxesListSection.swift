@@ -49,7 +49,7 @@ struct StateTaxesListSection: View {
                                      amount: localTax.taxAmount,
                                      infoText: localTax.bracket.taxCalculationExplanation(localTax.taxableIncome))
                         SumView(title: "Total",
-                                subtitle: "(~ \(FormattingHelper.formatPercentage(stateTax.taxAmount / stateTax.taxableIncome)))",
+                                subtitle: "(~ \(FormattingHelper.formatPercentage(stateTax.taxAmount / stateTax.taxableIncome)) effective)",
                                 amount: stateTax.taxAmount)
                     }
                 }
