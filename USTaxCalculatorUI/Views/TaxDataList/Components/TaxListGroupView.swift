@@ -4,12 +4,16 @@
 import SwiftUI
 
 struct TaxListGroupView<Content: View>: View {
-    @ViewBuilder let content: () -> Content
+    let content: Content
+
+    init(@ViewBuilder content: () -> Content) {
+        self.content = content()
+    }
 
     var body: some View {
         let cornderRadius = 10.0
         VStack {
-            content()
+            content
         }
         .padding(10.0)
         .background(

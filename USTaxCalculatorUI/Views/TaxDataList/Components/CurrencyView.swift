@@ -93,11 +93,21 @@ struct LabeledExplainableValueView: View {
 }
 
 struct LabeledValueView<Content: View>: View {
-    var title: String = ""
-    var subtitle: String = ""
-    var isSecondaryLabel: Bool = false
+    let title: String
+    let subtitle: String
+    let isSecondaryLabel: Bool
+    let valueView: Content
 
-    @ViewBuilder let valueView: () -> Content
+    init(title: String = "",
+        subtitle: String = "",
+        isSecondaryLabel: Bool = false,
+        @ViewBuilder valueView: () -> Content)
+    {
+        self.title = title
+        self.subtitle = subtitle
+        self.isSecondaryLabel = isSecondaryLabel
+        self.valueView = valueView()
+    }
 
     var body: some View {
         HStack {
@@ -112,7 +122,7 @@ struct LabeledValueView<Content: View>: View {
 
             Spacer(minLength: 20)
 
-            valueView()
+            valueView
         }.padding(1.0)
     }
 }

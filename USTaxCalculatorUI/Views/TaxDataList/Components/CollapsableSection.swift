@@ -10,12 +10,21 @@ struct CustomLinkStyle: ButtonStyle {
     }
 }
 
-struct NonCollapsableSection<CollapsableContent: View>: View {
+struct NonCollapsableSection<Content: View>: View {
     let title: String
-    var isFirst: Bool = false
-    var titleInset: Double = 10.0
+    let isFirst: Bool
+    let titleInset: Double
+    let content: Content
 
-    @ViewBuilder let content: () -> CollapsableContent
+    init(title: String,
+         isFirst: Bool = false,
+         titleInset: Double = 10.0,
+         @ViewBuilder content: () -> Content) {
+        self.title = title
+        self.isFirst = isFirst
+        self.titleInset = titleInset
+        self.content = content()
+    }
 
     var body: some View {
         Text(title)
@@ -24,30 +33,41 @@ struct NonCollapsableSection<CollapsableContent: View>: View {
             .padding(.bottom, 2.0)
             .padding(.leading, titleInset)
 
-        content()
+        content
     }
 }
 
-struct CollapsableSection<CollapsableContent: View>: View {
+struct CollapsableSection<Content: View>: View {
     let title: String
-    var isFirst: Bool = false
-    var titleInset: Double = 10.0
+    let isFirst: Bool
+    let titleInset: Double
+    let content: Content
+    let expandedBinding: Binding<Bool>
 
-    @Binding var expandedBinding: Bool
-    @ViewBuilder let content: (Bool) -> CollapsableContent
+    init(title: String,
+         isFirst: Bool = false,
+         titleInset: Double = 10.0,
+         expandedBinding: Binding<Bool>,
+         @ViewBuilder content: (Bool) -> Content) {
+        self.title = title
+        self.isFirst = isFirst
+        self.titleInset = titleInset
+        self.content = content(expandedBinding.wrappedValue)
+        self.expandedBinding = expandedBinding
+    }
 
     var body: some View {
         VStack(alignment: .leading) {
             Group {
                 Button {
                     withAnimation {
-                        expandedBinding.toggle()
+                        expandedBinding.wrappedValue = !expandedBinding.wrappedValue
                     }
                 } label: {
                     HStack {
                         Text(title)
                             .font(.headline)
-                        Image(systemName: expandedBinding
+                        Image(systemName: expandedBinding.wrappedValue
                             ? "chevron.down.square.fill"
                             : "chevron.up.square.fill")
                     }
@@ -58,7 +78,7 @@ struct CollapsableSection<CollapsableContent: View>: View {
             .padding(.bottom, 2.0)
             .padding(.leading, titleInset)
 
-            content(expandedBinding)
+            content
         }
     }
 }

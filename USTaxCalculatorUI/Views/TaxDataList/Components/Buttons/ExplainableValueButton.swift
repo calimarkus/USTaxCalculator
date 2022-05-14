@@ -6,8 +6,13 @@ import SwiftUI
 struct ExplainableView<Content: View>: View {
     @State private var showingPopover = false
 
-    var infoText: String? = nil
-    @ViewBuilder let content: () -> Content
+    let infoText: String?
+    let content: Content
+
+    init(infoText: String? = nil, @ViewBuilder content: () -> Content) {
+        self.infoText = infoText
+        self.content = content()
+    }
 
     var body: some View {
         HStack {
@@ -15,7 +20,7 @@ struct ExplainableView<Content: View>: View {
                 Button {
                     showingPopover = !showingPopover
                 } label: {
-                    content()
+                    content
                     Image(systemName: "info.circle")
                         .foregroundColor(.secondary)
                 }
@@ -26,7 +31,7 @@ struct ExplainableView<Content: View>: View {
                         .font(.system(.body, design: .monospaced))
                 }
             } else {
-                content()
+                content
                 Spacer().frame(width: 23)
             }
         }
