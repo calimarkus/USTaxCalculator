@@ -4,7 +4,7 @@
 import SwiftUI
 
 struct AddEntryButton: View {
-    @ObservedObject var appState: GlobalAppState
+    var appState: GlobalAppState
 
     var body: some View {
         Button {

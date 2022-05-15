@@ -4,7 +4,7 @@
 import SwiftUI
 
 struct EmptyView: View {
-    @ObservedObject var appState: GlobalAppState
+    var appState: GlobalAppState
 
     var body: some View {
         VStack(spacing: 0.0) {
@@ -29,9 +29,8 @@ struct EmptyView: View {
 }
 
 struct EmptyView_Previews: PreviewProvider {
-    @State static var appState: GlobalAppState = .init()
     static var previews: some View {
-        EmptyView(appState: appState)
+        EmptyView(appState: .init())
             .padding()
     }
 }
