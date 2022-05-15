@@ -40,8 +40,6 @@ struct TaxDataListView: View {
         .toolbar {
             ToolbarItemGroup {
                 ExportAsTextButton(taxdata: taxdata)
-                CollapseAllSectionsButton(allStates: taxdata.stateTaxes.map { $0.state },
-                                          collapseState: collapseState)
                 AddEntryButton(appState: appState)
             }
         }
