@@ -14,20 +14,20 @@ struct FederalTaxesListSection: View {
     var summary: TaxSummary { return taxdata.taxSummaries.federal }
 
     var body: some View {
-        CollapsableSection(title: "Federal Taxes", expandedBinding: $isExpanded) {
-            if isExpanded {
-                TaxListGroupView {
-                    ForEach(taxdata.allFederalTaxes) { tax in
-                        CurrencyView(title: "\(tax.title) Tax",
-                                     subtitle: "(\(FormattingHelper.formattedBracketInfo(tax.bracket)))",
-                                     amount: tax.taxAmount,
-                                     infoText: tax.bracket.taxCalculationExplanation(tax.taxableIncome))
-                    }
+        CollapsableSectionTitle(title: "Federal Taxes", isExpanded: $isExpanded)
+
+        if isExpanded {
+            TaxListGroupView {
+                ForEach(taxdata.allFederalTaxes) { tax in
+                    CurrencyView(title: "\(tax.title) Tax",
+                                 subtitle: "(\(FormattingHelper.formattedBracketInfo(tax.bracket)))",
+                                 amount: tax.taxAmount,
+                                 infoText: tax.bracket.taxCalculationExplanation(tax.taxableIncome))
                 }
             }
-            TaxListGroupView {
-                TaxSummaryView(summary: summary, expanded: isExpanded)
-            }
+        }
+        TaxListGroupView {
+            TaxSummaryView(summary: summary, expanded: isExpanded)
         }
     }
 }

@@ -9,17 +9,17 @@ struct TaxSummaryListSection: View {
     let taxdata: CalculatedTaxData
 
     var body: some View {
-        CollapsableSection(title: "Total", expandedBinding: $isExpanded) {
-            if taxdata.stateTaxes.count > 1 {
-                TaxListGroupView {
-                    TaxSummaryView(title: FormattingHelper.formattedStates(states: taxdata.stateTaxes.map { $0.state }),
-                                   summary: taxdata.taxSummaries.stateTotal,
-                                   expanded: isExpanded)
-                }
-            }
+        CollapsableSectionTitle(title: "Total", isExpanded: $isExpanded)
+
+        if taxdata.stateTaxes.count > 1 {
             TaxListGroupView {
-                TaxSummaryView(summary: taxdata.taxSummaries.total, expanded: isExpanded)
+                TaxSummaryView(title: FormattingHelper.formattedStates(states: taxdata.stateTaxes.map { $0.state }),
+                               summary: taxdata.taxSummaries.stateTotal,
+                               expanded: isExpanded)
             }
+        }
+        TaxListGroupView {
+            TaxSummaryView(summary: taxdata.taxSummaries.total, expanded: isExpanded)
         }
     }
 }

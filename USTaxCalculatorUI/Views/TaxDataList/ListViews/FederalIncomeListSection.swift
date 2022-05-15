@@ -10,26 +10,24 @@ struct FederalIncomeListSection: View {
     var income: Income { return taxdata.income }
 
     var body: some View {
-        let _ = print("Evaluating FederalIncomeListSection")
+        CollapsableSectionTitle(title: "Income",
+                                isFirst: true,
+                                isExpanded: $isExpanded)
 
-        CollapsableSection(title: "Income",
-                           isFirst: true,
-                           expandedBinding: $isExpanded) {
-            TaxListGroupView {
-                if isExpanded {
-                    CurrencyView(title: "Wages", amount: income.wages)
-                    CurrencyView(title: "Capital gains",
-                                 amount: income.totalCapitalGains,
-                                 showPlusMinus: true)
-                    SumView(title: "Total Income", amount: income.totalIncome)
-                    if income.longtermCapitalGains > 0 {
-                        AdditionView(title: "Longterm gains",
-                                     amount: -income.longtermCapitalGains)
-                    }
-                    AdditionView(title: "Deductions", amount: -taxdata.federalDeductions)
+        TaxListGroupView {
+            if isExpanded {
+                CurrencyView(title: "Wages", amount: income.wages)
+                CurrencyView(title: "Capital gains",
+                             amount: income.totalCapitalGains,
+                             showPlusMinus: true)
+                SumView(title: "Total Income", amount: income.totalIncome)
+                if income.longtermCapitalGains > 0 {
+                    AdditionView(title: "Longterm gains",
+                                 amount: -income.longtermCapitalGains)
                 }
-                SumView(title: "Taxable Income", amount: taxdata.taxableFederalIncome)
+                AdditionView(title: "Deductions", amount: -taxdata.federalDeductions)
             }
+            SumView(title: "Taxable Income", amount: taxdata.taxableFederalIncome)
         }
     }
 }

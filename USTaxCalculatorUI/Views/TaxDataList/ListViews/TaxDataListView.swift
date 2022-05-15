@@ -10,8 +10,6 @@ struct TaxDataListView: View {
     let taxdata: CalculatedTaxData
 
     var body: some View {
-        let _ = print("Evaluating TaxDataListView")
-
         ScrollView {
             VStack(alignment: .leading) {
                 FederalIncomeListSection(isExpanded: $collapseState.income,
