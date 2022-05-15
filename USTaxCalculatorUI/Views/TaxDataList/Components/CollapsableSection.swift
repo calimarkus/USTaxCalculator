@@ -42,7 +42,7 @@ struct CollapsableSection<Content: View>: View {
     let isFirst: Bool
     let titleInset: Double
     let content: Content
-    let expandedBinding: Binding<Bool>
+    @Binding var isExpanded: Bool
 
     init(title: String,
          isFirst: Bool = false,
@@ -53,21 +53,23 @@ struct CollapsableSection<Content: View>: View {
         self.isFirst = isFirst
         self.titleInset = titleInset
         self.content = content(expandedBinding.wrappedValue)
-        self.expandedBinding = expandedBinding
+        self._isExpanded = expandedBinding
     }
 
     var body: some View {
+        let _ = print("Evaluating body of \(title) - \(isExpanded)")
+
         VStack(alignment: .leading) {
             Group {
                 Button {
                     withAnimation {
-                        expandedBinding.wrappedValue = !expandedBinding.wrappedValue
+                        isExpanded = !isExpanded
                     }
                 } label: {
                     HStack {
                         Text(title)
                             .font(.headline)
-                        Image(systemName: expandedBinding.wrappedValue
+                        Image(systemName: isExpanded
                             ? "chevron.down.square.fill"
                             : "chevron.up.square.fill")
                     }
