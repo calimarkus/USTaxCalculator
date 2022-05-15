@@ -11,15 +11,15 @@ struct TaxListGroupView<Content: View>: View {
     }
 
     var body: some View {
-        let cornderRadius = 10.0
+        let cornerRadius = 10.0
         VStack {
             content
         }
         .padding(10.0)
         .background(
-            RoundedRectangle(cornerRadius: cornderRadius)
+            RoundedRectangle(cornerRadius: cornerRadius)
                 .stroke(Color.secondary.opacity(0.5), lineWidth: 1)
-                .background(Color.secondary.opacity(0.03)).cornerRadius(cornderRadius)
+                .background(Color.secondary.opacity(0.03)).cornerRadius(cornerRadius)
         )
         .transition(
             .opacity
