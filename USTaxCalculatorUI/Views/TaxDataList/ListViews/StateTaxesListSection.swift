@@ -10,13 +10,14 @@ extension StateTax: Identifiable {
 struct StateTaxesListSection: View {
     @Binding var isExpanded: Bool
 
+    let isFirst: Bool
     let totalIncome: Double
     let stateTax: StateTax
     let summary: TaxSummary?
 
     var body: some View {
         let title = "\(stateTax.state) Taxes"
-        CollapsableSectionTitle(title: title, isExpanded: $isExpanded)
+        CollapsableSectionTitle(title: title, isFirst: isFirst, isExpanded: $isExpanded)
 
         if isExpanded {
             TaxListGroupView {
@@ -74,10 +75,12 @@ struct StateTaxesListSection_Previews: PreviewProvider {
         VStack(alignment: .leading) {
             let exampleData = ExampleData.exampleTaxDataJohnAndSarah_21()
             StateTaxesListSection(isExpanded: $isExpanded1,
+                                  isFirst: true,
                                   totalIncome: exampleData.income.totalIncome,
                                   stateTax: exampleData.stateTaxes[0],
                                   summary: exampleData.taxSummaries.states[exampleData.stateTaxes[0].state])
             StateTaxesListSection(isExpanded: $isExpanded2,
+                                  isFirst: false,
                                   totalIncome: exampleData.income.totalIncome,
                                   stateTax: exampleData.stateTaxes[1],
                                   summary: exampleData.taxSummaries.states[exampleData.stateTaxes[1].state])

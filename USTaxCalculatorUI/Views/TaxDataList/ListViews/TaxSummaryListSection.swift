@@ -4,39 +4,38 @@
 import SwiftUI
 
 struct TaxSummaryListSection: View {
-    @Binding var isExpanded: Bool
-
     let taxdata: CalculatedTaxData
 
     var body: some View {
-        CollapsableSectionTitle(title: "Total", isExpanded: $isExpanded)
-
-        if taxdata.stateTaxes.count > 1 {
-            TaxListGroupView {
-                TaxSummaryView(title: FormattingHelper.formattedStates(states: taxdata.stateTaxes.map { $0.state }),
-                               summary: taxdata.taxSummaries.stateTotal,
-                               expanded: isExpanded)
-            }
-        }
+        NonCollapsableSectionTitle(title: "Income", isFirst: true)
         TaxListGroupView {
-            TaxSummaryView(summary: taxdata.taxSummaries.total, expanded: isExpanded)
+            SumView(title: "Total Income", amount: taxdata.income.totalIncome, showSeparator: false)
+        }
+
+        NonCollapsableSectionTitle(title: "Federal Taxes")
+        TaxListGroupView {
+            TaxSummaryView(summary: taxdata.taxSummaries.federal)
+        }
+
+        NonCollapsableSectionTitle(title: "State Taxes (\(FormattingHelper.formattedStates(states: taxdata.stateTaxes.map { $0.state })))")
+        TaxListGroupView {
+            TaxSummaryView(summary: taxdata.taxSummaries.stateTotal)
+        }
+
+        NonCollapsableSectionTitle(title: "Total Taxes")
+        TaxListGroupView {
+            TaxSummaryView(summary: taxdata.taxSummaries.total)
         }
     }
 }
 
 struct TaxSummaryListSection_Previews: PreviewProvider {
     @State static var isExpanded1: Bool = true
-    @State static var isExpanded2: Bool = false
     static var previews: some View {
         VStack(alignment: .leading) {
-            TaxSummaryListSection(
-                isExpanded: $isExpanded1,
-                taxdata: ExampleData.exampleTaxDataJohnAndSarah_21()
-            )
-            TaxSummaryListSection(
-                isExpanded: $isExpanded2,
-                taxdata: ExampleData.exampleTaxDataJohnAndSarah_21()
-            )
-        }.padding()
+            TaxSummaryListSection(taxdata: ExampleData.exampleTaxDataJohnAndSarah_21())
+        }
+        .padding()
+        .frame(height: 460)
     }
 }

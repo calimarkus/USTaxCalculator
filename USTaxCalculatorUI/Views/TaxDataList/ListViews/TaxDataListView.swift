@@ -10,36 +10,38 @@ struct TaxDataListView: View {
     let taxdata: CalculatedTaxData
 
     var body: some View {
-        ScrollView {
-            VStack(alignment: .leading) {
+        TabView {
+            TaxDataTabView(.federal) {
                 FederalIncomeListSection(isExpanded: $collapseState.income,
                                          taxdata: taxdata.federal,
                                          income: taxdata.income)
                 FederalTaxesListSection(isExpanded: $collapseState.federal,
                                         taxdata: taxdata.federal,
                                         summary: taxdata.taxSummaries.federal)
+            }
 
-                ForEach(taxdata.stateTaxes) { stateTax in
+            TaxDataTabView(.states) {
+                ForEach(taxdata.stateTaxes.indices, id: \.self) { idx in
+                    let stateTax = taxdata.stateTaxes[idx]
                     StateTaxesListSection(isExpanded: collapseState.stateBinding(for: stateTax.state),
+                                          isFirst: idx == 0,
                                           totalIncome: taxdata.income.totalIncome,
                                           stateTax: stateTax,
                                           summary: taxdata.taxSummaries.states[stateTax.state])
                 }
+            }
 
-                TaxSummaryListSection(isExpanded: $collapseState.summary,
-                                      taxdata: taxdata)
-            }.padding()
+            TaxDataTabView(.summary) {
+                TaxSummaryListSection(taxdata: taxdata)
+            }
         }
+        .padding()
         .navigationTitle(FormattingHelper.formattedTitle(taxdata: taxdata))
         .toolbar {
-            ToolbarItem(placement: .status) {
+            ToolbarItemGroup {
                 ExportAsTextButton(taxdata: taxdata)
-            }
-            ToolbarItem(placement: .status) {
                 CollapseAllSectionsButton(allStates: taxdata.stateTaxes.map { $0.state },
                                           collapseState: collapseState)
-            }
-            ToolbarItem(placement: .status) {
                 AddEntryButton(appState: appState)
             }
         }
@@ -51,6 +53,6 @@ struct ContentView_Previews: PreviewProvider {
         TaxDataListView(collapseState: SectionCollapseState(),
                         appState: GlobalAppState(),
                         taxdata: ExampleData.exampleTaxDataJohnAndSarah_21())
-            .frame(width: 600.0, height: 1200.0)
+            .frame(height: 650.0)
     }
 }

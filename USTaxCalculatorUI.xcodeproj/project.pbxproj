@@ -60,6 +60,7 @@
 		7ECD5F16282FF28E00C676D9 /* TaxSummaryListSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ECD5F15282FF28E00C676D9 /* TaxSummaryListSection.swift */; };
 		7ED9F866282A8251007A5CE5 /* FederalEntryTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ED9F865282A8251007A5CE5 /* FederalEntryTab.swift */; };
 		7ED9F868282A82CD007A5CE5 /* StateEntryTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ED9F867282A82CD007A5CE5 /* StateEntryTab.swift */; };
+		7EE085A4283137E800E3EDA3 /* TaxDataTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EE085A3283137E800E3EDA3 /* TaxDataTabView.swift */; };
 		7EF0C16E282A3F5B00C6CDD7 /* BasicTaxDataEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EF0C16D282A3F5B00C6CDD7 /* BasicTaxDataEntryView.swift */; };
 /* End PBXBuildFile section */
 
@@ -138,6 +139,7 @@
 		7ECD5F15282FF28E00C676D9 /* TaxSummaryListSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaxSummaryListSection.swift; sourceTree = "<group>"; };
 		7ED9F865282A8251007A5CE5 /* FederalEntryTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FederalEntryTab.swift; sourceTree = "<group>"; };
 		7ED9F867282A82CD007A5CE5 /* StateEntryTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateEntryTab.swift; sourceTree = "<group>"; };
+		7EE085A3283137E800E3EDA3 /* TaxDataTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaxDataTabView.swift; sourceTree = "<group>"; };
 		7EF0C16D282A3F5B00C6CDD7 /* BasicTaxDataEntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicTaxDataEntryView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -237,6 +239,7 @@
 			isa = PBXGroup;
 			children = (
 				7E572EF7282910B300DDB15E /* TaxDataListView.swift */,
+				7EE085A3283137E800E3EDA3 /* TaxDataTabView.swift */,
 				7E572EE9282910B300DDB15E /* FederalIncomeListSection.swift */,
 				7E572EE7282910B300DDB15E /* FederalTaxesListSection.swift */,
 				7E572EE8282910B300DDB15E /* StateTaxesListSection.swift */,
@@ -575,6 +578,7 @@
 				7E107F56282BC32000E2B64A /* StateTitleButton.swift in Sources */,
 				7E05977B282B45EB0067DB7D /* DeductionsPickerView.swift in Sources */,
 				7E059777282B37910067DB7D /* DeductionAmountBindings.swift in Sources */,
+				7EE085A4283137E800E3EDA3 /* TaxDataTabView.swift in Sources */,
 				7E572F2F282910B300DDB15E /* TaxFactory.swift in Sources */,
 				7E1239BD282E0D520048BD77 /* TaxListGroupView.swift in Sources */,
 				7E572F24282910B300DDB15E /* MenuView.swift in Sources */,
