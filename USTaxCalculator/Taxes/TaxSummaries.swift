@@ -14,52 +14,48 @@ struct TaxSummary: Equatable {
     let withholdings: Double
     let effectiveTaxRate: Double
     var outstandingPayment: Double { return taxes - credits - withholdings }
+
+    static func +(lhs: TaxSummary, rhs: TaxSummary) -> TaxSummary {
+        return TaxSummary(taxes: lhs.taxes + rhs.taxes,
+                          credits: lhs.credits + rhs.credits,
+                          withholdings: lhs.withholdings + rhs.withholdings,
+                          effectiveTaxRate: lhs.effectiveTaxRate + rhs.effectiveTaxRate)
+    }
 }
 
 extension TaxSummaries {
-    static func calculateFor(totalFederalIncome: Double,
-                             taxableFederalIncome: Double,
-                             federalWithholdings: Double,
-                             federalCredits: Double,
+    static func calculateFor(input: TaxDataInput,
                              federalTaxes: [FederalTax],
                              stateTaxes: [StateTax],
                              stateCredits: [TaxState: Double]) -> TaxSummaries
     {
-        // sum up federal
         let fedTaxes = federalTaxes.reduce(0.0) { partialResult, tax in
             partialResult + tax.taxAmount
         }
 
         let federal = TaxSummary(taxes: fedTaxes,
-                                 credits: federalCredits,
-                                 withholdings: federalWithholdings,
-                                 effectiveTaxRate: fedTaxes / totalFederalIncome)
+                                 credits: input.federalCredits,
+                                 withholdings: input.income.federalWithholdings + input.additionalFederalWithholding,
+                                 effectiveTaxRate: fedTaxes / input.income.totalIncome)
 
         // sum up states
+        var stateTotal = TaxSummary(taxes: 0.0, credits: 0.0, withholdings: 0.0, effectiveTaxRate: 0.0)
         var states: [TaxState: TaxSummary] = [:]
-        var stateWithholdingsTotal = 0.0, stateCreditsTotal = 0.0, totalStateTaxes = 0.0
         for tax in stateTaxes {
-            let credits = stateCredits[tax.state] ?? 0.0
-            stateWithholdingsTotal += tax.withholdings
-            totalStateTaxes += tax.taxAmount
-            stateCreditsTotal += credits
+            let summary = TaxSummary(taxes: tax.taxAmount,
+                                     credits: stateCredits[tax.state] ?? 0.0,
+                                     withholdings: tax.withholdings,
+                                     effectiveTaxRate: tax.taxAmount / input.income.totalIncome)
 
-            states[tax.state] = TaxSummary(taxes: tax.taxAmount,
-                                           credits: credits,
-                                           withholdings: tax.withholdings,
-                                           effectiveTaxRate: tax.taxAmount / totalFederalIncome)
+            stateTotal = stateTotal + summary
+            states[tax.state] = summary
         }
-
-        let stateTotal = TaxSummary(taxes: totalStateTaxes,
-                                    credits: stateCreditsTotal,
-                                    withholdings: stateWithholdingsTotal,
-                                    effectiveTaxRate: totalStateTaxes / totalFederalIncome)
 
         // sum up total
         let total = TaxSummary(taxes: federal.taxes + stateTotal.taxes,
                                credits: federal.credits + stateTotal.credits,
                                withholdings: federal.withholdings + stateTotal.withholdings,
-                               effectiveTaxRate: (federal.taxes + stateTotal.taxes) / totalFederalIncome)
+                               effectiveTaxRate: (federal.taxes + stateTotal.taxes) / input.income.totalIncome)
 
         return TaxSummaries(federal: federal, states: states, stateTotal: stateTotal, total: total)
     }

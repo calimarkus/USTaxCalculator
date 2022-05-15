@@ -56,10 +56,7 @@ struct CalculatedTaxData: Identifiable {
         }
 
         // calculate tax summaries
-        taxSummaries = TaxSummaries.calculateFor(totalFederalIncome: input.income.totalIncome,
-                                                 taxableFederalIncome: federal.taxableIncome,
-                                                 federalWithholdings: input.income.federalWithholdings + input.additionalFederalWithholding,
-                                                 federalCredits: input.federalCredits,
+        taxSummaries = TaxSummaries.calculateFor(input: input,
                                                  federalTaxes: federal.taxes,
                                                  stateTaxes: stateTaxes,
                                                  stateCredits: stateCredits)
