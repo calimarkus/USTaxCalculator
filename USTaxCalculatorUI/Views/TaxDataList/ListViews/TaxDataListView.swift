@@ -13,9 +13,11 @@ struct TaxDataListView: View {
         ScrollView {
             VStack(alignment: .leading) {
                 FederalIncomeListSection(isExpanded: $collapseState.income,
-                                         taxdata: taxdata)
+                                         taxdata: taxdata.federal,
+                                         income: taxdata.income)
                 FederalTaxesListSection(isExpanded: $collapseState.federal,
-                                        taxdata: taxdata)
+                                        taxdata: taxdata.federal,
+                                        summary: taxdata.taxSummaries.federal)
 
                 ForEach(taxdata.stateTaxes) { stateTax in
                     StateTaxesListSection(isExpanded: collapseState.stateBinding(for: stateTax.state),

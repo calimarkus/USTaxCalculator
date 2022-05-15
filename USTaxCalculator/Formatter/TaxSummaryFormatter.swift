@@ -32,15 +32,15 @@ struct TaxSummaryFormatter {
         if income.longtermCapitalGains > 0 {
             summary.appendLine(formattedCurrency("", -income.longtermCapitalGains, "(longterm gains)"))
         }
-        summary.appendLine(formattedCurrency("", -td.federalDeductions, "(deductions)"))
-        summary.appendLine(formattedCurrency("- Taxable Income:", td.taxableFederalIncome))
+        summary.appendLine(formattedCurrency("", -td.federal.deductions, "(deductions)"))
+        summary.appendLine(formattedCurrency("- Taxable Income:", td.federal.taxableIncome))
 
         summary.appendLine()
         summary.appendLine("- Federal Taxes:")
         if taxSummaries.federal.credits > 0 {
             summary.appendLine(formattedCurrency("  - Federal Credits:", -taxSummaries.federal.credits))
         }
-        for fedTax in td.allFederalTaxes {
+        for fedTax in td.federal.taxes {
             summary.appendLine(formattedCurrency("  - \(fedTax.title) Tax:", fedTax.taxAmount, includeCalculationExplanations ? formattedExplanation(fedTax) : ""))
             summary.appendLine(formattedBracketRate("    Rate:", fedTax.bracket))
         }

@@ -6,8 +6,8 @@ import SwiftUI
 struct FederalIncomeListSection: View {
     @Binding var isExpanded: Bool
 
-    let taxdata: CalculatedTaxData
-    var income: Income { return taxdata.income }
+    let taxdata: FederalTaxData
+    let income: Income
 
     var body: some View {
         CollapsableSectionTitle(title: "Income",
@@ -25,9 +25,9 @@ struct FederalIncomeListSection: View {
                     AdditionView(title: "Longterm gains",
                                  amount: -income.longtermCapitalGains)
                 }
-                AdditionView(title: "Deductions", amount: -taxdata.federalDeductions)
+                AdditionView(title: "Deductions", amount: -taxdata.deductions)
             }
-            SumView(title: "Taxable Income", amount: taxdata.taxableFederalIncome)
+            SumView(title: "Taxable Income", amount: taxdata.taxableIncome)
         }
     }
 }
@@ -37,7 +37,8 @@ struct FederalIncomeListSection_Previews: PreviewProvider {
     static var previews: some View {
         FederalIncomeListSection(
             isExpanded: $isExpanded,
-            taxdata: ExampleData.exampleTaxDataJohnAndSarah_21()
+            taxdata: ExampleData.exampleTaxDataJohnAndSarah_21().federal,
+            income: ExampleData.exampleTaxDataJohnAndSarah_21().income
         ).padding()
     }
 }

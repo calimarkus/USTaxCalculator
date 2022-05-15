@@ -10,15 +10,15 @@ extension FederalTax: Identifiable {
 struct FederalTaxesListSection: View {
     @Binding var isExpanded: Bool
 
-    let taxdata: CalculatedTaxData
-    var summary: TaxSummary { return taxdata.taxSummaries.federal }
+    let taxdata: FederalTaxData
+    var summary: TaxSummary
 
     var body: some View {
         CollapsableSectionTitle(title: "Federal Taxes", isExpanded: $isExpanded)
 
         if isExpanded {
             TaxListGroupView {
-                ForEach(taxdata.allFederalTaxes) { tax in
+                ForEach(taxdata.taxes) { tax in
                     CurrencyView(title: "\(tax.title) Tax",
                                  subtitle: "(\(FormattingHelper.formattedBracketInfo(tax.bracket)))",
                                  amount: tax.taxAmount,
@@ -36,7 +36,8 @@ struct FederalTaxesListSection_Previews: PreviewProvider {
     @State static var isExpanded: Bool = true
     static var previews: some View {
         FederalTaxesListSection(isExpanded: $isExpanded,
-                                taxdata: ExampleData.exampleTaxDataJohnAndSarah_21())
+                                taxdata: ExampleData.exampleTaxDataJohnAndSarah_21().federal,
+                                summary: ExampleData.exampleTaxDataJohnAndSarah_21().taxSummaries.federal)
             .padding()
     }
 }
