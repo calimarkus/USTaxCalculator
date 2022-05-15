@@ -20,7 +20,7 @@ struct StateTaxesListSection: View {
 
         if isExpanded {
             TaxListGroupView {
-                CurrencyView(title: "Total Income", amount: totalIncome)
+                CurrencyView(title: "Total Income", amount: totalIncome, showSeparator: false)
                 if stateTax.additionalStateIncome > 0.0 {
                     AdditionView(title: "Additional State Income",
                                  amount: stateTax.additionalStateIncome)
@@ -30,8 +30,11 @@ struct StateTaxesListSection: View {
             }
 
             TaxListGroupView {
-                if stateTax.incomeRate < 1.0 {
-                    CurrencyView(title: "State Attributed Income", amount: stateTax.stateAttributedIncome)
+                let hasIncomeRate = stateTax.incomeRate < 1.0
+                if hasIncomeRate {
+                    CurrencyView(title: "State Attributed Income",
+                                 amount: stateTax.stateAttributedIncome,
+                                 showSeparator: false)
 
                     let info = "\(FormattingHelper.formatCurrency(stateTax.stateAttributedIncome)) / \(FormattingHelper.formatCurrency(totalIncome))"
                     LabeledExplainableValueView(titleText: "State Income Rate",
@@ -42,7 +45,8 @@ struct StateTaxesListSection: View {
                 CurrencyView(title: "State Tax",
                              subtitle: "(\(FormattingHelper.formattedBracketInfo(stateTax.bracket)))",
                              amount: stateTax.stateOnlyTaxAmount,
-                             infoText: stateTax.stateOnlyTaxExplanation)
+                             infoText: stateTax.stateOnlyTaxExplanation,
+                             showSeparator: hasIncomeRate)
                 if let localTax = stateTax.localTax {
                     CurrencyView(title: "Local Tax (\(localTax.city))",
                                  subtitle: "(\(FormattingHelper.formattedBracketInfo(localTax.bracket)))",
@@ -64,20 +68,21 @@ struct StateTaxesListSection: View {
 }
 
 struct StateTaxesListSection_Previews: PreviewProvider {
-    @State static var isExpanded: Bool = true
+    @State static var isExpanded1: Bool = true
+    @State static var isExpanded2: Bool = false
     static var previews: some View {
-        VStack {
+        VStack(alignment: .leading) {
             let exampleData = ExampleData.exampleTaxDataJohnAndSarah_21()
-            StateTaxesListSection(isExpanded: $isExpanded,
+            StateTaxesListSection(isExpanded: $isExpanded1,
                                   totalIncome: exampleData.income.totalIncome,
                                   stateTax: exampleData.stateTaxes[0],
                                   summary: exampleData.taxSummaries.states[exampleData.stateTaxes[0].state])
-            StateTaxesListSection(isExpanded: $isExpanded,
+            StateTaxesListSection(isExpanded: $isExpanded2,
                                   totalIncome: exampleData.income.totalIncome,
                                   stateTax: exampleData.stateTaxes[1],
                                   summary: exampleData.taxSummaries.states[exampleData.stateTaxes[1].state])
         }
-        .frame(height: 640.0)
+        .frame(height: 540.0)
         .padding()
     }
 }

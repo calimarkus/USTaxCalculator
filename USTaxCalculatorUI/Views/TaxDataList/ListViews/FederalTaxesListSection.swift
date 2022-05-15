@@ -18,11 +18,13 @@ struct FederalTaxesListSection: View {
 
         if isExpanded {
             TaxListGroupView {
-                ForEach(taxdata.taxes) { tax in
+                ForEach(taxdata.taxes.indices, id: \.self) { idx in
+                    let tax = taxdata.taxes[idx]
                     CurrencyView(title: "\(tax.title) Tax",
                                  subtitle: "(\(FormattingHelper.formattedBracketInfo(tax.bracket)))",
                                  amount: tax.taxAmount,
-                                 infoText: tax.bracket.taxCalculationExplanation(tax.taxableIncome))
+                                 infoText: tax.bracket.taxCalculationExplanation(tax.taxableIncome),
+                                 showSeparator: idx > 0)
                 }
             }
         }
@@ -33,11 +35,16 @@ struct FederalTaxesListSection: View {
 }
 
 struct FederalTaxesListSection_Previews: PreviewProvider {
-    @State static var isExpanded: Bool = true
+    @State static var isExpanded1: Bool = true
+    @State static var isExpanded2: Bool = false
     static var previews: some View {
-        FederalTaxesListSection(isExpanded: $isExpanded,
-                                taxdata: ExampleData.exampleTaxDataJohnAndSarah_21().federal,
-                                summary: ExampleData.exampleTaxDataJohnAndSarah_21().taxSummaries.federal)
-            .padding()
+        VStack(alignment: .leading) {
+            FederalTaxesListSection(isExpanded: $isExpanded1,
+                                    taxdata: ExampleData.exampleTaxDataJohnAndSarah_21().federal,
+                                    summary: ExampleData.exampleTaxDataJohnAndSarah_21().taxSummaries.federal)
+            FederalTaxesListSection(isExpanded: $isExpanded2,
+                                    taxdata: ExampleData.exampleTaxDataJohnAndSarah_21().federal,
+                                    summary: ExampleData.exampleTaxDataJohnAndSarah_21().taxSummaries.federal)
+        }.padding()
     }
 }

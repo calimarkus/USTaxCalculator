@@ -25,11 +25,18 @@ struct TaxSummaryListSection: View {
 }
 
 struct TaxSummaryListSection_Previews: PreviewProvider {
-    @State static var isExpanded: Bool = true
+    @State static var isExpanded1: Bool = true
+    @State static var isExpanded2: Bool = false
     static var previews: some View {
-        TaxSummaryListSection(
-            isExpanded: $isExpanded,
-            taxdata: ExampleData.exampleTaxDataJohnAndSarah_21()
-        ).padding()
+        VStack(alignment: .leading) {
+            TaxSummaryListSection(
+                isExpanded: $isExpanded1,
+                taxdata: ExampleData.exampleTaxDataJohnAndSarah_21()
+            )
+            TaxSummaryListSection(
+                isExpanded: $isExpanded2,
+                taxdata: ExampleData.exampleTaxDataJohnAndSarah_21()
+            )
+        }.padding()
     }
 }

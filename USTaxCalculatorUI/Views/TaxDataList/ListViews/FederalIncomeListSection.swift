@@ -16,7 +16,7 @@ struct FederalIncomeListSection: View {
 
         TaxListGroupView {
             if isExpanded {
-                CurrencyView(title: "Wages", amount: income.wages)
+                CurrencyView(title: "Wages", amount: income.wages, showSeparator: false)
                 CurrencyView(title: "Capital gains",
                              amount: income.totalCapitalGains,
                              showPlusMinus: true)
@@ -27,18 +27,26 @@ struct FederalIncomeListSection: View {
                 }
                 AdditionView(title: "Deductions", amount: -taxdata.deductions)
             }
-            SumView(title: "Taxable Income", amount: taxdata.taxableIncome)
+            SumView(title: "Taxable Income", amount: taxdata.taxableIncome, showSeparator: isExpanded)
         }
     }
 }
 
 struct FederalIncomeListSection_Previews: PreviewProvider {
-    @State static var isExpanded: Bool = true
+    @State static var isExpanded1: Bool = true
+    @State static var isExpanded2: Bool = false
     static var previews: some View {
-        FederalIncomeListSection(
-            isExpanded: $isExpanded,
-            taxdata: ExampleData.exampleTaxDataJohnAndSarah_21().federal,
-            income: ExampleData.exampleTaxDataJohnAndSarah_21().income
-        ).padding()
+        VStack(alignment: .leading) {
+            FederalIncomeListSection(
+                isExpanded: $isExpanded1,
+                taxdata: ExampleData.exampleTaxDataJohnAndSarah_21().federal,
+                income: ExampleData.exampleTaxDataJohnAndSarah_21().income
+            )
+            FederalIncomeListSection(
+                isExpanded: $isExpanded2,
+                taxdata: ExampleData.exampleTaxDataJohnAndSarah_21().federal,
+                income: ExampleData.exampleTaxDataJohnAndSarah_21().income
+            )
+        }.padding()
     }
 }

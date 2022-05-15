@@ -11,7 +11,8 @@ struct TaxSummaryView: View {
     var body: some View {
         SumView(title: title.count > 0 ? "Total (\(title))" : "Total",
                 subtitle: "(~ \(FormattingHelper.formatPercentage(summary.effectiveTaxRate)) effective)",
-                amount: summary.taxes)
+                amount: summary.taxes,
+                showSeparator: false)
 
         if expanded {
             if summary.credits > 0 {
@@ -29,8 +30,13 @@ struct TaxSummaryView: View {
 
 struct TaxSummaryView_Previews: PreviewProvider {
     static var previews: some View {
-        TaxListGroupView {
-            TaxSummaryView(title: "blah", summary: ExampleData.exampleTaxDataJohnAndSarah_21().taxSummaries.federal)
+        VStack(alignment: .leading) {
+            TaxListGroupView {
+                TaxSummaryView(title: "blah", summary: ExampleData.exampleTaxDataJohnAndSarah_21().taxSummaries.federal)
+            }
+            TaxListGroupView {
+                TaxSummaryView(title: "blah", summary: ExampleData.exampleTaxDataJohnAndSarah_21().taxSummaries.federal, expanded: false)
+            }
         }.padding()
     }
 }
