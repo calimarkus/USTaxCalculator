@@ -122,7 +122,7 @@ struct LabeledValueView<Content: View>: View {
     var body: some View {
         VStack {
             if showSeparator {
-                Color.white
+                Color.primary
                     .opacity(0.1)
                     .frame(height: 1.0)
                     .padding(.leading, isSecondaryLabel ? 7.5 : 0.5)
