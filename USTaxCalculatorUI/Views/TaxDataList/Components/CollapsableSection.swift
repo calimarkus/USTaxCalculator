@@ -48,16 +48,16 @@ struct CollapsableSection<Content: View>: View {
          isFirst: Bool = false,
          titleInset: Double = 10.0,
          expandedBinding: Binding<Bool>,
-         @ViewBuilder content: (Bool) -> Content) {
+         @ViewBuilder content: () -> Content) {
         self.title = title
         self.isFirst = isFirst
         self.titleInset = titleInset
-        self.content = content(expandedBinding.wrappedValue)
+        self.content = content()
         self._isExpanded = expandedBinding
     }
 
     var body: some View {
-        let _ = print("Evaluating body of \(title) - \(isExpanded)")
+        let _ = print("Evaluating CollapsableSection: \(title) - \(isExpanded)")
 
         VStack(alignment: .leading) {
             Group {
@@ -92,7 +92,7 @@ struct CollapsableSection_Previews: PreviewProvider {
             CollapsableSection(title: "First one",
                                isFirst: true,
                                titleInset: 5.0,
-                               expandedBinding: $expanded) { _ in
+                               expandedBinding: $expanded) {
                 GroupBox {
                     VStack(alignment: .leading) {
                         HStack {
@@ -105,7 +105,7 @@ struct CollapsableSection_Previews: PreviewProvider {
             }
             CollapsableSection(title: "Second",
                                titleInset: 0.0,
-                               expandedBinding: $expanded) { _ in
+                               expandedBinding: $expanded) {
                 Text("x")
                 Text("y")
             }

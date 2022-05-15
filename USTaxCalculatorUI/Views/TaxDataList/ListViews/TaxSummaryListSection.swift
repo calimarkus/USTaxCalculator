@@ -4,30 +4,31 @@
 import SwiftUI
 
 struct TaxSummaryListSection: View {
-    @ObservedObject var collapseState: SectionCollapseState
+    @Binding var isExpanded: Bool
 
     let taxdata: CalculatedTaxData
 
     var body: some View {
-        CollapsableSection(title: "Total", expandedBinding: $collapseState.summary) { expanded in
+        CollapsableSection(title: "Total", expandedBinding: $isExpanded) {
             if taxdata.stateTaxes.count > 1 {
                 TaxListGroupView {
                     TaxSummaryView(title: FormattingHelper.formattedStates(states: taxdata.stateTaxes.map { $0.state }),
                                    summary: taxdata.taxSummaries.stateTotal,
-                                   expanded: expanded)
+                                   expanded: isExpanded)
                 }
             }
             TaxListGroupView {
-                TaxSummaryView(summary: taxdata.taxSummaries.total, expanded: expanded)
+                TaxSummaryView(summary: taxdata.taxSummaries.total, expanded: isExpanded)
             }
         }
     }
 }
 
 struct TaxSummaryListSection_Previews: PreviewProvider {
+    @State static var isExpanded: Bool = true
     static var previews: some View {
         TaxSummaryListSection(
-            collapseState: SectionCollapseState(),
+            isExpanded: $isExpanded,
             taxdata: ExampleData.exampleTaxDataJohnAndSarah_21()
         ).padding()
     }

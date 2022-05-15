@@ -8,17 +8,16 @@ extension StateTax: Identifiable {
 }
 
 struct StateTaxesListSection: View {
-    @ObservedObject var collapseState: SectionCollapseState
+    @Binding var isExpanded: Bool
 
     let totalIncome: Double
     let stateTax: StateTax
     let summary: TaxSummary?
-    let stateCredits: Double
 
     var body: some View {
         let title = "\(stateTax.state) Taxes"
-        CollapsableSection(title: title, expandedBinding: collapseState.stateBinding(for: stateTax.state)) { expanded in
-            if expanded {
+        CollapsableSection(title: title, expandedBinding: $isExpanded) {
+            if isExpanded {
                 TaxListGroupView {
                     CurrencyView(title: "Total Income", amount: totalIncome)
                     if stateTax.additionalStateIncome > 0.0 {
@@ -57,7 +56,7 @@ struct StateTaxesListSection: View {
 
             if let sum = summary {
                 TaxListGroupView {
-                    TaxSummaryView(summary: sum, expanded: expanded)
+                    TaxSummaryView(summary: sum, expanded: isExpanded)
                 }
             }
         }
@@ -65,19 +64,18 @@ struct StateTaxesListSection: View {
 }
 
 struct StateTaxesListSection_Previews: PreviewProvider {
+    @State static var isExpanded: Bool = true
     static var previews: some View {
         VStack {
             let exampleData = ExampleData.exampleTaxDataJohnAndSarah_21()
-            StateTaxesListSection(collapseState: SectionCollapseState(),
+            StateTaxesListSection(isExpanded: $isExpanded,
                                   totalIncome: exampleData.income.totalIncome,
                                   stateTax: exampleData.stateTaxes[0],
-                                  summary: exampleData.taxSummaries.states[exampleData.stateTaxes[0].state],
-                                  stateCredits: exampleData.stateCredits[exampleData.stateTaxes[0].state] ?? 0.0)
-            StateTaxesListSection(collapseState: SectionCollapseState(),
+                                  summary: exampleData.taxSummaries.states[exampleData.stateTaxes[0].state])
+            StateTaxesListSection(isExpanded: $isExpanded,
                                   totalIncome: exampleData.income.totalIncome,
                                   stateTax: exampleData.stateTaxes[1],
-                                  summary: exampleData.taxSummaries.states[exampleData.stateTaxes[1].state],
-                                  stateCredits: exampleData.stateCredits[exampleData.stateTaxes[1].state] ?? 0.0)
+                                  summary: exampleData.taxSummaries.states[exampleData.stateTaxes[1].state])
         }
         .frame(height: 640.0)
         .padding()

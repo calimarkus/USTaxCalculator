@@ -8,14 +8,14 @@ extension FederalTax: Identifiable {
 }
 
 struct FederalTaxesListSection: View {
-    @ObservedObject var collapseState: SectionCollapseState
+    @Binding var isExpanded: Bool
 
     let taxdata: CalculatedTaxData
     var summary: TaxSummary { return taxdata.taxSummaries.federal }
 
     var body: some View {
-        CollapsableSection(title: "Federal Taxes", expandedBinding: $collapseState.federal) { expanded in
-            if expanded {
+        CollapsableSection(title: "Federal Taxes", expandedBinding: $isExpanded) {
+            if isExpanded {
                 TaxListGroupView {
                     ForEach(taxdata.allFederalTaxes) { tax in
                         CurrencyView(title: "\(tax.title) Tax",
@@ -26,15 +26,16 @@ struct FederalTaxesListSection: View {
                 }
             }
             TaxListGroupView {
-                TaxSummaryView(summary: summary, expanded: expanded)
+                TaxSummaryView(summary: summary, expanded: isExpanded)
             }
         }
     }
 }
 
 struct FederalTaxesListSection_Previews: PreviewProvider {
+    @State static var isExpanded: Bool = true
     static var previews: some View {
-        FederalTaxesListSection(collapseState: SectionCollapseState(),
+        FederalTaxesListSection(isExpanded: $isExpanded,
                                 taxdata: ExampleData.exampleTaxDataJohnAndSarah_21())
             .padding()
     }

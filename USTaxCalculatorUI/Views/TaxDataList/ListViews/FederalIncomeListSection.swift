@@ -4,17 +4,19 @@
 import SwiftUI
 
 struct FederalIncomeListSection: View {
-    @ObservedObject var collapseState: SectionCollapseState
+    @Binding var isExpanded: Bool
 
     let taxdata: CalculatedTaxData
     var income: Income { return taxdata.income }
 
     var body: some View {
+        let _ = print("Evaluating FederalIncomeListSection")
+
         CollapsableSection(title: "Income",
                            isFirst: true,
-                           expandedBinding: $collapseState.income) { expanded in
+                           expandedBinding: $isExpanded) {
             TaxListGroupView {
-                if expanded {
+                if isExpanded {
                     CurrencyView(title: "Wages", amount: income.wages)
                     CurrencyView(title: "Capital gains",
                                  amount: income.totalCapitalGains,
@@ -33,9 +35,10 @@ struct FederalIncomeListSection: View {
 }
 
 struct FederalIncomeListSection_Previews: PreviewProvider {
+    @State static var isExpanded: Bool = true
     static var previews: some View {
         FederalIncomeListSection(
-            collapseState: SectionCollapseState(),
+            isExpanded: $isExpanded,
             taxdata: ExampleData.exampleTaxDataJohnAndSarah_21()
         ).padding()
     }

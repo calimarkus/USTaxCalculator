@@ -10,22 +10,23 @@ struct TaxDataListView: View {
     let taxdata: CalculatedTaxData
 
     var body: some View {
+        let _ = print("Evaluating TaxDataListView")
+
         ScrollView {
             VStack(alignment: .leading) {
-                FederalIncomeListSection(collapseState: collapseState,
+                FederalIncomeListSection(isExpanded: $collapseState.income,
                                          taxdata: taxdata)
-                FederalTaxesListSection(collapseState: collapseState,
+                FederalTaxesListSection(isExpanded: $collapseState.federal,
                                         taxdata: taxdata)
 
                 ForEach(taxdata.stateTaxes) { stateTax in
-                    StateTaxesListSection(collapseState: collapseState,
+                    StateTaxesListSection(isExpanded: collapseState.stateBinding(for: stateTax.state),
                                           totalIncome: taxdata.income.totalIncome,
                                           stateTax: stateTax,
-                                          summary: taxdata.taxSummaries.states[stateTax.state],
-                                          stateCredits: taxdata.stateCredits[stateTax.state] ?? 0.0)
+                                          summary: taxdata.taxSummaries.states[stateTax.state])
                 }
 
-                TaxSummaryListSection(collapseState: collapseState,
+                TaxSummaryListSection(isExpanded: $collapseState.summary,
                                       taxdata: taxdata)
             }.padding()
         }
