@@ -1,7 +1,11 @@
 # USTaxCalculator
 
 A small macOS app (written using Swift & SwiftUI) to calculate US Taxes (federal & state & local level).
-You can input income & tax data and then see the resulting taxes and how those were calculated.
+You can input income & tax data and then see the resulting taxes and how those were calculated. Compile and run the app locally to use it. You can enter new data or edit and play with the included example data sets. All example numbers and names are fully fictional.
+
+| Data Entry  | Viewing Calculated Taxes |
+| ------------- | ------------- |
+| ![](https://user-images.githubusercontent.com/807039/168598077-00ab193f-f67e-47c1-91eb-72fff8a32c32.png) | ![](https://user-images.githubusercontent.com/807039/168598118-0222094f-409f-4b91-9f32-f16dc1622bfd.png) |
 
 ## Why?
 
@@ -17,14 +21,6 @@ This is purely a fun side project, which helped me doublecheck a few calculation
 - This code might miss many details & might contain mistakes.
 
 The code has code comments with links to the sources of all tax rates etc.
-
-## Usage
-
-You can compile and run the app locally to use it. It comes with three example data sets, which you can edit and play with. Or you can enter new data. All example numbers and names are fully fictional.
-
-<img width="1083" alt="b" src="https://user-images.githubusercontent.com/807039/168478298-252f0e41-bdff-42f0-a124-508677977d4b.png">
-
-<img width="1083" alt="a" src="https://user-images.githubusercontent.com/807039/168478291-a5bf89e7-3475-4e64-9faf-fc73a518fd38.png">
 
 ## Supported Tax Scenarios
 
