@@ -13,7 +13,7 @@ enum TaxBracketFactory {}
 extension TaxBracketFactory {
     // see https://www.nerdwallet.com/article/taxes/federal-income-tax-brackets
     static func federalTaxBracketsFor(taxYear year: TaxYear, filingType: FilingType) throws -> TaxBracketGroup {
-        if let map = RawStartingAtToTaxRateMap.federalProgressiveMaps[year]?[filingType] {
+        if let map = RawTaxRates.federalProgressiveMaps[year]?[filingType] {
             return ProgressiveTaxBracketGenerator.generateWithStartingAtToTaxRateMap(map)
         }
         throw TaxBracketFactoryError.missingFederalTaxRates
@@ -25,13 +25,13 @@ extension TaxBracketFactory {
     static func stateTaxBracketFor(_ state: TaxState, taxYear year: TaxYear, filingType: FilingType, taxableIncome: Double) throws -> TaxBracketGroup {
         if state == .NY, taxableIncome > 107650 {
             // new york doesn't use progressive rates for incomes higher than 107,650
-            // see comments on RawStartingAtToTaxRateMap.nonProgressiveNewYorkStateRates
-            if let map = RawStartingAtToTaxRateMap.nonProgressiveNewYorkStateRates[year]?[filingType] {
+            // see comments on RawTaxRates.nonProgressiveNewYorkStateRates
+            if let map = RawTaxRates.nonProgressiveNewYorkStateRates[year]?[filingType] {
                 return SimpleTaxBracketGenerator.generateWithStartingAtToTaxRateMap(map)
             }
         } else {
             // use progressive rates as usual
-            if let map = RawStartingAtToTaxRateMap.progressiveMapsForState(state)[year]?[filingType] {
+            if let map = RawTaxRates.progressiveMapsForState(state)[year]?[filingType] {
                 return ProgressiveTaxBracketGenerator.generateWithStartingAtToTaxRateMap(map)
             }
         }
@@ -40,7 +40,7 @@ extension TaxBracketFactory {
     }
 
     static func cityTaxBracketFor(_ city: TaxCity, taxYear year: TaxYear, filingType: FilingType, taxableIncome: Double) throws -> TaxBracketGroup {
-        if let map = RawStartingAtToTaxRateMap.progressiveMapsForCity(city)[year]?[filingType] {
+        if let map = RawTaxRates.progressiveMapsForCity(city)[year]?[filingType] {
             return ProgressiveTaxBracketGenerator.generateWithStartingAtToTaxRateMap(map)
         }
 

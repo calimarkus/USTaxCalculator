@@ -2,28 +2,26 @@
 //
 
 enum SimpleTaxBracketGenerator {
-    static func generateWithStartingAtToTaxRateMap(_ startingAtToTaxRateMap: [Double: Double]) -> TaxBracketGroup {
-        let sortedMap = startingAtToTaxRateMap.sorted { $0.0 < $1.0 }
-        let brackets = sortedMap.map { startingAt, taxRate in
-            TaxBracket(simpleRate: taxRate, startingAt: startingAt)
+    static func generateWithStartingAtToTaxRateMap(_ rawTaxRates: RawTaxRates) -> TaxBracketGroup {
+        let brackets = rawTaxRates.sortedRates.map { rawTaxRate in
+            TaxBracket(simpleRate: rawTaxRate.rate, startingAt: rawTaxRate.startingAt)
         }
         return TaxBracketGroup(brackets)
     }
 }
 
 enum ProgressiveTaxBracketGenerator {
-    static func generateWithStartingAtToTaxRateMap(_ startingAtToTaxRateMap: [Double: Double]) -> TaxBracketGroup {
-        let sortedMap = startingAtToTaxRateMap.sorted { $0.0 < $1.0 }
+    static func generateWithStartingAtToTaxRateMap(_ rawTaxRates: RawTaxRates) -> TaxBracketGroup {
         var previousBracket: TaxBracket?
         var progressiveFixedAmount = 0.0
 
-        let brackets: [TaxBracket] = sortedMap.map { startingAt, taxRate in
+        let brackets: [TaxBracket] = rawTaxRates.sortedRates.map { rawTaxRate in
             var br: TaxBracket
             if let prev = previousBracket {
-                progressiveFixedAmount += prev.rate * (startingAt - prev.startingAt)
-                br = TaxBracket(fixedAmount: progressiveFixedAmount, plus: taxRate, over: startingAt)
+                progressiveFixedAmount += prev.rate * (rawTaxRate.startingAt - prev.startingAt)
+                br = TaxBracket(fixedAmount: progressiveFixedAmount, plus: rawTaxRate.rate, over: rawTaxRate.startingAt)
             } else {
-                br = TaxBracket(simpleRate: taxRate, startingAt: startingAt)
+                br = TaxBracket(simpleRate: rawTaxRate.rate, startingAt: rawTaxRate.startingAt)
             }
             previousBracket = br
             return br
