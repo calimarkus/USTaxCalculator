@@ -30,13 +30,13 @@ struct ExplainableView<Content: View, InfoContent: View>: View {
                     Spacer()
                     Image(systemName: "info.circle")
                         .foregroundColor(.secondary)
+                        .popover(isPresented: $showingPopover, arrowEdge: .trailing) {
+                            infoContent
+                        }
                 }.frame(width: ExplainableColumnSize.width)
             }
         }
         .buttonStyle(.plain)
-        .popover(isPresented: $showingPopover) {
-            infoContent
-        }
     }
 }
 
