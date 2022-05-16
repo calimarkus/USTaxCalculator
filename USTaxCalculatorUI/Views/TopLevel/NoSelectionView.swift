@@ -3,7 +3,7 @@
 
 import SwiftUI
 
-struct EmptyView: View {
+struct NoSelectionView: View {
     var appState: GlobalAppState
 
     var body: some View {
@@ -28,9 +28,9 @@ struct EmptyView: View {
     }
 }
 
-struct EmptyView_Previews: PreviewProvider {
+struct NoSelectionView_Previews: PreviewProvider {
     static var previews: some View {
-        EmptyView(appState: .init())
+        NoSelectionView(appState: .init())
             .padding()
     }
 }

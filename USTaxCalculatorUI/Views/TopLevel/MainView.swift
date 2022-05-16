@@ -13,7 +13,7 @@ struct MainView: View {
             Group {
                 switch appState.navigationState {
                     case .empty:
-                        EmptyView(appState: appState)
+                        NoSelectionView(appState: appState)
                     case .addNewEntry:
                         TaxDataEntryView(title: "New Entry",
                                          appState: appState)
