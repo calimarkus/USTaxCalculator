@@ -65,4 +65,21 @@ enum ExampleData {
             federalDeductions: DeductionAmount.standard(),
             stateCredits: [.CA: 250]))
     }
+
+    private static func exampleIncomeD_CA() -> Income {
+        return Income(
+            wages: 80000,
+            medicareWages: 82000,
+            federalWithholdings: 3200,
+            stateIncomes: [StateIncome(state: .CA, wages: .fullFederal)])
+    }
+
+    static func exampleTaxDataSimple_20() -> CalculatedTaxData {
+        return try! CalculatedTaxData(TaxDataInput(
+            title: "Simple",
+            filingType: .single,
+            taxYear: .y2020,
+            income: exampleIncomeD_CA(),
+            federalDeductions: DeductionAmount.standard()))
+    }
 }

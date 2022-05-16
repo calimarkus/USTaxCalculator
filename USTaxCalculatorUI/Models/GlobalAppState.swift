@@ -25,7 +25,8 @@ class GlobalAppState: ObservableObject {
     init() {
         let data = [ExampleData.exampleTaxDataJohnAndSarah_21(),
                     ExampleData.exampleTaxDataJackHouston_21(),
-                    ExampleData.exampleTaxDataJackHouston_20()]
+                    ExampleData.exampleTaxDataJackHouston_20(),
+                    ExampleData.exampleTaxDataSimple_20()]
 
         taxdata = data
         navigationState = .entry(entryIndex: 0, isEditing: false)
