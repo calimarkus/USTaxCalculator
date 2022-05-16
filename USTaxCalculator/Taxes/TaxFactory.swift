@@ -43,6 +43,7 @@ enum TaxFactory {
 
     static func stateTaxFor(stateIncome: StateIncome,
                             stateDeductions: [TaxState: DeductionAmount],
+                            stateCredits: [TaxState: Double],
                             totalIncome: Double,
                             taxYear year: TaxYear,
                             filingType: FilingType) throws -> StateTax
@@ -66,6 +67,7 @@ enum TaxFactory {
                         additionalStateIncome: stateIncome.additionalStateIncome,
                         deductions: deductions,
                         withholdings: stateIncome.withholdings,
+                        credits: stateCredits[stateIncome.state] ?? 0.0,
                         incomeRate: stateIncome.incomeRateGivenFederalIncome(totalIncome),
                         stateAttributedIncome: stateIncome.attributableIncomeGivenFederalIncome(totalIncome))
     }

@@ -15,9 +15,6 @@ struct TaxSummaryView: View {
                 showSeparator: false)
 
         if expanded {
-            if summary.credits > 0 {
-                AdditionView(title: "Credits", amount: -summary.credits)
-            }
             AdditionView(title: "Withheld", amount: -summary.withholdings)
         }
 

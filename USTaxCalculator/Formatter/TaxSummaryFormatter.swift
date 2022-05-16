@@ -44,13 +44,12 @@ struct TaxSummaryFormatter {
 
     func stateSummary(income: Income,
                       stateTaxes: [StateTax],
-                      stateCredits: [TaxState: Double],
                       taxSummary: TaxSummary) -> String {
         var summary = ""
         summary.appendLine("\nState Taxes:".uppercased())
 
         for stateTax in stateTaxes {
-            let credit = stateCredits[stateTax.state] ?? 0.0
+            let credit = stateTax.credits
             summary.appendLine("- \(stateTax.state) (at \(FormattingHelper.formatPercentage(stateTax.incomeRate, locale: locale)))")
             summary.appendLine(formattedCurrency("  Deductions:", -stateTax.deductions))
             summary.appendLine(formattedCurrency("  Taxable Income:", stateTax.taxableIncome))
@@ -87,7 +86,7 @@ struct TaxSummaryFormatter {
         summary.appendLine(federalSummary(income: income, taxData: td.federal, taxSummary: td.taxSummaries.federal))
 
         // States
-        summary.appendLine(stateSummary(income: income, stateTaxes: td.stateTaxes, stateCredits: td.stateCredits, taxSummary: td.taxSummaries.stateTotal))
+        summary.appendLine(stateSummary(income: income, stateTaxes: td.stateTaxes, taxSummary: td.taxSummaries.stateTotal))
 
         // Summary
         summary.appendLine("\nSummary:".uppercased())
@@ -129,9 +128,9 @@ private extension TaxSummaryFormatter {
         var output = ""
         output.appendLine(formattedCurrency("- Total tax:", summary.taxes))
         output.appendLine("  " + formattedRate(summary.effectiveTaxRate) + " (effective)")
-        if summary.credits > 0 {
-            output.appendLine(formattedCurrency("", -summary.credits, "(credits)"))
-        }
+//        if summary.credits > 0 {
+//            output.appendLine(formattedCurrency("", -summary.credits, "(credits)"))
+//        }
         output.appendLine(formattedCurrency("", -summary.withholdings, "(withheld)"))
         output.appendLine(formattedCurrency("- To Pay (\(title)):", summary.outstandingPayment))
         return output

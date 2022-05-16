@@ -51,11 +51,14 @@ struct StateTax: Tax {
     /// State Income that's not part of the wages on the W-2
     var additionalStateIncome: Double = 0.0
 
-    /// Deductions that apply to this bracket
+    /// Deductions that apply to this state
     let deductions: Double
 
-    /// Withholdings that apply to this bracket
+    /// Withholdings that apply to this state
     let withholdings: Double
+
+    /// Credits that apply to this state
+    let credits: Double
 
     /// The income rate for this state - stateAttributableIncome / totalIncome (only relevant in multi state situations)
     var incomeRate: Double = 1.0

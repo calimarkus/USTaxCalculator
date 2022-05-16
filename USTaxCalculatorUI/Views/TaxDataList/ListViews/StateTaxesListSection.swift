@@ -70,6 +70,10 @@ struct StateTaxesListSection: View {
                             subtitle: "(~ \(FormattingHelper.formatPercentage(stateTax.taxAmount / stateTax.taxableIncome)) effective)",
                             amount: stateTax.taxAmount)
                 }
+
+                if stateTax.credits > 0.0 {
+                    CurrencyView(CurrencyViewConfig(title: "Tax Credits", amount: -stateTax.credits, showPlusMinus: true))
+                }
             }
         }
 

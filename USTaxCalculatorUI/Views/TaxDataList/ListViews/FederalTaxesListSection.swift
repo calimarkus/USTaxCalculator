@@ -32,8 +32,13 @@ struct FederalTaxesListSection: View {
                                               taxableIncome: tax.taxableIncome)
                     )
                 }
+
+                if taxdata.credits > 0.0 {
+                    CurrencyView(CurrencyViewConfig(title: "Tax Credits", amount: -taxdata.credits, showPlusMinus: true))
+                }
             }
         }
+
         TaxListGroupView {
             TaxSummaryView(summary: summary, expanded: isExpanded)
         }
