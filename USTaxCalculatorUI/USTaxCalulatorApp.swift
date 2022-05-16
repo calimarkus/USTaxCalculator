@@ -9,9 +9,10 @@ struct USTaxCalulatorApp: App {
     @ObservedObject private var collapseState = SectionCollapseState()
 
     var body: some Scene {
-        WindowGroup {
-            MainView(appState: appState,
-                     collapseState: collapseState)
-        }
+        DocumentGroup(newDocument: TaxDataDocument(), editor: { file in
+            TaxDataListView(collapseState: collapseState,
+                            appState: appState,
+                            taxdata: try! CalculatedTaxData(file.document.taxDataInput))
+        })
     }
 }

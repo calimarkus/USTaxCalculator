@@ -20,6 +20,7 @@
 		7E266CF3282BE6D4005911D2 /* TaxDataInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E266CF2282BE6D4005911D2 /* TaxDataInput.swift */; };
 		7E3C565B2832042B002272F3 /* TaxBracketGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E3C565A2832042B002272F3 /* TaxBracketGroup.swift */; };
 		7E3C565D28322135002272F3 /* BracketInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E3C565C28322135002272F3 /* BracketInfoView.swift */; };
+		7E3C567D28327C44002272F3 /* TaxDataDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E3C567C28327C44002272F3 /* TaxDataDocument.swift */; };
 		7E5074CF282B7BDD000C4398 /* TaxDataInputBindings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E5074CE282B7BDD000C4398 /* TaxDataInputBindings.swift */; };
 		7E5074D3282B7CD6000C4398 /* BasicStateInfoEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E5074D2282B7CD6000C4398 /* BasicStateInfoEntryView.swift */; };
 		7E5074D5282B7E2B000C4398 /* StateIncomeEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E5074D4282B7E2B000C4398 /* StateIncomeEntryView.swift */; };
@@ -96,6 +97,8 @@
 		7E266CF2282BE6D4005911D2 /* TaxDataInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaxDataInput.swift; sourceTree = "<group>"; };
 		7E3C565A2832042B002272F3 /* TaxBracketGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaxBracketGroup.swift; sourceTree = "<group>"; };
 		7E3C565C28322135002272F3 /* BracketInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BracketInfoView.swift; sourceTree = "<group>"; };
+		7E3C567C28327C44002272F3 /* TaxDataDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaxDataDocument.swift; sourceTree = "<group>"; };
+		7E3C567E28327E2A002272F3 /* USTaxCal-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "USTaxCal-Info.plist"; sourceTree = "<group>"; };
 		7E5074CE282B7BDD000C4398 /* TaxDataInputBindings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaxDataInputBindings.swift; sourceTree = "<group>"; };
 		7E5074D2282B7CD6000C4398 /* BasicStateInfoEntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicStateInfoEntryView.swift; sourceTree = "<group>"; };
 		7E5074D4282B7E2B000C4398 /* StateIncomeEntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateIncomeEntryView.swift; sourceTree = "<group>"; };
@@ -221,7 +224,7 @@
 				7E572EE1282910B300DDB15E /* ExampleData.swift */,
 				7E572EE2282910B300DDB15E /* SectionCollapseState.swift */,
 				7E572EE3282910B300DDB15E /* GlobalAppState.swift */,
-				7E107F53282B9A5E00E2B64A /* GlobalAppStateSelectionBinding.swift */,
+				7E3C567C28327C44002272F3 /* TaxDataDocument.swift */,
 				7E572EE4282910B300DDB15E /* Colors.swift */,
 			);
 			path = Models;
@@ -366,6 +369,7 @@
 		7E822CE42804515100096181 = {
 			isa = PBXGroup;
 			children = (
+				7E3C567E28327E2A002272F3 /* USTaxCal-Info.plist */,
 				7E572EFA282910B300DDB15E /* USTaxCalculator */,
 				7E572EDC282910B300DDB15E /* USTaxCalculatorUI */,
 				7E822CEE2804515100096181 /* Products */,
@@ -539,6 +543,7 @@
 				7E572F14282910B300DDB15E /* GlobalAppState.swift in Sources */,
 				7ECD5F16282FF28E00C676D9 /* TaxSummaryListSection.swift in Sources */,
 				7E572F19282910B300DDB15E /* TaxSummaryView.swift in Sources */,
+				7E3C567D28327C44002272F3 /* TaxDataDocument.swift in Sources */,
 				7E572F21282910B300DDB15E /* NoSelectionView.swift in Sources */,
 				7E572F1E282910B300DDB15E /* TaxDataEntryView.swift in Sources */,
 				7E572F23282910B300DDB15E /* MainView.swift in Sources */,
@@ -746,6 +751,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "USTaxCal-Info.plist";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -771,6 +777,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "USTaxCal-Info.plist";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
