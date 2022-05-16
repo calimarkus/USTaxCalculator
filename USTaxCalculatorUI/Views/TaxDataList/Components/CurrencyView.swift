@@ -60,40 +60,36 @@ struct CurrencyView: View {
     }
 
     var body: some View {
-        LabeledExplainableValueView(titleText: titleText,
-                                    subtitle: subtitle,
-                                    valueText: amountText(amount: amount),
-                                    infoText: infoText,
-                                    showSeparator: showSeparator,
-                                    isSecondaryLabel: isSecondaryLabel,
-                                    boldValue: boldValue,
-                                    valueColor: valueColor)
+        let valueText = amountText(amount: amount)
+
+        LabeledValueView(title: titleText,
+                         subtitle: subtitle,
+                         showSeparator: showSeparator,
+                         isSecondaryLabel: isSecondaryLabel) {
+            ExplainableView(infoText: infoText) {
+                Text(valueText)
+                    .font(.system(.body, design: .monospaced))
+                    .fontWeight(boldValue ? .bold : .regular)
+                    .foregroundColor(valueColor)
+            }
+        }
     }
 }
 
 struct LabeledExplainableValueView: View {
     var titleText: String
-    var subtitle: String = ""
-    var valueText: String = ""
+    var valueText: String
     var infoText: String? = nil
-
     var showSeparator: Bool = true
-    var isSecondaryLabel: Bool = false
-    var boldValue: Bool = false
-    var valueColor: Color? = nil
 
     var body: some View {
         LabeledValueView(title: titleText,
-                         subtitle: subtitle,
+                         subtitle: "",
                          showSeparator: showSeparator,
-                         isSecondaryLabel: isSecondaryLabel) {
-            if valueText.count > 0 {
-                ExplainableView(infoText: infoText) {
-                    Text(valueText)
-                        .font(.system(.body, design: .monospaced))
-                        .fontWeight(boldValue ? .bold : .regular)
-                        .foregroundColor(valueColor)
-                }
+                         isSecondaryLabel: false) {
+            ExplainableView(infoText: infoText) {
+                Text(valueText)
+                    .font(.system(.body, design: .monospaced))
             }
         }
     }
