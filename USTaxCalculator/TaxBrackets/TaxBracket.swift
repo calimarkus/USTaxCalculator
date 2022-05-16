@@ -45,7 +45,8 @@ extension TaxBracket {
             case .basic:
                 return "\(FormattingHelper.formatCurrency(amount)) * \(FormattingHelper.formatPercentage(rate))"
             case let .progressive(fixedAmount):
-                return "\(FormattingHelper.formatCurrency(fixedAmount)) + (\(FormattingHelper.formatCurrency(amount)) - \(FormattingHelper.formatCurrency(startingAt))) * \(FormattingHelper.formatPercentage(rate))"
+                let fixedAmountText = fixedAmount > 0.0 ? "\(FormattingHelper.formatCurrency(fixedAmount)) + " : ""
+                return "\(fixedAmountText)(\(FormattingHelper.formatCurrency(amount)) - \(FormattingHelper.formatCurrency(startingAt))) * \(FormattingHelper.formatPercentage(rate))"
         }
     }
 }
