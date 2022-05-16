@@ -2,6 +2,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 struct FederalTaxData {
     let taxableIncome: Double
@@ -24,7 +25,7 @@ struct FederalTaxData {
 }
 
 struct CalculatedTaxData: Identifiable {
-    let id = UUID()
+    var id = UUID()
 
     let title: String
     let filingType: FilingType

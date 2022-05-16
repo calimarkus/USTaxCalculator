@@ -6,26 +6,26 @@ enum StateIncomeError: Error {
     case illegalIncomeAmountAddition
 }
 
-enum TaxState: Comparable, Hashable {
+enum TaxState: Comparable, Hashable, Codable {
     case NY
     case CA
 }
 
-enum TaxCity: Comparable, Hashable {
+enum TaxCity: Comparable, Hashable, Codable {
     case NYC
 }
 
-enum LocalTaxType: Equatable, Hashable {
+enum LocalTaxType: Equatable, Hashable, Codable {
     case none
     case city(_ city: TaxCity)
 }
 
-enum IncomeAmount: Hashable {
+enum IncomeAmount: Hashable, Codable {
     case fullFederal
     case partial(_ income: Double)
 }
 
-struct StateIncome {
+struct StateIncome: Codable {
     /// The state or city for this income
     var state: TaxState = TaxState.CA
 
