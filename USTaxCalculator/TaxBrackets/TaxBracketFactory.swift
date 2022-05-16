@@ -50,16 +50,20 @@ extension TaxBracketFactory {
 
 // additional federal tax brackets
 extension TaxBracketFactory {
+
+    static func federalLongtermGainsTaxThreshhold() -> Double {
+        return 80800
+    }
+
     // see https://www.nerdwallet.com/article/taxes/capital-gains-tax-rates
     static func federalLongtermGainsBrackets() -> TaxBracketGroup {
         return TaxBracketGroup(
-            [TaxBracket(simpleRate: 0.2, startingAt: 501600),
-             TaxBracket(simpleRate: 0.15, startingAt: 80800),
-             TaxBracket(simpleRate: 0.0, startingAt: 0)]
+            [TaxBracket(simpleRate: 0.2, startingAt: 501600.0),
+             TaxBracket(simpleRate: 0.15, startingAt: 80800.0)]
         )
     }
 
-    static func netInvestmentIncomeTaxTaxLimit(filingType: FilingType) -> Double {
+    static func netInvestmentIncomeTaxThreshhold(filingType: FilingType) -> Double {
         switch filingType {
             case .single: return 200000.0
             case .marriedJointly: return 250000.0
@@ -69,8 +73,7 @@ extension TaxBracketFactory {
     // see https://www.irs.gov/individuals/net-investment-income-tax
     static func netInvestmentIncomeBracketsFor(filingType: FilingType) -> TaxBracketGroup {
         return TaxBracketGroup(
-            [TaxBracket(simpleRate: 0.038, startingAt: netInvestmentIncomeTaxTaxLimit(filingType: filingType)),
-             TaxBracket(simpleRate: 0.0, startingAt: 0)]
+            [TaxBracket(simpleRate: 0.038, startingAt: netInvestmentIncomeTaxThreshhold(filingType: filingType))]
         )
     }
 
@@ -84,8 +87,7 @@ extension TaxBracketFactory {
     // see https://www.healthline.com/health/medicare/additional-medicare-tax
     static func additionalMedicareBracketsFor(filingType: FilingType) -> TaxBracketGroup {
         return TaxBracketGroup(
-            [TaxBracket(fixedAmount: 0, plus: 0.009, over: additionalMedicareTaxThreshhold(filingType: filingType)),
-             TaxBracket(simpleRate: 0.0, startingAt: 0)]
+            [TaxBracket(fixedAmount: 0, plus: 0.009, over: additionalMedicareTaxThreshhold(filingType: filingType))]
         )
     }
 }
