@@ -7,6 +7,10 @@ extension String {
     mutating func appendLine(_ string: String = "") {
         self += string + "\n"
     }
+
+    mutating func appendTitle(_ string: String = "") {
+        self += "\n====  " + string.uppercased() + "  ====\n\n"
+    }
 }
 
 struct TaxSummaryFormatter {
@@ -16,7 +20,9 @@ struct TaxSummaryFormatter {
 
     func federalSummary(income: Income, taxData: FederalTaxData, taxSummary: TaxSummary) -> String {
         var summary = ""
-        summary.appendLine("\nFederal Taxes:".uppercased())
+
+        summary.appendTitle("Federal Taxes")
+
         summary.appendLine(formattedCurrency("- Wages:", income.wages))
         if income.capitalGains > 0.0 {
             summary.appendLine(formattedCurrency("- Capital Gains:", income.totalCapitalGains))
@@ -29,46 +35,61 @@ struct TaxSummaryFormatter {
         summary.appendLine(formattedCurrency("- Taxable Income:", taxData.taxableIncome))
 
         summary.appendLine()
-        summary.appendLine("- Federal Taxes:")
+        summary.appendLine("- Taxes:")
 
         for fedTax in taxData.taxes {
             summary.appendLine(formattedCurrency("  - \(fedTax.title) Tax:", fedTax.taxAmount))
             summary.appendLine(formattedBracketRate("    ", fedTax.bracket))
         }
 
+        if taxData.credits > 0 {
+            summary.appendLine(formattedCurrency("  - Tax Credits:", -taxData.credits))
+        }
+
         summary.appendLine(formattedSumSeparator())
-        summary.appendLine(formattedTaxSummary(taxSummary, title: "Fed"))
+        summary.append(formattedTaxSummary(taxSummary, title: "Fed"))
 
         return summary
     }
 
     func stateSummary(income: Income,
                       stateTaxes: [StateTax],
-                      taxSummary: TaxSummary) -> String {
+                      taxSummaries: [TaxState: TaxSummary]) -> String
+    {
         var summary = ""
-        summary.appendLine("\nState Taxes:".uppercased())
+        summary.appendTitle("State Taxes")
 
         for stateTax in stateTaxes {
             let credit = stateTax.credits
-            summary.appendLine("- \(stateTax.state) (at \(FormattingHelper.formatPercentage(stateTax.incomeRate, locale: locale)))")
+            summary.appendLine("- \(stateTax.state)")
+            summary.appendLine(formattedCurrency("  Total Income:", income.totalIncome))
             summary.appendLine(formattedCurrency("  Deductions:", -stateTax.deductions))
             summary.appendLine(formattedCurrency("  Taxable Income:", stateTax.taxableIncome))
-            if credit > 0 {
-                summary.appendLine(formattedCurrency("  - State Credits:", -credit))
+
+            if stateTax.incomeRate < 1.0 {
+                summary.appendLine(formattedCurrency("  - State Attributed Income:", stateTax.stateAttributedIncome))
+                summary.appendLine(alignLeftRight("  - State Income Rate:", formattedRate(stateTax.incomeRate)))
             }
+
             summary.appendLine(formattedCurrency("  - State Tax:", stateTax.stateOnlyTaxAmount))
             summary.appendLine(formattedBracketRate("    ", stateTax.bracket))
+
             if let localTax = stateTax.localTax {
                 summary.appendLine(formattedCurrency("  - Local Tax (\(localTax.city)):", localTax.taxAmount))
                 summary.appendLine(formattedBracketRate("    ", localTax.bracket))
-                summary.appendLine(formattedCurrency("  - Total:", stateTax.taxAmount - credit))
             }
-            summary.appendLine(formattedCurrency("", -stateTax.withholdings, "(withheld)"))
-            summary.appendLine(formattedCurrency("  To Pay:", stateTax.taxAmount - stateTax.withholdings - credit))
-        }
 
-        summary.appendLine(formattedSumSeparator())
-        summary.appendLine(formattedTaxSummary(taxSummary, title: "State Total"))
+            if credit > 0 {
+                summary.appendLine(formattedCurrency("  - Tax Credits:", -credit))
+            }
+
+            if let taxSummary = taxSummaries[stateTax.state] {
+                summary.appendLine(formattedSumSeparator())
+                summary.append(formattedTaxSummary(taxSummary, title: "\(stateTax.state)"))
+            }
+
+            summary.appendLine()
+        }
 
         return summary
     }
@@ -83,15 +104,22 @@ struct TaxSummaryFormatter {
         summary.appendLine(String(repeating: "=", count: summary.count))
 
         // Federal
-        summary.appendLine(federalSummary(income: income, taxData: td.federal, taxSummary: td.taxSummaries.federal))
+        summary.append(federalSummary(income: income, taxData: td.federal, taxSummary: td.taxSummaries.federal))
 
         // States
-        summary.appendLine(stateSummary(income: income, stateTaxes: td.stateTaxes, taxSummary: td.taxSummaries.stateTotal))
+        summary.append(stateSummary(income: income, stateTaxes: td.stateTaxes, taxSummaries: td.taxSummaries.states))
+
+        // State Summary
+        if income.stateIncomes.count > 0 {
+            summary.appendTitle("State Summary (\(FormattingHelper.formattedStates(states: income.stateIncomes.map { $0.state })))")
+            summary.append(formattedTaxSummary(taxSummaries.stateTotal))
+        }
 
         // Summary
-        summary.appendLine("\nSummary:".uppercased())
-        summary.appendLine(formattedCurrency("- Income:", income.totalIncome))
-        summary.appendLine(formattedTaxSummary(taxSummaries.total, title: "Total"))
+        summary.appendTitle("Summary")
+        summary.appendLine(formattedCurrency("- Total Income:", income.totalIncome))
+        summary.appendLine()
+        summary.append(formattedTaxSummary(taxSummaries.total))
 
         return summary
     }
@@ -112,7 +140,7 @@ private extension TaxSummaryFormatter {
         return FormattingHelper.formatPercentage(rate, locale: locale)
     }
 
-    func formattedBracketRate(_ prefix:String, _ bracket: TaxBracket) -> String {
+    func formattedBracketRate(_ prefix: String, _ bracket: TaxBracket) -> String {
         return prefix + formattedRate(bracket.rate)
     }
 
@@ -124,15 +152,15 @@ private extension TaxSummaryFormatter {
         return String(repeating: " ", count: 15) + "Math: \(tax.bracket.taxCalculationExplanation(tax.taxableIncome))"
     }
 
-    func formattedTaxSummary(_ summary: TaxSummary, title: String) -> String {
+    func formattedTaxSummary(_ summary: TaxSummary, title: String = "") -> String {
         var output = ""
         output.appendLine(formattedCurrency("- Total tax:", summary.taxes))
         output.appendLine("  " + formattedRate(summary.effectiveTaxRate) + " (effective)")
-//        if summary.credits > 0 {
-//            output.appendLine(formattedCurrency("", -summary.credits, "(credits)"))
-//        }
         output.appendLine(formattedCurrency("", -summary.withholdings, "(withheld)"))
-        output.appendLine(formattedCurrency("- To Pay (\(title)):", summary.outstandingPayment))
+
+        let paymentTitle = summary.outstandingPayment < 0 ? "Tax Refund" : "To Pay"
+        let titleString = title.count > 0 ? " (\(title))" : ""
+        output.appendLine(formattedCurrency("- \(paymentTitle)\(titleString):", summary.outstandingPayment))
         return output
     }
 }

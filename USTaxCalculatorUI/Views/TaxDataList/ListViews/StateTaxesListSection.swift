@@ -66,9 +66,6 @@ struct StateTaxesListSection: View {
                                 .bracket(bracketGroup: localTax.bracketGroup,
                                          activeBracket: localTax.bracket,
                                          taxableIncome: localTax.taxableIncome))
-                    SumView(title: "Total",
-                            subtitle: "(~ \(FormattingHelper.formatPercentage(stateTax.taxAmount / stateTax.taxableIncome)) effective)",
-                            amount: stateTax.taxAmount)
                 }
 
                 if stateTax.credits > 0.0 {
