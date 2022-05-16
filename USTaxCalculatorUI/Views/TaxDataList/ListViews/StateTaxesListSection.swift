@@ -50,7 +50,10 @@ struct StateTaxesListSection: View {
                         subtitle: "(\(FormattingHelper.formattedBracketInfo(stateTax.bracket)))",
                         amount: stateTax.stateOnlyTaxAmount,
                         showSeparator: hasIncomeRate),
-                    infoText: stateTax.stateOnlyTaxExplanation)
+                    explanation:
+                    .bracket(bracketGroup: stateTax.bracketGroup,
+                             activeBracket: stateTax.bracket,
+                             taxableIncome: stateTax.taxableIncome))
 
                 if let localTax = stateTax.localTax {
                     ExplainableCurrencyView(
@@ -58,7 +61,10 @@ struct StateTaxesListSection: View {
                             title: "Local Tax (\(localTax.city))",
                             subtitle: "(\(FormattingHelper.formattedBracketInfo(localTax.bracket)))",
                             amount: localTax.taxAmount),
-                        infoText: localTax.bracket.taxCalculationExplanation(localTax.taxableIncome))
+                        explanation:
+                                .bracket(bracketGroup: localTax.bracketGroup,
+                                         activeBracket: localTax.bracket,
+                                         taxableIncome: localTax.taxableIncome))
                     SumView(title: "Total",
                             subtitle: "(~ \(FormattingHelper.formatPercentage(stateTax.taxAmount / stateTax.taxableIncome)) effective)",
                             amount: stateTax.taxAmount)

@@ -100,13 +100,32 @@ struct CurrencyView: View {
     }
 }
 
+enum CurrencyExplanation {
+    case text(text: String)
+    case bracket(bracketGroup: TaxBracketGroup,
+                 activeBracket: TaxBracket,
+                 taxableIncome: Double)
+}
+
 struct ExplainableCurrencyView: View {
     var config: CurrencyViewConfig
-    var infoText: String
+    var infoText: String?
 
-    init(_ config: CurrencyViewConfig, infoText: String) {
+    var infoBracketGroup: TaxBracketGroup?
+    var activeBracket: TaxBracket?
+    var taxableIncome: Double = 0.0
+
+    init(_ config: CurrencyViewConfig, explanation: CurrencyExplanation) {
         self.config = config
-        self.infoText = infoText
+
+        switch explanation {
+            case let .text(text):
+                self.infoText = text
+            case let .bracket(bracketGroup, activeBracket, taxableIncome):
+                self.infoBracketGroup = bracketGroup
+                self.activeBracket = activeBracket
+                self.taxableIncome = taxableIncome
+        }
     }
 
     var body: some View {
@@ -117,9 +136,15 @@ struct ExplainableCurrencyView: View {
             ExplainableView {
                 CurrencyViewText(config)
             } infoContent: {
-                Text(infoText)
-                    .font(.system(.body, design: .monospaced))
-                    .padding()
+                if let info = infoText {
+                    Text(info)
+                        .font(.system(.body, design: .monospaced))
+                        .padding()
+                } else if let bracketGroup = infoBracketGroup {
+                    BracketInfoView(bracketGroup: bracketGroup,
+                                    activeBracket: activeBracket,
+                                    taxableIncome: taxableIncome)
+                }
             }
         }
     }
@@ -201,7 +226,9 @@ struct LabeledValueView<Content: View>: View {
 struct CurrencyView_Previews: PreviewProvider {
     static var previews: some View {
         TaxListGroupView {
-            ExplainableCurrencyView(CurrencyViewConfig(title: "Alpha", amount: 123.53, showSeparator: false), infoText: "info")
+            ExplainableCurrencyView(
+                CurrencyViewConfig(title: "Alpha", amount: 123.53, showSeparator: false),
+                explanation: CurrencyExplanation.text(text: "info"))
             AdditionView(title: "Beta", amount: 25.25)
             AdditionView(title: "Gamma", amount: -12.23)
             SumView(title: "Total", amount: 123.53 + 25.25)
