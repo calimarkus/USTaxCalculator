@@ -38,9 +38,10 @@ struct StateTaxesListSection: View {
                         amount: stateTax.stateAttributedIncome,
                         showSeparator: false))
 
-                    let info = "\(FormattingHelper.formatCurrency(stateTax.stateAttributedIncome)) / \(FormattingHelper.formatCurrency(totalIncome))"
+                    let incomeRateText = FormattingHelper.formatPercentage(stateTax.incomeRate)
+                    let info = "\(FormattingHelper.formatCurrency(stateTax.stateAttributedIncome)) / \(FormattingHelper.formatCurrency(totalIncome)) = \(incomeRateText)"
                     LabeledExplainableValueView(titleText: "State Income Rate",
-                                                valueText: "\(FormattingHelper.formatPercentage(stateTax.incomeRate))",
+                                                valueText: incomeRateText,
                                                 infoText: info)
                 }
 

@@ -165,9 +165,13 @@ struct LabeledExplainableValueView: View {
                 Text(valueText)
                     .font(.system(.body, design: .monospaced))
             } infoContent: {
-                Text(infoText)
-                    .font(.system(.body, design: .monospaced))
-                    .padding()
+                VStack(alignment: .leading, spacing: 10.0) {
+                    Text("Calculation:")
+                        .font(.headline)
+                    Text(infoText)
+                        .font(.system(.body, design: .monospaced))
+                }
+                .padding(20.0)
             }
         }
     }
