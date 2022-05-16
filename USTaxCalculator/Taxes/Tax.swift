@@ -5,8 +5,11 @@ protocol Tax {
     /// The tax amount
     var taxAmount: Double { get }
 
-    /// The underlying TaxBracket
+    /// The active TaxBracket
     var bracket: TaxBracket { get }
+
+    /// The underlying TaxBracketGroup
+    var bracketGroup: TaxBracketGroup { get }
 
     /// The taxable income for this specific Bracket
     var taxableIncome: Double { get }
@@ -16,8 +19,11 @@ struct FederalTax: Tax {
     /// The name of this tax
     let title: String
 
-    /// The underlying TaxBracket
+    /// The active TaxBracket
     let bracket: TaxBracket
+
+    /// The underlying TaxBracketGroup
+    let bracketGroup: TaxBracketGroup
 
     /// The taxable income for this specific Bracket
     let taxableIncome: Double
@@ -30,8 +36,11 @@ struct StateTax: Tax {
     /// The underlying state
     let state: TaxState
 
-    /// The underlying TaxBracket
+    /// The active TaxBracket
     let bracket: TaxBracket
+
+    /// The underlying TaxBracketGroup
+    let bracketGroup: TaxBracketGroup
 
     /// An additional local tax applying to this state
     var localTax: LocalTax? = nil
@@ -73,8 +82,11 @@ struct LocalTax: Tax {
     /// The underlying city
     let city: TaxCity
 
-    /// The underlying TaxBracket
+    /// The active TaxBracket
     let bracket: TaxBracket
+
+    /// The underlying TaxBracketGroup
+    let bracketGroup: TaxBracketGroup
 
     /// The taxable income for this specific Bracket
     let taxableIncome: Double
