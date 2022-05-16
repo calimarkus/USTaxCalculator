@@ -16,10 +16,16 @@ struct FederalIncomeListSection: View {
 
         TaxListGroupView {
             if isExpanded {
-                CurrencyView(title: "Wages", amount: income.wages, showSeparator: false)
-                CurrencyView(title: "Capital gains",
-                             amount: income.totalCapitalGains,
-                             showPlusMinus: true)
+                CurrencyView(CurrencyViewConfig(
+                    title: "Wages",
+                    amount: income.wages,
+                    showSeparator: false
+                ))
+                CurrencyView(CurrencyViewConfig(
+                    title: "Capital gains",
+                    amount: income.totalCapitalGains,
+                    showPlusMinus: true
+                ))
                 SumView(title: "Total Income", amount: income.totalIncome)
                 if income.longtermCapitalGains > 0 {
                     AdditionView(title: "Longterm gains",

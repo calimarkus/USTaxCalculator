@@ -9,11 +9,12 @@ struct AdditionView: View {
     var showSeparator: Bool = true
 
     var body: some View {
-        CurrencyView(title: title,
-                     amount: amount,
-                     showPlusMinus: true,
-                     showSeparator: showSeparator,
-                     isSecondaryLabel: true)
+        CurrencyView(CurrencyViewConfig(
+            title: title,
+            amount: amount,
+            showPlusMinus: true,
+            showSeparator: showSeparator,
+            isSecondaryLabel: true))
     }
 }
 
@@ -24,15 +25,19 @@ struct SumView: View {
     var showSeparator: Bool = true
 
     var body: some View {
-        CurrencyView(title: title, subtitle: subtitle, amount: amount, showSeparator: showSeparator, boldValue: true)
+        CurrencyView(CurrencyViewConfig(
+            title: title,
+            subtitle: subtitle,
+            amount: amount,
+            showSeparator: showSeparator,
+            boldValue: true))
     }
 }
 
-struct CurrencyView: View {
+struct CurrencyViewConfig {
     var title: String = ""
     var subtitle: String = ""
-    var amount: Double
-    var infoText: String? = nil
+    var amount: Double = 0.0
 
     var showPlusMinus: Bool = false
     var showSeparator: Bool = true
@@ -52,25 +57,69 @@ struct CurrencyView: View {
     }
 
     var valueColor: Color? {
-        if showPlusMinus && amount < 0 {
+        if showPlusMinus, amount < 0 {
             return .tax.taxReducingAmount
         } else {
             return nil
         }
     }
+}
+
+struct CurrencyViewText: View {
+    var config: CurrencyViewConfig
+
+    init(_ config: CurrencyViewConfig) {
+        self.config = config
+    }
 
     var body: some View {
-        let valueText = amountText(amount: amount)
+        Text(config.amountText(amount: config.amount))
+            .font(.system(.body, design: .monospaced))
+            .fontWeight(config.boldValue ? .bold : .regular)
+            .foregroundColor(config.valueColor)
+    }
+}
 
-        LabeledValueView(title: titleText,
-                         subtitle: subtitle,
-                         showSeparator: showSeparator,
-                         isSecondaryLabel: isSecondaryLabel) {
-            ExplainableView(infoText: infoText) {
-                Text(valueText)
+struct CurrencyView: View {
+    var config: CurrencyViewConfig
+
+    init(_ config: CurrencyViewConfig) {
+        self.config = config
+    }
+
+    var body: some View {
+        LabeledValueView(title: config.titleText,
+                         subtitle: config.subtitle,
+                         showSeparator: config.showSeparator,
+                         isSecondaryLabel: config.isSecondaryLabel) {
+            HStack {
+                CurrencyViewText(config)
+                Spacer().frame(width: ExplainableColumnSize.width)
+            }
+        }
+    }
+}
+
+struct ExplainableCurrencyView: View {
+    var config: CurrencyViewConfig
+    var infoText: String
+
+    init(_ config: CurrencyViewConfig, infoText: String) {
+        self.config = config
+        self.infoText = infoText
+    }
+
+    var body: some View {
+        LabeledValueView(title: config.titleText,
+                         subtitle: config.subtitle,
+                         showSeparator: config.showSeparator,
+                         isSecondaryLabel: config.isSecondaryLabel) {
+            ExplainableView {
+                CurrencyViewText(config)
+            } infoContent: {
+                Text(infoText)
                     .font(.system(.body, design: .monospaced))
-                    .fontWeight(boldValue ? .bold : .regular)
-                    .foregroundColor(valueColor)
+                    .padding()
             }
         }
     }
@@ -79,7 +128,7 @@ struct CurrencyView: View {
 struct LabeledExplainableValueView: View {
     var titleText: String
     var valueText: String
-    var infoText: String? = nil
+    var infoText: String
     var showSeparator: Bool = true
 
     var body: some View {
@@ -87,9 +136,13 @@ struct LabeledExplainableValueView: View {
                          subtitle: "",
                          showSeparator: showSeparator,
                          isSecondaryLabel: false) {
-            ExplainableView(infoText: infoText) {
+            ExplainableView {
                 Text(valueText)
                     .font(.system(.body, design: .monospaced))
+            } infoContent: {
+                Text(infoText)
+                    .font(.system(.body, design: .monospaced))
+                    .padding()
             }
         }
     }
@@ -148,12 +201,12 @@ struct LabeledValueView<Content: View>: View {
 struct CurrencyView_Previews: PreviewProvider {
     static var previews: some View {
         TaxListGroupView {
-            CurrencyView(title: "Alpha", amount: 123.53, infoText: "info", showSeparator: false)
+            ExplainableCurrencyView(CurrencyViewConfig(title: "Alpha", amount: 123.53, showSeparator: false), infoText: "info")
             AdditionView(title: "Beta", amount: 25.25)
             AdditionView(title: "Gamma", amount: -12.23)
             SumView(title: "Total", amount: 123.53 + 25.25)
-            CurrencyView(title: "PS", amount: -12.23)
-            CurrencyView(title: "PS", subtitle: "(some explanation)", amount: 0.0)
+            CurrencyView(CurrencyViewConfig(title: "PS", amount: -12.23))
+            CurrencyView(CurrencyViewConfig(title: "PS", subtitle: "(some explanation)", amount: 0.0))
             AdditionView(title: "Gamma", amount: -0.0)
         }.padding()
     }

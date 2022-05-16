@@ -20,11 +20,12 @@ struct FederalTaxesListSection: View {
             TaxListGroupView {
                 ForEach(taxdata.taxes.indices, id: \.self) { idx in
                     let tax = taxdata.taxes[idx]
-                    CurrencyView(title: "\(tax.title) Tax",
-                                 subtitle: "(\(FormattingHelper.formattedBracketInfo(tax.bracket)))",
-                                 amount: tax.taxAmount,
-                                 infoText: tax.bracket.taxCalculationExplanation(tax.taxableIncome),
-                                 showSeparator: idx > 0)
+                    ExplainableCurrencyView(CurrencyViewConfig(
+                        title: "\(tax.title) Tax",
+                        subtitle: "(\(FormattingHelper.formattedBracketInfo(tax.bracket)))",
+                        amount: tax.taxAmount,
+                        showSeparator: idx > 0),
+                    infoText: tax.bracket.taxCalculationExplanation(tax.taxableIncome))
                 }
             }
         }

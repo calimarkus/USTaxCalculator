@@ -3,37 +3,39 @@
 
 import SwiftUI
 
-struct ExplainableView<Content: View>: View {
+enum ExplainableColumnSize {
+    static let width = 25.0
+}
+
+struct ExplainableView<Content: View, InfoContent: View>: View {
     @State private var showingPopover = false
 
-    let infoText: String?
     let content: Content
+    let infoContent: InfoContent
 
-    init(infoText: String? = nil, @ViewBuilder content: () -> Content) {
-        self.infoText = infoText
+    init(@ViewBuilder content: () -> Content,
+         @ViewBuilder infoContent: () -> InfoContent)
+    {
         self.content = content()
+        self.infoContent = infoContent()
     }
 
     var body: some View {
-        HStack {
-            if let info = infoText {
-                Button {
-                    showingPopover = !showingPopover
-                } label: {
-                    content
+        Button {
+            showingPopover = !showingPopover
+        } label: {
+            HStack(spacing: 0.0) {
+                content
+                HStack(spacing: 0.0) {
+                    Spacer()
                     Image(systemName: "info.circle")
                         .foregroundColor(.secondary)
-                }
-                .buttonStyle(.plain)
-                .popover(isPresented: $showingPopover) {
-                    Text(info)
-                        .padding()
-                        .font(.system(.body, design: .monospaced))
-                }
-            } else {
-                content
-                Spacer().frame(width: 23)
+                }.frame(width: ExplainableColumnSize.width)
             }
+        }
+        .buttonStyle(.plain)
+        .popover(isPresented: $showingPopover) {
+            infoContent
         }
     }
 }
@@ -41,17 +43,21 @@ struct ExplainableView<Content: View>: View {
 struct ExplainableValueButton_Previews: PreviewProvider {
     static var previews: some View {
         VStack(alignment: .trailing) {
-            ExplainableView {
+            HStack(spacing: 0.0) {
                 Text("$20.00").font(.system(.body, design: .monospaced))
+                Spacer().frame(width: ExplainableColumnSize.width)
             }
-            ExplainableView(infoText: "") {
+
+            ExplainableView {
                 Text("$500.50").font(.system(.body, design: .monospaced))
+            } infoContent: {
+                EmptyView()
             }
-            ExplainableView(infoText: "") {
-                Text("$123.00").font(.system(.body, design: .monospaced)).fontWeight(.bold)
-            }
-            ExplainableView(infoText: "") {
-                Text("$200.00").font(.system(.body, design: .monospaced)).foregroundColor(.orange)
+
+            ExplainableView {
+                Text("40%").font(.system(.body, design: .monospaced))
+            } infoContent: {
+                EmptyView()
             }
         }.padding()
     }
