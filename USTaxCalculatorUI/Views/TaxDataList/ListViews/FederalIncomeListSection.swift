@@ -21,16 +21,21 @@ struct FederalIncomeListSection: View {
                     amount: income.wages,
                     showSeparator: false
                 ))
-                CurrencyView(CurrencyViewConfig(
-                    title: "Capital gains",
-                    amount: income.totalCapitalGains,
-                    showPlusMinus: true
-                ))
-                SumView(title: "Total Income", amount: income.totalIncome)
+
+                if income.capitalGains > 0.0 {
+                    CurrencyView(CurrencyViewConfig(
+                        title: "Capital gains",
+                        amount: income.totalCapitalGains,
+                        showPlusMinus: true
+                    ))
+                    SumView(title: "Total Income", amount: income.totalIncome)
+                }
+
                 if income.longtermCapitalGains > 0 {
                     AdditionView(title: "Longterm gains",
                                  amount: -income.longtermCapitalGains)
                 }
+
                 AdditionView(title: "Deductions", amount: -taxdata.deductions)
             }
             SumView(title: "Taxable Income", amount: taxdata.taxableIncome, showSeparator: isExpanded)
