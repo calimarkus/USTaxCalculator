@@ -1,0 +1,51 @@
+{
+  "income" : {
+    "medicareWages" : 191300,
+    "dividendsAndInterests" : 2500,
+    "wages" : 182000,
+    "stateIncomes" : [
+      {
+        "wages" : {
+          "fullFederal" : {
+
+          }
+        },
+        "state" : {
+          "NY" : {
+
+          }
+        },
+        "withholdings" : 9800,
+        "additionalStateIncome" : 0,
+        "localTax" : {
+          "city" : {
+            "_0" : {
+              "NYC" : {
+
+              }
+            }
+          }
+        }
+      }
+    ],
+    "federalWithholdings" : 18720,
+    "longtermCapitalGains" : 23344,
+    "capitalGains" : 32190
+  },
+  "stateCredits" : [
+
+  ],
+  "title" : "Jack Houston",
+  "filingType" : "Single",
+  "additionalFederalWithholding" : 0,
+  "federalCredits" : 730,
+  "stateDeductions" : [
+
+  ],
+  "taxYear" : 2021,
+  "federalDeductions" : {
+    "standard" : {
+      "additionalDeductions" : 0
+    }
+  }
+}

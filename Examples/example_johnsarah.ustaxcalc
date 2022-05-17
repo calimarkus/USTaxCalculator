@@ -1,0 +1,81 @@
+{
+  "income" : {
+    "medicareWages" : 389000,
+    "dividendsAndInterests" : 4500,
+    "wages" : 314000,
+    "stateIncomes" : [
+      {
+        "wages" : {
+          "fullFederal" : {
+
+          }
+        },
+        "state" : {
+          "NY" : {
+
+          }
+        },
+        "withholdings" : 12000,
+        "additionalStateIncome" : 0,
+        "localTax" : {
+          "city" : {
+            "_0" : {
+              "NYC" : {
+
+              }
+            }
+          }
+        }
+      },
+      {
+        "wages" : {
+          "partial" : {
+            "_0" : 35000
+          }
+        },
+        "state" : {
+          "CA" : {
+
+          }
+        },
+        "withholdings" : 2500,
+        "additionalStateIncome" : 0,
+        "localTax" : {
+          "none" : {
+
+          }
+        }
+      }
+    ],
+    "federalWithholdings" : 24000,
+    "longtermCapitalGains" : 16000,
+    "capitalGains" : 20000
+  },
+  "stateCredits" : [
+    {
+      "CA" : {
+
+      }
+    },
+    100,
+    {
+      "NY" : {
+
+      }
+    },
+    3500
+  ],
+  "title" : "John & Sarah",
+  "filingType" : "Jointly",
+  "additionalFederalWithholding" : 0,
+  "federalCredits" : 500,
+  "stateDeductions" : [
+
+  ],
+  "taxYear" : 2021,
+  "federalDeductions" : {
+    "standard" : {
+      "additionalDeductions" : 0
+    }
+  }
+}

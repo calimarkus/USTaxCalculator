@@ -1,0 +1,52 @@
+{
+  "income" : {
+    "medicareWages" : 140626,
+    "dividendsAndInterests" : 3320,
+    "wages" : 133930,
+    "stateIncomes" : [
+      {
+        "wages" : {
+          "fullFederal" : {
+
+          }
+        },
+        "state" : {
+          "CA" : {
+
+          }
+        },
+        "withholdings" : 4400,
+        "additionalStateIncome" : 0,
+        "localTax" : {
+          "none" : {
+
+          }
+        }
+      }
+    ],
+    "federalWithholdings" : 11227,
+    "longtermCapitalGains" : 32123,
+    "capitalGains" : 42110
+  },
+  "stateCredits" : [
+    {
+      "CA" : {
+
+      }
+    },
+    250
+  ],
+  "title" : "",
+  "filingType" : "Single",
+  "additionalFederalWithholding" : 0,
+  "federalCredits" : 0,
+  "stateDeductions" : [
+
+  ],
+  "taxYear" : 2020,
+  "federalDeductions" : {
+    "standard" : {
+      "additionalDeductions" : 0
+    }
+  }
+}
