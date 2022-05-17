@@ -36,13 +36,6 @@ struct TaxDataListView: View {
             }
         }
         .padding()
-        .navigationTitle(FormattingHelper.formattedTitle(taxdata: taxdata))
-        .toolbar {
-            ToolbarItemGroup {
-                ExportAsTextButton(taxdata: taxdata)
-                AddEntryButton(appState: appState)
-            }
-        }
     }
 }
 

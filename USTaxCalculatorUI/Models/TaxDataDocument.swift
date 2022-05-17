@@ -15,13 +15,13 @@ enum FloatEncodings {
 }
 
 struct TaxDataDocument : FileDocument {
-    var taxDataInput: TaxDataInput
+    var taxDataInput: TaxDataInput = .emptyInput()
 
-    static var readableContentTypes: [UTType] { [.taxDocument] }
-
-    init() {
-        taxDataInput = TaxDataInput()
+    static var readableContentTypes: [UTType] {
+        [.taxDocument]
     }
+
+    init() {}
 
     init(configuration: ReadConfiguration) throws {
         guard let data = configuration.file.regularFileContents else {
@@ -36,6 +36,7 @@ struct TaxDataDocument : FileDocument {
 
     func fileWrapper(configuration: WriteConfiguration) throws -> FileWrapper {
         let encoder = JSONEncoder()
+        encoder.outputFormatting = .prettyPrinted
         encoder.nonConformingFloatEncodingStrategy = .convertToString(positiveInfinity: FloatEncodings.positiveInfinity,
                                                                       negativeInfinity: FloatEncodings.negativeInfinity,
                                                                       nan: FloatEncodings.nan)
@@ -43,4 +44,5 @@ struct TaxDataDocument : FileDocument {
         let fileWrapper = FileWrapper(regularFileWithContents: encodedData)
         return fileWrapper
     }
+    
 }

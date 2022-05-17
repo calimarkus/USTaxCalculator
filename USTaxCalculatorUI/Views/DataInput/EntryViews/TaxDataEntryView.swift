@@ -4,9 +4,8 @@
 import SwiftUI
 
 struct TaxDataEntryView: View {
-    let title: String
     @ObservedObject var appState: GlobalAppState
-    @State var input: TaxDataInput = .emptyInput()
+    @Binding var input: TaxDataInput
 
     var body: some View {
         TabView {
@@ -21,28 +20,14 @@ struct TaxDataEntryView: View {
         }
         .padding()
         .frame(minHeight: 400)
-        .navigationTitle("\(title): \(FormattingHelper.formattedTitle(taxDataInput: input))")
-        .toolbar {
-            ToolbarItem(placement: .status) {
-                Button {
-                    do {
-                        let taxdata = try CalculatedTaxData(input)
-                        appState.saveData(taxdata)
-                    } catch {
-                        // TBD - handle invalid inputs
-                    }
-                } label: {
-                    Text("Save")
-                }
-            }
-        }
     }
 }
 
 struct TaxDataEntryView_Previews: PreviewProvider {
     @State static var appState: GlobalAppState = .init()
+    @State static var input: TaxDataInput = TaxDataInput()
     static var previews: some View {
-        TaxDataEntryView(title: "test", appState: appState)
+        TaxDataEntryView(appState: appState, input: $input)
             .frame(height: 640)
     }
 }

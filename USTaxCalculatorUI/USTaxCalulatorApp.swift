@@ -10,9 +10,9 @@ struct USTaxCalulatorApp: App {
 
     var body: some Scene {
         DocumentGroup(newDocument: TaxDataDocument(), editor: { file in
-            TaxDataListView(collapseState: collapseState,
-                            appState: appState,
-                            taxdata: try! CalculatedTaxData(file.document.taxDataInput))
+            MainView(document: file.$document,
+                     appState: appState,
+                     collapseState: collapseState)
         })
     }
 }
