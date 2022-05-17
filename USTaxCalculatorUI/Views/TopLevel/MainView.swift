@@ -7,7 +7,6 @@ struct MainView: View {
     @Binding var document: TaxDataDocument
 
     @ObservedObject var appState: GlobalAppState
-    @ObservedObject var collapseState: SectionCollapseState
 
     var body: some View {
         Group {
@@ -16,8 +15,7 @@ struct MainView: View {
                                  input: $document.taxDataInput)
             } else {
                 let taxdata = try! CalculatedTaxData(document.taxDataInput)
-                TaxDataListView(collapseState: collapseState,
-                                appState: appState,
+                TaxDataListView(appState: appState,
                                 taxdata: taxdata)
             }
         }
@@ -46,7 +44,6 @@ struct MainView_Previews: PreviewProvider {
     @State static var document: TaxDataDocument = .init()
     static var previews: some View {
         MainView(document: $document,
-                 appState: GlobalAppState(),
-                 collapseState: SectionCollapseState())
+                 appState: GlobalAppState())
     }
 }
