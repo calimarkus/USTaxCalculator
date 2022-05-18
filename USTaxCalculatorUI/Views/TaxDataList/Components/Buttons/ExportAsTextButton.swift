@@ -4,10 +4,11 @@
 import SwiftUI
 
 struct ExportAsTextButton: View {
+    @Binding var taxDataInput: TaxDataInput
     @State private var showingPopover = false
 
-    let taxdata: CalculatedTaxData
     var taxSummary: String {
+        let taxdata = try! CalculatedTaxData(taxDataInput)
         let formatter = TaxSummaryFormatter(columnWidth: 40, separatorSize: (width: 26, shift: 16))
         return formatter.taxDataSummary(taxdata)
     }
@@ -30,8 +31,9 @@ struct ExportAsTextButton: View {
 }
 
 struct ExportAsTextButton_Previews: PreviewProvider {
+    @State static var taxDataInput: TaxDataInput = ExampleData.exampleTaxDataJohnAndSarah_21().input
     static var previews: some View {
-        ExportAsTextButton(taxdata: ExampleData.exampleTaxDataJohnAndSarah_21())
+        ExportAsTextButton(taxDataInput: $taxDataInput)
             .padding()
     }
 }

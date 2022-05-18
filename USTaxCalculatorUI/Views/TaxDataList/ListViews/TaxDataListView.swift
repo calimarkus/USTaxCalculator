@@ -4,7 +4,6 @@
 import SwiftUI
 
 struct TaxDataListView: View {
-    @ObservedObject var collapseState: SectionCollapseState
     @ObservedObject var appState: GlobalAppState
 
     let taxdata: CalculatedTaxData
@@ -12,10 +11,10 @@ struct TaxDataListView: View {
     var body: some View {
         TabView {
             TaxDataTabView(.federal) {
-                FederalIncomeListSection(isExpanded: $collapseState.income,
+                FederalIncomeListSection(isExpanded: $appState.sectionCollapseState.income,
                                          taxdata: taxdata.federal,
                                          income: taxdata.income)
-                FederalTaxesListSection(isExpanded: $collapseState.federal,
+                FederalTaxesListSection(isExpanded: $appState.sectionCollapseState.federal,
                                         taxdata: taxdata.federal,
                                         summary: taxdata.taxSummaries.federal)
             }
@@ -23,7 +22,7 @@ struct TaxDataListView: View {
             TaxDataTabView(.states) {
                 ForEach(taxdata.stateTaxes.indices, id: \.self) { idx in
                     let stateTax = taxdata.stateTaxes[idx]
-                    StateTaxesListSection(isExpanded: collapseState.stateBinding(for: stateTax.state),
+                    StateTaxesListSection(isExpanded: appState.stateCollapseStateBinding(for: stateTax.state),
                                           isFirst: idx == 0,
                                           totalIncome: taxdata.income.totalIncome,
                                           stateTax: stateTax,
@@ -36,20 +35,12 @@ struct TaxDataListView: View {
             }
         }
         .padding()
-        .navigationTitle(FormattingHelper.formattedTitle(taxdata: taxdata))
-        .toolbar {
-            ToolbarItemGroup {
-                ExportAsTextButton(taxdata: taxdata)
-                AddEntryButton(appState: appState)
-            }
-        }
     }
 }
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        TaxDataListView(collapseState: SectionCollapseState(),
-                        appState: GlobalAppState(),
+        TaxDataListView(appState: GlobalAppState(),
                         taxdata: ExampleData.exampleTaxDataJohnAndSarah_21())
             .frame(height: 650.0)
     }

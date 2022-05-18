@@ -1,7 +1,7 @@
 //
 //
 
-struct Income {
+struct Income: Codable {
     /// Wages as listed on W-2, Box 1
     var wages = 0.0
     /// Medicare Wages as listed on W-2, Box 5

@@ -4,40 +4,36 @@
 import SwiftUI
 
 struct MainView: View {
+    @Binding var document: TaxDataDocument
+
     @ObservedObject var appState: GlobalAppState
-    @ObservedObject var collapseState: SectionCollapseState
 
     var body: some View {
-        NavigationView {
-            MenuView(appState: appState)
-            Group {
-                switch appState.navigationState {
-                    case .empty:
-                        NoSelectionView(appState: appState)
-                    case .addNewEntry:
-                        TaxDataEntryView(title: "New Entry",
-                                         appState: appState)
-                    case .entry(let entryIndex, let isEditing):
-                        if isEditing {
-                            TaxDataEntryView(title: "Editing",
-                                             appState: appState,
-                                             input: appState.taxdata[entryIndex].input)
-                        } else if appState.taxdata.count > entryIndex {
-                            TaxDataListView(collapseState: collapseState,
-                                            appState: appState,
-                                            taxdata: appState.taxdata[entryIndex])
-                        }
-                }
+        Group {
+            if appState.isEditing {
+                TaxDataEntryView(appState: appState,
+                                 input: $document.taxDataInput)
+            } else {
+                let taxdata = try! CalculatedTaxData(document.taxDataInput)
+                TaxDataListView(appState: appState,
+                                taxdata: taxdata)
             }
-            .frame(minWidth: 400.0, minHeight: 400.0)
         }
+        .frame(minWidth: 500.0, minHeight: 500.0)
         .toolbar {
-            ToolbarItem(placement: .navigation) {
+            ToolbarItemGroup {
+                if !appState.isEditing {
+                    ExportAsTextButton(taxDataInput: $document.taxDataInput)
+                }
+
                 Button {
-                    NSApp.sendAction(#selector(NSSplitViewController.toggleSidebar(_:)), to: nil, from: nil)
+                    appState.isEditing.toggle()
                 } label: {
-                    Image(systemName: "sidebar.left")
-                        .help("Toggle sidebar")
+                    if appState.isEditing {
+                        Text("Done")
+                    } else {
+                        Image(systemName: "square.and.pencil")
+                    }
                 }
             }
         }
@@ -45,9 +41,9 @@ struct MainView: View {
 }
 
 struct MainView_Previews: PreviewProvider {
+    @State static var document: TaxDataDocument = .init()
     static var previews: some View {
-        MainView(appState: GlobalAppState(),
-                 collapseState: SectionCollapseState())
-            .frame(width: 750.0, height: 500)
+        MainView(document: $document,
+                 appState: GlobalAppState())
     }
 }
