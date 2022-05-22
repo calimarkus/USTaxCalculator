@@ -1,15 +1,20 @@
 # USTaxCalculator
 
-A small macOS app (written using Swift & SwiftUI) to calculate US Taxes (federal & state & local level).
-You can input income & tax data and then see the resulting taxes and how those were calculated. Compile and run the app locally to use it. You can enter new data or edit and play with the example data found in /Examples/. All example numbers and names are fully fictional.
+A small universal macOS & iOS app (written using Swift & SwiftUI) to calculate US Taxes (federal & state & local level).
+You can input income & tax data and then see the resulting taxes and how those were calculated. Compile and run the app locally to use it. You can enter new data or edit and play with the example data found in `/Examples/`. All example numbers and names are fully fictional. The macOS app is document-based, whereas the iOS one currently is purely memory based (no persistence).
 
-| Viewing Calculated Taxes | Data Entry |
+| Viewing Calculated Taxes (macOS) | Data Entry (macOS) |
 | ------------- | ------------- |
-| ![](https://user-images.githubusercontent.com/807039/168810229-2309ac70-8f3c-44c0-87c0-1e93a717914e.png) | ![](https://user-images.githubusercontent.com/807039/168810242-45bbdade-94e4-49c8-b819-9a65b37e3a21.png) |
+| ![](https://user-images.githubusercontent.com/807039/169698179-24749e27-4ef1-42fb-a93c-6caf03e4677b.png) | ![](https://user-images.githubusercontent.com/807039/169698185-cd8c1c30-2d33-48a4-8d6d-155c829e1d1e.png) |
+
+| Viewing Calculated Taxes (iOS) | Details | Data Entry (iOS) |
+| ------------- | ------------- | ------------- |
+| ![](https://user-images.githubusercontent.com/807039/169698222-98505e06-b57b-455f-9507-ce64bccc1962.png) | ![](https://user-images.githubusercontent.com/807039/169698223-aad7af63-bb75-401d-a620-8ba03c855020.png) | ![](https://user-images.githubusercontent.com/807039/169698225-29eae43c-69a1-4e88-be8a-5f8abc1e109b.png) |
+
 
 ## Why?
 
-This started as a small swift script to doublecheck some numbers of my taxes. But I kept tinkering with it to explore Swift & SwiftUI. It now is a macOS app with a UI for entering Income data and vieweing the resulting tax numbers. The code has code comments with links to the sources of all tax rates etc.
+This started as a small swift script to doublecheck some numbers of my taxes. But I kept tinkering with it to explore Swift & SwiftUI more. Now it's is a universal macOS/iOS app with a UI to enter & consume tax data.
 
 ## Disclaimers ⚠️ 
 
