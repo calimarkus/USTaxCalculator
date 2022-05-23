@@ -61,8 +61,6 @@ struct CurrencyValueInputView_Previews: PreviewProvider {
                                    amount: $amountB)
             CurrencyValueInputView(amount: $amountA)
         }
-        #if os(macOS)
-        .padding()
-        #endif
+        .macOnlyPadding(25.0)
     }
 }

@@ -10,10 +10,7 @@ struct DeductionsPickerView: View {
         Picker("Deductions", selection: DeductionAmount.pickerSelectionBinding($deductions)) {
             Text("Standard deduction").tag(DeductionAmount.standard(additionalDeductions: 0.0))
             Text("Custom amount:").tag(DeductionAmount.custom(0.0))
-        }
-        #if os(macOS)
-        .pickerStyle(.inline)
-        #endif
+        }.macOnlyInlinePickerStyle()
 
         if case .standard = deductions {
             CurrencyValueInputView(caption: "Additional amount:",

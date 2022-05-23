@@ -25,6 +25,6 @@ struct AddStateButton: View {
 struct AddStateButton_Previews: PreviewProvider {
     static var previews: some View {
         AddStateButton {}
-            .padding()
+            .macOnlyPadding(30.0)
     }
 }

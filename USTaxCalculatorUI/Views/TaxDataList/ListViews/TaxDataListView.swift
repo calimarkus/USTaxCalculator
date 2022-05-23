@@ -34,18 +34,14 @@ struct TaxDataListView: View {
                 TaxSummaryListSection(taxdata: taxdata)
             }
         }
-        #if os(macOS)
-        .padding()
-        #endif
+        .macOnlyPadding(16.0)
     }
 }
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        NavigationView {
-            TaxDataListView(appState: GlobalAppState(),
-                            taxdata: ExampleData.exampleTaxDataJohnAndSarah_21())
-                .frame(height: 650.0)
-        }
+        TaxDataListView(appState: GlobalAppState(),
+                        taxdata: ExampleData.exampleTaxDataJohnAndSarah_21())
+            .frame(height: 650.0)
     }
 }

@@ -41,9 +41,6 @@ struct BasicStateInfoEntryView_Previews: PreviewProvider {
             BasicStateInfoEntryView(stateIncome: $stateIncome) {
                 Text("Title").bold()
             }
-        }
-        #if os(macOS)
-        .padding()
-        #endif
+        }.macOnlyPadding(30.0)
     }
 }

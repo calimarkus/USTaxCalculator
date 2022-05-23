@@ -21,10 +21,7 @@ struct BasicTaxDataEntryView: View {
             Picker("Filing Type", selection: $input.filingType) {
                 Text("Single").tag(FilingType.single)
                 Text("Married Jointly").tag(FilingType.marriedJointly)
-            }
-            #if os(macOS)
-            .pickerStyle(.inline)
-            #endif
+            }.macOnlyInlinePickerStyle()
         }
     }
 }
@@ -34,9 +31,6 @@ struct BasicTaxDataEntryView_Previews: PreviewProvider {
     static var previews: some View {
         Form {
             BasicTaxDataEntryView(input: $input)
-        }
-        #if os(macOS)
-        .padding()
-        #endif
+        }.macOnlyPadding(30.0)
     }
 }

@@ -27,10 +27,7 @@ struct StateIncomeEntryView: View {
                         .font(.footnote)
                         .foregroundColor(.secondary)
                 }
-            }
-            #if os(macOS)
-            .pickerStyle(.inline)
-            #endif
+            }.macOnlyInlinePickerStyle()
 
             if case .partial = stateIncome.wages {
                 CurrencyValueInputView(amount: IncomeAmount.partialValueBinding($stateIncome.wages))
@@ -56,9 +53,6 @@ struct StateIncomeEntryView_Previews: PreviewProvider {
     static var previews: some View {
         Form {
             StateIncomeEntryView(stateIncome: $stateIncome)
-        }
-        #if os(macOS)
-        .padding()
-        #endif
+        }.macOnlyPadding(30.0)
     }
 }

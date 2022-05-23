@@ -7,10 +7,7 @@ struct FederalTaxReductionsEntryView: View {
     @Binding var input: TaxDataInput
 
     var body: some View {
-        #if os(macOS)
-        Spacer().frame(height: 20.0)
-        #endif
-
+        MacOnlySpacer(height: 20)
         Section(header: Text("Tax Reductions").fontWeight(.bold)) {
             DeductionsPickerView(deductions: $input.federalDeductions)
             CurrencyValueInputView(caption: "Tax Credits",
@@ -28,9 +25,6 @@ struct FederalTaxReductionsEntryView_Previews: PreviewProvider {
     static var previews: some View {
         Form {
             FederalTaxReductionsEntryView(input: $input)
-        }
-        #if os(macOS)
-        .padding()
-        #endif
+        }.macOnlyPadding(30.0)
     }
 }

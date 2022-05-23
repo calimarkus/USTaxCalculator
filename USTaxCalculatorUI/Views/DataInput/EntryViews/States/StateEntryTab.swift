@@ -29,7 +29,7 @@ struct StateEntryTab: View {
                 let notFirstSection = i > 0
                 let stateIncome = $input.income.stateIncomes[i]
 
-                if notFirstSection { macOnlySpacer() }
+                if notFirstSection { MacOnlySpacer(height: 20) }
                 BasicStateInfoEntryView(stateIncome: stateIncome, headerContent: {
                     StateTitleButton(stateIncome: stateIncome, showRemoveButton: notFirstSection) {
                         withAnimation {
@@ -37,9 +37,9 @@ struct StateEntryTab: View {
                         }
                     }
                 })
-                macOnlySpacer()
+                MacOnlySpacer(height: 20)
                 StateIncomeEntryView(stateIncome: stateIncome)
-                macOnlySpacer()
+                MacOnlySpacer(height: 20)
                 StateTaxReductionsEntryView(input: $input, stateIncome: stateIncome)
             }
 
@@ -49,13 +49,6 @@ struct StateEntryTab: View {
                 }
             }
         }
-    }
-
-    @ViewBuilder
-    func macOnlySpacer() -> some View {
-        #if os(macOS)
-            Spacer().frame(height: 20.0)
-        #endif
     }
 
     func removeIncomeAtIndex(_ idx: Int) {

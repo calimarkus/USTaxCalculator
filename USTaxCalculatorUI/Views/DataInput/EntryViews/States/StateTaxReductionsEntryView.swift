@@ -30,9 +30,6 @@ struct StateTaxReductionsEntryView_Previews: PreviewProvider {
         Form {
             StateTaxReductionsEntryView(input: $input,
                                         stateIncome: $stateIncome)
-        }
-        #if os(macOS)
-        .padding()
-        #endif
+        }.macOnlyPadding(30.0)
     }
 }
