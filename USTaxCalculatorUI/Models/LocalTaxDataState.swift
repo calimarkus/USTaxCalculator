@@ -4,44 +4,29 @@
 import SwiftUI
 
 class LocalTaxDataState: ObservableObject {
-    @Published var taxdatas: [CalculatedTaxData] = []
-    @Published var editingInput: TaxDataInput? = nil
+    @Published var taxdatas: [CalculatedTaxData] = exampleData()
 
-    init() {
-        taxdatas = exampleData()
+    func addEntry() -> CalculatedTaxData {
+        let data = try! CalculatedTaxData(.emptyInput())
+        taxdatas.append(data)
+        return data
     }
 
-    func addEntry() {
-        taxdatas.append(try! CalculatedTaxData(.emptyInput()))
-    }
-
-    func updateTaxDataWithEditingInput(taxdata: CalculatedTaxData) {
-        if let input = editingInput {
-            let idx = taxdatas.firstIndex { td in
-                td.id == taxdata.id
-            }
-            if let foundIdx = idx {
-                taxdatas[foundIdx] = try! CalculatedTaxData(input)
-            }
+    func replaceTaxData(id: UUID, input: TaxDataInput) -> CalculatedTaxData? {
+        let idx = taxdatas.firstIndex { td in
+            td.id == id
         }
+        if let foundIdx = idx {
+            taxdatas[foundIdx] = try! CalculatedTaxData(input)
+            return taxdatas[foundIdx]
+        }
+        return nil
     }
 
-    func exampleData() -> [CalculatedTaxData] {
+    static func exampleData() -> [CalculatedTaxData] {
         [ExampleData.exampleTaxDataJackHouston_20(),
          ExampleData.exampleTaxDataSimple_20(),
          ExampleData.exampleTaxDataJackHouston_21(),
          ExampleData.exampleTaxDataJohnAndSarah_21()]
-    }
-
-    func editingInputBinding() -> Binding<TaxDataInput>? {
-        if let _ = editingInput {
-            return Binding {
-                self.editingInput!
-            } set: { val in
-                self.editingInput = val
-            }
-        } else {
-            return nil
-        }
     }
 }

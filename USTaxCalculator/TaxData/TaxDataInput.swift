@@ -1,17 +1,17 @@
 //
 //
 
-enum TaxYear: Int, Codable {
+enum TaxYear: Int, Codable, Equatable {
     case y2020 = 2020
     case y2021 = 2021
 }
 
-enum FilingType: String, CaseIterable, Codable {
+enum FilingType: String, CaseIterable, Codable, Equatable {
     case single = "Single"
     case marriedJointly = "Jointly"
 }
 
-struct TaxDataInput: Codable {
+struct TaxDataInput: Codable, Equatable {
     /// An additional description for this data, which will be combined with the default title if provided like e.g. "title - Year 2021 (Single, NY+CA)"
     var title: String = ""
     /// true if the taxes are filed jointly as a married couple, otherwise single is assumed

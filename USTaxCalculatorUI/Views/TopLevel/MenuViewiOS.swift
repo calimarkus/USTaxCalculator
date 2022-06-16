@@ -6,17 +6,14 @@ import SwiftUI
 struct MenuViewiOS: View {
     @ObservedObject var appState: GlobalAppState
     @ObservedObject var localTaxDataState: LocalTaxDataState
+    @State var navPath: [NavigationTarget] = []
 
     var body: some View {
-        NavigationView {
+        NavigationStack(path: $navPath) {
             List {
                 Section {
                     ForEach(localTaxDataState.taxdatas) { taxdata in
-                        NavigationLink {
-                            EditableTaxDataView(appState: appState,
-                                                localTaxDataState: localTaxDataState,
-                                                taxdata: taxdata)
-                        } label: {
+                        NavigationLink(value: NavigationTarget(taxdata: taxdata)) {
                             HStack {
                                 Image(systemName: "dollarsign.circle.fill")
                                 VStack(alignment: .leading) {
@@ -41,7 +38,9 @@ struct MenuViewiOS: View {
                 Section {
                     Button {
                         withAnimation {
-                            localTaxDataState.addEntry()
+                            let data = localTaxDataState.addEntry()
+                            navPath = [NavigationTarget(taxdata: data),
+                                       NavigationTarget(taxdata: data, isEditing: true)]
                         }
                     } label: {
                         HStack {
@@ -52,6 +51,29 @@ struct MenuViewiOS: View {
                 }
             }
             .navigationTitle("Entries")
+            .navigationDestination(for: NavigationTarget.self) { target in
+                if !target.isEditing {
+                    TaxDataListView(appState: appState, taxdata: target.taxdata)
+                        .navigationTitle(target.taxdata.formattedTitle())
+                        .navigationBarTitleDisplayMode(.inline)
+                        .toolbar {
+                            ToolbarItem {
+                                NavigationLink(value: NavigationTarget(taxdata: target.taxdata, isEditing: true)) {
+                                    Image(systemName: "square.and.pencil")
+                                }
+                            }
+                        }
+                } else {
+                    TaxDataEntryView(appState: appState, taxdataId: target.taxdata.id, input: target.taxdata.input) { taxDataId, taxInput in
+                        if let data = localTaxDataState.replaceTaxData(id: taxDataId, input: taxInput) {
+                            navPath = [NavigationTarget(taxdata: data)]
+                        }
+                    }
+                    .navigationTitle(target.taxdata.formattedTitle())
+                    .navigationBarTitleDisplayMode(.inline)
+                    .navigationBarBackButtonHidden()
+                }
+            }
         }
     }
 }

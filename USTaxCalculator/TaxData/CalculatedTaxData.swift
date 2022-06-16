@@ -24,7 +24,7 @@ struct FederalTaxData {
     }
 }
 
-struct CalculatedTaxData: Identifiable {
+struct CalculatedTaxData: Identifiable, Hashable {
     var id = UUID()
 
     let title: String
@@ -61,5 +61,17 @@ struct CalculatedTaxData: Identifiable {
         taxSummaries = TaxSummaries.calculateFor(input: input,
                                                  federalTaxes: federal.taxes,
                                                  stateTaxes: stateTaxes)
+    }
+
+    static func == (lhs: CalculatedTaxData, rhs: CalculatedTaxData) -> Bool {
+        return lhs.input == rhs.input
+    }
+
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
+
+    func formattedTitle() -> String {
+        return title.count > 0 ? title : FormattingHelper.formattedTitle(taxdata: self)
     }
 }

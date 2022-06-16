@@ -15,7 +15,7 @@ enum TaxCity: Comparable, Hashable, Codable {
     case NYC
 }
 
-enum LocalTaxType: Equatable, Hashable, Codable {
+enum LocalTaxType: Hashable, Codable {
     case none
     case city(_ city: TaxCity)
 }
@@ -25,7 +25,7 @@ enum IncomeAmount: Hashable, Codable {
     case partial(_ income: Double)
 }
 
-struct StateIncome: Codable {
+struct StateIncome: Codable, Equatable {
     /// The state or city for this income
     var state: TaxState = TaxState.CA
 
