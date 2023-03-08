@@ -248,8 +248,8 @@
 			isa = PBXGroup;
 			children = (
 				7E572F0F282910B300DDB15E /* RawTaxRates.swift */,
-				28B4033429B939A100E79F76 /* RawNewYorkTaxRates.swift */,
 				28B4032E29B938E000E79F76 /* RawFederalTaxRates.swift */,
+				28B4033429B939A100E79F76 /* RawNewYorkTaxRates.swift */,
 				28B4033129B9394B00E79F76 /* RawCaliforniaTaxRates.swift */,
 			);
 			path = RawTaxRates;

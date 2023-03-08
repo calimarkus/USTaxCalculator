@@ -32,7 +32,7 @@ extension TaxBracketFactory {
             }
         } else {
             // use progressive rates as usual
-            if let map = RawStateTaxRates.progressiveMapsForState(state)[year]?[filingType] {
+            if let map = RawStateTaxRates.forState(state)[year]?[filingType] {
                 return ProgressiveTaxBracketGenerator.generateWithStartingAtToTaxRateMap(map)
             }
         }
@@ -41,7 +41,7 @@ extension TaxBracketFactory {
     }
 
     static func cityTaxBracketFor(_ city: TaxCity, taxYear year: TaxYear, filingType: FilingType, taxableIncome: Double) throws -> TaxBracketGroup {
-        if let map = RawCityTaxRates.progressiveMapsForCity(city)[year]?[filingType] {
+        if let map = RawCityTaxRates.forCity(city)[year]?[filingType] {
             return ProgressiveTaxBracketGenerator.generateWithStartingAtToTaxRateMap(map)
         }
 
