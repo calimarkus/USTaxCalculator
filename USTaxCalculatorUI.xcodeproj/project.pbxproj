@@ -438,7 +438,9 @@
 				7E572EDC282910B300DDB15E /* USTaxCalculatorUI */,
 				7E822CEE2804515100096181 /* Products */,
 			);
+			indentWidth = 4;
 			sourceTree = "<group>";
+			tabWidth = 4;
 		};
 		7E822CEE2804515100096181 /* Products */ = {
 			isa = PBXGroup;
