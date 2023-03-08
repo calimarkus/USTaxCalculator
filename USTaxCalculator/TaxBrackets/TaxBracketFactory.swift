@@ -1,5 +1,6 @@
 //
 //
+
 enum TaxBracketFactoryError: Error {
     case noMatchingTaxBracketFound
     case missingStateTaxRates
@@ -13,7 +14,7 @@ enum TaxBracketFactory {}
 extension TaxBracketFactory {
     // see https://www.nerdwallet.com/article/taxes/federal-income-tax-brackets
     static func federalTaxBracketsFor(taxYear year: TaxYear, filingType: FilingType) throws -> TaxBracketGroup {
-        if let map = RawTaxRates.federalProgressiveMaps[year]?[filingType] {
+        if let map = RawFederalTaxRates.progressiveMaps[year]?[filingType] {
             return ProgressiveTaxBracketGenerator.generateWithStartingAtToTaxRateMap(map)
         }
         throw TaxBracketFactoryError.missingFederalTaxRates
@@ -26,12 +27,12 @@ extension TaxBracketFactory {
         if state == .NY, taxableIncome > 107650 {
             // new york doesn't use progressive rates for incomes higher than 107,650
             // see comments on RawTaxRates.nonProgressiveNewYorkStateRates
-            if let map = RawTaxRates.nonProgressiveNewYorkStateRates[year]?[filingType] {
+            if let map = RawStateTaxRates.nonProgressiveNewYorkStateRates[year]?[filingType] {
                 return SimpleTaxBracketGenerator.generateWithStartingAtToTaxRateMap(map)
             }
         } else {
             // use progressive rates as usual
-            if let map = RawTaxRates.progressiveMapsForState(state)[year]?[filingType] {
+            if let map = RawStateTaxRates.progressiveMapsForState(state)[year]?[filingType] {
                 return ProgressiveTaxBracketGenerator.generateWithStartingAtToTaxRateMap(map)
             }
         }
@@ -40,7 +41,7 @@ extension TaxBracketFactory {
     }
 
     static func cityTaxBracketFor(_ city: TaxCity, taxYear year: TaxYear, filingType: FilingType, taxableIncome: Double) throws -> TaxBracketGroup {
-        if let map = RawTaxRates.progressiveMapsForCity(city)[year]?[filingType] {
+        if let map = RawCityTaxRates.progressiveMapsForCity(city)[year]?[filingType] {
             return ProgressiveTaxBracketGenerator.generateWithStartingAtToTaxRateMap(map)
         }
 
@@ -50,7 +51,6 @@ extension TaxBracketFactory {
 
 // additional federal tax brackets
 extension TaxBracketFactory {
-
     static func federalLongtermGainsTaxThreshhold() -> Double {
         return 80800
     }

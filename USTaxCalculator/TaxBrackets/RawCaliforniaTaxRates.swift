@@ -1,9 +1,8 @@
 //
 //
 
-
 // California rates
-extension RawTaxRates {
+extension RawStateTaxRates {
     // CA
     // see https://www.nerdwallet.com/article/taxes/california-state-tax
     // see https://www.ftb.ca.gov/forms/2020/2020-California-Tax-Rate-Schedules.pdf

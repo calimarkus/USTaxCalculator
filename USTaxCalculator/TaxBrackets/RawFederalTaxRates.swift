@@ -1,11 +1,10 @@
 //
 //
 
-
 // Federal rates
-extension RawTaxRates {
+enum RawFederalTaxRates {
     // see https://www.nerdwallet.com/article/taxes/federal-income-tax-brackets
-    static var federalProgressiveMaps: [TaxYear: [FilingType: RawTaxRates]] {
+    static var progressiveMaps: [TaxYear: [FilingType: RawTaxRates]] {
         return [
             .y2021: [
                 .single: RawTaxRates([

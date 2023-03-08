@@ -18,17 +18,20 @@ struct RawTaxRates {
 }
 
 // state rates
-extension RawTaxRates {
+enum RawStateTaxRates {
     static func progressiveMapsForState(_ state: TaxState) -> [TaxYear: [FilingType: RawTaxRates]] {
         switch state {
-            case .NY: return self.progressiveNewYorkStateRates
-            case .CA: return self.californiaRates
+        case .NY: return RawStateTaxRates.progressiveNewYorkStateRates
+        case .CA: return RawStateTaxRates.californiaRates
         }
     }
+}
 
+// city rates
+enum RawCityTaxRates {
     static func progressiveMapsForCity(_ city: TaxCity) -> [TaxYear: [FilingType: RawTaxRates]] {
         switch city {
-            case .NYC: return self.newYorkCityRates
+        case .NYC: return RawCityTaxRates.newYorkCityRates
         }
     }
 }

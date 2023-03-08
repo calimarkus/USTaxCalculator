@@ -1,9 +1,8 @@
 //
 //
 
-
 // new york rates
-extension RawTaxRates {
+extension RawStateTaxRates {
     // NY
     // see https://www.nerdwallet.com/article/taxes/new-york-state-tax
     // see https://www.forbes.com/advisor/taxes/new-york-state-tax/
@@ -105,12 +104,12 @@ extension RawTaxRates {
 }
 
 // new york city rates
-extension RawTaxRates {
+extension RawCityTaxRates {
     // NYC
     static var newYorkCityRates: [TaxYear: [FilingType: RawTaxRates]] {
         return [
-            .y2021: self.newYorkCityRatesFrom2017to2022,
-            .y2020: self.newYorkCityRatesFrom2017to2022
+            .y2021: newYorkCityRatesFrom2017to2022,
+            .y2020: newYorkCityRatesFrom2017to2022
         ]
     }
 
