@@ -244,6 +244,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		28B4033729B93D6300E79F76 /* RawTaxRates */ = {
+			isa = PBXGroup;
+			children = (
+				7E572F0F282910B300DDB15E /* RawTaxRates.swift */,
+				28B4033429B939A100E79F76 /* RawNewYorkTaxRates.swift */,
+				28B4032E29B938E000E79F76 /* RawFederalTaxRates.swift */,
+				28B4033129B9394B00E79F76 /* RawCaliforniaTaxRates.swift */,
+			);
+			path = RawTaxRates;
+			sourceTree = "<group>";
+		};
 		7E0F351B282E515A002D90E2 /* TaxDataList */ = {
 			isa = PBXGroup;
 			children = (
@@ -377,6 +388,7 @@
 				7E572F03282910B300DDB15E /* Formatter */,
 				7E572F07282910B300DDB15E /* Taxes */,
 				7E572F0B282910B300DDB15E /* TaxBrackets */,
+				28B4033729B93D6300E79F76 /* RawTaxRates */,
 			);
 			path = USTaxCalculator;
 			sourceTree = "<group>";
@@ -434,10 +446,6 @@
 				7E572F0D282910B300DDB15E /* ProgressiveTaxBracketGenerator.swift */,
 				7E572F0E282910B300DDB15E /* TaxBracket.swift */,
 				7E3C565A2832042B002272F3 /* TaxBracketGroup.swift */,
-				7E572F0F282910B300DDB15E /* RawTaxRates.swift */,
-				28B4033429B939A100E79F76 /* RawNewYorkTaxRates.swift */,
-				28B4032E29B938E000E79F76 /* RawFederalTaxRates.swift */,
-				28B4033129B9394B00E79F76 /* RawCaliforniaTaxRates.swift */,
 			);
 			path = TaxBrackets;
 			sourceTree = "<group>";
