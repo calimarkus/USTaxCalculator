@@ -4,8 +4,9 @@
 enum StandardDeductions {
     static func state(taxYear: TaxYear, state: TaxState, filingType: FilingType) -> Double {
         switch state {
-            case .NY: switch taxYear {
-                    case .y2021, .y2020:
+            case .NY:
+                switch taxYear {
+                    case .y2022, .y2021, .y2020:
                         // see https://www.tax.ny.gov/pit/file/standard_deductions.htm
                         // see https://www.efile.com/new-york-tax-rates-forms-and-brackets/
                         switch filingType {
@@ -13,7 +14,14 @@ enum StandardDeductions {
                             case .marriedJointly: return 16050.0
                         }
                 }
-            case .CA: switch taxYear {
+            case .CA:
+                switch taxYear {
+                    case .y2022:
+                        // see https://www.ftb.ca.gov/file/personal/deductions/index.html
+                        switch filingType {
+                            case .single: return 5202.0
+                            case .marriedJointly: return 10404.0
+                        }
                     case .y2021:
                         // see https://www.ftb.ca.gov/file/personal/deductions/index.html
                         switch filingType {
@@ -33,6 +41,10 @@ enum StandardDeductions {
     // see https://www.bankrate.com/taxes/standard-tax-deduction-amounts/
     static func federal(taxYear: TaxYear, filingType: FilingType) -> Double {
         switch taxYear {
+            case .y2022: switch filingType {
+                    case .single: return 12950.0
+                    case .marriedJointly: return 25900.0
+                }
             case .y2021: switch filingType {
                     case .single: return 12550.0
                     case .marriedJointly: return 25100.0
