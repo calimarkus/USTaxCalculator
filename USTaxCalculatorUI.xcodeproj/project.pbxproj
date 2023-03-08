@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		28B4032F29B938E000E79F76 /* RawFederalTaxRates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28B4032E29B938E000E79F76 /* RawFederalTaxRates.swift */; };
+		28B4033029B938E000E79F76 /* RawFederalTaxRates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28B4032E29B938E000E79F76 /* RawFederalTaxRates.swift */; };
+		28B4033229B9394B00E79F76 /* RawCaliforniaTaxRates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28B4033129B9394B00E79F76 /* RawCaliforniaTaxRates.swift */; };
+		28B4033329B9394B00E79F76 /* RawCaliforniaTaxRates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28B4033129B9394B00E79F76 /* RawCaliforniaTaxRates.swift */; };
+		28B4033529B939A100E79F76 /* RawNewYorkTaxRates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28B4033429B939A100E79F76 /* RawNewYorkTaxRates.swift */; };
+		28B4033629B939A100E79F76 /* RawNewYorkTaxRates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28B4033429B939A100E79F76 /* RawNewYorkTaxRates.swift */; };
 		7E059777282B37910067DB7D /* DeductionAmountBindings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E059776282B37910067DB7D /* DeductionAmountBindings.swift */; };
 		7E059779282B43A70067DB7D /* IncomeAmountBindings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E059778282B43A70067DB7D /* IncomeAmountBindings.swift */; };
 		7E05977B282B45EB0067DB7D /* DeductionsPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E05977A282B45EB0067DB7D /* DeductionsPickerView.swift */; };
@@ -137,6 +143,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		28B4032E29B938E000E79F76 /* RawFederalTaxRates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RawFederalTaxRates.swift; sourceTree = "<group>"; };
+		28B4033129B9394B00E79F76 /* RawCaliforniaTaxRates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RawCaliforniaTaxRates.swift; sourceTree = "<group>"; };
+		28B4033429B939A100E79F76 /* RawNewYorkTaxRates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RawNewYorkTaxRates.swift; sourceTree = "<group>"; };
 		7E059776282B37910067DB7D /* DeductionAmountBindings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeductionAmountBindings.swift; sourceTree = "<group>"; };
 		7E059778282B43A70067DB7D /* IncomeAmountBindings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncomeAmountBindings.swift; sourceTree = "<group>"; };
 		7E05977A282B45EB0067DB7D /* DeductionsPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeductionsPickerView.swift; sourceTree = "<group>"; };
@@ -426,6 +435,9 @@
 				7E572F0E282910B300DDB15E /* TaxBracket.swift */,
 				7E3C565A2832042B002272F3 /* TaxBracketGroup.swift */,
 				7E572F0F282910B300DDB15E /* RawTaxRates.swift */,
+				28B4033429B939A100E79F76 /* RawNewYorkTaxRates.swift */,
+				28B4032E29B938E000E79F76 /* RawFederalTaxRates.swift */,
+				28B4033129B9394B00E79F76 /* RawCaliforniaTaxRates.swift */,
 			);
 			path = TaxBrackets;
 			sourceTree = "<group>";
@@ -661,6 +673,7 @@
 				7E34645C2833C26E008C58A2 /* ExportAsTextButton.swift in Sources */,
 				7E34645D2833C26E008C58A2 /* CollapsableSectionTitle.swift in Sources */,
 				7E34645E2833C26E008C58A2 /* CurrencyView.swift in Sources */,
+				28B4033629B939A100E79F76 /* RawNewYorkTaxRates.swift in Sources */,
 				7E34645F2833C26E008C58A2 /* BracketInfoView.swift in Sources */,
 				7E3464602833C26E008C58A2 /* TaxListGroupView.swift in Sources */,
 				7E3464612833C26E008C58A2 /* TaxSummaryView.swift in Sources */,
@@ -677,6 +690,7 @@
 				7E34646B2833C26E008C58A2 /* DeductionsPickerView.swift in Sources */,
 				7E34646C2833C26E008C58A2 /* TaxDataEntryView.swift in Sources */,
 				7E34646D2833C26E008C58A2 /* FederalEntryTab.swift in Sources */,
+				28B4033029B938E000E79F76 /* RawFederalTaxRates.swift in Sources */,
 				7E34646E2833C26E008C58A2 /* BasicTaxDataEntryView.swift in Sources */,
 				7E34646F2833C26E008C58A2 /* FederalIncomeEntryView.swift in Sources */,
 				7E3464702833C26E008C58A2 /* FederalTaxReductionsEntryView.swift in Sources */,
@@ -688,6 +702,7 @@
 				7EF596DB283A18E000870696 /* USTaxCalulatorAppiOS.swift in Sources */,
 				7E3464762833C26E008C58A2 /* StateTaxReductionsEntryView.swift in Sources */,
 				7ECD5F17282FF46400C676D9 /* TaxSummaryListSection.swift in Sources */,
+				28B4033329B9394B00E79F76 /* RawCaliforniaTaxRates.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -711,6 +726,7 @@
 				7E572F29282910B300DDB15E /* StateIncome.swift in Sources */,
 				7E05977D282B4AE50067DB7D /* FederalTaxReductionsEntryView.swift in Sources */,
 				7E572F22282910B300DDB15E /* TaxDataListView.swift in Sources */,
+				28B4033529B939A100E79F76 /* RawNewYorkTaxRates.swift in Sources */,
 				7E1672EC282A0970009185B2 /* CurrencyValueInputView.swift in Sources */,
 				7E572F28282910B300DDB15E /* Income.swift in Sources */,
 				7E572F27282910B300DDB15E /* DeductionAmount.swift in Sources */,
@@ -737,12 +753,14 @@
 				7E5074D5282B7E2B000C4398 /* StateIncomeEntryView.swift in Sources */,
 				7E1672EE282A3341009185B2 /* FederalIncomeEntryView.swift in Sources */,
 				7E5074D3282B7CD6000C4398 /* BasicStateInfoEntryView.swift in Sources */,
+				28B4032F29B938E000E79F76 /* RawFederalTaxRates.swift in Sources */,
 				7E572F1C282910B300DDB15E /* ExplainableView.swift in Sources */,
 				7E266CF3282BE6D4005911D2 /* TaxDataInput.swift in Sources */,
 				7E107F56282BC32000E2B64A /* StateTitleButton.swift in Sources */,
 				7E05977B282B45EB0067DB7D /* DeductionsPickerView.swift in Sources */,
 				7E059777282B37910067DB7D /* DeductionAmountBindings.swift in Sources */,
 				7EE085A4283137E800E3EDA3 /* TaxDataTabView.swift in Sources */,
+				28B4033229B9394B00E79F76 /* RawCaliforniaTaxRates.swift in Sources */,
 				7E572F2F282910B300DDB15E /* TaxFactory.swift in Sources */,
 				7E1239BD282E0D520048BD77 /* TaxListGroupView.swift in Sources */,
 				7E3C565D28322135002272F3 /* BracketInfoView.swift in Sources */,
