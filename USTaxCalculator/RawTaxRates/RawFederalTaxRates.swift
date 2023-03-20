@@ -6,6 +6,26 @@ enum RawFederalTaxRates {
     // see https://www.nerdwallet.com/article/taxes/federal-income-tax-brackets
     static var progressiveMaps: [TaxYear: [FilingType: RawTaxRates]] {
         return [
+//            .y2023: [
+//                .single: RawTaxRates([
+//                    0.0: 0.10,
+//                    11001.0: 0.12,
+//                    44726.0: 0.22,
+//                    95376.0: 0.24,
+//                    182101.0: 0.32,
+//                    231251.0: 0.35,
+//                    578126.0: 0.37
+//                ]),
+//                .marriedJointly: RawTaxRates([
+//                    0.0: 0.1,
+//                    22001.0: 0.12,
+//                    89451.0: 0.22,
+//                    190751.0: 0.24,
+//                    364201.0: 0.32,
+//                    462501.0: 0.35,
+//                    693751.0: 0.37
+//                ])
+//            ],
             .y2022: [
                 .single: RawTaxRates([
                     0.0: 0.10,

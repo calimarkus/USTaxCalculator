@@ -155,7 +155,7 @@ extension RawCityTaxRates {
     // NYC
     static var newYorkCityRates: [TaxYear: [FilingType: RawTaxRates]] {
         return [
-            .y2023: newYorkCityRatesFrom2017to2023,
+//            .y2023: newYorkCityRatesFrom2017to2023,
             .y2022: newYorkCityRatesFrom2017to2023,
             .y2021: newYorkCityRatesFrom2017to2023,
             .y2020: newYorkCityRatesFrom2017to2023

@@ -5,6 +5,7 @@ enum TaxYear: Int, Codable, Equatable {
     case y2020 = 2020
     case y2021 = 2021
     case y2022 = 2022
+//    case y2023 = 2023
 }
 
 enum FilingType: String, CaseIterable, Codable, Equatable {
