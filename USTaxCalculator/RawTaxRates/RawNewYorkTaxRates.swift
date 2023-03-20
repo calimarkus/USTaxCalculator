@@ -108,15 +108,17 @@ extension RawCityTaxRates {
     // NYC
     static var newYorkCityRates: [TaxYear: [FilingType: RawTaxRates]] {
         return [
-            .y2021: newYorkCityRatesFrom2017to2022,
-            .y2020: newYorkCityRatesFrom2017to2022
+            .y2023: newYorkCityRatesFrom2017to2023,
+            .y2022: newYorkCityRatesFrom2017to2023,
+            .y2021: newYorkCityRatesFrom2017to2023,
+            .y2020: newYorkCityRatesFrom2017to2023
         ]
     }
 
     // see https://www.tax.ny.gov/pdf/current_forms/it/it201i.pdf#page=67
     // see https://answerconnect.cch.com/document/jyc0109013e2c83c2542d/state/explanations/new-york-city/nyc-tax-rates-blended-nyc-tax-rates
     // PS: These are full-year resident rates! Part year resident rates might differ
-    fileprivate static var newYorkCityRatesFrom2017to2022: [FilingType: RawTaxRates] {
+    fileprivate static var newYorkCityRatesFrom2017to2023: [FilingType: RawTaxRates] {
         return [
             .single: RawTaxRates([
                 0.0: 0.03078,
