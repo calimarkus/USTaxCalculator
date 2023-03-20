@@ -10,6 +10,30 @@ extension RawStateTaxRates {
     // Note: These are only valid for incomes of $100,000+
     static var californiaRates: [TaxYear: [FilingType: RawTaxRates]] {
         return [
+            .y2022: [
+                .single: RawTaxRates([
+                    0.0: 0.01,
+                    10100.0: 0.02,
+                    23943.0: 0.04,
+                    37789.0: 0.06,
+                    52456.0: 0.08,
+                    66296.0: 0.093,
+                    338640.0: 0.103,
+                    406365.0: 0.113,
+                    677276.0: 0.123
+                ]),
+                .marriedJointly: RawTaxRates([
+                    0.0: 0.01,
+                    20199.0: 0.02,
+                    47885.0: 0.04,
+                    75577.0: 0.06,
+                    104911.0: 0.08,
+                    132591.0: 0.093,
+                    677279.0: 0.103,
+                    812729.0: 0.113,
+                    1354551.0: 0.123
+                ])
+            ],
             .y2021: [
                 .single: RawTaxRates([
                     0.0: 0.01,
