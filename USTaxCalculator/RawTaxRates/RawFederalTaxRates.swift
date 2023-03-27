@@ -90,20 +90,21 @@ enum RawFederalTaxRates {
     }
 
     // see https://www.nerdwallet.com/article/taxes/capital-gains-tax-rates
+    // see https://www.unionbank.com/personal/financial-insights/investing/personal-investing/capital-gains-tax-rates-2021-and-how-to-minimize-them
     static var longtermGainsRates: [TaxYear: [FilingType: RawTaxRates]] {
         return [
-            .y2022: longtermGainRatesFrom2017to2023,
-            .y2021: longtermGainRatesFrom2017to2023,
-            .y2020: longtermGainRatesFrom2017to2023
-        ]
-    }
-
-    fileprivate static var longtermGainRatesFrom2017to2023: [FilingType: RawTaxRates] {
-        return [
-            .single: RawTaxRates([501600.0: 0.15,
-                                  80800.0: 0.20]),
-            .marriedJointly: RawTaxRates([501600.0: 0.15,
-                                          80800.0: 0.20])
+            .y2022: [
+                .single: RawTaxRates([459751.0: 0.20, 41676.0: 0.15]),
+                .marriedJointly: RawTaxRates([517200.0: 0.20, 83351.0: 0.15])
+            ],
+            .y2021: [
+                .single: RawTaxRates([445850.0: 0.20, 40400.0: 0.15]),
+                .marriedJointly: RawTaxRates([501600.0: 0.20, 80800.0: 0.15])
+            ],
+            .y2020: [
+                .single: RawTaxRates([441450.0: 0.20, 40000.0: 0.15]),
+                .marriedJointly: RawTaxRates([496600.0: 0.20, 80000.0: 0.15])
+            ]
         ]
     }
 
