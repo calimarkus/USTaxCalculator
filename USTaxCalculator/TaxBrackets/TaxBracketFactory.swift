@@ -7,6 +7,7 @@ enum TaxBracketFactoryError: Error {
     case missingFederalTaxRates
     case missingLongtermGainsRates
     case missingNetInvestmentIncomeRates
+    case missingAdditionalMedicareRates
 }
 
 enum TaxBracketFactory {}
@@ -69,17 +70,12 @@ extension TaxBracketFactory {
         return SimpleTaxBracketGenerator.generateWithStartingAtToTaxRateMap(map)
     }
 
-    // see https://www.healthline.com/health/medicare/additional-medicare-tax
-    static func additionalMedicareBracketsFor(filingType: FilingType) -> TaxBracketGroup {
-        switch filingType {
-            case .single:
-                return TaxBracketGroup(
-                    [TaxBracket(fixedAmount: 0, plus: 0.009, over: 200000.0)]
-                )
-            case .marriedJointly:
-                return TaxBracketGroup(
-                    [TaxBracket(fixedAmount: 0, plus: 0.009, over: 250000.0)]
-                )
+
+    static func additionalMedicareBracketsFor(taxYear year: TaxYear, filingType: FilingType) throws -> TaxBracketGroup {
+        guard let map = RawFederalTaxRates.additionalMedicareIncomeMaps[year]?[filingType] else {
+            throw TaxBracketFactoryError.missingAdditionalMedicareRates
         }
+
+        return ProgressiveTaxBracketGenerator.generateWithStartingAtToTaxRateMap(map)
     }
 }

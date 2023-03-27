@@ -31,11 +31,11 @@ enum TaxFactory {
         }
 
         // additional medicare tax
-        let medicareBracketGroup = TaxBracketFactory.additionalMedicareBracketsFor(filingType: filingType)
-        let medicarBracket = medicareBracketGroup.matchingBracketFor(taxableIncome: income.medicareWages)
-        if medicarBracket.rate > 0.0 {
+        let medicareBracketGroup = try TaxBracketFactory.additionalMedicareBracketsFor(taxYear: year, filingType: filingType)
+        let medicareBracket = medicareBracketGroup.matchingBracketFor(taxableIncome: income.medicareWages)
+        if medicareBracket.rate > 0.0 {
             federalTaxes.append(FederalTax(title: "Additional Medicare",
-                                           bracket: medicarBracket,
+                                           bracket: medicareBracket,
                                            bracketGroup: medicareBracketGroup,
                                            taxableIncome: income.medicareWages))
         }

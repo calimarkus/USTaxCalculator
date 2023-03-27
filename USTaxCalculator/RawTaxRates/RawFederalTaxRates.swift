@@ -122,4 +122,22 @@ enum RawFederalTaxRates {
             .marriedJointly: RawTaxRates([250000.0: 0.038])
         ]
     }
+
+    // see https://www.healthline.com/health/medicare/additional-medicare-tax
+    static var additionalMedicareIncomeMaps: [TaxYear: [FilingType: RawTaxRates]] {
+        return [
+            .y2022: additionalMedicareIncomeRatesFrom2017to2023,
+            .y2021: additionalMedicareIncomeRatesFrom2017to2023,
+            .y2020: additionalMedicareIncomeRatesFrom2017to2023
+        ]
+    }
+
+    fileprivate static var additionalMedicareIncomeRatesFrom2017to2023: [FilingType: RawTaxRates] {
+        return [
+            .single: RawTaxRates([0.0: 0.0,
+                                  200000.0: 0.009]),
+            .marriedJointly: RawTaxRates([0.0: 0.0,
+                                          250000.0: 0.009])
+        ]
+    }
 }
