@@ -27,7 +27,7 @@ enum TaxFactory {
             federalTaxes.append(FederalTax(title: "Net Investment Income",
                                            bracket: niiBracket,
                                            bracketGroup: niiBracketGroup,
-                                           taxableIncome: income.totalCapitalGains))
+                                           taxableIncome: min(income.totalCapitalGains, taxableFederalIncome - niiBracket.startingAt)))
         }
 
         // additional medicare tax

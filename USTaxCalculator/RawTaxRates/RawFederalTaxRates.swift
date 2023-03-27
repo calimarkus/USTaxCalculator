@@ -109,15 +109,19 @@ enum RawFederalTaxRates {
     }
 
     // see https://www.irs.gov/individuals/net-investment-income-tax
+    //
+    // - "Net investment income" generally does not include wages, social security benefits, ...
+    // - The tax applies to the the lesser of the net investment income, or the amount by which the
+    //   modified adjusted gross income exceeds the statutory threshold amount
     static var netInvestmentIncomeRates: [TaxYear: [FilingType: RawTaxRates]] {
         return [
-            .y2022: netInvestmentIncomeRatesFrom2017to2023,
-            .y2021: netInvestmentIncomeRatesFrom2017to2023,
-            .y2020: netInvestmentIncomeRatesFrom2017to2023
+            .y2022: netInvestmentIncomeRatesFrom2013to2023,
+            .y2021: netInvestmentIncomeRatesFrom2013to2023,
+            .y2020: netInvestmentIncomeRatesFrom2013to2023
         ]
     }
 
-    fileprivate static var netInvestmentIncomeRatesFrom2017to2023: [FilingType: RawTaxRates] {
+    fileprivate static var netInvestmentIncomeRatesFrom2013to2023: [FilingType: RawTaxRates] {
         return [
             .single: RawTaxRates([200000.0: 0.038]),
             .marriedJointly: RawTaxRates([250000.0: 0.038])
