@@ -52,4 +52,4 @@ Missing: Married Separately & Head of Household. Married Separately often has th
 New scenarios can easily be added:
 
 1) Add new cases to the `TaxYear`/`FilingType`/`TaxState`/`TaxCity` enums.
-2) Add new taxrates to `RawTaxRates.swift`.
+2) Add new taxrates to `USTaxCalculator/RawTaxRates/*.swift`.
