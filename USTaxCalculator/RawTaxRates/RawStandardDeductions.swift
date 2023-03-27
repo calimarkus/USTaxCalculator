@@ -1,7 +1,7 @@
 //
 //
 
-enum StandardDeductions {
+enum RawStandardDeductions {
     // see https://www.bankrate.com/taxes/standard-tax-deduction-amounts/
     static func federal(taxYear: TaxYear, filingType: FilingType) -> Double {
         switch taxYear {
