@@ -1,17 +1,15 @@
 //
 //
 
-enum SimpleTaxBracketGenerator {
-    static func generateWithStartingAtToTaxRateMap(_ rawTaxRates: RawTaxRates) -> TaxBracketGroup {
+enum TaxBracketGenerator {
+    static func simpleBracketsForRawTaxRates(_ rawTaxRates: RawTaxRates) -> TaxBracketGroup {
         let brackets = rawTaxRates.sortedRates.map { rawTaxRate in
             TaxBracket(simpleRate: rawTaxRate.rate, startingAt: rawTaxRate.startingAt)
         }
         return TaxBracketGroup(brackets)
     }
-}
 
-enum ProgressiveTaxBracketGenerator {
-    static func generateWithStartingAtToTaxRateMap(_ rawTaxRates: RawTaxRates) -> TaxBracketGroup {
+    static func progressiveBracketsForRawTaxRates(_ rawTaxRates: RawTaxRates) -> TaxBracketGroup {
         var previousBracket: TaxBracket?
         var progressiveFixedAmount = 0.0
 

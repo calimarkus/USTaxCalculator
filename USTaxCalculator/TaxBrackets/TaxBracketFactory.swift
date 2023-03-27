@@ -15,36 +15,36 @@ enum TaxBracketFactory {}
 // federal tax bracket
 extension TaxBracketFactory {
     static func federalTaxBracketsFor(taxYear year: TaxYear, filingType: FilingType) throws -> TaxBracketGroup {
-        guard let map = RawFederalTaxRates.progressiveMaps[year]?[filingType] else {
+        guard let rawRates = RawFederalTaxRates.progressiveIncomeRates[year]?[filingType] else {
             throw TaxBracketFactoryError.missingFederalTaxRates
         }
 
-        return ProgressiveTaxBracketGenerator.generateWithStartingAtToTaxRateMap(map)
+        return TaxBracketGenerator.progressiveBracketsForRawTaxRates(rawRates)
     }
 
     static func federalLongtermGainsBrackets(taxYear year: TaxYear, filingType: FilingType) throws -> TaxBracketGroup {
-        guard let map = RawFederalTaxRates.longtermGainsMaps[year]?[filingType] else {
+        guard let rawRates = RawFederalTaxRates.longtermGainsRates[year]?[filingType] else {
             throw TaxBracketFactoryError.missingLongtermGainsRates
         }
 
-        return SimpleTaxBracketGenerator.generateWithStartingAtToTaxRateMap(map)
+        return TaxBracketGenerator.simpleBracketsForRawTaxRates(rawRates)
     }
 
     static func netInvestmentIncomeBracketsFor(taxYear year: TaxYear, filingType: FilingType) throws -> TaxBracketGroup {
-        guard let map = RawFederalTaxRates.netInvestmentIncomeMaps[year]?[filingType] else {
+        guard let rawRates = RawFederalTaxRates.netInvestmentIncomeRates[year]?[filingType] else {
             throw TaxBracketFactoryError.missingNetInvestmentIncomeRates
         }
 
-        return SimpleTaxBracketGenerator.generateWithStartingAtToTaxRateMap(map)
+        return TaxBracketGenerator.simpleBracketsForRawTaxRates(rawRates)
     }
 
 
     static func additionalMedicareBracketsFor(taxYear year: TaxYear, filingType: FilingType) throws -> TaxBracketGroup {
-        guard let map = RawFederalTaxRates.additionalMedicareIncomeMaps[year]?[filingType] else {
+        guard let rawRates = RawFederalTaxRates.additionalMedicareIncomeRates[year]?[filingType] else {
             throw TaxBracketFactoryError.missingAdditionalMedicareRates
         }
 
-        return ProgressiveTaxBracketGenerator.generateWithStartingAtToTaxRateMap(map)
+        return TaxBracketGenerator.progressiveBracketsForRawTaxRates(rawRates)
     }
 }
 
@@ -54,13 +54,13 @@ extension TaxBracketFactory {
         if state == .NY, taxableIncome > 107650 {
             // new york doesn't use progressive rates for incomes higher than 107,650
             // see comments on RawTaxRates.nonProgressiveNewYorkStateRates
-            if let map = RawStateTaxRates.nonProgressiveNewYorkStateRates[year]?[filingType] {
-                return SimpleTaxBracketGenerator.generateWithStartingAtToTaxRateMap(map)
+            if let rawRates = RawStateTaxRates.nonProgressiveNewYorkStateRates[year]?[filingType] {
+                return TaxBracketGenerator.simpleBracketsForRawTaxRates(rawRates)
             }
         } else {
             // use progressive rates as usual
-            if let map = RawStateTaxRates.forState(state)[year]?[filingType] {
-                return ProgressiveTaxBracketGenerator.generateWithStartingAtToTaxRateMap(map)
+            if let rawRates = RawStateTaxRates.forState(state)[year]?[filingType] {
+                return TaxBracketGenerator.progressiveBracketsForRawTaxRates(rawRates)
             }
         }
 
@@ -71,10 +71,10 @@ extension TaxBracketFactory {
 // city tax brackets
 extension TaxBracketFactory {
     static func cityTaxBracketFor(_ city: TaxCity, taxYear year: TaxYear, filingType: FilingType, taxableIncome: Double) throws -> TaxBracketGroup {
-        guard let map = RawCityTaxRates.forCity(city)[year]?[filingType] else {
+        guard let rawRates = RawCityTaxRates.forCity(city)[year]?[filingType] else {
             throw TaxBracketFactoryError.missingCityTaxRates
         }
 
-        return ProgressiveTaxBracketGenerator.generateWithStartingAtToTaxRateMap(map)
+        return TaxBracketGenerator.progressiveBracketsForRawTaxRates(rawRates)
     }
 }

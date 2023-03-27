@@ -4,7 +4,7 @@
 // Federal rates
 enum RawFederalTaxRates {
     // see https://www.nerdwallet.com/article/taxes/federal-income-tax-brackets
-    static var progressiveMaps: [TaxYear: [FilingType: RawTaxRates]] {
+    static var progressiveIncomeRates: [TaxYear: [FilingType: RawTaxRates]] {
         return [
             //            .y2023: [
 //                .single: RawTaxRates([
@@ -90,7 +90,7 @@ enum RawFederalTaxRates {
     }
 
     // see https://www.nerdwallet.com/article/taxes/capital-gains-tax-rates
-    static var longtermGainsMaps: [TaxYear: [FilingType: RawTaxRates]] {
+    static var longtermGainsRates: [TaxYear: [FilingType: RawTaxRates]] {
         return [
             .y2022: longtermGainRatesFrom2017to2023,
             .y2021: longtermGainRatesFrom2017to2023,
@@ -108,7 +108,7 @@ enum RawFederalTaxRates {
     }
 
     // see https://www.irs.gov/individuals/net-investment-income-tax
-    static var netInvestmentIncomeMaps: [TaxYear: [FilingType: RawTaxRates]] {
+    static var netInvestmentIncomeRates: [TaxYear: [FilingType: RawTaxRates]] {
         return [
             .y2022: netInvestmentIncomeRatesFrom2017to2023,
             .y2021: netInvestmentIncomeRatesFrom2017to2023,
@@ -124,7 +124,7 @@ enum RawFederalTaxRates {
     }
 
     // see https://www.healthline.com/health/medicare/additional-medicare-tax
-    static var additionalMedicareIncomeMaps: [TaxYear: [FilingType: RawTaxRates]] {
+    static var additionalMedicareIncomeRates: [TaxYear: [FilingType: RawTaxRates]] {
         return [
             .y2022: additionalMedicareIncomeRatesFrom2017to2023,
             .y2021: additionalMedicareIncomeRatesFrom2017to2023,

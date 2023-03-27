@@ -36,7 +36,7 @@
 		7E34644E2833C26E008C58A2 /* Tax.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E572F09282910B300DDB15E /* Tax.swift */; };
 		7E34644F2833C26E008C58A2 /* TaxFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E572F0A282910B300DDB15E /* TaxFactory.swift */; };
 		7E3464502833C26E008C58A2 /* TaxBracketFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E572F0C282910B300DDB15E /* TaxBracketFactory.swift */; };
-		7E3464512833C26E008C58A2 /* ProgressiveTaxBracketGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E572F0D282910B300DDB15E /* ProgressiveTaxBracketGenerator.swift */; };
+		7E3464512833C26E008C58A2 /* TaxBracketGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E572F0D282910B300DDB15E /* TaxBracketGenerator.swift */; };
 		7E3464522833C26E008C58A2 /* TaxBracket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E572F0E282910B300DDB15E /* TaxBracket.swift */; };
 		7E3464532833C26E008C58A2 /* TaxBracketGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E3C565A2832042B002272F3 /* TaxBracketGroup.swift */; };
 		7E3464542833C26E008C58A2 /* RawTaxRates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E572F0F282910B300DDB15E /* RawTaxRates.swift */; };
@@ -106,7 +106,7 @@
 		7E572F2E282910B300DDB15E /* Tax.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E572F09282910B300DDB15E /* Tax.swift */; };
 		7E572F2F282910B300DDB15E /* TaxFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E572F0A282910B300DDB15E /* TaxFactory.swift */; };
 		7E572F30282910B300DDB15E /* TaxBracketFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E572F0C282910B300DDB15E /* TaxBracketFactory.swift */; };
-		7E572F31282910B300DDB15E /* ProgressiveTaxBracketGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E572F0D282910B300DDB15E /* ProgressiveTaxBracketGenerator.swift */; };
+		7E572F31282910B300DDB15E /* TaxBracketGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E572F0D282910B300DDB15E /* TaxBracketGenerator.swift */; };
 		7E572F32282910B300DDB15E /* TaxBracket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E572F0E282910B300DDB15E /* TaxBracket.swift */; };
 		7E572F33282910B300DDB15E /* RawTaxRates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E572F0F282910B300DDB15E /* RawTaxRates.swift */; };
 		7E6CBBD7283B375B00DEFF80 /* MacOSViewModifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E6CBBD6283B375B00DEFF80 /* MacOSViewModifiers.swift */; };
@@ -193,7 +193,7 @@
 		7E572F09282910B300DDB15E /* Tax.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tax.swift; sourceTree = "<group>"; };
 		7E572F0A282910B300DDB15E /* TaxFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaxFactory.swift; sourceTree = "<group>"; };
 		7E572F0C282910B300DDB15E /* TaxBracketFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaxBracketFactory.swift; sourceTree = "<group>"; };
-		7E572F0D282910B300DDB15E /* ProgressiveTaxBracketGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProgressiveTaxBracketGenerator.swift; sourceTree = "<group>"; };
+		7E572F0D282910B300DDB15E /* TaxBracketGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaxBracketGenerator.swift; sourceTree = "<group>"; };
 		7E572F0E282910B300DDB15E /* TaxBracket.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaxBracket.swift; sourceTree = "<group>"; };
 		7E572F0F282910B300DDB15E /* RawTaxRates.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RawTaxRates.swift; sourceTree = "<group>"; };
 		7E6CBBD6283B375B00DEFF80 /* MacOSViewModifiers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MacOSViewModifiers.swift; sourceTree = "<group>"; };
@@ -443,7 +443,7 @@
 			isa = PBXGroup;
 			children = (
 				7E572F0C282910B300DDB15E /* TaxBracketFactory.swift */,
-				7E572F0D282910B300DDB15E /* ProgressiveTaxBracketGenerator.swift */,
+				7E572F0D282910B300DDB15E /* TaxBracketGenerator.swift */,
 				7E572F0E282910B300DDB15E /* TaxBracket.swift */,
 				7E3C565A2832042B002272F3 /* TaxBracketGroup.swift */,
 			);
@@ -665,7 +665,7 @@
 				7E34644F2833C26E008C58A2 /* TaxFactory.swift in Sources */,
 				7E3464502833C26E008C58A2 /* TaxBracketFactory.swift in Sources */,
 				7E6CBBD8283B375B00DEFF80 /* MacOSViewModifiers.swift in Sources */,
-				7E3464512833C26E008C58A2 /* ProgressiveTaxBracketGenerator.swift in Sources */,
+				7E3464512833C26E008C58A2 /* TaxBracketGenerator.swift in Sources */,
 				7E3464522833C26E008C58A2 /* TaxBracket.swift in Sources */,
 				7E3464532833C26E008C58A2 /* TaxBracketGroup.swift in Sources */,
 				7E3464542833C26E008C58A2 /* RawTaxRates.swift in Sources */,
@@ -773,7 +773,7 @@
 				7E572F2F282910B300DDB15E /* TaxFactory.swift in Sources */,
 				7E1239BD282E0D520048BD77 /* TaxListGroupView.swift in Sources */,
 				7E3C565D28322135002272F3 /* BracketInfoView.swift in Sources */,
-				7E572F31282910B300DDB15E /* ProgressiveTaxBracketGenerator.swift in Sources */,
+				7E572F31282910B300DDB15E /* TaxBracketGenerator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
