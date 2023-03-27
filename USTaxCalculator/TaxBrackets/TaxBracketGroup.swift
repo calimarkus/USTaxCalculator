@@ -8,15 +8,11 @@ struct TaxBracketGroup {
         sortedBrackets = brackets.sorted { $0.startingAt > $1.startingAt }
     }
 
-    func matchingBracketFor(taxableIncome: Double) throws -> TaxBracket {
+    func matchingBracketFor(taxableIncome: Double) -> TaxBracket {
         let matchingBracket = sortedBrackets.first { bracket in
             taxableIncome >= bracket.startingAt
         }
 
-        if let b = matchingBracket {
-            return b
-        } else {
-            throw TaxBracketFactoryError.noMatchingTaxBracketFound
-        }
+        return matchingBracket ?? TaxBracket(simpleRate: 0.0, startingAt: 0.0)
     }
 }

@@ -5,26 +5,39 @@ enum TaxFactory {
     static func federalTaxesFor(income: Income, taxableFederalIncome: Double, taxYear year: TaxYear, filingType: FilingType) throws -> [FederalTax] {
         var federalTaxes: [FederalTax] = []
 
-        let bracketGroup = try TaxBracketFactory.federalTaxBracketsFor(taxYear: year, filingType: filingType)
-        let fed = try bracketGroup.matchingBracketFor(taxableIncome: taxableFederalIncome)
-        federalTaxes.append(FederalTax(title: "Income", bracket: fed, bracketGroup: bracketGroup, taxableIncome: taxableFederalIncome))
+        // income tax
+        let incomeBracketGroup = try TaxBracketFactory.federalTaxBracketsFor(taxYear: year, filingType: filingType)
+        let incomeBracket = incomeBracketGroup.matchingBracketFor(taxableIncome: taxableFederalIncome)
+        federalTaxes.append(FederalTax(title: "Income", bracket: incomeBracket, bracketGroup: incomeBracketGroup, taxableIncome: taxableFederalIncome))
 
-        if taxableFederalIncome > TaxBracketFactory.federalLongtermGainsTaxThreshhold() {
-            let bracketGroup = TaxBracketFactory.federalLongtermGainsBrackets()
-            let ltg = try bracketGroup.matchingBracketFor(taxableIncome: taxableFederalIncome)
-            federalTaxes.append(FederalTax(title: "Longterm Gains", bracket: ltg, bracketGroup: bracketGroup, taxableIncome: income.longtermCapitalGains))
+        // longterm gains tax
+        let longtermGainBracketGroup = TaxBracketFactory.federalLongtermGainsBrackets(filingType: filingType)
+        let longtermGainsBracket = longtermGainBracketGroup.matchingBracketFor(taxableIncome: taxableFederalIncome)
+        if longtermGainsBracket.rate > 0.0 {
+            federalTaxes.append(FederalTax(title: "Longterm Gains",
+                                           bracket: longtermGainsBracket,
+                                           bracketGroup: longtermGainBracketGroup,
+                                           taxableIncome: income.longtermCapitalGains))
         }
 
-        if taxableFederalIncome > TaxBracketFactory.netInvestmentIncomeTaxThreshhold(filingType: filingType) {
-            let bracketGroup = TaxBracketFactory.netInvestmentIncomeBracketsFor(filingType: filingType)
-            let nii = try bracketGroup.matchingBracketFor(taxableIncome: taxableFederalIncome)
-            federalTaxes.append(FederalTax(title: "Net Investment Income", bracket: nii, bracketGroup: bracketGroup, taxableIncome: income.totalCapitalGains))
+        // net investment income tax
+        let niiBracketGroup = TaxBracketFactory.netInvestmentIncomeBracketsFor(filingType: filingType)
+        let niiBracket = niiBracketGroup.matchingBracketFor(taxableIncome: taxableFederalIncome)
+        if niiBracket.rate > 0.0 {
+            federalTaxes.append(FederalTax(title: "Net Investment Income",
+                                           bracket: niiBracket,
+                                           bracketGroup: niiBracketGroup,
+                                           taxableIncome: income.totalCapitalGains))
         }
 
-        if income.medicareWages > TaxBracketFactory.additionalMedicareTaxThreshhold(filingType: filingType) {
-            let bracketGroup = TaxBracketFactory.additionalMedicareBracketsFor(filingType: filingType)
-            let medi = try bracketGroup.matchingBracketFor(taxableIncome: income.medicareWages)
-            federalTaxes.append(FederalTax(title: "Additional Medicare", bracket: medi, bracketGroup: bracketGroup, taxableIncome: income.medicareWages))
+        // additional medicare tax
+        let medicareBracketGroup = TaxBracketFactory.additionalMedicareBracketsFor(filingType: filingType)
+        let medicarBracket = medicareBracketGroup.matchingBracketFor(taxableIncome: income.medicareWages)
+        if medicarBracket.rate > 0.0 {
+            federalTaxes.append(FederalTax(title: "Additional Medicare",
+                                           bracket: medicarBracket,
+                                           bracketGroup: medicareBracketGroup,
+                                           taxableIncome: income.medicareWages))
         }
 
         return federalTaxes
@@ -36,7 +49,7 @@ enum TaxFactory {
                 return nil
             case let .city(city):
                 let brackets = try TaxBracketFactory.cityTaxBracketFor(city, taxYear: year, filingType: filingType, taxableIncome: taxableIncome)
-                let bracket = try brackets.matchingBracketFor(taxableIncome: taxableIncome)
+                let bracket = brackets.matchingBracketFor(taxableIncome: taxableIncome)
                 return LocalTax(city: city, bracket: bracket, bracketGroup: brackets, taxableIncome: taxableIncome)
         }
     }
@@ -56,7 +69,7 @@ enum TaxFactory {
         let taxableIncome = max(0.0, totalIncome + stateIncome.additionalStateIncome - deductions)
 
         let brackets = try TaxBracketFactory.stateTaxBracketFor(stateIncome.state, taxYear: year, filingType: filingType, taxableIncome: taxableIncome)
-        let bracket = try brackets.matchingBracketFor(taxableIncome: taxableIncome)
+        let bracket = brackets.matchingBracketFor(taxableIncome: taxableIncome)
 
         let localTax = try localTaxBracketForLocalTax(stateIncome.localTax, taxableIncome: taxableIncome, taxYear: year, filingType: filingType)
 

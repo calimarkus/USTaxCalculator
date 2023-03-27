@@ -2,7 +2,6 @@
 //
 
 enum TaxBracketFactoryError: Error {
-    case noMatchingTaxBracketFound
     case missingStateTaxRates
     case missingCityTaxRates
     case missingFederalTaxRates
@@ -51,43 +50,39 @@ extension TaxBracketFactory {
 
 // additional federal tax brackets
 extension TaxBracketFactory {
-    static func federalLongtermGainsTaxThreshhold() -> Double {
-        return 80800
-    }
-
     // see https://www.nerdwallet.com/article/taxes/capital-gains-tax-rates
-    static func federalLongtermGainsBrackets() -> TaxBracketGroup {
+    static func federalLongtermGainsBrackets(filingType: FilingType) -> TaxBracketGroup {
         return TaxBracketGroup(
             [TaxBracket(simpleRate: 0.2, startingAt: 501600.0),
              TaxBracket(simpleRate: 0.15, startingAt: 80800.0)]
         )
     }
 
-    static func netInvestmentIncomeTaxThreshhold(filingType: FilingType) -> Double {
-        switch filingType {
-            case .single: return 200000.0
-            case .marriedJointly: return 250000.0
-        }
-    }
-
     // see https://www.irs.gov/individuals/net-investment-income-tax
     static func netInvestmentIncomeBracketsFor(filingType: FilingType) -> TaxBracketGroup {
-        return TaxBracketGroup(
-            [TaxBracket(simpleRate: 0.038, startingAt: netInvestmentIncomeTaxThreshhold(filingType: filingType))]
-        )
-    }
-
-    static func additionalMedicareTaxThreshhold(filingType: FilingType) -> Double {
         switch filingType {
-            case .single: return 200000.0
-            case .marriedJointly: return 250000.0
+            case .single:
+                return TaxBracketGroup(
+                    [TaxBracket(simpleRate: 0.038, startingAt: 200000.0)]
+                )
+            case .marriedJointly:
+                return TaxBracketGroup(
+                    [TaxBracket(simpleRate: 0.038, startingAt: 250000.0)]
+                )
         }
     }
 
     // see https://www.healthline.com/health/medicare/additional-medicare-tax
     static func additionalMedicareBracketsFor(filingType: FilingType) -> TaxBracketGroup {
-        return TaxBracketGroup(
-            [TaxBracket(fixedAmount: 0, plus: 0.009, over: additionalMedicareTaxThreshhold(filingType: filingType))]
-        )
+        switch filingType {
+            case .single:
+                return TaxBracketGroup(
+                    [TaxBracket(fixedAmount: 0, plus: 0.009, over: 200000.0)]
+                )
+            case .marriedJointly:
+                return TaxBracketGroup(
+                    [TaxBracket(fixedAmount: 0, plus: 0.009, over: 250000.0)]
+                )
+        }
     }
 }
