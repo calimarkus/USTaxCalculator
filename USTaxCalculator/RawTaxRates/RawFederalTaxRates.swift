@@ -6,7 +6,7 @@ enum RawFederalTaxRates {
     // see https://www.nerdwallet.com/article/taxes/federal-income-tax-brackets
     static var progressiveMaps: [TaxYear: [FilingType: RawTaxRates]] {
         return [
-//            .y2023: [
+            //            .y2023: [
 //                .single: RawTaxRates([
 //                    0.0: 0.10,
 //                    11001.0: 0.12,
@@ -86,6 +86,24 @@ enum RawFederalTaxRates {
                     622050.0: 0.37
                 ])
             ]
+        ]
+    }
+
+    // see https://www.nerdwallet.com/article/taxes/capital-gains-tax-rates
+    static var longtermGainsMaps: [TaxYear: [FilingType: RawTaxRates]] {
+        return [
+            .y2022: longtermGainRatesFrom2017to2023,
+            .y2021: longtermGainRatesFrom2017to2023,
+            .y2020: longtermGainRatesFrom2017to2023
+        ]
+    }
+
+    fileprivate static var longtermGainRatesFrom2017to2023: [FilingType: RawTaxRates] {
+        return [
+            .single: RawTaxRates([501600.0: 0.15,
+                                  80800.0: 0.20]),
+            .marriedJointly: RawTaxRates([501600.0: 0.15,
+                                          80800.0: 0.20])
         ]
     }
 }

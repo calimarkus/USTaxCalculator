@@ -173,7 +173,7 @@ extension BracketTableView {
 
 struct BracketInfoView_Previews: PreviewProvider {
     static let fedBrackets = try! TaxBracketFactory.federalTaxBracketsFor(taxYear: .y2021, filingType: .single)
-    static let longtermGainsBrackets = TaxBracketFactory.federalLongtermGainsBrackets(filingType: .single)
+    static let longtermGainsBrackets = try! TaxBracketFactory.federalLongtermGainsBrackets(taxYear: .y2021, filingType: .single)
 
     static var previews: some View {
         BracketInfoView(

@@ -11,7 +11,7 @@ enum TaxFactory {
         federalTaxes.append(FederalTax(title: "Income", bracket: incomeBracket, bracketGroup: incomeBracketGroup, taxableIncome: taxableFederalIncome))
 
         // longterm gains tax
-        let longtermGainBracketGroup = TaxBracketFactory.federalLongtermGainsBrackets(filingType: filingType)
+        let longtermGainBracketGroup = try TaxBracketFactory.federalLongtermGainsBrackets(taxYear: year, filingType: filingType)
         let longtermGainsBracket = longtermGainBracketGroup.matchingBracketFor(taxableIncome: taxableFederalIncome)
         if longtermGainsBracket.rate > 0.0 {
             federalTaxes.append(FederalTax(title: "Longterm Gains",

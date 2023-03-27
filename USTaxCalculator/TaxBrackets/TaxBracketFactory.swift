@@ -5,6 +5,7 @@ enum TaxBracketFactoryError: Error {
     case missingStateTaxRates
     case missingCityTaxRates
     case missingFederalTaxRates
+    case missingLongtermGainsRates
 }
 
 enum TaxBracketFactory {}
@@ -50,12 +51,12 @@ extension TaxBracketFactory {
 
 // additional federal tax brackets
 extension TaxBracketFactory {
-    // see https://www.nerdwallet.com/article/taxes/capital-gains-tax-rates
-    static func federalLongtermGainsBrackets(filingType: FilingType) -> TaxBracketGroup {
-        return TaxBracketGroup(
-            [TaxBracket(simpleRate: 0.2, startingAt: 501600.0),
-             TaxBracket(simpleRate: 0.15, startingAt: 80800.0)]
-        )
+    static func federalLongtermGainsBrackets(taxYear year: TaxYear, filingType: FilingType) throws -> TaxBracketGroup {
+        if let map = RawFederalTaxRates.longtermGainsMaps[year]?[filingType] {
+            return SimpleTaxBracketGenerator.generateWithStartingAtToTaxRateMap(map)
+        }
+
+        throw TaxBracketFactoryError.missingLongtermGainsRates
     }
 
     // see https://www.irs.gov/individuals/net-investment-income-tax
