@@ -2,9 +2,9 @@
 //
 
 enum BracketType: Hashable {
-    // applies the rate to the (income - startingAt) + fixedAmount
+    /// applies the rate to the (income - startingAt) + fixedAmount
     case progressive(fixedAmount: Double)
-    // applies the rate to the total income
+    /// applies the given rate to the given income
     case basic
 }
 
@@ -21,16 +21,17 @@ struct TaxBracket: Hashable {
 
 // convenience inits
 extension TaxBracket {
+    /// applies the rate to the (income - startingAt) + fixedAmount
     init(fixedAmount: Double, plus rate: Double, over startingAt: Double) {
         self.init(rate: rate, startingAt: startingAt, type: .progressive(fixedAmount: fixedAmount))
     }
 
+    /// applies the given rate to the given income
     init(simpleRate: Double, startingAt: Double) {
         self.init(rate: simpleRate, startingAt: startingAt, type: .basic)
     }
-}
 
-extension TaxBracket {
+    /// calculates the taxes for the given amount, respecting the bracket type
     func calculateTaxesForAmount(_ amount: Double) -> Double {
         switch type {
             case .basic:
@@ -40,6 +41,7 @@ extension TaxBracket {
         }
     }
 
+    /// returns a string describing the calculation of the taxes for the given amount, respecting the bracket type
     func taxCalculationExplanation(_ amount: Double) -> String {
         switch type {
             case .basic:
