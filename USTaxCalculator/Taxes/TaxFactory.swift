@@ -21,7 +21,7 @@ enum TaxFactory {
         }
 
         // net investment income tax
-        let niiBracketGroup = TaxBracketFactory.netInvestmentIncomeBracketsFor(filingType: filingType)
+        let niiBracketGroup = try TaxBracketFactory.netInvestmentIncomeBracketsFor(taxYear: year, filingType: filingType)
         let niiBracket = niiBracketGroup.matchingBracketFor(taxableIncome: taxableFederalIncome)
         if niiBracket.rate > 0.0 {
             federalTaxes.append(FederalTax(title: "Net Investment Income",

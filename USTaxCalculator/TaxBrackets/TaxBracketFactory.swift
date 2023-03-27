@@ -6,6 +6,7 @@ enum TaxBracketFactoryError: Error {
     case missingCityTaxRates
     case missingFederalTaxRates
     case missingLongtermGainsRates
+    case missingNetInvestmentIncomeRates
 }
 
 enum TaxBracketFactory {}
@@ -60,18 +61,12 @@ extension TaxBracketFactory {
         return SimpleTaxBracketGenerator.generateWithStartingAtToTaxRateMap(map)
     }
 
-    // see https://www.irs.gov/individuals/net-investment-income-tax
-    static func netInvestmentIncomeBracketsFor(filingType: FilingType) -> TaxBracketGroup {
-        switch filingType {
-            case .single:
-                return TaxBracketGroup(
-                    [TaxBracket(simpleRate: 0.038, startingAt: 200000.0)]
-                )
-            case .marriedJointly:
-                return TaxBracketGroup(
-                    [TaxBracket(simpleRate: 0.038, startingAt: 250000.0)]
-                )
+    static func netInvestmentIncomeBracketsFor(taxYear year: TaxYear, filingType: FilingType) throws -> TaxBracketGroup {
+        guard let map = RawFederalTaxRates.netInvestmentIncomeMaps[year]?[filingType] else {
+            throw TaxBracketFactoryError.missingNetInvestmentIncomeRates
         }
+
+        return SimpleTaxBracketGenerator.generateWithStartingAtToTaxRateMap(map)
     }
 
     // see https://www.healthline.com/health/medicare/additional-medicare-tax

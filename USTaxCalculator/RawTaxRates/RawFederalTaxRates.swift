@@ -106,4 +106,20 @@ enum RawFederalTaxRates {
                                           80800.0: 0.20])
         ]
     }
+
+    // see https://www.irs.gov/individuals/net-investment-income-tax
+    static var netInvestmentIncomeMaps: [TaxYear: [FilingType: RawTaxRates]] {
+        return [
+            .y2022: netInvestmentIncomeRatesFrom2017to2023,
+            .y2021: netInvestmentIncomeRatesFrom2017to2023,
+            .y2020: netInvestmentIncomeRatesFrom2017to2023
+        ]
+    }
+
+    fileprivate static var netInvestmentIncomeRatesFrom2017to2023: [FilingType: RawTaxRates] {
+        return [
+            .single: RawTaxRates([200000.0: 0.038]),
+            .marriedJointly: RawTaxRates([250000.0: 0.038])
+        ]
+    }
 }
