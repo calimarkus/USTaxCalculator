@@ -14,10 +14,11 @@ enum TaxBracketFactory {}
 extension TaxBracketFactory {
     // see https://www.nerdwallet.com/article/taxes/federal-income-tax-brackets
     static func federalTaxBracketsFor(taxYear year: TaxYear, filingType: FilingType) throws -> TaxBracketGroup {
-        if let map = RawFederalTaxRates.progressiveMaps[year]?[filingType] {
-            return ProgressiveTaxBracketGenerator.generateWithStartingAtToTaxRateMap(map)
+        guard let map = RawFederalTaxRates.progressiveMaps[year]?[filingType] else {
+            throw TaxBracketFactoryError.missingFederalTaxRates
         }
-        throw TaxBracketFactoryError.missingFederalTaxRates
+
+        return ProgressiveTaxBracketGenerator.generateWithStartingAtToTaxRateMap(map)
     }
 }
 
@@ -41,22 +42,22 @@ extension TaxBracketFactory {
     }
 
     static func cityTaxBracketFor(_ city: TaxCity, taxYear year: TaxYear, filingType: FilingType, taxableIncome: Double) throws -> TaxBracketGroup {
-        if let map = RawCityTaxRates.forCity(city)[year]?[filingType] {
-            return ProgressiveTaxBracketGenerator.generateWithStartingAtToTaxRateMap(map)
+        guard let map = RawCityTaxRates.forCity(city)[year]?[filingType] else {
+            throw TaxBracketFactoryError.missingCityTaxRates
         }
 
-        throw TaxBracketFactoryError.missingCityTaxRates
+        return ProgressiveTaxBracketGenerator.generateWithStartingAtToTaxRateMap(map)
     }
 }
 
 // additional federal tax brackets
 extension TaxBracketFactory {
     static func federalLongtermGainsBrackets(taxYear year: TaxYear, filingType: FilingType) throws -> TaxBracketGroup {
-        if let map = RawFederalTaxRates.longtermGainsMaps[year]?[filingType] {
-            return SimpleTaxBracketGenerator.generateWithStartingAtToTaxRateMap(map)
+        guard let map = RawFederalTaxRates.longtermGainsMaps[year]?[filingType] else {
+            throw TaxBracketFactoryError.missingLongtermGainsRates
         }
 
-        throw TaxBracketFactoryError.missingLongtermGainsRates
+        return SimpleTaxBracketGenerator.generateWithStartingAtToTaxRateMap(map)
     }
 
     // see https://www.irs.gov/individuals/net-investment-income-tax
