@@ -58,6 +58,10 @@ struct FormattingHelper {
     }
 
     static func formattedBracketInfo(_ bracket: TaxBracket, locale: Locale? = nil) -> String {
-        return "\(formatPercentage(bracket.rate, locale: locale)) over \(formattedBracketStart(bracket, locale: locale))"
+        if bracket.startingAt > 0.0 {
+            return "\(formatPercentage(bracket.rate, locale: locale)) over \(formattedBracketStart(bracket, locale: locale))"
+        } else {
+            return formatPercentage(bracket.rate, locale: locale)
+        }
     }
 }
