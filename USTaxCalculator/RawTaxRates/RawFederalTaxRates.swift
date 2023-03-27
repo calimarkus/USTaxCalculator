@@ -129,15 +129,18 @@ enum RawFederalTaxRates {
     }
 
     // see https://www.healthline.com/health/medicare/additional-medicare-tax
+    //
+    // usually withheld by the employer
+    //
     static var additionalMedicareIncomeRates: [TaxYear: [FilingType: RawTaxRates]] {
         return [
-            .y2022: additionalMedicareIncomeRatesFrom2017to2023,
-            .y2021: additionalMedicareIncomeRatesFrom2017to2023,
-            .y2020: additionalMedicareIncomeRatesFrom2017to2023
+            .y2022: additionalMedicareIncomeRatesFrom2013to2023,
+            .y2021: additionalMedicareIncomeRatesFrom2013to2023,
+            .y2020: additionalMedicareIncomeRatesFrom2013to2023
         ]
     }
 
-    fileprivate static var additionalMedicareIncomeRatesFrom2017to2023: [FilingType: RawTaxRates] {
+    fileprivate static var additionalMedicareIncomeRatesFrom2013to2023: [FilingType: RawTaxRates] {
         return [
             .single: RawTaxRates([0.0: 0.0,
                                   200000.0: 0.009]),
