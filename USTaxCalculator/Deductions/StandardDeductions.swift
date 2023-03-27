@@ -2,6 +2,24 @@
 //
 
 enum StandardDeductions {
+    // see https://www.bankrate.com/taxes/standard-tax-deduction-amounts/
+    static func federal(taxYear: TaxYear, filingType: FilingType) -> Double {
+        switch taxYear {
+            case .y2022: switch filingType {
+                    case .single: return 12950.0
+                    case .marriedJointly: return 25900.0
+                }
+            case .y2021: switch filingType {
+                    case .single: return 12550.0
+                    case .marriedJointly: return 25100.0
+                }
+            case .y2020: switch filingType {
+                    case .single: return 12400.0
+                    case .marriedJointly: return 24800.0
+                }
+        }
+    }
+
     static func state(taxYear: TaxYear, state: TaxState, filingType: FilingType) -> Double {
         switch state {
             case .NY:
@@ -34,24 +52,6 @@ enum StandardDeductions {
                             case .single: return 4601.0
                             case .marriedJointly: return 9202.0
                         }
-                }
-        }
-    }
-
-    // see https://www.bankrate.com/taxes/standard-tax-deduction-amounts/
-    static func federal(taxYear: TaxYear, filingType: FilingType) -> Double {
-        switch taxYear {
-            case .y2022: switch filingType {
-                    case .single: return 12950.0
-                    case .marriedJointly: return 25900.0
-                }
-            case .y2021: switch filingType {
-                    case .single: return 12550.0
-                    case .marriedJointly: return 25100.0
-                }
-            case .y2020: switch filingType {
-                    case .single: return 12400.0
-                    case .marriedJointly: return 24800.0
                 }
         }
     }

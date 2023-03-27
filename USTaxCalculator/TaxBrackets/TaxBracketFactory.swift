@@ -14,10 +14,34 @@ enum TaxBracketFactory {}
 
 // federal tax bracket
 extension TaxBracketFactory {
-    // see https://www.nerdwallet.com/article/taxes/federal-income-tax-brackets
     static func federalTaxBracketsFor(taxYear year: TaxYear, filingType: FilingType) throws -> TaxBracketGroup {
         guard let map = RawFederalTaxRates.progressiveMaps[year]?[filingType] else {
             throw TaxBracketFactoryError.missingFederalTaxRates
+        }
+
+        return ProgressiveTaxBracketGenerator.generateWithStartingAtToTaxRateMap(map)
+    }
+
+    static func federalLongtermGainsBrackets(taxYear year: TaxYear, filingType: FilingType) throws -> TaxBracketGroup {
+        guard let map = RawFederalTaxRates.longtermGainsMaps[year]?[filingType] else {
+            throw TaxBracketFactoryError.missingLongtermGainsRates
+        }
+
+        return SimpleTaxBracketGenerator.generateWithStartingAtToTaxRateMap(map)
+    }
+
+    static func netInvestmentIncomeBracketsFor(taxYear year: TaxYear, filingType: FilingType) throws -> TaxBracketGroup {
+        guard let map = RawFederalTaxRates.netInvestmentIncomeMaps[year]?[filingType] else {
+            throw TaxBracketFactoryError.missingNetInvestmentIncomeRates
+        }
+
+        return SimpleTaxBracketGenerator.generateWithStartingAtToTaxRateMap(map)
+    }
+
+
+    static func additionalMedicareBracketsFor(taxYear year: TaxYear, filingType: FilingType) throws -> TaxBracketGroup {
+        guard let map = RawFederalTaxRates.additionalMedicareIncomeMaps[year]?[filingType] else {
+            throw TaxBracketFactoryError.missingAdditionalMedicareRates
         }
 
         return ProgressiveTaxBracketGenerator.generateWithStartingAtToTaxRateMap(map)
@@ -42,38 +66,13 @@ extension TaxBracketFactory {
 
         throw TaxBracketFactoryError.missingStateTaxRates
     }
+}
 
+// city tax brackets
+extension TaxBracketFactory {
     static func cityTaxBracketFor(_ city: TaxCity, taxYear year: TaxYear, filingType: FilingType, taxableIncome: Double) throws -> TaxBracketGroup {
         guard let map = RawCityTaxRates.forCity(city)[year]?[filingType] else {
             throw TaxBracketFactoryError.missingCityTaxRates
-        }
-
-        return ProgressiveTaxBracketGenerator.generateWithStartingAtToTaxRateMap(map)
-    }
-}
-
-// additional federal tax brackets
-extension TaxBracketFactory {
-    static func federalLongtermGainsBrackets(taxYear year: TaxYear, filingType: FilingType) throws -> TaxBracketGroup {
-        guard let map = RawFederalTaxRates.longtermGainsMaps[year]?[filingType] else {
-            throw TaxBracketFactoryError.missingLongtermGainsRates
-        }
-
-        return SimpleTaxBracketGenerator.generateWithStartingAtToTaxRateMap(map)
-    }
-
-    static func netInvestmentIncomeBracketsFor(taxYear year: TaxYear, filingType: FilingType) throws -> TaxBracketGroup {
-        guard let map = RawFederalTaxRates.netInvestmentIncomeMaps[year]?[filingType] else {
-            throw TaxBracketFactoryError.missingNetInvestmentIncomeRates
-        }
-
-        return SimpleTaxBracketGenerator.generateWithStartingAtToTaxRateMap(map)
-    }
-
-
-    static func additionalMedicareBracketsFor(taxYear year: TaxYear, filingType: FilingType) throws -> TaxBracketGroup {
-        guard let map = RawFederalTaxRates.additionalMedicareIncomeMaps[year]?[filingType] else {
-            throw TaxBracketFactoryError.missingAdditionalMedicareRates
         }
 
         return ProgressiveTaxBracketGenerator.generateWithStartingAtToTaxRateMap(map)

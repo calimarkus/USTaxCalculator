@@ -43,17 +43,6 @@ enum TaxFactory {
         return federalTaxes
     }
 
-    static func localTaxBracketForLocalTax(_ localTax: LocalTaxType, taxableIncome: Double, taxYear year: TaxYear, filingType: FilingType) throws -> LocalTax? {
-        switch localTax {
-            case .none:
-                return nil
-            case let .city(city):
-                let brackets = try TaxBracketFactory.cityTaxBracketFor(city, taxYear: year, filingType: filingType, taxableIncome: taxableIncome)
-                let bracket = brackets.matchingBracketFor(taxableIncome: taxableIncome)
-                return LocalTax(city: city, bracket: bracket, bracketGroup: brackets, taxableIncome: taxableIncome)
-        }
-    }
-
     static func stateTaxFor(stateIncome: StateIncome,
                             stateDeductions: [TaxState: DeductionAmount],
                             stateCredits: [TaxState: Double],
@@ -83,5 +72,16 @@ enum TaxFactory {
                         credits: stateCredits[stateIncome.state] ?? 0.0,
                         incomeRate: stateIncome.incomeRateGivenFederalIncome(totalIncome),
                         stateAttributedIncome: stateIncome.attributableIncomeGivenFederalIncome(totalIncome))
+    }
+
+    static func localTaxBracketForLocalTax(_ localTax: LocalTaxType, taxableIncome: Double, taxYear year: TaxYear, filingType: FilingType) throws -> LocalTax? {
+        switch localTax {
+            case .none:
+                return nil
+            case let .city(city):
+                let brackets = try TaxBracketFactory.cityTaxBracketFor(city, taxYear: year, filingType: filingType, taxableIncome: taxableIncome)
+                let bracket = brackets.matchingBracketFor(taxableIncome: taxableIncome)
+                return LocalTax(city: city, bracket: bracket, bracketGroup: brackets, taxableIncome: taxableIncome)
+        }
     }
 }
