@@ -157,6 +157,10 @@
 		7E1672ED282A3341009185B2 /* FederalIncomeEntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FederalIncomeEntryView.swift; sourceTree = "<group>"; };
 		7E266CF2282BE6D4005911D2 /* TaxDataInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaxDataInput.swift; sourceTree = "<group>"; };
 		7E289AD929D2265000F74350 /* RawStandardDeductions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RawStandardDeductions.swift; sourceTree = "<group>"; };
+		7E289ADD29D2CDED00F74350 /* example_jack21.ustaxcalc */ = {isa = PBXFileReference; lastKnownFileType = text; path = example_jack21.ustaxcalc; sourceTree = "<group>"; };
+		7E289ADE29D2CDED00F74350 /* example_jack20.ustaxcalc */ = {isa = PBXFileReference; lastKnownFileType = text; path = example_jack20.ustaxcalc; sourceTree = "<group>"; };
+		7E289ADF29D2CDED00F74350 /* example_simple20.ustaxcalc */ = {isa = PBXFileReference; lastKnownFileType = text; path = example_simple20.ustaxcalc; sourceTree = "<group>"; };
+		7E289AE029D2CDED00F74350 /* example_johnsarah.ustaxcalc */ = {isa = PBXFileReference; lastKnownFileType = text; path = example_johnsarah.ustaxcalc; sourceTree = "<group>"; };
 		7E3C565A2832042B002272F3 /* TaxBracketGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaxBracketGroup.swift; sourceTree = "<group>"; };
 		7E3C565C28322135002272F3 /* BracketInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BracketInfoView.swift; sourceTree = "<group>"; };
 		7E3C567C28327C44002272F3 /* TaxDataDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaxDataDocument.swift; sourceTree = "<group>"; };
@@ -263,6 +267,17 @@
 				7E572EE6282910B300DDB15E /* ListViews */,
 			);
 			path = TaxDataList;
+			sourceTree = "<group>";
+		};
+		7E289ADC29D2CDED00F74350 /* Examples */ = {
+			isa = PBXGroup;
+			children = (
+				7E289ADD29D2CDED00F74350 /* example_jack21.ustaxcalc */,
+				7E289ADE29D2CDED00F74350 /* example_jack20.ustaxcalc */,
+				7E289ADF29D2CDED00F74350 /* example_simple20.ustaxcalc */,
+				7E289AE029D2CDED00F74350 /* example_johnsarah.ustaxcalc */,
+			);
+			path = Examples;
 			sourceTree = "<group>";
 		};
 		7E5074D0282B7CA6000C4398 /* Federal */ = {
@@ -454,6 +469,7 @@
 			isa = PBXGroup;
 			children = (
 				7E3C567E28327E2A002272F3 /* USTaxCal-Info.plist */,
+				7E289ADC29D2CDED00F74350 /* Examples */,
 				7E572EFA282910B300DDB15E /* USTaxCalculator */,
 				7E572EDC282910B300DDB15E /* USTaxCalculatorUI */,
 				7E822CEE2804515100096181 /* Products */,

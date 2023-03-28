@@ -4,10 +4,12 @@
 struct Income: Codable, Equatable {
     /// Wages as listed on W-2, Box 1
     var wages = 0.0
-    /// Medicare Wages as listed on W-2, Box 5
-    var medicareWages = 0.0
     /// Federal Income Tax Withheld as listed on W-2, Box 2
     var federalWithholdings = 0.0
+    /// Medicare Wages as listed on W-2, Box 5
+    var medicareWages = 0.0
+    /// Medicare Wages as listed on W-2, Box 6
+    var medicareWithholdings = 0.0
 
     /// Any Interests & Dividends (e.g. from Bank Accounts, Investments) as listed on 1099-INT, 1099-DIV
     var dividendsAndInterests = 0.0
@@ -37,8 +39,9 @@ extension Income {
     static func + (lhs: Income, rhs: Income) throws -> Income {
         return Income(
             wages: lhs.wages + rhs.wages,
-            medicareWages: lhs.medicareWages + rhs.medicareWages,
             federalWithholdings: lhs.federalWithholdings + rhs.federalWithholdings,
+            medicareWages: lhs.medicareWages + rhs.medicareWages,
+            medicareWithholdings: lhs.medicareWithholdings + rhs.medicareWithholdings,
             dividendsAndInterests: lhs.dividendsAndInterests + rhs.dividendsAndInterests,
             capitalGains: lhs.capitalGains + rhs.capitalGains,
             longtermCapitalGains: lhs.longtermCapitalGains + rhs.longtermCapitalGains,

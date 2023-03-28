@@ -1,6 +1,7 @@
 {
   "income" : {
     "medicareWages" : 82000,
+    "medicareWithholdings": 1189,
     "dividendsAndInterests" : 0,
     "wages" : 80000,
     "stateIncomes" : [
