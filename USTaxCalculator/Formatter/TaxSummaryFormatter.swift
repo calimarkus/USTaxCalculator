@@ -64,7 +64,7 @@ struct TaxSummaryFormatter {
             summary.appendLine("- \(stateTax.state)")
             summary.appendLine(formattedCurrency("  Total Income:", income.totalIncome))
             summary.appendLine(formattedCurrency("  Deductions:", -stateTax.deductions))
-            summary.appendLine(formattedCurrency("  Taxable Income:", stateTax.taxableIncome))
+            summary.appendLine(formattedCurrency("  Taxable Income:", stateTax.taxableIncome.amount))
 
             if stateTax.incomeRate < 1.0 {
                 summary.appendLine(formattedCurrency("  - State Attributed Income:", stateTax.stateAttributedIncome))

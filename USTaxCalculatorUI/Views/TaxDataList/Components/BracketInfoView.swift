@@ -29,11 +29,11 @@ enum BracketInfoSize {
 struct BracketInfoView: View {
     let brackets: [TaxBracket]
     let activeBracket: TaxBracket?
-    let taxableIncome: Double?
+    let taxableIncome: NamedValue?
 
     init(bracketGroup: TaxBracketGroup,
          activeBracket: TaxBracket? = nil,
-         taxableIncome: Double? = nil)
+         taxableIncome: NamedValue? = nil)
     {
         brackets = bracketGroup.sortedBrackets.reversed()
         self.activeBracket = activeBracket
@@ -179,13 +179,13 @@ struct BracketInfoView_Previews: PreviewProvider {
         BracketInfoView(
             bracketGroup: fedBrackets,
             activeBracket: fedBrackets.sortedBrackets[3],
-            taxableIncome: 92720
+            taxableIncome: NamedValue(amount: 92720, name: "Preview Income")
         )
 
         BracketInfoView(
             bracketGroup: longtermGainsBrackets,
             activeBracket: longtermGainsBrackets.sortedBrackets[1],
-            taxableIncome: 246000
+            taxableIncome: NamedValue(amount: 246000, name: "Preview Income")
         )
 
         BracketInfoView(

@@ -18,7 +18,7 @@ struct FederalTaxData {
 
         // build federal taxes
         taxes = try TaxFactory.federalTaxesFor(income: income,
-                                               taxableFederalIncome: taxableIncome,
+                                               taxableFederalIncome: NamedValue(amount: taxableIncome, name: "Taxable Income"),
                                                taxYear: taxYear,
                                                filingType: filingType)
     }

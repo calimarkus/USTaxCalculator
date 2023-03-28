@@ -104,7 +104,7 @@ enum CurrencyExplanation {
     case text(text: String)
     case bracket(bracketGroup: TaxBracketGroup,
                  activeBracket: TaxBracket,
-                 taxableIncome: Double)
+                 taxableIncome: NamedValue)
 }
 
 struct ExplainableCurrencyView: View {
@@ -113,7 +113,7 @@ struct ExplainableCurrencyView: View {
 
     var infoBracketGroup: TaxBracketGroup?
     var activeBracket: TaxBracket?
-    var taxableIncome: Double = 0.0
+    var taxableIncome: NamedValue?
 
     init(_ config: CurrencyViewConfig, explanation: CurrencyExplanation) {
         self.config = config

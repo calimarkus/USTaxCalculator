@@ -1,6 +1,11 @@
 //
 //
 
+struct NamedValue {
+    let amount: Double
+    let name: String
+}
+
 protocol Tax {
     /// The tax amount
     var taxAmount: Double { get }
@@ -12,7 +17,7 @@ protocol Tax {
     var bracketGroup: TaxBracketGroup { get }
 
     /// The taxable income for this specific Bracket
-    var taxableIncome: Double { get }
+    var taxableIncome: NamedValue { get }
 }
 
 struct FederalTax: Tax {
@@ -26,7 +31,7 @@ struct FederalTax: Tax {
     let bracketGroup: TaxBracketGroup
 
     /// The taxable income for this specific Bracket
-    let taxableIncome: Double
+    let taxableIncome: NamedValue
 
     /// The taxes coming from this bracket
     var taxAmount: Double { return bracket.calculateTaxesForAmount(taxableIncome) }
@@ -46,7 +51,7 @@ struct StateTax: Tax {
     var localTax: LocalTax? = nil
 
     /// The taxable income for this state
-    let taxableIncome: Double
+    let taxableIncome: NamedValue
 
     /// State Income that's not part of the wages on the W-2
     var additionalStateIncome: Double = 0.0
@@ -92,7 +97,7 @@ struct LocalTax: Tax {
     let bracketGroup: TaxBracketGroup
 
     /// The taxable income for this specific Bracket
-    let taxableIncome: Double
+    let taxableIncome: NamedValue
 
     /// The taxes coming from this bracket
     var taxAmount: Double { return bracket.calculateTaxesForAmount(taxableIncome) }

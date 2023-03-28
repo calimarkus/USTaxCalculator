@@ -32,23 +32,23 @@ extension TaxBracket {
     }
 
     /// calculates the taxes for the given amount, respecting the bracket type
-    func calculateTaxesForAmount(_ amount: Double) -> Double {
+    func calculateTaxesForAmount(_ namedAmount: NamedValue) -> Double {
         switch type {
             case .basic:
-                return amount * rate
+                return namedAmount.amount * rate
             case let .progressive(fixedAmount):
-                return fixedAmount + ((amount - startingAt) * rate)
+                return fixedAmount + ((namedAmount.amount - startingAt) * rate)
         }
     }
 
     /// returns a string describing the calculation of the taxes for the given amount, respecting the bracket type
-    func taxCalculationExplanation(_ amount: Double) -> String {
+    func taxCalculationExplanation(_ namedAmount: NamedValue) -> String {
         switch type {
             case .basic:
-                return "\(FormattingHelper.formatCurrency(amount)) * \(FormattingHelper.formatPercentage(rate))"
+                return "\(FormattingHelper.formatCurrency(namedAmount.amount)) * \(FormattingHelper.formatPercentage(rate))"
             case let .progressive(fixedAmount):
                 let fixedAmountText = fixedAmount > 0.0 ? "\(FormattingHelper.formatCurrency(fixedAmount)) + " : ""
-                return "\(fixedAmountText)(\(FormattingHelper.formatCurrency(amount)) - \(FormattingHelper.formatCurrency(startingAt))) * \(FormattingHelper.formatPercentage(rate))"
+                return "\(fixedAmountText)(\(FormattingHelper.formatCurrency(namedAmount.amount)) - \(FormattingHelper.formatCurrency(startingAt))) * \(FormattingHelper.formatPercentage(rate))"
         }
     }
 }

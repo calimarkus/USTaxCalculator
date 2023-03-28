@@ -26,6 +26,14 @@ struct Income: Codable, Equatable {
 }
 
 extension Income {
+    var namedWages: NamedValue { return NamedValue(amount: wages, name: "Wages") }
+    var namedMedicareWages: NamedValue { return NamedValue(amount: medicareWages, name: "Medicare Wages") }
+    var namedCapitalGains: NamedValue { return NamedValue(amount: capitalGains, name: "Capital Gains") }
+    var namedTotalCapitalGains: NamedValue { return NamedValue(amount: totalCapitalGains, name: "Total Capital Gains") }
+    var namedLongtermCapitalGains: NamedValue { return NamedValue(amount: longtermCapitalGains, name: "Longterm Capital Gains") }
+}
+
+extension Income {
     static func + (lhs: Income, rhs: Income) throws -> Income {
         return Income(
             wages: lhs.wages + rhs.wages,
