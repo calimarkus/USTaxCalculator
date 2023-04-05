@@ -128,6 +128,25 @@ enum RawFederalTaxRates {
         ]
     }
 
+    // see https://www.indeed.com/hire/c/info/medicare-taxes-an-overview-for-employers
+    //
+    // usually withheld by the employer
+    //
+    static var basicMedicareIncomeRates: [TaxYear: [FilingType: RawTaxRates]] {
+        return [
+            .y2022: basicMedicareTaxRatesFrom2013to2023,
+            .y2021: basicMedicareTaxRatesFrom2013to2023,
+            .y2020: basicMedicareTaxRatesFrom2013to2023
+        ]
+    }
+
+    fileprivate static var basicMedicareTaxRatesFrom2013to2023: [FilingType: RawTaxRates] {
+        return [
+            .single: RawTaxRates([0.0: 0.0145]),
+            .marriedJointly: RawTaxRates([0.0: 0.0145])
+        ]
+    }
+
     // see https://www.healthline.com/health/medicare/additional-medicare-tax
     //
     // usually withheld by the employer

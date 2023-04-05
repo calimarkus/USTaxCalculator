@@ -7,6 +7,7 @@ enum TaxBracketFactoryError: Error {
     case missingFederalTaxRates
     case missingLongtermGainsRates
     case missingNetInvestmentIncomeRates
+    case missingBasicMedicareRates
     case missingAdditionalMedicareRates
 }
 
@@ -33,6 +34,15 @@ extension TaxBracketFactory {
     static func netInvestmentIncomeBracketsFor(taxYear year: TaxYear, filingType: FilingType) throws -> TaxBracketGroup {
         guard let rawRates = RawFederalTaxRates.netInvestmentIncomeRates[year]?[filingType] else {
             throw TaxBracketFactoryError.missingNetInvestmentIncomeRates
+        }
+
+        return TaxBracketGenerator.simpleBracketsForRawTaxRates(rawRates)
+    }
+
+
+    static func basicMedicareBracketsFor(taxYear year: TaxYear, filingType: FilingType) throws -> TaxBracketGroup {
+        guard let rawRates = RawFederalTaxRates.basicMedicareIncomeRates[year]?[filingType] else {
+            throw TaxBracketFactoryError.missingBasicMedicareRates
         }
 
         return TaxBracketGenerator.simpleBracketsForRawTaxRates(rawRates)
