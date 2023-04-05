@@ -46,6 +46,9 @@ struct BracketInfoView: View {
                 VStack(alignment: .leading, spacing: 10.0) {
                     Text("Tax Calculation:")
                         .font(.headline)
+                    Text("\(active.taxCalculationExplanation(income, explanationType: .names))")
+                        .padding(.bottom, -4.0)
+                        .foregroundColor(.secondary)
                     Text("\(active.taxCalculationExplanation(income)) = \(FormattingHelper.formatCurrency(active.calculateTaxesForAmount(income)))")
                         .font(.system(.body, design: .monospaced))
                         .padding(.bottom, 14.0)

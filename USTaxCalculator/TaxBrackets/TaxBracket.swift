@@ -8,6 +8,11 @@ enum BracketType: Hashable {
     case basic
 }
 
+enum ExplanationType {
+    case names
+    case values
+}
+
 struct TaxBracket: Hashable {
     /// The rate that should be applied
     let rate: Double
@@ -42,13 +47,24 @@ extension TaxBracket {
     }
 
     /// returns a string describing the calculation of the taxes for the given amount, respecting the bracket type
-    func taxCalculationExplanation(_ namedAmount: NamedValue) -> String {
+    func taxCalculationExplanation(_ namedAmount: NamedValue, explanationType: ExplanationType = .values) -> String {
         switch type {
             case .basic:
-                return "\(FormattingHelper.formatCurrency(namedAmount.amount)) * \(FormattingHelper.formatPercentage(rate))"
+                switch explanationType {
+                    case .names:
+                        return "\(namedAmount.name) * Rate"
+                    case .values:
+                        return "\(FormattingHelper.formatCurrency(namedAmount.amount)) * \(FormattingHelper.formatPercentage(rate))"
+                }
             case let .progressive(fixedAmount):
-                let fixedAmountText = fixedAmount > 0.0 ? "\(FormattingHelper.formatCurrency(fixedAmount)) + " : ""
-                return "\(fixedAmountText)(\(FormattingHelper.formatCurrency(namedAmount.amount)) - \(FormattingHelper.formatCurrency(startingAt))) * \(FormattingHelper.formatPercentage(rate))"
+                switch explanationType {
+                    case .names:
+                        let fixedAmountDesc = fixedAmount > 0.0 ? " + Fixed amount" : ""
+                        return "(\(namedAmount.name) - Bracket start) * Rate\(fixedAmountDesc)"
+                    case .values:
+                        let fixedAmountText = fixedAmount > 0.0 ? " + \(FormattingHelper.formatCurrency(fixedAmount))" : ""
+                        return "(\(FormattingHelper.formatCurrency(namedAmount.amount)) - \(FormattingHelper.formatCurrency(startingAt))) * \(FormattingHelper.formatPercentage(rate))\(fixedAmountText)"
+                }
         }
     }
 }

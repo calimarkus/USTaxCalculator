@@ -78,12 +78,6 @@ struct StateTax: Tax {
     /// see https://turbotax.intuit.com/tax-tips/state-taxes/multiple-states-figuring-whats-owed-when-you-live-and-work-in-more-than-one-state/L79OKm3jI
     /// using "Common method 1" for multi state taxes
     var stateOnlyTaxAmount: Double { return bracket.calculateTaxesForAmount(taxableIncome) * incomeRate }
-
-    var stateOnlyTaxExplanation: String {
-        let bracketInfo = bracket.taxCalculationExplanation(taxableIncome)
-        let additionalInfo = incomeRate < 1.0 ? " * \(FormattingHelper.formatPercentage(incomeRate))" : ""
-        return bracketInfo + additionalInfo
-    }
 }
 
 struct LocalTax: Tax {

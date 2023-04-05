@@ -32,7 +32,7 @@ struct FederalIncomeListSection: View {
                 }
 
                 if income.longtermCapitalGains > 0 {
-                    AdditionView(title: "Longterm gains",
+                    AdditionView(title: "Longterm capital gains",
                                  amount: -income.longtermCapitalGains)
                 }
 
