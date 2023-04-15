@@ -14,7 +14,7 @@ struct MainView: View {
                 TaxDataEntryView(appState: appState,
                                  input: $document.taxDataInput)
             } else {
-                let taxdata = try! CalculatedTaxData(document.taxDataInput)
+                let taxdata = CalculatedTaxData(document.taxDataInput)
                 TaxDataListView(appState: appState,
                                 taxdata: taxdata)
             }

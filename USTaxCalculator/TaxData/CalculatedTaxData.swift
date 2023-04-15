@@ -10,16 +10,16 @@ struct FederalTaxData {
     let credits: Double
     let taxes: [FederalTax]
 
-    init(_ input: TaxDataInput, taxRates: FederalTaxRates) throws {
+    init(_ input: TaxDataInput, taxRates: FederalTaxRates) {
         let income = input.income
-        deductions = try DeductionsFactory.calculateDeductionsForDeductionAmount(input.federalDeductions, standardDeduction: taxRates.standardDeductions)
+        deductions = DeductionsFactory.calculateDeductionsForDeductionAmount(input.federalDeductions, standardDeduction: taxRates.standardDeductions)
         credits = input.federalCredits
         taxableIncome = max(0.0, income.totalIncome - income.longtermCapitalGains - deductions)
 
         // build federal taxes
-        taxes = try TaxFactory.federalTaxesFor(income: income,
-                                               taxableFederalIncome: NamedValue(amount: taxableIncome, name: "Taxable Income"),
-                                               taxRates: taxRates)
+        taxes = TaxFactory.federalTaxesFor(income: income,
+                                           taxableFederalIncome: NamedValue(amount: taxableIncome, name: "Taxable Income"),
+                                           taxRates: taxRates)
     }
 }
 
@@ -37,23 +37,23 @@ struct CalculatedTaxData: Identifiable, Hashable {
 
     let input: TaxDataInput
 
-    init(_ input: TaxDataInput) throws {
+    init(_ input: TaxDataInput) {
         title = input.title
         filingType = input.filingType
         taxYear = input.taxYear
         let taxRates = taxYear.rawTaxRatesForFilingType(filingType)
 
         income = input.income
-        federal = try FederalTaxData(input, taxRates: taxRates.federalRates)
+        federal = FederalTaxData(input, taxRates: taxRates.federalRates)
         self.input = input
 
         // build state taxes
-        stateTaxes = try input.income.stateIncomes.map { stateIncome in
-            try TaxFactory.stateTaxFor(stateIncome: stateIncome,
-                                       stateDeductions: input.stateDeductions,
-                                       stateCredits: input.stateCredits,
-                                       totalIncome: input.income.totalIncome,
-                                       taxRates: taxRates)
+        stateTaxes = input.income.stateIncomes.map { stateIncome in
+            TaxFactory.stateTaxFor(stateIncome: stateIncome,
+                                   stateDeductions: input.stateDeductions,
+                                   stateCredits: input.stateCredits,
+                                   totalIncome: input.income.totalIncome,
+                                   taxRates: taxRates)
         }
 
         // calculate tax summaries

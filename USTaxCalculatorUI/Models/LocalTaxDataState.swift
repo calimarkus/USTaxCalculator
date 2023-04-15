@@ -7,7 +7,7 @@ class LocalTaxDataState: ObservableObject {
     @Published var taxdatas: [CalculatedTaxData] = exampleData()
 
     func addEntry() -> CalculatedTaxData {
-        let data = try! CalculatedTaxData(.emptyInput())
+        let data = CalculatedTaxData(.emptyInput())
         taxdatas.append(data)
         return data
     }
@@ -17,7 +17,7 @@ class LocalTaxDataState: ObservableObject {
             td.id == id
         }
         if let foundIdx = idx {
-            taxdatas[foundIdx] = try! CalculatedTaxData(input)
+            taxdatas[foundIdx] = CalculatedTaxData(input)
             return taxdatas[foundIdx]
         }
         return nil

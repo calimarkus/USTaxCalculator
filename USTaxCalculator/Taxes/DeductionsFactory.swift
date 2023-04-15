@@ -2,21 +2,15 @@
 //
 
 enum DeductionsFactory {
-    enum DeductionError: Error {
-        case missingStandardDeduction
-    }
-
-    static func calculateDeductionsForDeductionAmount(_ amount: DeductionAmount, standardDeduction: Double?) throws -> Double {
-        guard let standardDeduction else { throw DeductionError.missingStandardDeduction }
-
+    static func calculateDeductionsForDeductionAmount(_ amount: DeductionAmount, standardDeduction: Double) -> Double {
         switch amount {
             case let .standard(additional): return additional + standardDeduction
             case let .custom(customAmount): return customAmount
         }
     }
 
-    static func calculateStateDeductions(for state: TaxState, stateDeductions: [TaxState: DeductionAmount], taxRates: RawTaxRatesYear) throws -> Double {
-        return try calculateDeductionsForDeductionAmount(
+    static func calculateStateDeductions(for state: TaxState, stateDeductions: [TaxState: DeductionAmount], taxRates: RawTaxRatesYear) -> Double {
+        return calculateDeductionsForDeductionAmount(
             stateDeductions[state] ?? DeductionAmount.standard(),
             standardDeduction: taxRates.standardDeductionForState(state)
         )

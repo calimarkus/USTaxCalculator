@@ -2,7 +2,7 @@
 //
 
 enum TaxBracketGenerator {
-    static func bracketsForRawTaxRates(_ rawTaxRates: RawTaxRates) throws -> TaxBracketGroup {
+    static func bracketsForRawTaxRates(_ rawTaxRates: RawTaxRates) -> TaxBracketGroup {
         switch rawTaxRates.type {
             case .simple:
                 return simpleBracketsForRawTaxRates(rawTaxRates)

@@ -8,7 +8,7 @@ struct ExportAsTextButton: View {
     @State private var showingPopover = false
 
     var taxSummary: String {
-        let taxdata = try! CalculatedTaxData(taxDataInput)
+        let taxdata = CalculatedTaxData(taxDataInput)
         let formatter = TaxSummaryFormatter(columnWidth: 40, separatorSize: (width: 26, shift: 16))
         return formatter.taxDataSummary(taxdata)
     }
