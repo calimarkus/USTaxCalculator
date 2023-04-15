@@ -29,20 +29,27 @@ extension TaxBracketFactory {
 // state tax brackets
 extension TaxBracketFactory {
     static func stateTaxBracketFor(_ state: TaxState, taxYear year: TaxYear, filingType: FilingType, taxableIncome: Double) throws -> TaxBracketGroup {
-        if state == .NY, taxableIncome > 107650 {
+        switch state {
+        case .CA:
+            return try TaxBracketGenerator.bracketsForRawTaxRates(RawStateTaxRates.californiaRates[year]?[filingType])
+
+        case .NY:
             // new york doesn't use progressive rates for incomes higher than 107,650
             // see comments on RawTaxRates.nonProgressiveNewYorkStateRates
-            return try TaxBracketGenerator.bracketsForRawTaxRates(RawStateTaxRates.nonProgressiveNewYorkStateRates[year]?[filingType])
+            if taxableIncome > 107650 {
+                return try TaxBracketGenerator.bracketsForRawTaxRates(RawStateTaxRates.nonProgressiveNewYorkStateRates[year]?[filingType])
+            } else {
+                return try TaxBracketGenerator.bracketsForRawTaxRates(RawStateTaxRates.progressiveNewYorkStateRates[year]?[filingType])
+            }
         }
-
-        // use progressive rates as usual
-        return try TaxBracketGenerator.bracketsForRawTaxRates(RawStateTaxRates.forState(state)[year]?[filingType])
     }
 }
 
 // city tax brackets
 extension TaxBracketFactory {
     static func cityTaxBracketFor(_ city: TaxCity, taxYear year: TaxYear, filingType: FilingType, taxableIncome: Double) throws -> TaxBracketGroup {
-        return try TaxBracketGenerator.bracketsForRawTaxRates(RawCityTaxRates.forCity(city)[year]?[filingType])
+        switch city {
+        case .NYC: return try TaxBracketGenerator.bracketsForRawTaxRates(RawCityTaxRates.newYorkCityRates[year]?[filingType])
+        }
     }
 }

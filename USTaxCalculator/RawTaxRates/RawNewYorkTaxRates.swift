@@ -2,7 +2,7 @@
 //
 
 // new york rates
-extension RawStateTaxRates {
+enum RawStateTaxRates {
     // NY
     // see https://www.nerdwallet.com/article/taxes/new-york-state-tax
     // see https://www.forbes.com/advisor/taxes/new-york-state-tax/
@@ -151,7 +151,7 @@ extension RawStateTaxRates {
 }
 
 // new york city rates
-extension RawCityTaxRates {
+enum RawCityTaxRates {
     // NYC
     static var newYorkCityRates: [TaxYear: [FilingType: RawTaxRates]] {
         return [

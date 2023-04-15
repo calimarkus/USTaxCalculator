@@ -31,22 +31,3 @@ struct RawTaxRates {
         self.type = type
     }
 }
-
-// state rates
-enum RawStateTaxRates {
-    static func forState(_ state: TaxState) -> [TaxYear: [FilingType: RawTaxRates]] {
-        switch state {
-        case .NY: return RawStateTaxRates.progressiveNewYorkStateRates
-        case .CA: return RawStateTaxRates.californiaRates
-        }
-    }
-}
-
-// city rates
-enum RawCityTaxRates {
-    static func forCity(_ city: TaxCity) -> [TaxYear: [FilingType: RawTaxRates]] {
-        switch city {
-        case .NYC: return RawCityTaxRates.newYorkCityRates
-        }
-    }
-}
