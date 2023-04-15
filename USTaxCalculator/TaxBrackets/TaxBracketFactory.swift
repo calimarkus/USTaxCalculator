@@ -20,7 +20,7 @@ extension TaxBracketFactory {
             throw TaxBracketFactoryError.missingFederalTaxRates
         }
 
-        return TaxBracketGenerator.progressiveBracketsForRawTaxRates(rawRates)
+        return TaxBracketGenerator.bracketsForRawTaxRates(rawRates)
     }
 
     static func federalLongtermGainsBrackets(taxYear year: TaxYear, filingType: FilingType) throws -> TaxBracketGroup {
@@ -28,7 +28,7 @@ extension TaxBracketFactory {
             throw TaxBracketFactoryError.missingLongtermGainsRates
         }
 
-        return TaxBracketGenerator.simpleBracketsForRawTaxRates(rawRates)
+        return TaxBracketGenerator.bracketsForRawTaxRates(rawRates)
     }
 
     static func netInvestmentIncomeBracketsFor(taxYear year: TaxYear, filingType: FilingType) throws -> TaxBracketGroup {
@@ -36,7 +36,7 @@ extension TaxBracketFactory {
             throw TaxBracketFactoryError.missingNetInvestmentIncomeRates
         }
 
-        return TaxBracketGenerator.simpleBracketsForRawTaxRates(rawRates)
+        return TaxBracketGenerator.bracketsForRawTaxRates(rawRates)
     }
 
 
@@ -45,7 +45,7 @@ extension TaxBracketFactory {
             throw TaxBracketFactoryError.missingBasicMedicareRates
         }
 
-        return TaxBracketGenerator.simpleBracketsForRawTaxRates(rawRates)
+        return TaxBracketGenerator.bracketsForRawTaxRates(rawRates)
     }
 
 
@@ -54,7 +54,7 @@ extension TaxBracketFactory {
             throw TaxBracketFactoryError.missingAdditionalMedicareRates
         }
 
-        return TaxBracketGenerator.progressiveBracketsForRawTaxRates(rawRates)
+        return TaxBracketGenerator.bracketsForRawTaxRates(rawRates)
     }
 }
 
@@ -65,12 +65,12 @@ extension TaxBracketFactory {
             // new york doesn't use progressive rates for incomes higher than 107,650
             // see comments on RawTaxRates.nonProgressiveNewYorkStateRates
             if let rawRates = RawStateTaxRates.nonProgressiveNewYorkStateRates[year]?[filingType] {
-                return TaxBracketGenerator.simpleBracketsForRawTaxRates(rawRates)
+                return TaxBracketGenerator.bracketsForRawTaxRates(rawRates)
             }
         } else {
             // use progressive rates as usual
             if let rawRates = RawStateTaxRates.forState(state)[year]?[filingType] {
-                return TaxBracketGenerator.progressiveBracketsForRawTaxRates(rawRates)
+                return TaxBracketGenerator.bracketsForRawTaxRates(rawRates)
             }
         }
 
@@ -85,6 +85,6 @@ extension TaxBracketFactory {
             throw TaxBracketFactoryError.missingCityTaxRates
         }
 
-        return TaxBracketGenerator.progressiveBracketsForRawTaxRates(rawRates)
+        return TaxBracketGenerator.bracketsForRawTaxRates(rawRates)
     }
 }
