@@ -1,14 +1,8 @@
 //
 //
 
-enum TaxBracketGeneratorError: Error {
-    case missingTaxRates
-}
-
 enum TaxBracketGenerator {
-    static func bracketsForRawTaxRates(_ rawTaxRates: RawTaxRates?) throws -> TaxBracketGroup {
-        guard let rawTaxRates else { throw TaxBracketGeneratorError.missingTaxRates }
-
+    static func bracketsForRawTaxRates(_ rawTaxRates: RawTaxRates) throws -> TaxBracketGroup {
         switch rawTaxRates.type {
             case .simple:
                 return simpleBracketsForRawTaxRates(rawTaxRates)

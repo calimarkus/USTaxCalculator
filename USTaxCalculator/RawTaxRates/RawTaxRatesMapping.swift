@@ -2,20 +2,35 @@
 //
 
 extension TaxYear {
-    func rawTaxRates() -> RawTaxRatesYear {
+    func rawTaxRatesForFilingType(_ filingType: FilingType) -> RawTaxRatesYear {
         switch self {
             case .y2020:
-                return TaxYear2020.taxRates
+                switch filingType {
+                    case .single:
+                        return TaxYear2020_Single.taxRates
+                    case .marriedJointly:
+                        return TaxYear2020_MarriedJointly.taxRates
+                }
             case .y2021:
-                return TaxYear2021.taxRates
+                switch filingType {
+                    case .single:
+                        return TaxYear2021_Single.taxRates
+                    case .marriedJointly:
+                        return TaxYear2021_MarriedJointly.taxRates
+                }
             case .y2022:
-                return TaxYear2022.taxRates
+                switch filingType {
+                    case .single:
+                        return TaxYear2022_Single.taxRates
+                    case .marriedJointly:
+                        return TaxYear2022_MarriedJointly.taxRates
+                }
         }
     }
 }
 
 extension RawTaxRatesYear {
-    func standardDeductionForState(_ state: TaxState) -> [FilingType: Double] {
+    func standardDeductionForState(_ state: TaxState) -> Double {
         switch state {
             case .NY:
                 return newYorkRates.standardDeductions
@@ -24,7 +39,7 @@ extension RawTaxRatesYear {
         }
     }
 
-    func stateIncomeRatesForState(_ state: TaxState, taxableIncome: Double) -> [FilingType: RawTaxRates] {
+    func stateIncomeRatesForState(_ state: TaxState, taxableIncome: Double) -> RawTaxRates {
         switch state {
             case .CA:
                 return californiaRates.incomeRates
@@ -40,7 +55,7 @@ extension RawTaxRatesYear {
         }
     }
 
-    func localIncomeRatesForCity(_ city: TaxCity, taxableIncome: Double) -> [FilingType: RawTaxRates] {
+    func localIncomeRatesForCity(_ city: TaxCity, taxableIncome: Double) -> RawTaxRates {
         switch city {
             case .NYC: return newYorkRates.newYorkCityRates
         }

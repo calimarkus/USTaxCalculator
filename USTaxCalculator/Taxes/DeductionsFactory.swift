@@ -15,10 +15,10 @@ enum DeductionsFactory {
         }
     }
 
-    static func calculateStateDeductions(for state: TaxState, filingType: FilingType, stateDeductions: [TaxState: DeductionAmount], taxRates: RawTaxRatesYear) throws -> Double {
+    static func calculateStateDeductions(for state: TaxState, stateDeductions: [TaxState: DeductionAmount], taxRates: RawTaxRatesYear) throws -> Double {
         return try calculateDeductionsForDeductionAmount(
             stateDeductions[state] ?? DeductionAmount.standard(),
-            standardDeduction: taxRates.standardDeductionForState(state)[filingType]
+            standardDeduction: taxRates.standardDeductionForState(state)
         )
     }
 }

@@ -10,17 +10,16 @@ struct FederalTaxData {
     let credits: Double
     let taxes: [FederalTax]
 
-    init(_ input: TaxDataInput, taxRates: FederalTaxRates, filingType: FilingType) throws {
+    init(_ input: TaxDataInput, taxRates: FederalTaxRates) throws {
         let income = input.income
-        deductions = try DeductionsFactory.calculateDeductionsForDeductionAmount(input.federalDeductions, standardDeduction: taxRates.standardDeductions[filingType])
+        deductions = try DeductionsFactory.calculateDeductionsForDeductionAmount(input.federalDeductions, standardDeduction: taxRates.standardDeductions)
         credits = input.federalCredits
         taxableIncome = max(0.0, income.totalIncome - income.longtermCapitalGains - deductions)
 
         // build federal taxes
         taxes = try TaxFactory.federalTaxesFor(income: income,
                                                taxableFederalIncome: NamedValue(amount: taxableIncome, name: "Taxable Income"),
-                                               taxRates: taxRates,
-                                               filingType: filingType)
+                                               taxRates: taxRates)
     }
 }
 
@@ -42,10 +41,10 @@ struct CalculatedTaxData: Identifiable, Hashable {
         title = input.title
         filingType = input.filingType
         taxYear = input.taxYear
-        let taxRates = taxYear.rawTaxRates()
+        let taxRates = taxYear.rawTaxRatesForFilingType(filingType)
 
         income = input.income
-        federal = try FederalTaxData(input, taxRates: taxRates.federalRates, filingType: filingType)
+        federal = try FederalTaxData(input, taxRates: taxRates.federalRates)
         self.input = input
 
         // build state taxes
@@ -54,8 +53,7 @@ struct CalculatedTaxData: Identifiable, Hashable {
                                        stateDeductions: input.stateDeductions,
                                        stateCredits: input.stateCredits,
                                        totalIncome: input.income.totalIncome,
-                                       taxRates: taxRates,
-                                       filingType: input.filingType)
+                                       taxRates: taxRates)
         }
 
         // calculate tax summaries

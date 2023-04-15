@@ -39,30 +39,30 @@ struct RawTaxRatesYear {
 }
 
 struct FederalTaxRates {
-    let incomeRates: [FilingType: RawTaxRates]
-    let standardDeductions: [FilingType: Double]
+    let incomeRates: RawTaxRates
+    let standardDeductions: Double
 
-    let longtermGainsRates: [FilingType: RawTaxRates]
+    let longtermGainsRates: RawTaxRates
 
     // - "Net investment income" generally does not include wages, social security benefits, ...
     // - The tax applies to the the lesser of the net investment income, or the amount by which the
     //   modified adjusted gross income exceeds the statutory threshold amount
-    let netInvestmentIncomeRates: [FilingType: RawTaxRates]
+    let netInvestmentIncomeRates: RawTaxRates
 
     // medicare is usually withheld by the employer
-    let basicMedicareIncomeRates: [FilingType: RawTaxRates]
-    let additionalMedicareIncomeRates: [FilingType: RawTaxRates]
+    let basicMedicareIncomeRates: RawTaxRates
+    let additionalMedicareIncomeRates: RawTaxRates
 }
 
 struct CaliforniaStateTaxRates {
-    let incomeRates: [FilingType: RawTaxRates]
-    let standardDeductions: [FilingType: Double]
+    let incomeRates: RawTaxRates
+    let standardDeductions: Double
 }
 
 struct NewYorkStateTaxRates {
-    let incomeRates: [FilingType: RawTaxRates]
-    let standardDeductions: [FilingType: Double]
+    let incomeRates: RawTaxRates
+    let standardDeductions: Double
 
-    let nonProgressiveIncomeRates: [FilingType: RawTaxRates]
-    let newYorkCityRates: [FilingType: RawTaxRates]
+    let nonProgressiveIncomeRates: RawTaxRates
+    let newYorkCityRates: RawTaxRates
 }
