@@ -31,3 +31,34 @@ struct RawTaxRates {
         self.type = type
     }
 }
+
+struct RawTaxRatesYear {
+    let year: TaxYear
+
+    let federalRates: FederalTaxRates
+    let californiaRates: CaliforniaStateTaxRates
+    let newYorkRates: NewYorkStateTaxRates
+}
+
+struct FederalTaxRates {
+    let incomeRates: [FilingType: RawTaxRates]
+    let standardDeductions: [FilingType: Double]
+
+    let longtermGainsRates: [FilingType: RawTaxRates]
+    let netInvestmentIncomeRates: [FilingType: RawTaxRates]
+    let basicMedicareIncomeRates: [FilingType: RawTaxRates]
+    let additionalMedicareIncomeRates: [FilingType: RawTaxRates]
+}
+
+struct CaliforniaStateTaxRates {
+    let incomeRates: [FilingType: RawTaxRates]
+    let standardDeductions: [FilingType: Double]
+}
+
+struct NewYorkStateTaxRates {
+    let incomeRates: [FilingType: RawTaxRates]
+    let standardDeductions: [FilingType: Double]
+
+    let nonProgressiveIncomeRates: [FilingType: RawTaxRates]
+    let newYorkCityRates: [FilingType: RawTaxRates]
+}
