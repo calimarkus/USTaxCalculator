@@ -8,6 +8,11 @@ enum TaxYear: Int, Codable, Equatable {
 //    case y2023 = 2023
 }
 
+enum DeductionAmount: Hashable, Codable, Equatable {
+    case standard(additionalDeductions: Double = 0.0)
+    case custom(_ amount: Double)
+}
+
 enum FilingType: String, CaseIterable, Codable, Equatable {
     case single = "Single"
     case marriedJointly = "Jointly"

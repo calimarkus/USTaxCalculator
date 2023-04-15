@@ -10,16 +10,16 @@ struct FederalTaxData {
     let credits: Double
     let taxes: [FederalTax]
 
-    init(_ input: TaxDataInput, taxYear: TaxYear, filingType: FilingType) throws {
+    init(_ input: TaxDataInput, taxRates: FederalTaxRates, filingType: FilingType) throws {
         let income = input.income
-        deductions = DeductionAmount.federalAmount(input.federalDeductions, taxYear: taxYear, filingType: filingType)
+        deductions = try DeductionsFactory.calculateDeductionsForDeductionAmount(input.federalDeductions, standardDeduction: taxRates.standardDeductions[filingType])
         credits = input.federalCredits
         taxableIncome = max(0.0, income.totalIncome - income.longtermCapitalGains - deductions)
 
         // build federal taxes
         taxes = try TaxFactory.federalTaxesFor(income: income,
                                                taxableFederalIncome: NamedValue(amount: taxableIncome, name: "Taxable Income"),
-                                               taxYear: taxYear,
+                                               taxRates: taxRates,
                                                filingType: filingType)
     }
 }
@@ -42,9 +42,10 @@ struct CalculatedTaxData: Identifiable, Hashable {
         title = input.title
         filingType = input.filingType
         taxYear = input.taxYear
+        let taxRates = taxYear.rawTaxRates()
 
         income = input.income
-        federal = try FederalTaxData(input, taxYear: taxYear, filingType: filingType)
+        federal = try FederalTaxData(input, taxRates: taxRates.federalRates, filingType: filingType)
         self.input = input
 
         // build state taxes
@@ -53,7 +54,7 @@ struct CalculatedTaxData: Identifiable, Hashable {
                                        stateDeductions: input.stateDeductions,
                                        stateCredits: input.stateCredits,
                                        totalIncome: input.income.totalIncome,
-                                       taxYear: input.taxYear,
+                                       taxRates: taxRates,
                                        filingType: input.filingType)
         }
 

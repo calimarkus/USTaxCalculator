@@ -36,17 +36,6 @@ struct RawTaxRatesYear {
     let federalRates: FederalTaxRates
     let californiaRates: CaliforniaStateTaxRates
     let newYorkRates: NewYorkStateTaxRates
-
-    static func forYear(_ year: TaxYear) -> RawTaxRatesYear {
-        switch year {
-            case .y2020:
-                return TaxYear2020.taxRates
-            case .y2021:
-                return TaxYear2021.taxRates
-            case .y2022:
-                return TaxYear2022.taxRates
-        }
-    }
 }
 
 struct FederalTaxRates {
