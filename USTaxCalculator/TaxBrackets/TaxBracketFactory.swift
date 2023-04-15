@@ -1,60 +1,28 @@
 //
 //
 
-enum TaxBracketFactoryError: Error {
-    case missingStateTaxRates
-    case missingCityTaxRates
-    case missingFederalTaxRates
-    case missingLongtermGainsRates
-    case missingNetInvestmentIncomeRates
-    case missingBasicMedicareRates
-    case missingAdditionalMedicareRates
-}
-
 enum TaxBracketFactory {}
 
 // federal tax bracket
 extension TaxBracketFactory {
     static func federalTaxBracketsFor(taxYear year: TaxYear, filingType: FilingType) throws -> TaxBracketGroup {
-        guard let rawRates = RawFederalTaxRates.progressiveIncomeRates[year]?[filingType] else {
-            throw TaxBracketFactoryError.missingFederalTaxRates
-        }
-
-        return TaxBracketGenerator.bracketsForRawTaxRates(rawRates)
+        return try TaxBracketGenerator.bracketsForRawTaxRates(RawFederalTaxRates.progressiveIncomeRates[year]?[filingType])
     }
 
     static func federalLongtermGainsBrackets(taxYear year: TaxYear, filingType: FilingType) throws -> TaxBracketGroup {
-        guard let rawRates = RawFederalTaxRates.longtermGainsRates[year]?[filingType] else {
-            throw TaxBracketFactoryError.missingLongtermGainsRates
-        }
-
-        return TaxBracketGenerator.bracketsForRawTaxRates(rawRates)
+        return try TaxBracketGenerator.bracketsForRawTaxRates(RawFederalTaxRates.longtermGainsRates[year]?[filingType])
     }
 
     static func netInvestmentIncomeBracketsFor(taxYear year: TaxYear, filingType: FilingType) throws -> TaxBracketGroup {
-        guard let rawRates = RawFederalTaxRates.netInvestmentIncomeRates[year]?[filingType] else {
-            throw TaxBracketFactoryError.missingNetInvestmentIncomeRates
-        }
-
-        return TaxBracketGenerator.bracketsForRawTaxRates(rawRates)
+        return try TaxBracketGenerator.bracketsForRawTaxRates(RawFederalTaxRates.netInvestmentIncomeRates[year]?[filingType])
     }
-
 
     static func basicMedicareBracketsFor(taxYear year: TaxYear, filingType: FilingType) throws -> TaxBracketGroup {
-        guard let rawRates = RawFederalTaxRates.basicMedicareIncomeRates[year]?[filingType] else {
-            throw TaxBracketFactoryError.missingBasicMedicareRates
-        }
-
-        return TaxBracketGenerator.bracketsForRawTaxRates(rawRates)
+        return try TaxBracketGenerator.bracketsForRawTaxRates(RawFederalTaxRates.basicMedicareIncomeRates[year]?[filingType])
     }
 
-
     static func additionalMedicareBracketsFor(taxYear year: TaxYear, filingType: FilingType) throws -> TaxBracketGroup {
-        guard let rawRates = RawFederalTaxRates.additionalMedicareIncomeRates[year]?[filingType] else {
-            throw TaxBracketFactoryError.missingAdditionalMedicareRates
-        }
-
-        return TaxBracketGenerator.bracketsForRawTaxRates(rawRates)
+        return try TaxBracketGenerator.bracketsForRawTaxRates(RawFederalTaxRates.additionalMedicareIncomeRates[year]?[filingType])
     }
 }
 
@@ -64,27 +32,17 @@ extension TaxBracketFactory {
         if state == .NY, taxableIncome > 107650 {
             // new york doesn't use progressive rates for incomes higher than 107,650
             // see comments on RawTaxRates.nonProgressiveNewYorkStateRates
-            if let rawRates = RawStateTaxRates.nonProgressiveNewYorkStateRates[year]?[filingType] {
-                return TaxBracketGenerator.bracketsForRawTaxRates(rawRates)
-            }
-        } else {
-            // use progressive rates as usual
-            if let rawRates = RawStateTaxRates.forState(state)[year]?[filingType] {
-                return TaxBracketGenerator.bracketsForRawTaxRates(rawRates)
-            }
+            return try TaxBracketGenerator.bracketsForRawTaxRates(RawStateTaxRates.nonProgressiveNewYorkStateRates[year]?[filingType])
         }
 
-        throw TaxBracketFactoryError.missingStateTaxRates
+        // use progressive rates as usual
+        return try TaxBracketGenerator.bracketsForRawTaxRates(RawStateTaxRates.forState(state)[year]?[filingType])
     }
 }
 
 // city tax brackets
 extension TaxBracketFactory {
     static func cityTaxBracketFor(_ city: TaxCity, taxYear year: TaxYear, filingType: FilingType, taxableIncome: Double) throws -> TaxBracketGroup {
-        guard let rawRates = RawCityTaxRates.forCity(city)[year]?[filingType] else {
-            throw TaxBracketFactoryError.missingCityTaxRates
-        }
-
-        return TaxBracketGenerator.bracketsForRawTaxRates(rawRates)
+        return try TaxBracketGenerator.bracketsForRawTaxRates(RawCityTaxRates.forCity(city)[year]?[filingType])
     }
 }
