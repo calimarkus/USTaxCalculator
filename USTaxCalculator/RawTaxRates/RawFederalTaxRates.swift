@@ -27,7 +27,7 @@ enum RawFederalTaxRates {
 //                ])
 //            ],
             .y2022: [
-                .single: RawTaxRates([
+                .single: RawTaxRates(progressive: [
                     0.0: 0.10,
                     10276.0: 0.12,
                     41776.0: 0.22,
@@ -36,7 +36,7 @@ enum RawFederalTaxRates {
                     215951.0: 0.35,
                     539901.0: 0.37
                 ]),
-                .marriedJointly: RawTaxRates([
+                .marriedJointly: RawTaxRates(progressive: [
                     0.0: 0.1,
                     20551.0: 0.12,
                     83551.0: 0.22,
@@ -47,7 +47,7 @@ enum RawFederalTaxRates {
                 ])
             ],
             .y2021: [
-                .single: RawTaxRates([
+                .single: RawTaxRates(progressive: [
                     0.0: 0.10,
                     9950.0: 0.12,
                     40525.0: 0.22,
@@ -56,7 +56,7 @@ enum RawFederalTaxRates {
                     209425.0: 0.35,
                     523600.0: 0.37
                 ]),
-                .marriedJointly: RawTaxRates([
+                .marriedJointly: RawTaxRates(progressive: [
                     0.0: 0.1,
                     19900.0: 0.12,
                     81050.0: 0.22,
@@ -67,7 +67,7 @@ enum RawFederalTaxRates {
                 ])
             ],
             .y2020: [
-                .single: RawTaxRates([
+                .single: RawTaxRates(progressive: [
                     0.0: 0.10,
                     9875.0: 0.12,
                     40125.0: 0.22,
@@ -76,7 +76,7 @@ enum RawFederalTaxRates {
                     207350.0: 0.35,
                     518400.0: 0.37
                 ]),
-                .marriedJointly: RawTaxRates([
+                .marriedJointly: RawTaxRates(progressive: [
                     0.0: 0.1,
                     19750.0: 0.12,
                     80250.0: 0.22,
@@ -94,16 +94,16 @@ enum RawFederalTaxRates {
     static var longtermGainsRates: [TaxYear: [FilingType: RawTaxRates]] {
         return [
             .y2022: [
-                .single: RawTaxRates([459751.0: 0.20, 41676.0: 0.15]),
-                .marriedJointly: RawTaxRates([517200.0: 0.20, 83351.0: 0.15])
+                .single: RawTaxRates(simple: [459751.0: 0.20, 41676.0: 0.15]),
+                .marriedJointly: RawTaxRates(simple: [517200.0: 0.20, 83351.0: 0.15])
             ],
             .y2021: [
-                .single: RawTaxRates([445850.0: 0.20, 40400.0: 0.15]),
-                .marriedJointly: RawTaxRates([501600.0: 0.20, 80800.0: 0.15])
+                .single: RawTaxRates(simple: [445850.0: 0.20, 40400.0: 0.15]),
+                .marriedJointly: RawTaxRates(simple: [501600.0: 0.20, 80800.0: 0.15])
             ],
             .y2020: [
-                .single: RawTaxRates([441450.0: 0.20, 40000.0: 0.15]),
-                .marriedJointly: RawTaxRates([496600.0: 0.20, 80000.0: 0.15])
+                .single: RawTaxRates(simple: [441450.0: 0.20, 40000.0: 0.15]),
+                .marriedJointly: RawTaxRates(simple: [496600.0: 0.20, 80000.0: 0.15])
             ]
         ]
     }
@@ -123,8 +123,8 @@ enum RawFederalTaxRates {
 
     fileprivate static var netInvestmentIncomeRatesFrom2013to2023: [FilingType: RawTaxRates] {
         return [
-            .single: RawTaxRates([200000.0: 0.038]),
-            .marriedJointly: RawTaxRates([250000.0: 0.038])
+            .single: RawTaxRates(simple: [200000.0: 0.038]),
+            .marriedJointly: RawTaxRates(simple: [250000.0: 0.038])
         ]
     }
 
@@ -142,8 +142,8 @@ enum RawFederalTaxRates {
 
     fileprivate static var basicMedicareTaxRatesFrom2013to2023: [FilingType: RawTaxRates] {
         return [
-            .single: RawTaxRates([0.0: 0.0145]),
-            .marriedJointly: RawTaxRates([0.0: 0.0145])
+            .single: RawTaxRates(simple: [0.0: 0.0145]),
+            .marriedJointly: RawTaxRates(simple: [0.0: 0.0145])
         ]
     }
 
@@ -161,10 +161,8 @@ enum RawFederalTaxRates {
 
     fileprivate static var additionalMedicareIncomeRatesFrom2013to2023: [FilingType: RawTaxRates] {
         return [
-            .single: RawTaxRates([0.0: 0.0,
-                                  200000.0: 0.009]),
-            .marriedJointly: RawTaxRates([0.0: 0.0,
-                                          250000.0: 0.009])
+            .single: RawTaxRates(progressive: [0.0: 0.0, 200000.0: 0.009]),
+            .marriedJointly: RawTaxRates(simple: [0.0: 0.0, 250000.0: 0.009])
         ]
     }
 }

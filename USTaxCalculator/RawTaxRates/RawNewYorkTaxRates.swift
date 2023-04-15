@@ -11,7 +11,7 @@ extension RawStateTaxRates {
     static var progressiveNewYorkStateRates: [TaxYear: [FilingType: RawTaxRates]] {
         return [
             .y2022: [
-                .single: RawTaxRates([
+                .single: RawTaxRates(progressive: [
                     0.0: 0.04,
                     8500.0: 0.045,
                     11700.0: 0.0525,
@@ -22,7 +22,7 @@ extension RawStateTaxRates {
                     5000000.0: 0.103,
                     25000000.0: 0.109
                 ]),
-                .marriedJointly: RawTaxRates([
+                .marriedJointly: RawTaxRates(progressive: [
                     0.0: 0.04,
                     17150.0: 0.045,
                     23600.0: 0.0525,
@@ -35,7 +35,7 @@ extension RawStateTaxRates {
                 ])
             ],
             .y2021: [
-                .single: RawTaxRates([
+                .single: RawTaxRates(progressive: [
                     0.0: 0.04,
                     8500.0: 0.045,
                     11700.0: 0.0525,
@@ -47,7 +47,7 @@ extension RawStateTaxRates {
                     5000000.0: 0.103,
                     25000000.0: 0.109
                 ]),
-                .marriedJointly: RawTaxRates([
+                .marriedJointly: RawTaxRates(progressive: [
                     0.0: 0.04,
                     17150.0: 0.045,
                     23600.0: 0.0525,
@@ -61,7 +61,7 @@ extension RawStateTaxRates {
                 ])
             ],
             .y2020: [
-                .single: RawTaxRates([
+                .single: RawTaxRates(progressive: [
                     0.0: 0.04,
                     8500.0: 0.045,
                     11700.0: 0.0525,
@@ -71,7 +71,7 @@ extension RawStateTaxRates {
                     215400.0: 0.0685,
                     1077550.0: 0.0882
                 ]),
-                .marriedJointly: RawTaxRates([
+                .marriedJointly: RawTaxRates(progressive: [
                     0.0: 0.04,
                     17150.0: 0.045,
                     23600.0: 0.0525,
@@ -98,14 +98,14 @@ extension RawStateTaxRates {
         return [
             // 2022 rates are a fairly rough approximation, mostly based on 2021
             .y2022: [
-                .single: RawTaxRates([
+                .single: RawTaxRates(simple: [
                     0.0: 0.0625,
                     215400: 0.0685,
                     1077550: 0.0965,
                     5000000: 0.103,
                     25000000.0: 0.109
                 ]),
-                .marriedJointly: RawTaxRates([
+                .marriedJointly: RawTaxRates(simple: [
                     0.0: 0.0585,
                     161550.0: 0.0633,
                     323200.0: 0.0685,
@@ -115,14 +115,14 @@ extension RawStateTaxRates {
                 ])
             ],
             .y2021: [
-                .single: RawTaxRates([
+                .single: RawTaxRates(simple: [
                     0.0: 0.0633,
                     215400: 0.0685,
                     1077550: 0.0965,
                     5000000: 0.103,
                     25000000.0: 0.109
                 ]),
-                .marriedJointly: RawTaxRates([
+                .marriedJointly: RawTaxRates(simple: [
                     0.0: 0.0597,
                     161550.0: 0.0633,
                     323200.0: 0.0685,
@@ -133,13 +133,13 @@ extension RawStateTaxRates {
             ],
             .y2020: [
                 // These year 2020 rates are approximated (based on 2021 nonprogressive and progressive 2020)
-                .single: RawTaxRates([
+                .single: RawTaxRates(simple: [
                     0.0: 0.0609,
                     80650.0: 0.0641,
                     215400.0: 0.0685,
                     1077550.0: 0.0882
                 ]),
-                .marriedJointly: RawTaxRates([
+                .marriedJointly: RawTaxRates(simple: [
                     0.0: 0.0609,
                     161550.0: 0.0641,
                     323200.0: 0.0685,
@@ -168,13 +168,13 @@ extension RawCityTaxRates {
     // Rates apply for incomes > $65,000
     fileprivate static var newYorkCityRatesFrom2017to2023: [FilingType: RawTaxRates] {
         return [
-            .single: RawTaxRates([
+            .single: RawTaxRates(progressive: [
                 0.0: 0.03078,
                 12000.0: 0.03762,
                 25000.0: 0.03819,
                 50000.0: 0.03876
             ]),
-            .marriedJointly: RawTaxRates([
+            .marriedJointly: RawTaxRates(progressive: [
                 0.0: 0.03078,
                 21600.0: 0.03762,
                 45000.0: 0.03819,

@@ -11,7 +11,7 @@ extension RawStateTaxRates {
     static var californiaRates: [TaxYear: [FilingType: RawTaxRates]] {
         return [
             .y2022: [
-                .single: RawTaxRates([
+                .single: RawTaxRates(progressive: [
                     0.0: 0.01,
                     10100.0: 0.02,
                     23943.0: 0.04,
@@ -22,7 +22,7 @@ extension RawStateTaxRates {
                     406365.0: 0.113,
                     677276.0: 0.123
                 ]),
-                .marriedJointly: RawTaxRates([
+                .marriedJointly: RawTaxRates(progressive: [
                     0.0: 0.01,
                     20199.0: 0.02,
                     47885.0: 0.04,
@@ -35,7 +35,7 @@ extension RawStateTaxRates {
                 ])
             ],
             .y2021: [
-                .single: RawTaxRates([
+                .single: RawTaxRates(progressive: [
                     0.0: 0.01,
                     9325.0: 0.02,
                     22107.0: 0.04,
@@ -46,7 +46,7 @@ extension RawStateTaxRates {
                     375221.0: 0.113,
                     625369.0: 0.123
                 ]),
-                .marriedJointly: RawTaxRates([
+                .marriedJointly: RawTaxRates(progressive: [
                     0.0: 0.01,
                     18650.0: 0.02,
                     44214.0: 0.04,
@@ -59,7 +59,7 @@ extension RawStateTaxRates {
                 ])
             ],
             .y2020: [
-                .single: RawTaxRates([
+                .single: RawTaxRates(progressive: [
                     0.0: 0.01,
                     8932.0: 0.02,
                     21175.0: 0.04,
@@ -70,7 +70,7 @@ extension RawStateTaxRates {
                     359407.0: 0.113,
                     599012.0: 0.123
                 ]),
-                .marriedJointly: RawTaxRates([
+                .marriedJointly: RawTaxRates(progressive: [
                     0.0: 0.01,
                     17864.0: 0.02,
                     42350.0: 0.04,
