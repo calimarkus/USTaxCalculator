@@ -11,15 +11,19 @@ struct FederalTaxData {
     let taxes: [FederalTax]
 
     init(_ input: TaxDataInput, taxRates: FederalTaxRates) {
-        let income = input.income
-        deductions = DeductionsFactory.calculateDeductionsForDeductionAmount(input.federalDeductions, standardDeduction: taxRates.standardDeductions)
-        credits = input.federalCredits
-        taxableIncome = max(0.0, income.totalIncome - income.longtermCapitalGains - deductions)
+        deductions = DeductionsFactory.calculateDeductionsForDeductionAmount(
+            input.federalDeductions,
+            standardDeduction: taxRates.standardDeductions
+        )
 
-        // build federal taxes
-        taxes = TaxFactory.federalTaxesFor(income: income,
-                                           taxableFederalIncome: NamedValue(amount: taxableIncome, name: "Taxable Income"),
-                                           taxRates: taxRates)
+        credits = input.federalCredits
+        taxableIncome = max(0.0, input.income.totalIncome - input.income.longtermCapitalGains - deductions)
+
+        taxes = TaxFactory.federalTaxesFor(
+            income: input.income,
+            taxableFederalIncome: NamedValue(amount: taxableIncome, name: "Taxable Income"),
+            taxRates: taxRates
+        )
     }
 }
 
@@ -35,35 +39,37 @@ struct CalculatedTaxData: Identifiable, Hashable {
     let stateTaxes: [StateTax]
     let taxSummaries: TaxSummaries
 
-    let input: TaxDataInput
+    let inputData: TaxDataInput
 
     init(_ input: TaxDataInput) {
         title = input.title
         filingType = input.filingType
         taxYear = input.taxYear
-        let taxRates = taxYear.rawTaxRatesForFilingType(filingType)
-
         income = input.income
-        federal = FederalTaxData(input, taxRates: taxRates.federalRates)
-        self.input = input
+        inputData = input
 
-        // build state taxes
-        stateTaxes = input.income.stateIncomes.map { stateIncome in
-            TaxFactory.stateTaxFor(stateIncome: stateIncome,
-                                   stateDeductions: input.stateDeductions,
-                                   stateCredits: input.stateCredits,
-                                   totalIncome: input.income.totalIncome,
-                                   taxRates: taxRates)
+        let taxRates = taxYear.rawTaxRatesForFilingType(filingType)
+        federal = FederalTaxData(input, taxRates: taxRates.federalRates)
+
+        stateTaxes = input.income.stateIncomes.map {
+            TaxFactory.stateTaxFor(
+                stateIncome: $0,
+                stateDeductions: input.stateDeductions,
+                stateCredits: input.stateCredits,
+                totalIncome: input.income.totalIncome,
+                taxRates: taxRates
+            )
         }
 
-        // calculate tax summaries
-        taxSummaries = TaxSummaries.calculateFor(input: input,
-                                                 federalTaxes: federal.taxes,
-                                                 stateTaxes: stateTaxes)
+        taxSummaries = TaxSummaries.calculateFor(
+            input: input,
+            federalTaxes: federal.taxes,
+            stateTaxes: stateTaxes
+        )
     }
 
     static func == (lhs: CalculatedTaxData, rhs: CalculatedTaxData) -> Bool {
-        return lhs.input == rhs.input
+        return lhs.inputData == rhs.inputData
     }
 
     func hash(into hasher: inout Hasher) {

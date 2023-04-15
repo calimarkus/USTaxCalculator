@@ -39,7 +39,7 @@ extension RawTaxRatesYear {
         }
     }
 
-    func stateIncomeRatesForState(_ state: TaxState, taxableIncome: Double) -> RawTaxRates {
+    func stateIncomeRates(for state: TaxState, taxableIncome: Double) -> RawTaxRates {
         switch state {
             case .CA:
                 return californiaRates.incomeRates

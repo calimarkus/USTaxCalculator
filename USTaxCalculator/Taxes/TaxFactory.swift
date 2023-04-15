@@ -6,39 +6,48 @@ enum TaxFactory {
         var federalTaxes: [FederalTax] = []
 
         // income tax
-        let incomeBracketGroup = TaxBracketGenerator.bracketsForRawTaxRates(taxRates.incomeRates)
+        let incomeBracketGroup = TaxBracketGenerator.bracketGroupForRawTaxRates(taxRates.incomeRates)
         let incomeBracket = incomeBracketGroup.matchingBracketFor(taxableIncome: taxableFederalIncome.amount)
-        federalTaxes.append(FederalTax(title: "Income", bracket: incomeBracket, bracketGroup: incomeBracketGroup, taxableIncome: taxableFederalIncome))
+        federalTaxes.append(
+            FederalTax(title: "Income",
+                       bracket: incomeBracket,
+                       bracketGroup: incomeBracketGroup,
+                       taxableIncome: taxableFederalIncome)
+        )
 
         // longterm gains tax
-        let longtermGainBracketGroup = TaxBracketGenerator.bracketsForRawTaxRates(taxRates.longtermGainsRates)
+        let longtermGainBracketGroup = TaxBracketGenerator.bracketGroupForRawTaxRates(taxRates.longtermGainsRates)
         let longtermGainsBracket = longtermGainBracketGroup.matchingBracketFor(taxableIncome: taxableFederalIncome.amount)
         if longtermGainsBracket.rate > 0.0 {
-            federalTaxes.append(FederalTax(title: "Longterm Gains",
-                                           bracket: longtermGainsBracket,
-                                           bracketGroup: longtermGainBracketGroup,
-                                           taxableIncome: income.namedLongtermCapitalGains))
+            federalTaxes.append(
+                FederalTax(title: "Longterm Gains",
+                           bracket: longtermGainsBracket,
+                           bracketGroup: longtermGainBracketGroup,
+                           taxableIncome: income.namedLongtermCapitalGains)
+            )
         }
 
         // net investment income tax
-        let niiBracketGroup = TaxBracketGenerator.bracketsForRawTaxRates(taxRates.netInvestmentIncomeRates)
+        let niiBracketGroup = TaxBracketGenerator.bracketGroupForRawTaxRates(taxRates.netInvestmentIncomeRates)
         let niiBracket = niiBracketGroup.matchingBracketFor(taxableIncome: taxableFederalIncome.amount)
         if niiBracket.rate > 0.0 {
             let taxableRegularIncome = taxableFederalIncome.amount - niiBracket.startingAt
             let taxableNIIIncome = (income.totalCapitalGains < taxableRegularIncome
                 ? income.namedTotalCapitalGains
                 : NamedValue(amount: taxableRegularIncome, name: "Taxable Income for NII"))
-            federalTaxes.append(FederalTax(title: "Net Investment Income",
-                                           bracket: niiBracket,
-                                           bracketGroup: niiBracketGroup,
-                                           taxableIncome: taxableNIIIncome))
+            federalTaxes.append(
+                FederalTax(title: "Net Investment Income",
+                           bracket: niiBracket,
+                           bracketGroup: niiBracketGroup,
+                           taxableIncome: taxableNIIIncome)
+            )
         }
 
         // additional medicare tax
-        let medicareBracketGroup = TaxBracketGenerator.bracketsForRawTaxRates(taxRates.additionalMedicareIncomeRates)
+        let medicareBracketGroup = TaxBracketGenerator.bracketGroupForRawTaxRates(taxRates.additionalMedicareIncomeRates)
         let medicareBracket = medicareBracketGroup.matchingBracketFor(taxableIncome: income.medicareWages)
         if medicareBracket.rate > 0.0 {
-            let basicBracketGroup = TaxBracketGenerator.bracketsForRawTaxRates(taxRates.basicMedicareIncomeRates)
+            let basicBracketGroup = TaxBracketGenerator.bracketGroupForRawTaxRates(taxRates.basicMedicareIncomeRates)
             let basicBracket = basicBracketGroup.matchingBracketFor(taxableIncome: income.medicareWages)
             let expectedBasicWithholding = income.medicareWages * basicBracket.rate
             let tax = FederalTax(title: "Additional Medicare",
@@ -66,8 +75,8 @@ enum TaxFactory {
         let taxableIncome = max(0.0, totalIncome + stateIncome.additionalStateIncome - deductions)
         let namedTaxableIncome = NamedValue(amount: taxableIncome, name: "Taxable State Income")
 
-        let brackets = TaxBracketGenerator.bracketsForRawTaxRates(taxRates.stateIncomeRatesForState(stateIncome.state, taxableIncome: taxableIncome))
-        let bracket = brackets.matchingBracketFor(taxableIncome: taxableIncome)
+        let stateBracketGroup = TaxBracketGenerator.bracketGroupForRawTaxRates(taxRates.stateIncomeRates(for: stateIncome.state, taxableIncome: taxableIncome))
+        let bracket = stateBracketGroup.matchingBracketFor(taxableIncome: taxableIncome)
 
         let localTax = localTaxBracketForLocalTax(stateIncome.localTax,
                                                   taxableIncome: namedTaxableIncome,
@@ -75,7 +84,7 @@ enum TaxFactory {
 
         return StateTax(state: stateIncome.state,
                         bracket: bracket,
-                        bracketGroup: brackets,
+                        bracketGroup: stateBracketGroup,
                         localTax: localTax,
                         taxableIncome: namedTaxableIncome,
                         additionalStateIncome: stateIncome.additionalStateIncome,
@@ -91,13 +100,13 @@ enum TaxFactory {
             case .none:
                 return nil
             case let .city(city):
-                let brackets = TaxBracketGenerator.bracketsForRawTaxRates(taxRates.localIncomeRatesForCity(city, taxableIncome: taxableIncome.amount))
-                let bracket = brackets.matchingBracketFor(taxableIncome: taxableIncome.amount)
+                let localBracketGroup = TaxBracketGenerator.bracketGroupForRawTaxRates(taxRates.localIncomeRatesForCity(city, taxableIncome: taxableIncome.amount))
+                let bracket = localBracketGroup.matchingBracketFor(taxableIncome: taxableIncome.amount)
 
                 return LocalTax(
                     city: city,
                     bracket: bracket,
-                    bracketGroup: brackets,
+                    bracketGroup: localBracketGroup,
                     taxableIncome: taxableIncome
                 )
         }

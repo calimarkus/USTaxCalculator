@@ -64,7 +64,7 @@ struct MenuViewiOS: View {
                             }
                         }
                 } else {
-                    TaxDataEntryView(appState: appState, taxdataId: target.taxdata.id, input: target.taxdata.input) { taxDataId, taxInput in
+                    TaxDataEntryView(appState: appState, taxdataId: target.taxdata.id, input: target.taxdata.inputData) { taxDataId, taxInput in
                         if let data = localTaxDataState.replaceTaxData(id: taxDataId, input: taxInput) {
                             navPath = [NavigationTarget(taxdata: data)]
                         }

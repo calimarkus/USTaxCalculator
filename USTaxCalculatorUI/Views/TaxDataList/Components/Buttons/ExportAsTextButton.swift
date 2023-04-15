@@ -35,7 +35,7 @@ struct ExportAsTextButton: View {
 }
 
 struct ExportAsTextButton_Previews: PreviewProvider {
-    @State static var taxDataInput: TaxDataInput = ExampleData.exampleTaxDataJohnAndSarah_21().input
+    @State static var taxDataInput: TaxDataInput = ExampleData.exampleTaxDataJohnAndSarah_21().inputData
     static var previews: some View {
         ExportAsTextButton(taxDataInput: $taxDataInput)
             .padding()
