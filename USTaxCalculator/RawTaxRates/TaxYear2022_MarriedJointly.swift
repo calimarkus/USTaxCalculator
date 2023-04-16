@@ -3,7 +3,7 @@
 
 enum TaxYear2022_MarriedJointly {
     static var taxRates: RawTaxRatesYear {
-        return RawTaxRatesYear(
+        RawTaxRatesYear(
             federalRates: Self.federalRates,
             californiaRates: Self.californiaRates,
             newYorkRates: Self.newYorkRates
@@ -11,7 +11,7 @@ enum TaxYear2022_MarriedJointly {
     }
 
     private static var federalRates: FederalTaxRates {
-        return FederalTaxRates(
+        FederalTaxRates(
             // see https://www.nerdwallet.com/article/taxes/federal-income-tax-brackets
             incomeRates: RawTaxRates(progressive: [
                 0.0: 0.1,
@@ -42,7 +42,7 @@ enum TaxYear2022_MarriedJointly {
     //
     // Note: These are only valid for incomes of $100,000+
     private static var californiaRates: CaliforniaStateTaxRates {
-        return CaliforniaStateTaxRates(
+        CaliforniaStateTaxRates(
             incomeRates: RawTaxRates(progressive: [
                 0.0: 0.01,
                 20199.0: 0.02,
@@ -60,7 +60,7 @@ enum TaxYear2022_MarriedJointly {
     }
 
     private static var newYorkRates: NewYorkStateTaxRates {
-        return NewYorkStateTaxRates(
+        NewYorkStateTaxRates(
             // see https://www.nerdwallet.com/article/taxes/new-york-state-tax
             // see https://www.forbes.com/advisor/taxes/new-york-state-tax/
             // see https://www.tax.ny.gov/pdf/current_forms/it/it201i.pdf#page=51

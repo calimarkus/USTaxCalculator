@@ -4,7 +4,7 @@
 import SwiftUI
 
 extension FederalTax: Identifiable {
-    var id: String { return title }
+    var id: String { title }
 }
 
 struct FederalTaxesListSection: View {

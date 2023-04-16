@@ -66,7 +66,7 @@ struct CalculatedTaxData: Identifiable, Hashable {
     }
 
     static func == (lhs: CalculatedTaxData, rhs: CalculatedTaxData) -> Bool {
-        return lhs.inputData == rhs.inputData
+        lhs.inputData == rhs.inputData
     }
 
     func hash(into hasher: inout Hasher) {
@@ -74,6 +74,6 @@ struct CalculatedTaxData: Identifiable, Hashable {
     }
 
     func formattedTitle() -> String {
-        return title.count > 0 ? title : FormattingHelper.formattedTitle(taxdata: self)
+        title.count > 0 ? title : FormattingHelper.formattedTitle(taxdata: self)
     }
 }

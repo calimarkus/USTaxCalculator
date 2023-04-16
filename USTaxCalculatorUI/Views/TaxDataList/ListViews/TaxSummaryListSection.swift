@@ -17,7 +17,7 @@ struct TaxSummaryListSection: View {
             TaxSummaryView(summary: taxdata.taxSummaries.federal)
         }
 
-        NonCollapsableSectionTitle(title: "State Taxes (\(FormattingHelper.formattedStates(states: taxdata.stateTaxes.map { $0.state })))")
+        NonCollapsableSectionTitle(title: "State Taxes (\(FormattingHelper.formattedStates(states: taxdata.stateTaxes.map(\.state))))")
         TaxListGroupView {
             TaxSummaryView(summary: taxdata.taxSummaries.stateTotal)
         }

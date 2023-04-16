@@ -111,7 +111,7 @@ struct TaxSummaryFormatter {
 
         // State Summary
         if td.income.stateIncomes.count > 0 {
-            summary.appendTitle("State Summary (\(FormattingHelper.formattedStates(states: td.income.stateIncomes.map { $0.state })))")
+            summary.appendTitle("State Summary (\(FormattingHelper.formattedStates(states: td.income.stateIncomes.map(\.state))))")
             summary.append(formattedTaxSummary(td.taxSummaries.stateTotal))
         }
 
@@ -133,23 +133,23 @@ private extension TaxSummaryFormatter {
     }
 
     func formattedCurrency(_ title: String, _ num: Double, _ appendix: String = "") -> String {
-        return alignLeftRight(title, FormattingHelper.formatCurrency(num, locale: locale), appendix)
+        alignLeftRight(title, FormattingHelper.formatCurrency(num, locale: locale), appendix)
     }
 
     func formattedRate(_ rate: Double) -> String {
-        return FormattingHelper.formatPercentage(rate, locale: locale)
+        FormattingHelper.formatPercentage(rate, locale: locale)
     }
 
     func formattedBracketRate(_ prefix: String, _ bracket: TaxBracket) -> String {
-        return prefix + formattedRate(bracket.rate)
+        prefix + formattedRate(bracket.rate)
     }
 
     func formattedSumSeparator() -> String {
-        return alignLeftRight("", String(repeating: "-", count: separatorSize.width), shift: separatorSize.shift)
+        alignLeftRight("", String(repeating: "-", count: separatorSize.width), shift: separatorSize.shift)
     }
 
     func formattedExplanation(_ tax: Tax) -> String {
-        return String(repeating: " ", count: 15) + "Math: \(tax.bracket.taxCalculationExplanation(tax.taxableIncome))"
+        String(repeating: " ", count: 15) + "Math: \(tax.bracket.taxCalculationExplanation(tax.taxableIncome))"
     }
 
     func formattedTaxSummary(_ summary: TaxSummary, title: String = "") -> String {

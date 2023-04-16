@@ -22,22 +22,22 @@ struct Income: Codable, Equatable {
     var stateIncomes: [StateIncome] = []
 
     /// Computed combined capital gains (dividends + capital gains)
-    var totalCapitalGains: Double { return dividendsAndInterests + capitalGains }
+    var totalCapitalGains: Double { dividendsAndInterests + capitalGains }
     /// Computed total income (wages + total capital gains)
-    var totalIncome: Double { return wages + totalCapitalGains }
+    var totalIncome: Double { wages + totalCapitalGains }
 }
 
 extension Income {
-    var namedWages: NamedValue { return NamedValue(amount: wages, name: "Wages") }
-    var namedMedicareWages: NamedValue { return NamedValue(amount: medicareWages, name: "Medicare Wages") }
-    var namedCapitalGains: NamedValue { return NamedValue(amount: capitalGains, name: "Capital Gains") }
-    var namedTotalCapitalGains: NamedValue { return NamedValue(amount: totalCapitalGains, name: "Total Capital Gains") }
-    var namedLongtermCapitalGains: NamedValue { return NamedValue(amount: longtermCapitalGains, name: "Longterm Capital Gains") }
+    var namedWages: NamedValue { NamedValue(amount: wages, name: "Wages") }
+    var namedMedicareWages: NamedValue { NamedValue(amount: medicareWages, name: "Medicare Wages") }
+    var namedCapitalGains: NamedValue { NamedValue(amount: capitalGains, name: "Capital Gains") }
+    var namedTotalCapitalGains: NamedValue { NamedValue(amount: totalCapitalGains, name: "Total Capital Gains") }
+    var namedLongtermCapitalGains: NamedValue { NamedValue(amount: longtermCapitalGains, name: "Longterm Capital Gains") }
 }
 
 extension Income {
     static func + (lhs: Income, rhs: Income) throws -> Income {
-        return try Income(
+        try Income(
             wages: lhs.wages + rhs.wages,
             federalWithholdings: lhs.federalWithholdings + rhs.federalWithholdings,
             medicareWages: lhs.medicareWages + rhs.medicareWages,

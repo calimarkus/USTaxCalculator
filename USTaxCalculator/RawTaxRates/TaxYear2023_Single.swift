@@ -3,7 +3,7 @@
 
 enum TaxYear2023_Single {
     static var taxRates: RawTaxRatesYear {
-        return RawTaxRatesYear(
+        RawTaxRatesYear(
             federalRates: Self.federalRates,
             californiaRates: Self.californiaRates,
             newYorkRates: Self.newYorkRates
@@ -11,7 +11,7 @@ enum TaxYear2023_Single {
     }
 
     private static var federalRates: FederalTaxRates {
-        return FederalTaxRates(
+        FederalTaxRates(
             // see https://www.nerdwallet.com/article/taxes/federal-income-tax-brackets
             incomeRates: RawTaxRates(progressive: [
                 0.0: 0.10,
@@ -42,7 +42,7 @@ enum TaxYear2023_Single {
     //
     // Note: These are only valid for incomes of $100,000+
     private static var californiaRates: CaliforniaStateTaxRates {
-        return CaliforniaStateTaxRates(
+        CaliforniaStateTaxRates(
             incomeRates: RawTaxRates(simple: [:]), // TBD
             // see https://www.ftb.ca.gov/file/personal/deductions/index.html
             standardDeductions: 0.0 // TBD
@@ -50,7 +50,7 @@ enum TaxYear2023_Single {
     }
 
     private static var newYorkRates: NewYorkStateTaxRates {
-        return NewYorkStateTaxRates(
+        NewYorkStateTaxRates(
             incomeRates: RawTaxRates(simple: [:]), // TBD
             // see https://www.tax.ny.gov/pit/file/standard_deductions.htm
             // see https://www.efile.com/new-york-tax-rates-forms-and-brackets/

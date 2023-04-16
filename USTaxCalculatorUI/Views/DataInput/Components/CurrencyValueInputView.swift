@@ -13,7 +13,7 @@ struct CurrencyValueInputView: View {
             HStack(spacing: 0.0) {
                 VStack(alignment: .trailing) {
                     Text(caption ?? "")
-                    if let subtitle = subtitle {
+                    if let subtitle {
                         Text(subtitle)
                             .font(.footnote)
                             .foregroundColor(.secondary)
@@ -24,11 +24,11 @@ struct CurrencyValueInputView: View {
             }
         #elseif os(iOS)
             VStack(alignment: .leading, spacing: 0.0) {
-                if let caption = caption, caption.count > 0 {
+                if let caption, caption.count > 0 {
                     VStack(alignment: .leading) {
                         Text(caption)
 
-                        if let subtitle = subtitle {
+                        if let subtitle {
                             Text(subtitle)
                                 .font(.footnote)
                                 .foregroundColor(.secondary)

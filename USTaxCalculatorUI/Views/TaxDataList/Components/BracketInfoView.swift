@@ -5,7 +5,7 @@ import SwiftUI
 
 extension TaxBracket: Identifiable {
     var id: Double {
-        return startingAt
+        startingAt
     }
 }
 
@@ -85,7 +85,7 @@ struct BracketTableView: View {
 
                 bracketRow(bracket: bracket)
                     .background {
-                        if let activeBracket = activeBracket, activeBracket.startingAt == bracket.startingAt {
+                        if let activeBracket, activeBracket.startingAt == bracket.startingAt {
                             Color.accentColor
                                 .opacity(0.33)
                                 .cornerRadius(6.0)

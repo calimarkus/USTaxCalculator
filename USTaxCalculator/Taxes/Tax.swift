@@ -34,7 +34,7 @@ struct FederalTax: Tax {
     let taxableIncome: NamedValue
 
     /// The taxes coming from this bracket
-    var taxAmount: Double { return bracket.calculateTaxesForAmount(taxableIncome) }
+    var taxAmount: Double { bracket.calculateTaxesForAmount(taxableIncome) }
 }
 
 struct StateTax: Tax {
@@ -72,12 +72,12 @@ struct StateTax: Tax {
     var stateAttributedIncome: Double = 0.0
 
     /// The taxes coming from this bracket AND the local bracket
-    var taxAmount: Double { return stateOnlyTaxAmount + (localTax?.taxAmount ?? 0.0) }
+    var taxAmount: Double { stateOnlyTaxAmount + (localTax?.taxAmount ?? 0.0) }
 
     /// The taxes coming from this bracket
     /// see https://turbotax.intuit.com/tax-tips/state-taxes/multiple-states-figuring-whats-owed-when-you-live-and-work-in-more-than-one-state/L79OKm3jI
     /// using "Common method 1" for multi state taxes
-    var stateOnlyTaxAmount: Double { return bracket.calculateTaxesForAmount(taxableIncome) * incomeRate }
+    var stateOnlyTaxAmount: Double { bracket.calculateTaxesForAmount(taxableIncome) * incomeRate }
 }
 
 struct LocalTax: Tax {
@@ -94,5 +94,5 @@ struct LocalTax: Tax {
     let taxableIncome: NamedValue
 
     /// The taxes coming from this bracket
-    var taxAmount: Double { return bracket.calculateTaxesForAmount(taxableIncome) }
+    var taxAmount: Double { bracket.calculateTaxesForAmount(taxableIncome) }
 }

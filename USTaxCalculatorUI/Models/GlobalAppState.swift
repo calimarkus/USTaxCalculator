@@ -14,7 +14,7 @@ class GlobalAppState: ObservableObject {
     @Published var sectionCollapseState = SectionCollapseState()
 
     func stateCollapseStateBinding(for state: TaxState) -> Binding<Bool> {
-        return Binding(get: {
+        Binding(get: {
             self.sectionCollapseState.states[state, default: true]
         }, set: {
             self.sectionCollapseState.states[state] = $0

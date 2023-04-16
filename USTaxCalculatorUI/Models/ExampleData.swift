@@ -3,7 +3,7 @@
 
 enum ExampleData {
     static func exampleTaxDataJohnAndSarah_21() -> CalculatedTaxData {
-        return CalculatedTaxData(TaxDataInput(
+        CalculatedTaxData(TaxDataInput(
             title: "John & Sarah",
             filingType: .marriedJointly,
             taxYear: .y2021,
@@ -36,7 +36,7 @@ enum ExampleData {
     }
 
     static func exampleTaxDataJackHouston_21() -> CalculatedTaxData {
-        return CalculatedTaxData(TaxDataInput(
+        CalculatedTaxData(TaxDataInput(
             title: "Jack Houston",
             filingType: .single,
             taxYear: .y2021,
@@ -63,7 +63,7 @@ enum ExampleData {
     }
 
     static func exampleTaxDataJackHouston_20() -> CalculatedTaxData {
-        return CalculatedTaxData(TaxDataInput(
+        CalculatedTaxData(TaxDataInput(
             filingType: .single,
             taxYear: .y2020,
             income: Income(
@@ -88,7 +88,7 @@ enum ExampleData {
     }
 
     static func exampleTaxDataSimple_20() -> CalculatedTaxData {
-        return CalculatedTaxData(TaxDataInput(
+        CalculatedTaxData(TaxDataInput(
             title: "Simple",
             filingType: .single,
             taxYear: .y2020,

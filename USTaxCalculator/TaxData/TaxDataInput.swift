@@ -42,6 +42,6 @@ struct TaxDataInput: Codable, Equatable {
     var stateCredits: [TaxState: Double] = [:]
 
     static func emptyInput() -> TaxDataInput {
-        return .init(income: Income(stateIncomes: [StateIncome()]))
+        .init(income: Income(stateIncomes: [StateIncome()]))
     }
 }

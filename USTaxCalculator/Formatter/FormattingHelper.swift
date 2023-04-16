@@ -5,27 +5,27 @@ import Foundation
 
 struct FormattingHelper {
     static func formattedTitle(taxdata: CalculatedTaxData) -> String {
-        return formattedTitle(taxyear: taxdata.taxYear,
-                              filingType: taxdata.filingType,
-                              states: taxdata.stateTaxes.map { $0.state })
+        formattedTitle(taxyear: taxdata.taxYear,
+                       filingType: taxdata.filingType,
+                       states: taxdata.stateTaxes.map(\.state))
     }
 
     static func formattedTitle(taxDataInput: TaxDataInput) -> String {
-        return formattedTitle(taxyear: taxDataInput.taxYear,
-                              filingType: taxDataInput.filingType,
-                              states: taxDataInput.income.stateIncomes.map { $0.state })
+        formattedTitle(taxyear: taxDataInput.taxYear,
+                       filingType: taxDataInput.filingType,
+                       states: taxDataInput.income.stateIncomes.map(\.state))
     }
 
     private static func formattedTitle(taxyear: TaxYear, filingType: FilingType, states: [TaxState]) -> String {
-        return "Year \(taxyear.rawValue), \(filingType.rawValue), \(formattedStates(states: states))"
+        "Year \(taxyear.rawValue), \(filingType.rawValue), \(formattedStates(states: states))"
     }
 
     static func formattedStates(states: [TaxState]) -> String {
-        return states.map { "\($0)" }.joined(separator: "+")
+        states.map { "\($0)" }.joined(separator: "+")
     }
 
     static func formattedTaxYearShort(taxData: CalculatedTaxData) -> String {
-        return "'" + String(taxData.taxYear.rawValue).suffix(2)
+        "'" + String(taxData.taxYear.rawValue).suffix(2)
     }
 
     static func formatCurrency(_ num: Double, locale: Locale? = nil) -> String {

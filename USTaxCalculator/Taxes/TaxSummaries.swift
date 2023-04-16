@@ -12,7 +12,7 @@ struct TaxSummary: Equatable {
     let taxes: Double
     let withholdings: Double
     let effectiveTaxRate: Double
-    var outstandingPayment: Double { return taxes - withholdings }
+    var outstandingPayment: Double { taxes - withholdings }
 
     static func fromTotalIncome(taxes: Double, withholdings: Double, totalIncome: Double) -> TaxSummary {
         TaxSummary(taxes: taxes,
@@ -21,9 +21,9 @@ struct TaxSummary: Equatable {
     }
 
     static func + (lhs: TaxSummary, rhs: TaxSummary) -> TaxSummary {
-        return TaxSummary(taxes: lhs.taxes + rhs.taxes,
-                          withholdings: lhs.withholdings + rhs.withholdings,
-                          effectiveTaxRate: lhs.effectiveTaxRate + rhs.effectiveTaxRate)
+        TaxSummary(taxes: lhs.taxes + rhs.taxes,
+                   withholdings: lhs.withholdings + rhs.withholdings,
+                   effectiveTaxRate: lhs.effectiveTaxRate + rhs.effectiveTaxRate)
     }
 }
 
