@@ -105,7 +105,7 @@ struct TaxSummaryFormatter {
         summary.appendLine(String(repeating: "=", count: summary.count))
 
         // Federal
-        summary.append(federalSummary(income: td.income, taxData: td.federal, taxSummary: td.taxSummaries.federal))
+        summary.append(federalSummary(income: td.income, taxData: td.federalData, taxSummary: td.taxSummaries.federal))
 
         // States
         summary.append(stateSummary(income: td.income, stateTaxes: td.stateTaxes, taxSummaries: td.taxSummaries.states))

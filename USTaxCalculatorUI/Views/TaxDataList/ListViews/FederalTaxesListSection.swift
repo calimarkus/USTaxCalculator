@@ -52,10 +52,10 @@ struct FederalTaxesListSection_Previews: PreviewProvider {
     static var previews: some View {
         VStack(alignment: .leading) {
             FederalTaxesListSection(isExpanded: $isExpanded1,
-                                    taxdata: ExampleData.exampleTaxDataJohnAndSarah_21().federal,
+                                    taxdata: ExampleData.exampleTaxDataJohnAndSarah_21().federalData,
                                     summary: ExampleData.exampleTaxDataJohnAndSarah_21().taxSummaries.federal)
             FederalTaxesListSection(isExpanded: $isExpanded2,
-                                    taxdata: ExampleData.exampleTaxDataJohnAndSarah_21().federal,
+                                    taxdata: ExampleData.exampleTaxDataJohnAndSarah_21().federalData,
                                     summary: ExampleData.exampleTaxDataJohnAndSarah_21().taxSummaries.federal)
         }.padding()
     }

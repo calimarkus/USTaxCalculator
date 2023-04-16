@@ -51,12 +51,12 @@ struct FederalIncomeListSection_Previews: PreviewProvider {
         VStack(alignment: .leading) {
             FederalIncomeListSection(
                 isExpanded: $isExpanded1,
-                taxdata: ExampleData.exampleTaxDataJohnAndSarah_21().federal,
+                taxdata: ExampleData.exampleTaxDataJohnAndSarah_21().federalData,
                 income: ExampleData.exampleTaxDataJohnAndSarah_21().income
             )
             FederalIncomeListSection(
                 isExpanded: $isExpanded2,
-                taxdata: ExampleData.exampleTaxDataJohnAndSarah_21().federal,
+                taxdata: ExampleData.exampleTaxDataJohnAndSarah_21().federalData,
                 income: ExampleData.exampleTaxDataJohnAndSarah_21().income
             )
         }.padding()

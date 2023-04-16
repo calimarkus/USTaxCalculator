@@ -3,22 +3,29 @@
 //
 
 enum TaxFactory {
-    static func federalTaxesFor(income: Income, taxableFederalIncome: NamedValue, taxRates: FederalTaxRates) -> [FederalTax] {
+    static func federalTaxesFor(income: Income, federalDeductions: DeductionAmount, federalCredits: Double, taxRates: FederalTaxRates) -> FederalTaxData {
+        let deductions = DeductionsFactory.calculateDeductionsForDeductionAmount(
+            federalDeductions,
+            standardDeduction: taxRates.standardDeductions
+        )
+        let taxableFederalIncome = max(0.0, income.totalIncome - income.longtermCapitalGains - deductions)
+        let namedTaxableFederalIncome = NamedValue(amount: taxableFederalIncome, name: "Taxable Income")
+
         var federalTaxes: [FederalTax] = []
 
         // income tax
         let incomeBracketGroup = TaxBracketGenerator.bracketGroupForRawTaxRates(taxRates.incomeRates)
-        let incomeBracket = incomeBracketGroup.matchingBracketFor(taxableIncome: taxableFederalIncome.amount)
+        let incomeBracket = incomeBracketGroup.matchingBracketFor(taxableIncome: taxableFederalIncome)
         federalTaxes.append(
             FederalTax(title: "Income",
                        bracket: incomeBracket,
                        bracketGroup: incomeBracketGroup,
-                       taxableIncome: taxableFederalIncome)
+                       taxableIncome: namedTaxableFederalIncome)
         )
 
         // longterm gains tax
         let longtermGainBracketGroup = TaxBracketGenerator.bracketGroupForRawTaxRates(taxRates.longtermGainsRates)
-        let longtermGainsBracket = longtermGainBracketGroup.matchingBracketFor(taxableIncome: taxableFederalIncome.amount)
+        let longtermGainsBracket = longtermGainBracketGroup.matchingBracketFor(taxableIncome: taxableFederalIncome)
         if longtermGainsBracket.rate > 0.0 {
             federalTaxes.append(
                 FederalTax(title: "Longterm Gains",
@@ -30,9 +37,9 @@ enum TaxFactory {
 
         // net investment income tax
         let niiBracketGroup = TaxBracketGenerator.bracketGroupForRawTaxRates(taxRates.netInvestmentIncomeRates)
-        let niiBracket = niiBracketGroup.matchingBracketFor(taxableIncome: taxableFederalIncome.amount)
+        let niiBracket = niiBracketGroup.matchingBracketFor(taxableIncome: taxableFederalIncome)
         if niiBracket.rate > 0.0 {
-            let taxableRegularIncome = taxableFederalIncome.amount - niiBracket.startingAt
+            let taxableRegularIncome = taxableFederalIncome - niiBracket.startingAt
             let taxableNIIIncome = (income.totalCapitalGains < taxableRegularIncome
                 ? income.namedTotalCapitalGains
                 : NamedValue(amount: taxableRegularIncome, name: "Taxable Income for NII"))
@@ -63,7 +70,10 @@ enum TaxFactory {
             }
         }
 
-        return federalTaxes
+        return FederalTaxData(taxableIncome: taxableFederalIncome,
+                              deductions: deductions,
+                              credits: federalCredits,
+                              taxes: federalTaxes)
     }
 
     static func stateTaxFor(stateIncome: StateIncome,
@@ -72,23 +82,27 @@ enum TaxFactory {
                             totalIncome: Double,
                             taxRates: RawTaxRatesYear) -> StateTax
     {
-        let deductions = DeductionsFactory.calculateStateDeductions(for: stateIncome.state, stateDeductions: stateDeductions, taxRates: taxRates)
-        let taxableIncome = max(0.0, totalIncome + stateIncome.additionalStateIncome - deductions)
-        let namedTaxableIncome = NamedValue(amount: taxableIncome, name: "Taxable State Income")
+        let deductions = DeductionsFactory.calculateStateDeductions(
+            for: stateIncome.state,
+            stateDeductions: stateDeductions,
+            taxRates: taxRates
+        )
+        let taxableStateIncome = max(0.0, totalIncome + stateIncome.additionalStateIncome - deductions)
+        let namedTaxableStateIncome = NamedValue(amount: taxableStateIncome, name: "Taxable State Income")
 
-        let rawStateIncomeRates = taxRates.stateIncomeRates(for: stateIncome.state, taxableIncome: taxableIncome)
+        let rawStateIncomeRates = taxRates.stateIncomeRates(for: stateIncome.state, taxableIncome: taxableStateIncome)
         let stateBracketGroup = TaxBracketGenerator.bracketGroupForRawTaxRates(rawStateIncomeRates)
-        let bracket = stateBracketGroup.matchingBracketFor(taxableIncome: taxableIncome)
+        let bracket = stateBracketGroup.matchingBracketFor(taxableIncome: taxableStateIncome)
 
         let localTax = localTaxBracketForLocalTax(stateIncome.localTax,
-                                                  taxableIncome: namedTaxableIncome,
+                                                  taxableIncome: namedTaxableStateIncome,
                                                   taxRates: taxRates)
 
         return StateTax(state: stateIncome.state,
                         bracket: bracket,
                         bracketGroup: stateBracketGroup,
                         localTax: localTax,
-                        taxableIncome: namedTaxableIncome,
+                        taxableIncome: namedTaxableStateIncome,
                         additionalStateIncome: stateIncome.additionalStateIncome,
                         deductions: deductions,
                         withholdings: stateIncome.withholdings,

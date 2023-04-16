@@ -9,29 +9,13 @@ struct FederalTaxData {
     let deductions: Double
     let credits: Double
     let taxes: [FederalTax]
-
-    init(_ input: TaxDataInput, taxRates: FederalTaxRates) {
-        deductions = DeductionsFactory.calculateDeductionsForDeductionAmount(
-            input.federalDeductions,
-            standardDeduction: taxRates.standardDeductions
-        )
-
-        credits = input.federalCredits
-        taxableIncome = max(0.0, input.income.totalIncome - input.income.longtermCapitalGains - deductions)
-
-        taxes = TaxFactory.federalTaxesFor(
-            income: input.income,
-            taxableFederalIncome: NamedValue(amount: taxableIncome, name: "Taxable Income"),
-            taxRates: taxRates
-        )
-    }
 }
 
 struct CalculatedTaxData: Identifiable, Hashable {
     var id = UUID()
 
     let inputData: TaxDataInput
-    let federal: FederalTaxData
+    let federalData: FederalTaxData
     let stateTaxes: [StateTax]
     let taxSummaries: TaxSummaries
 
@@ -46,7 +30,12 @@ struct CalculatedTaxData: Identifiable, Hashable {
         inputData = input
 
         let taxRates = RawTaxRatesYear.taxRatesYearFor(input.taxYear, input.filingType)
-        federal = FederalTaxData(input, taxRates: taxRates.federalRates)
+        federalData = TaxFactory.federalTaxesFor(
+            income: input.income,
+            federalDeductions: input.federalDeductions,
+            federalCredits: input.federalCredits,
+            taxRates: taxRates.federalRates
+        )
 
         stateTaxes = input.income.stateIncomes.map {
             TaxFactory.stateTaxFor(
@@ -60,7 +49,7 @@ struct CalculatedTaxData: Identifiable, Hashable {
 
         taxSummaries = TaxSummaries.calculateFor(
             input: input,
-            federalTaxes: federal.taxes,
+            federalTaxes: federalData.taxes,
             stateTaxes: stateTaxes
         )
     }

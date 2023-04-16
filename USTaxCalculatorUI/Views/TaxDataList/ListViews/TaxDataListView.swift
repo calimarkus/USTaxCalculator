@@ -13,10 +13,10 @@ struct TaxDataListView: View {
         TabView {
             TaxDataTabView(.federal) {
                 FederalIncomeListSection(isExpanded: $appState.sectionCollapseState.income,
-                                         taxdata: taxdata.federal,
+                                         taxdata: taxdata.federalData,
                                          income: taxdata.income)
                 FederalTaxesListSection(isExpanded: $appState.sectionCollapseState.federal,
-                                        taxdata: taxdata.federal,
+                                        taxdata: taxdata.federalData,
                                         summary: taxdata.taxSummaries.federal)
             }
 
