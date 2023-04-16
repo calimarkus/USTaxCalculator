@@ -526,6 +526,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 7E7BA5DD282CE13E00A54785 /* Build configuration list for PBXNativeTarget "TaxCalciOS" */;
 			buildPhases = (
+				7E58C75129EC4E7000392E33 /* ShellScript */,
 				7E7BA5CC282CE13D00A54785 /* Sources */,
 				7E7BA5CD282CE13D00A54785 /* Frameworks */,
 				7E7BA5CE282CE13D00A54785 /* Resources */,
@@ -543,6 +544,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 7E822D122804515300096181 /* Build configuration list for PBXNativeTarget "USTaxCal" */;
 			buildPhases = (
+				7E58C75029EC4E5400392E33 /* ShellScript */,
 				7E822CE92804515100096181 /* Sources */,
 				7E822CEA2804515100096181 /* Frameworks */,
 				7E822CEB2804515100096181 /* Resources */,
@@ -671,6 +673,45 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		7E58C75029EC4E5400392E33 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftformat >/dev/null; then\n  swiftformat .\nelse\n  echo \"warning: SwiftFormat not installed, download from https://github.com/nicklockwood/SwiftFormat\"\nfi\n";
+		};
+		7E58C75129EC4E7000392E33 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftformat >/dev/null; then\n  swiftformat .\nelse\n  echo \"warning: SwiftFormat not installed, download from https://github.com/nicklockwood/SwiftFormat\"\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		7E7BA5CC282CE13D00A54785 /* Sources */ = {
