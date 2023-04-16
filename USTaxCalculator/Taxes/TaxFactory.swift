@@ -75,7 +75,8 @@ enum TaxFactory {
         let taxableIncome = max(0.0, totalIncome + stateIncome.additionalStateIncome - deductions)
         let namedTaxableIncome = NamedValue(amount: taxableIncome, name: "Taxable State Income")
 
-        let stateBracketGroup = TaxBracketGenerator.bracketGroupForRawTaxRates(taxRates.stateIncomeRates(for: stateIncome.state, taxableIncome: taxableIncome))
+        let rawStateIncomeRates = taxRates.stateIncomeRates(for: stateIncome.state, taxableIncome: taxableIncome)
+        let stateBracketGroup = TaxBracketGenerator.bracketGroupForRawTaxRates(rawStateIncomeRates)
         let bracket = stateBracketGroup.matchingBracketFor(taxableIncome: taxableIncome)
 
         let localTax = localTaxBracketForLocalTax(stateIncome.localTax,
@@ -100,7 +101,8 @@ enum TaxFactory {
         case .none:
             return nil
         case let .city(city):
-            let localBracketGroup = TaxBracketGenerator.bracketGroupForRawTaxRates(taxRates.localIncomeRatesForCity(city, taxableIncome: taxableIncome.amount))
+            let rawLocalIncomeRates = taxRates.localIncomeRatesForCity(city, taxableIncome: taxableIncome.amount)
+            let localBracketGroup = TaxBracketGenerator.bracketGroupForRawTaxRates(rawLocalIncomeRates)
             let bracket = localBracketGroup.matchingBracketFor(taxableIncome: taxableIncome.amount)
 
             return LocalTax(
