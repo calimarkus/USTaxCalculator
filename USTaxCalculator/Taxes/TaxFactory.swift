@@ -3,7 +3,40 @@
 //
 
 enum TaxFactory {
-    static func federalTaxesFor(income: Income, federalDeductions: DeductionAmount, federalCredits: Double, taxRates: FederalTaxRates) -> FederalTaxData {
+    static func calculateTaxesFor(input: TaxDataInput) -> CalculatedTaxData {
+        let taxRates = RawTaxRatesYear.taxRatesYearFor(input.taxYear, input.filingType)
+        let federalData = Self.federalTaxesFor(
+            income: input.income,
+            federalDeductions: input.federalDeductions,
+            federalCredits: input.federalCredits,
+            taxRates: taxRates.federalRates
+        )
+
+        let stateTaxes = input.income.stateIncomes.map {
+            Self.stateTaxFor(
+                stateIncome: $0,
+                stateDeductions: input.stateDeductions,
+                stateCredits: input.stateCredits,
+                totalIncome: input.income.totalIncome,
+                taxRates: taxRates
+            )
+        }
+
+        let taxSummaries = Self.calculateTaxSummariesFor(
+            input: input,
+            federalTaxes: federalData.taxes,
+            stateTaxes: stateTaxes
+        )
+
+        return CalculatedTaxData(
+            inputData: input,
+            federalData: federalData,
+            stateTaxes: stateTaxes,
+            taxSummaries: taxSummaries
+        )
+    }
+
+    private static func federalTaxesFor(income: Income, federalDeductions: DeductionAmount, federalCredits: Double, taxRates: FederalTaxRates) -> FederalTaxData {
         let deductions = DeductionsFactory.calculateDeductionsForDeductionAmount(
             federalDeductions,
             standardDeduction: taxRates.standardDeductions
@@ -76,11 +109,11 @@ enum TaxFactory {
                               taxes: federalTaxes)
     }
 
-    static func stateTaxFor(stateIncome: StateIncome,
-                            stateDeductions: [TaxState: DeductionAmount],
-                            stateCredits: [TaxState: Double],
-                            totalIncome: Double,
-                            taxRates: RawTaxRatesYear) -> StateTax
+    private static func stateTaxFor(stateIncome: StateIncome,
+                                    stateDeductions: [TaxState: DeductionAmount],
+                                    stateCredits: [TaxState: Double],
+                                    totalIncome: Double,
+                                    taxRates: RawTaxRatesYear) -> StateTax
     {
         let deductions = DeductionsFactory.calculateStateDeductions(
             for: stateIncome.state,
@@ -111,7 +144,7 @@ enum TaxFactory {
                         stateAttributedIncome: stateIncome.attributableIncomeGivenFederalIncome(totalIncome))
     }
 
-    static func localTaxBracketForLocalTax(_ localTax: LocalTaxType, taxableIncome: NamedValue, taxRates: RawTaxRatesYear) -> LocalTax? {
+    private static func localTaxBracketForLocalTax(_ localTax: LocalTaxType, taxableIncome: NamedValue, taxRates: RawTaxRatesYear) -> LocalTax? {
         switch localTax {
             case .none:
                 return nil
@@ -127,5 +160,41 @@ enum TaxFactory {
                     taxableIncome: taxableIncome
                 )
         }
+    }
+
+    private static func calculateTaxSummariesFor(input: TaxDataInput, federalTaxes: [FederalTax], stateTaxes: [StateTax]) -> TaxSummaries {
+        let fedTaxes = federalTaxes.reduce(0.0) { partialResult, tax in
+            partialResult + tax.taxAmount
+        }
+
+        // federal
+        let federal = TaxSummary.fromTotalIncome(
+            taxes: fedTaxes - input.federalCredits,
+            withholdings: input.income.federalWithholdings + input.additionalFederalWithholding,
+            totalIncome: input.income.totalIncome
+        )
+
+        // states
+        var states: [TaxState: TaxSummary] = [:]
+        for tax in stateTaxes {
+            states[tax.state] = TaxSummary.fromTotalIncome(
+                taxes: tax.taxAmount - (input.stateCredits[tax.state] ?? 0.0),
+                withholdings: tax.withholdings,
+                totalIncome: input.income.totalIncome
+            )
+        }
+
+        // state summary
+        var stateTotal = TaxSummary(taxes: 0.0, withholdings: 0.0, effectiveTaxRate: 0.0)
+        for (_, summary) in states {
+            stateTotal = stateTotal + summary
+        }
+
+        return TaxSummaries(
+            federal: federal,
+            states: states,
+            stateTotal: stateTotal,
+            total: federal + stateTotal
+        )
     }
 }
