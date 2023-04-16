@@ -1,5 +1,5 @@
 //
-// TaxSummaryFormatter.swift
+// TaxSummaryTextFormatter.swift
 //
 
 import Foundation
@@ -14,12 +14,42 @@ extension String {
     }
 }
 
-struct TaxSummaryFormatter {
+struct TaxSummaryTextFormatter {
     let columnWidth: Int
     let separatorSize: (width: Int, shift: Int)
     var locale: Locale = .init(identifier: "en_US")
 
-    func federalSummary(income: Income, taxData: FederalTaxData, taxSummary: TaxSummary) -> String {
+    func taxDataSummary(_ td: CalculatedTaxData) -> String {
+        // output
+        var summary = ""
+        if td.title.count > 0 {
+            summary.appendLine(td.title.uppercased())
+        }
+        summary.appendLine(FormattingHelper.formattedTitle(taxdata: td).uppercased())
+        summary.appendLine(String(repeating: "=", count: summary.count))
+
+        // Federal
+        summary.append(federalSummary(income: td.income, taxData: td.federalData, taxSummary: td.taxSummaries.federal))
+
+        // States
+        summary.append(stateSummary(income: td.income, stateTaxes: td.stateTaxes, taxSummaries: td.taxSummaries.states))
+
+        // State Summary
+        if td.income.stateIncomes.count > 0 {
+            summary.appendTitle("State Summary (\(FormattingHelper.formattedStates(states: td.income.stateIncomes.map(\.state))))")
+            summary.append(formattedTaxSummary(td.taxSummaries.stateTotal))
+        }
+
+        // Summary
+        summary.appendTitle("Summary")
+        summary.appendLine(formattedCurrency("- Total Income:", td.income.totalIncome))
+        summary.appendLine()
+        summary.append(formattedTaxSummary(td.taxSummaries.total))
+
+        return summary
+    }
+
+    private func federalSummary(income: Income, taxData: FederalTaxData, taxSummary: TaxSummary) -> String {
         var summary = ""
 
         summary.appendTitle("Federal Taxes")
@@ -53,9 +83,9 @@ struct TaxSummaryFormatter {
         return summary
     }
 
-    func stateSummary(income: Income,
-                      stateTaxes: [StateTax],
-                      taxSummaries: [TaxState: TaxSummary]) -> String
+    private func stateSummary(income: Income,
+                              stateTaxes: [StateTax],
+                              taxSummaries: [TaxState: TaxSummary]) -> String
     {
         var summary = ""
         summary.appendTitle("State Taxes")
@@ -94,40 +124,10 @@ struct TaxSummaryFormatter {
 
         return summary
     }
-
-    func taxDataSummary(_ td: CalculatedTaxData) -> String {
-        // output
-        var summary = ""
-        if td.title.count > 0 {
-            summary.appendLine(td.title.uppercased())
-        }
-        summary.appendLine(FormattingHelper.formattedTitle(taxdata: td).uppercased())
-        summary.appendLine(String(repeating: "=", count: summary.count))
-
-        // Federal
-        summary.append(federalSummary(income: td.income, taxData: td.federalData, taxSummary: td.taxSummaries.federal))
-
-        // States
-        summary.append(stateSummary(income: td.income, stateTaxes: td.stateTaxes, taxSummaries: td.taxSummaries.states))
-
-        // State Summary
-        if td.income.stateIncomes.count > 0 {
-            summary.appendTitle("State Summary (\(FormattingHelper.formattedStates(states: td.income.stateIncomes.map(\.state))))")
-            summary.append(formattedTaxSummary(td.taxSummaries.stateTotal))
-        }
-
-        // Summary
-        summary.appendTitle("Summary")
-        summary.appendLine(formattedCurrency("- Total Income:", td.income.totalIncome))
-        summary.appendLine()
-        summary.append(formattedTaxSummary(td.taxSummaries.total))
-
-        return summary
-    }
 }
 
 // printing helpers
-private extension TaxSummaryFormatter {
+private extension TaxSummaryTextFormatter {
     func alignLeftRight(_ left: String, _ right: String, _ appendix: String = "", shift: Int = 0) -> String {
         let spacing = String(repeating: " ", count: max(1, columnWidth + shift - left.count - right.count))
         return "\(left)\(spacing)\(right) \(appendix)"
