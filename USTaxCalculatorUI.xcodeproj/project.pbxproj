@@ -415,9 +415,8 @@
 		7E572EFA282910B300DDB15E /* USTaxCalculator */ = {
 			isa = PBXGroup;
 			children = (
-				7E572F00282910B300DDB15E /* InputModels */,
-				7E572F07282910B300DDB15E /* Taxes */,
-				7E572F0B282910B300DDB15E /* TaxBrackets */,
+				7E58C75629EC690000392E33 /* Models */,
+				7E58C75529EC688500392E33 /* TaxCalculator */,
 				7E572F03282910B300DDB15E /* Formatter */,
 				28B4033729B93D6300E79F76 /* RawTaxRates */,
 			);
@@ -430,7 +429,6 @@
 				7E572F01282910B300DDB15E /* Income.swift */,
 				7E572F02282910B300DDB15E /* StateIncome.swift */,
 				7E266CF2282BE6D4005911D2 /* TaxDataInput.swift */,
-				7E58C75229EC5F1300392E33 /* IncomeAddition.swift */,
 			);
 			path = InputModels;
 			sourceTree = "<group>";
@@ -448,7 +446,6 @@
 			isa = PBXGroup;
 			children = (
 				7E572F09282910B300DDB15E /* Tax.swift */,
-				7E572F0A282910B300DDB15E /* TaxCalculator.swift */,
 				7E572F08282910B300DDB15E /* TaxSummaries.swift */,
 				7E572EFC282910B300DDB15E /* CalculatedTaxData.swift */,
 			);
@@ -460,9 +457,28 @@
 			children = (
 				7E572F0E282910B300DDB15E /* TaxBracket.swift */,
 				7E3C565A2832042B002272F3 /* TaxBracketGroup.swift */,
-				7E572F0D282910B300DDB15E /* TaxBracketGenerator.swift */,
 			);
 			path = TaxBrackets;
+			sourceTree = "<group>";
+		};
+		7E58C75529EC688500392E33 /* TaxCalculator */ = {
+			isa = PBXGroup;
+			children = (
+				7E572F0A282910B300DDB15E /* TaxCalculator.swift */,
+				7E572F0D282910B300DDB15E /* TaxBracketGenerator.swift */,
+				7E58C75229EC5F1300392E33 /* IncomeAddition.swift */,
+			);
+			path = TaxCalculator;
+			sourceTree = "<group>";
+		};
+		7E58C75629EC690000392E33 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				7E572F00282910B300DDB15E /* InputModels */,
+				7E572F07282910B300DDB15E /* Taxes */,
+				7E572F0B282910B300DDB15E /* TaxBrackets */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 		7E822CE42804515100096181 = {
