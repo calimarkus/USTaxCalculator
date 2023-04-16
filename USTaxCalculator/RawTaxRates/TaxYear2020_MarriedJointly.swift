@@ -17,22 +17,22 @@ enum TaxYear2020_MarriedJointly {
                 0.0: 0.1,
                 19750.0: 0.12,
                 80250.0: 0.22,
-                171050.0: 0.24,
-                326600.0: 0.32,
-                414700.0: 0.35,
-                622050.0: 0.37
+                171_050.0: 0.24,
+                326_600.0: 0.32,
+                414_700.0: 0.35,
+                622_050.0: 0.37,
             ]),
             // see https://www.bankrate.com/taxes/standard-tax-deduction-amounts/
             standardDeductions: 24800.0,
             // see https://www.nerdwallet.com/article/taxes/capital-gains-tax-rates
             // see https://www.unionbank.com/personal/financial-insights/investing/personal-investing/capital-gains-tax-rates-2021-and-how-to-minimize-them
-            longtermGainsRates: RawTaxRates(simple: [496600.0: 0.20, 80000.0: 0.15]),
+            longtermGainsRates: RawTaxRates(simple: [496_600.0: 0.20, 80000.0: 0.15]),
             // see https://www.irs.gov/individuals/net-investment-income-tax
-            netInvestmentIncomeRates: RawTaxRates(simple: [250000.0: 0.038]),
+            netInvestmentIncomeRates: RawTaxRates(simple: [250_000.0: 0.038]),
             // see https://www.indeed.com/hire/c/info/medicare-taxes-an-overview-for-employers
             basicMedicareIncomeRates: RawTaxRates(simple: [0.0: 0.0145]),
             // see https://www.healthline.com/health/medicare/additional-medicare-tax
-            additionalMedicareIncomeRates: RawTaxRates(progressive: [0.0: 0.0, 250000.0: 0.009])
+            additionalMedicareIncomeRates: RawTaxRates(progressive: [0.0: 0.0, 250_000.0: 0.009])
         )
     }
 
@@ -49,10 +49,10 @@ enum TaxYear2020_MarriedJointly {
                 42350.0: 0.04,
                 66842.0: 0.06,
                 92788.0: 0.08,
-                117268.0: 0.093,
-                599016.0: 0.103,
-                718814.0: 0.113,
-                1198024.0: 0.123
+                117_268.0: 0.093,
+                599_016.0: 0.103,
+                718_814.0: 0.113,
+                1_198_024.0: 0.123,
             ]),
             // see https://www.ftb.ca.gov/about-ftb/newsroom/tax-news/november-2020/standard-deductions-exemption-amounts-and-tax-rates-for-2020-tax-year.html
             standardDeductions: 9202.0
@@ -71,9 +71,9 @@ enum TaxYear2020_MarriedJointly {
                 23600.0: 0.0525,
                 27900.0: 0.059,
                 43000.0: 0.0609,
-                161550.0: 0.0641,
-                323200.0: 0.0685,
-                2155350.0: 0.0882
+                161_550.0: 0.0641,
+                323_200.0: 0.0685,
+                2_155_350.0: 0.0882,
             ]),
             // see https://www.tax.ny.gov/pit/file/standard_deductions.htm
             // see https://www.efile.com/new-york-tax-rates-forms-and-brackets/
@@ -91,9 +91,9 @@ enum TaxYear2020_MarriedJointly {
             // These year 2020 rates are approximated (based on 2021 nonprogressive and progressive 2020)
             RawTaxRates(simple: [
                 0.0: 0.0609,
-                161550.0: 0.0641,
-                323200.0: 0.0685,
-                2155350.0: 0.0882
+                161_550.0: 0.0641,
+                323_200.0: 0.0685,
+                2_155_350.0: 0.0882,
             ]),
             // see https://www.tax.ny.gov/pdf/current_forms/it/it201i.pdf#page=67
             // see https://answerconnect.cch.com/document/jyc0109013e2c83c2542d/state/explanations/new-york-city/nyc-tax-rates-blended-nyc-tax-rates
@@ -103,7 +103,7 @@ enum TaxYear2020_MarriedJointly {
                 0.0: 0.03078,
                 21600.0: 0.03762,
                 45000.0: 0.03819,
-                90000.0: 0.03876
+                90000.0: 0.03876,
             ])
         )
     }

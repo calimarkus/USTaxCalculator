@@ -8,8 +8,9 @@ struct BasicStateInfoEntryView<HeaderContent: View>: View {
     var header: HeaderContent
 
     init(stateIncome: Binding<StateIncome>,
-         @ViewBuilder headerContent: () -> HeaderContent) {
-        self._stateIncome = stateIncome
+         @ViewBuilder headerContent: () -> HeaderContent)
+    {
+        _stateIncome = stateIncome
         header = headerContent()
     }
 

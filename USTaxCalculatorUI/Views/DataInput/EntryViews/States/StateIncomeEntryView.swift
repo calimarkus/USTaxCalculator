@@ -12,9 +12,9 @@ struct StateIncomeEntryView: View {
                 HStack {
                     Text("Full Federal Amount")
                     #if os(macOS)
-                    Text("(matching W-2, Box 1)")
-                        .font(.footnote)
-                        .foregroundColor(.secondary)
+                        Text("(matching W-2, Box 1)")
+                            .font(.footnote)
+                            .foregroundColor(.secondary)
                     #endif
                 }.tag(IncomeAmount.fullFederal)
 

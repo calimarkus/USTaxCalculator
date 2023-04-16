@@ -97,18 +97,18 @@ enum TaxFactory {
 
     static func localTaxBracketForLocalTax(_ localTax: LocalTaxType, taxableIncome: NamedValue, taxRates: RawTaxRatesYear) -> LocalTax? {
         switch localTax {
-            case .none:
-                return nil
-            case let .city(city):
-                let localBracketGroup = TaxBracketGenerator.bracketGroupForRawTaxRates(taxRates.localIncomeRatesForCity(city, taxableIncome: taxableIncome.amount))
-                let bracket = localBracketGroup.matchingBracketFor(taxableIncome: taxableIncome.amount)
+        case .none:
+            return nil
+        case let .city(city):
+            let localBracketGroup = TaxBracketGenerator.bracketGroupForRawTaxRates(taxRates.localIncomeRatesForCity(city, taxableIncome: taxableIncome.amount))
+            let bracket = localBracketGroup.matchingBracketFor(taxableIncome: taxableIncome.amount)
 
-                return LocalTax(
-                    city: city,
-                    bracket: bracket,
-                    bracketGroup: localBracketGroup,
-                    taxableIncome: taxableIncome
-                )
+            return LocalTax(
+                city: city,
+                bracket: bracket,
+                bracketGroup: localBracketGroup,
+                taxableIncome: taxableIncome
+            )
         }
     }
 }

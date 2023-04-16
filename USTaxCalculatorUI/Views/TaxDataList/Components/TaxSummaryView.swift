@@ -21,7 +21,8 @@ struct TaxSummaryView: View {
         let paymentTitle = summary.outstandingPayment < 0 ? "Tax Refund" : "To Pay"
         SumView(
             title: title.count > 0 ? "\(paymentTitle) (\(title))" : paymentTitle,
-            amount: summary.outstandingPayment)
+            amount: summary.outstandingPayment
+        )
     }
 }
 

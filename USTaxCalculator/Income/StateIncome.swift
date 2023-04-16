@@ -27,7 +27,7 @@ enum IncomeAmount: Hashable, Codable {
 
 struct StateIncome: Codable, Equatable {
     /// The state or city for this income
-    var state: TaxState = TaxState.CA
+    var state: TaxState = .CA
 
     /// State Wages as listed on W-2, Box 16
     var wages: IncomeAmount = .fullFederal
@@ -45,15 +45,15 @@ struct StateIncome: Codable, Equatable {
 extension StateIncome {
     func incomeRateGivenFederalIncome(_ federalIncome: Double) -> Double {
         switch wages {
-            case .fullFederal: return 1.0
-            case let .partial(income): return income / federalIncome
+        case .fullFederal: return 1.0
+        case let .partial(income): return income / federalIncome
         }
     }
 
     func attributableIncomeGivenFederalIncome(_ federalIncome: Double) -> Double {
         switch wages {
-            case .fullFederal: return federalIncome
-            case let .partial(income): return income
+        case .fullFederal: return federalIncome
+        case let .partial(income): return income
         }
     }
 }
@@ -61,14 +61,14 @@ extension StateIncome {
 private extension IncomeAmount {
     func mergeWith(_ rhs: IncomeAmount) throws -> IncomeAmount {
         switch self {
-            case .fullFederal: switch rhs {
-                    case .fullFederal: return .fullFederal
-                    case .partial: throw StateIncomeError.illegalIncomeAmountAddition
-                }
-            case let .partial(incomeLhs): switch rhs {
-                    case .fullFederal: throw StateIncomeError.illegalIncomeAmountAddition
-                    case let .partial(incomeRhs): return .partial(incomeLhs + incomeRhs)
-                }
+        case .fullFederal: switch rhs {
+            case .fullFederal: return .fullFederal
+            case .partial: throw StateIncomeError.illegalIncomeAmountAddition
+            }
+        case let .partial(incomeLhs): switch rhs {
+            case .fullFederal: throw StateIncomeError.illegalIncomeAmountAddition
+            case let .partial(incomeRhs): return .partial(incomeLhs + incomeRhs)
+            }
         }
     }
 }
@@ -78,12 +78,13 @@ extension StateIncome {
         guard state == rhs.state, localTax == rhs.localTax else {
             throw StateIncomeError.illegalStateIncomeAddition
         }
-        return StateIncome(
+        return try StateIncome(
             state: state,
-            wages: try wages.mergeWith(rhs.wages),
+            wages: wages.mergeWith(rhs.wages),
             withholdings: withholdings + rhs.withholdings,
             additionalStateIncome: additionalStateIncome + rhs.additionalStateIncome,
-            localTax: localTax)
+            localTax: localTax
+        )
     }
 
     static func merge(_ lhs: [StateIncome], _ rhs: [StateIncome]) throws -> [StateIncome] {

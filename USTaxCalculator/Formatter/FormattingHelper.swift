@@ -16,11 +16,11 @@ struct FormattingHelper {
                               states: taxDataInput.income.stateIncomes.map { $0.state })
     }
 
-    private static func formattedTitle(taxyear:TaxYear, filingType:FilingType, states:[TaxState]) -> String {
+    private static func formattedTitle(taxyear: TaxYear, filingType: FilingType, states: [TaxState]) -> String {
         return "Year \(taxyear.rawValue), \(filingType.rawValue), \(formattedStates(states: states))"
     }
 
-    static func formattedStates(states:[TaxState]) -> String {
+    static func formattedStates(states: [TaxState]) -> String {
         return states.map { "\($0)" }.joined(separator: "+")
     }
 

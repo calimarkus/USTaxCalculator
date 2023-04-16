@@ -12,10 +12,10 @@ extension TaxBracket: Identifiable {
 extension TaxBracket {
     var isProgressive: Bool {
         switch type {
-            case .progressive:
-                return true
-            case .basic:
-                return false
+        case .progressive:
+            return true
+        case .basic:
+            return false
         }
     }
 }
@@ -145,7 +145,7 @@ extension BracketTableView {
             if isProgressive {
                 HStack(spacing: 0.0) {
                     Group {
-                        if case .progressive(let amount) = bracket.type {
+                        if case let .progressive(amount) = bracket.type {
                             Text("\(FormattingHelper.formatCurrency(amount))")
                         } else {
                             Text("\(FormattingHelper.formatCurrency(0.0))")
@@ -160,12 +160,12 @@ extension BracketTableView {
                 Text("\(FormattingHelper.formatPercentage(bracket.rate))")
 
                 #if os(macOS)
-                if bracket.isProgressive && bracket.startingAt > 0.0 {
-                    Text("of amount over \(FormattingHelper.formatCurrency(bracket.startingAt))")
-                        .font(.subheadline)
-                        .foregroundColor(.secondary)
-                        .padding(.leading, 6.0)
-                }
+                    if bracket.isProgressive, bracket.startingAt > 0.0 {
+                        Text("of amount over \(FormattingHelper.formatCurrency(bracket.startingAt))")
+                            .font(.subheadline)
+                            .foregroundColor(.secondary)
+                            .padding(.leading, 6.0)
+                    }
                 #endif
 
                 Spacer()
@@ -188,7 +188,7 @@ struct BracketInfoView_Previews: PreviewProvider {
         BracketInfoView(
             bracketGroup: longtermGainsBrackets,
             activeBracket: longtermGainsBrackets.sortedBrackets[1],
-            taxableIncome: NamedValue(amount: 246000, name: "Preview Income")
+            taxableIncome: NamedValue(amount: 246_000, name: "Preview Income")
         )
 
         BracketInfoView(

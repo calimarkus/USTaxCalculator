@@ -27,7 +27,7 @@ struct RawTaxRates {
         let rates = startingAtToTaxRateMap.map { startingAt, rate in
             RawTaxRate(startingAt: startingAt, rate: rate)
         }
-        self.sortedRates = rates.sorted { $0.startingAt < $1.startingAt }
+        sortedRates = rates.sorted { $0.startingAt < $1.startingAt }
         self.type = type
     }
 }

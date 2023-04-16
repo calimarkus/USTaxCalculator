@@ -18,21 +18,21 @@ enum TaxYear2020_Single {
                 9875.0: 0.12,
                 40125.0: 0.22,
                 85525.0: 0.24,
-                163300.0: 0.32,
-                207350.0: 0.35,
-                518400.0: 0.37
+                163_300.0: 0.32,
+                207_350.0: 0.35,
+                518_400.0: 0.37,
             ]),
             // see https://www.bankrate.com/taxes/standard-tax-deduction-amounts/
             standardDeductions: 12400.0,
             // see https://www.nerdwallet.com/article/taxes/capital-gains-tax-rates
             // see https://www.unionbank.com/personal/financial-insights/investing/personal-investing/capital-gains-tax-rates-2021-and-how-to-minimize-them
-            longtermGainsRates: RawTaxRates(simple: [441450.0: 0.20, 40000.0: 0.15]),
+            longtermGainsRates: RawTaxRates(simple: [441_450.0: 0.20, 40000.0: 0.15]),
             // see https://www.irs.gov/individuals/net-investment-income-tax
-            netInvestmentIncomeRates: RawTaxRates(simple: [200000.0: 0.038]),
+            netInvestmentIncomeRates: RawTaxRates(simple: [200_000.0: 0.038]),
             // see https://www.indeed.com/hire/c/info/medicare-taxes-an-overview-for-employers
             basicMedicareIncomeRates: RawTaxRates(simple: [0.0: 0.0145]),
             // see https://www.healthline.com/health/medicare/additional-medicare-tax
-            additionalMedicareIncomeRates: RawTaxRates(progressive: [0.0: 0.0, 200000.0: 0.009])
+            additionalMedicareIncomeRates: RawTaxRates(progressive: [0.0: 0.0, 200_000.0: 0.009])
         )
     }
 
@@ -50,9 +50,9 @@ enum TaxYear2020_Single {
                 33421.0: 0.06,
                 46394.0: 0.08,
                 58634.0: 0.093,
-                299508.0: 0.103,
-                359407.0: 0.113,
-                599012.0: 0.123
+                299_508.0: 0.103,
+                359_407.0: 0.113,
+                599_012.0: 0.123,
             ]),
             // see https://www.ftb.ca.gov/about-ftb/newsroom/tax-news/november-2020/standard-deductions-exemption-amounts-and-tax-rates-for-2020-tax-year.html
             standardDeductions: 4601.0
@@ -72,8 +72,8 @@ enum TaxYear2020_Single {
                 13900.0: 0.059,
                 21400.0: 0.0609,
                 80650.0: 0.0641,
-                215400.0: 0.0685,
-                1077550.0: 0.0882
+                215_400.0: 0.0685,
+                1_077_550.0: 0.0882,
             ]),
             // see https://www.tax.ny.gov/pit/file/standard_deductions.htm
             // see https://www.efile.com/new-york-tax-rates-forms-and-brackets/
@@ -92,8 +92,8 @@ enum TaxYear2020_Single {
             RawTaxRates(simple: [
                 0.0: 0.0609,
                 80650.0: 0.0641,
-                215400.0: 0.0685,
-                1077550.0: 0.0882
+                215_400.0: 0.0685,
+                1_077_550.0: 0.0882,
             ]),
             // see https://www.tax.ny.gov/pdf/current_forms/it/it201i.pdf#page=67
             // see https://answerconnect.cch.com/document/jyc0109013e2c83c2542d/state/explanations/new-york-city/nyc-tax-rates-blended-nyc-tax-rates
@@ -103,7 +103,7 @@ enum TaxYear2020_Single {
                 0.0: 0.03078,
                 12000.0: 0.03762,
                 25000.0: 0.03819,
-                50000.0: 0.03876
+                50000.0: 0.03876,
             ])
         )
     }

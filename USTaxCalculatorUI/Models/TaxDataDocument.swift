@@ -14,7 +14,7 @@ enum FloatEncodings {
     static let nan = "NaN"
 }
 
-struct TaxDataDocument : FileDocument {
+struct TaxDataDocument: FileDocument {
     var taxDataInput: TaxDataInput = .emptyInput()
 
     static var readableContentTypes: [UTType] {
@@ -31,10 +31,10 @@ struct TaxDataDocument : FileDocument {
         decoder.nonConformingFloatDecodingStrategy = .convertFromString(positiveInfinity: FloatEncodings.positiveInfinity,
                                                                         negativeInfinity: FloatEncodings.negativeInfinity,
                                                                         nan: FloatEncodings.nan)
-        self.taxDataInput = try decoder.decode(TaxDataInput.self, from: data)
+        taxDataInput = try decoder.decode(TaxDataInput.self, from: data)
     }
 
-    func fileWrapper(configuration: WriteConfiguration) throws -> FileWrapper {
+    func fileWrapper(configuration _: WriteConfiguration) throws -> FileWrapper {
         let encoder = JSONEncoder()
         encoder.outputFormatting = .prettyPrinted
         encoder.nonConformingFloatEncodingStrategy = .convertToString(positiveInfinity: FloatEncodings.positiveInfinity,
@@ -44,5 +44,4 @@ struct TaxDataDocument : FileDocument {
         let fileWrapper = FileWrapper(regularFileWithContents: encodedData)
         return fileWrapper
     }
-    
 }

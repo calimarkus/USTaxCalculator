@@ -4,7 +4,7 @@
 import SwiftUI
 
 struct AddStateButton: View {
-    let onAdd: () -> ()
+    let onAdd: () -> Void
 
     var body: some View {
         Button {

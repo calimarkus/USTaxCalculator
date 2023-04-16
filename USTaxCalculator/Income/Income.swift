@@ -37,7 +37,7 @@ extension Income {
 
 extension Income {
     static func + (lhs: Income, rhs: Income) throws -> Income {
-        return Income(
+        return try Income(
             wages: lhs.wages + rhs.wages,
             federalWithholdings: lhs.federalWithholdings + rhs.federalWithholdings,
             medicareWages: lhs.medicareWages + rhs.medicareWages,
@@ -45,6 +45,7 @@ extension Income {
             dividendsAndInterests: lhs.dividendsAndInterests + rhs.dividendsAndInterests,
             capitalGains: lhs.capitalGains + rhs.capitalGains,
             longtermCapitalGains: lhs.longtermCapitalGains + rhs.longtermCapitalGains,
-            stateIncomes: try StateIncome.merge(lhs.stateIncomes, rhs.stateIncomes))
+            stateIncomes: StateIncome.merge(lhs.stateIncomes, rhs.stateIncomes)
+        )
     }
 }

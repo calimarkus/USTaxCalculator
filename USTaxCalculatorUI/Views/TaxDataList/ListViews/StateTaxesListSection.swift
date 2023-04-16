@@ -36,7 +36,8 @@ struct StateTaxesListSection: View {
                     CurrencyView(CurrencyViewConfig(
                         title: "State Attributed Income",
                         amount: stateTax.stateAttributedIncome,
-                        showSeparator: false))
+                        showSeparator: false
+                    ))
 
                     let incomeRateText = FormattingHelper.formatPercentage(stateTax.incomeRate)
                     let info = "\(FormattingHelper.formatCurrency(stateTax.stateAttributedIncome)) / \(FormattingHelper.formatCurrency(totalIncome)) = \(incomeRateText)"
@@ -50,22 +51,26 @@ struct StateTaxesListSection: View {
                         title: "State Tax",
                         subtitle: "(\(FormattingHelper.formattedBracketInfo(stateTax.bracket)))",
                         amount: stateTax.stateOnlyTaxAmount,
-                        showSeparator: hasIncomeRate),
+                        showSeparator: hasIncomeRate
+                    ),
                     explanation:
                     .bracket(bracketGroup: stateTax.bracketGroup,
                              activeBracket: stateTax.bracket,
-                             taxableIncome: stateTax.taxableIncome))
+                             taxableIncome: stateTax.taxableIncome)
+                )
 
                 if let localTax = stateTax.localTax {
                     ExplainableCurrencyView(
                         CurrencyViewConfig(
                             title: "Local Tax (\(localTax.city))",
                             subtitle: "(\(FormattingHelper.formattedBracketInfo(localTax.bracket)))",
-                            amount: localTax.taxAmount),
+                            amount: localTax.taxAmount
+                        ),
                         explanation:
-                                .bracket(bracketGroup: localTax.bracketGroup,
-                                         activeBracket: localTax.bracket,
-                                         taxableIncome: localTax.taxableIncome))
+                        .bracket(bracketGroup: localTax.bracketGroup,
+                                 activeBracket: localTax.bracket,
+                                 taxableIncome: localTax.taxableIncome)
+                    )
                 }
 
                 if stateTax.credits > 0.0 {

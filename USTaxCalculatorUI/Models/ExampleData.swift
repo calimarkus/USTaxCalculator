@@ -8,9 +8,9 @@ enum ExampleData {
             filingType: .marriedJointly,
             taxYear: .y2021,
             income: Income(
-                wages: 314000,
+                wages: 314_000,
                 federalWithholdings: 24000,
-                medicareWages: 389000,
+                medicareWages: 389_000,
                 medicareWithholdings: 5641,
                 dividendsAndInterests: 4500,
                 capitalGains: 20000,
@@ -20,15 +20,19 @@ enum ExampleData {
                         state: .NY,
                         wages: .fullFederal,
                         withholdings: 12000,
-                        localTax: .city(.NYC)),
+                        localTax: .city(.NYC)
+                    ),
                     StateIncome(
                         state: .CA,
                         wages: .partial(35000),
-                        withholdings: 2500),
-                ]),
+                        withholdings: 2500
+                    ),
+                ]
+            ),
             federalDeductions: DeductionAmount.standard(),
             federalCredits: 500,
-            stateCredits: [.NY: 3500, .CA: 100]))
+            stateCredits: [.NY: 3500, .CA: 100]
+        ))
     }
 
     static func exampleTaxDataJackHouston_21() -> CalculatedTaxData {
@@ -37,9 +41,9 @@ enum ExampleData {
             filingType: .single,
             taxYear: .y2021,
             income: Income(
-                wages: 182000,
+                wages: 182_000,
                 federalWithholdings: 18720,
-                medicareWages: 191300,
+                medicareWages: 191_300,
                 medicareWithholdings: 2774,
                 dividendsAndInterests: 2500,
                 capitalGains: 32190,
@@ -49,10 +53,13 @@ enum ExampleData {
                         state: .NY,
                         wages: .fullFederal,
                         withholdings: 9800,
-                        localTax: .city(.NYC)),
-                ]),
+                        localTax: .city(.NYC)
+                    ),
+                ]
+            ),
             federalDeductions: DeductionAmount.standard(),
-            federalCredits: 730))
+            federalCredits: 730
+        ))
     }
 
     static func exampleTaxDataJackHouston_20() -> CalculatedTaxData {
@@ -60,9 +67,9 @@ enum ExampleData {
             filingType: .single,
             taxYear: .y2020,
             income: Income(
-                wages: 133930,
+                wages: 133_930,
                 federalWithholdings: 11227,
-                medicareWages: 140626,
+                medicareWages: 140_626,
                 medicareWithholdings: 2039,
                 dividendsAndInterests: 3320,
                 capitalGains: 42110,
@@ -71,10 +78,13 @@ enum ExampleData {
                     StateIncome(
                         state: .CA,
                         wages: .fullFederal,
-                        withholdings: 4400),
-                ]),
+                        withholdings: 4400
+                    ),
+                ]
+            ),
             federalDeductions: DeductionAmount.standard(),
-            stateCredits: [.CA: 250]))
+            stateCredits: [.CA: 250]
+        ))
     }
 
     static func exampleTaxDataSimple_20() -> CalculatedTaxData {
@@ -90,8 +100,11 @@ enum ExampleData {
                 stateIncomes: [
                     StateIncome(
                         state: .CA,
-                        wages: .fullFederal),
-                ]),
-            federalDeductions: DeductionAmount.standard()))
+                        wages: .fullFederal
+                    ),
+                ]
+            ),
+            federalDeductions: DeductionAmount.standard()
+        ))
     }
 }

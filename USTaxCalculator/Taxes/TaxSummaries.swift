@@ -20,7 +20,7 @@ struct TaxSummary: Equatable {
                    effectiveTaxRate: taxes / totalIncome)
     }
 
-    static func +(lhs: TaxSummary, rhs: TaxSummary) -> TaxSummary {
+    static func + (lhs: TaxSummary, rhs: TaxSummary) -> TaxSummary {
         return TaxSummary(taxes: lhs.taxes + rhs.taxes,
                           withholdings: lhs.withholdings + rhs.withholdings,
                           effectiveTaxRate: lhs.effectiveTaxRate + rhs.effectiveTaxRate)

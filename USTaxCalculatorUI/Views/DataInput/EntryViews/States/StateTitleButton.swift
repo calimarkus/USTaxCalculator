@@ -6,7 +6,7 @@ import SwiftUI
 struct StateTitleButton: View {
     @Binding var stateIncome: StateIncome
     let showRemoveButton: Bool
-    let onRemove: () -> ()
+    let onRemove: () -> Void
 
     var body: some View {
         let buttonTitle = "\(stateIncome.state) Taxes"

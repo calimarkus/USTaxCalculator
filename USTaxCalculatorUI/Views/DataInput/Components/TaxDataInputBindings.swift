@@ -3,8 +3,7 @@
 
 import SwiftUI
 
-extension TaxDataInput
-{
+extension TaxDataInput {
     static func stateDeductionsBinding(_ stateDeductions: Binding<[TaxState: DeductionAmount]>,
                                        for state: TaxState) -> Binding<DeductionAmount>
     {

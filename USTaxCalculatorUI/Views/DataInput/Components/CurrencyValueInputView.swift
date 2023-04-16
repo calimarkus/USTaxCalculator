@@ -10,37 +10,37 @@ struct CurrencyValueInputView: View {
 
     var body: some View {
         #if os(macOS)
-        HStack(spacing: 0.0) {
-            VStack(alignment: .trailing) {
-                Text(caption ?? "")
-                if let subtitle = subtitle {
-                    Text(subtitle)
-                        .font(.footnote)
-                        .foregroundColor(.secondary)
-                }
-            }
-            TextField("", value: $amount, format: .currency(code: "USD"))
-                .font(.system(.body, design: .monospaced))
-        }
-        #elseif os(iOS)
-        VStack(alignment: .leading, spacing: 0.0) {
-            if let caption = caption, caption.count > 0 {
-                VStack(alignment: .leading) {
-                    Text(caption)
-
+            HStack(spacing: 0.0) {
+                VStack(alignment: .trailing) {
+                    Text(caption ?? "")
                     if let subtitle = subtitle {
                         Text(subtitle)
                             .font(.footnote)
                             .foregroundColor(.secondary)
                     }
                 }
-                .padding(.top, 5.0)
+                TextField("", value: $amount, format: .currency(code: "USD"))
+                    .font(.system(.body, design: .monospaced))
             }
-            TextField("", value: $amount, format: .currency(code: "USD"))
-                .font(.system(.body, design: .monospaced))
-                .foregroundColor(.primary).opacity(0.8)
-                .padding(.top, 7.0)
-        }
+        #elseif os(iOS)
+            VStack(alignment: .leading, spacing: 0.0) {
+                if let caption = caption, caption.count > 0 {
+                    VStack(alignment: .leading) {
+                        Text(caption)
+
+                        if let subtitle = subtitle {
+                            Text(subtitle)
+                                .font(.footnote)
+                                .foregroundColor(.secondary)
+                        }
+                    }
+                    .padding(.top, 5.0)
+                }
+                TextField("", value: $amount, format: .currency(code: "USD"))
+                    .font(.system(.body, design: .monospaced))
+                    .foregroundColor(.primary).opacity(0.8)
+                    .padding(.top, 7.0)
+            }
         #endif
     }
 }

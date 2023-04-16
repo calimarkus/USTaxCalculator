@@ -14,7 +14,8 @@ struct AdditionView: View {
             amount: amount,
             showPlusMinus: true,
             showSeparator: showSeparator,
-            isSecondaryLabel: true))
+            isSecondaryLabel: true
+        ))
     }
 }
 
@@ -30,7 +31,8 @@ struct SumView: View {
             subtitle: subtitle,
             amount: amount,
             showSeparator: showSeparator,
-            boldValue: true))
+            boldValue: true
+        ))
     }
 }
 
@@ -91,7 +93,8 @@ struct CurrencyView: View {
         LabeledValueView(title: config.titleText,
                          subtitle: config.subtitle,
                          showSeparator: config.showSeparator,
-                         isSecondaryLabel: config.isSecondaryLabel) {
+                         isSecondaryLabel: config.isSecondaryLabel)
+        {
             HStack {
                 CurrencyViewText(config)
                 Spacer().frame(width: ExplainableColumnSize.width)
@@ -119,12 +122,12 @@ struct ExplainableCurrencyView: View {
         self.config = config
 
         switch explanation {
-            case let .text(text):
-                self.infoText = text
-            case let .bracket(bracketGroup, activeBracket, taxableIncome):
-                self.infoBracketGroup = bracketGroup
-                self.activeBracket = activeBracket
-                self.taxableIncome = taxableIncome
+        case let .text(text):
+            infoText = text
+        case let .bracket(bracketGroup, activeBracket, taxableIncome):
+            infoBracketGroup = bracketGroup
+            self.activeBracket = activeBracket
+            self.taxableIncome = taxableIncome
         }
     }
 
@@ -132,7 +135,8 @@ struct ExplainableCurrencyView: View {
         LabeledValueView(title: config.titleText,
                          subtitle: config.subtitle,
                          showSeparator: config.showSeparator,
-                         isSecondaryLabel: config.isSecondaryLabel) {
+                         isSecondaryLabel: config.isSecondaryLabel)
+        {
             ExplainableView {
                 CurrencyViewText(config)
             } infoContent: {
@@ -163,7 +167,8 @@ struct LabeledExplainableValueView: View {
         LabeledValueView(title: titleText,
                          subtitle: "",
                          showSeparator: showSeparator,
-                         isSecondaryLabel: false) {
+                         isSecondaryLabel: false)
+        {
             ExplainableView {
                 Text(valueText)
                     .font(.system(.body, design: .monospaced))
@@ -213,11 +218,11 @@ struct LabeledValueView<Content: View>: View {
 
             HStack {
                 #if os(macOS)
-                titleLabel()
-                #elseif os(iOS)
-                VStack(alignment: .leading) {
                     titleLabel()
-                }
+                #elseif os(iOS)
+                    VStack(alignment: .leading) {
+                        titleLabel()
+                    }
                 #endif
 
                 Spacer(minLength: 20)
@@ -247,7 +252,8 @@ struct CurrencyView_Previews: PreviewProvider {
         TaxListGroupView {
             ExplainableCurrencyView(
                 CurrencyViewConfig(title: "Alpha", amount: 123.53, showSeparator: false),
-                explanation: CurrencyExplanation.text(text: "info"))
+                explanation: CurrencyExplanation.text(text: "info")
+            )
             AdditionView(title: "Beta", amount: 25.25)
             AdditionView(title: "Gamma", amount: -12.23)
             SumView(title: "Total", amount: 123.53 + 25.25)

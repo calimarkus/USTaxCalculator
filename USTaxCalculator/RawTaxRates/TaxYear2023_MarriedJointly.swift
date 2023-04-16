@@ -17,10 +17,10 @@ enum TaxYear2023_MarriedJointly {
                 0.0: 0.1,
                 22001.0: 0.12,
                 89451.0: 0.22,
-                190751.0: 0.24,
-                364201.0: 0.32,
-                462501.0: 0.35,
-                693751.0: 0.37
+                190_751.0: 0.24,
+                364_201.0: 0.32,
+                462_501.0: 0.35,
+                693_751.0: 0.37,
             ]),
             // see https://www.bankrate.com/taxes/standard-tax-deduction-amounts/
             standardDeductions: 0.0,
@@ -28,11 +28,11 @@ enum TaxYear2023_MarriedJointly {
             // see https://www.unionbank.com/personal/financial-insights/investing/personal-investing/capital-gains-tax-rates-2021-and-how-to-minimize-them
             longtermGainsRates: RawTaxRates(simple: [:]),
             // see https://www.irs.gov/individuals/net-investment-income-tax
-            netInvestmentIncomeRates: RawTaxRates(simple: [250000.0: 0.038]),
+            netInvestmentIncomeRates: RawTaxRates(simple: [250_000.0: 0.038]),
             // see https://www.indeed.com/hire/c/info/medicare-taxes-an-overview-for-employers
             basicMedicareIncomeRates: RawTaxRates(simple: [0.0: 0.0145]),
             // see https://www.healthline.com/health/medicare/additional-medicare-tax
-            additionalMedicareIncomeRates: RawTaxRates(progressive: [0.0: 0.0, 250000.0: 0.009])
+            additionalMedicareIncomeRates: RawTaxRates(progressive: [0.0: 0.0, 250_000.0: 0.009])
         )
     }
 
@@ -64,7 +64,7 @@ enum TaxYear2023_MarriedJointly {
                 0.0: 0.03078,
                 21600.0: 0.03762,
                 45000.0: 0.03819,
-                90000.0: 0.03876
+                90000.0: 0.03876,
             ])
         )
     }

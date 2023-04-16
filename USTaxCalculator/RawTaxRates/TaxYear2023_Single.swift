@@ -18,9 +18,9 @@ enum TaxYear2023_Single {
                 11001.0: 0.12,
                 44726.0: 0.22,
                 95376.0: 0.24,
-                182101.0: 0.32,
-                231251.0: 0.35,
-                578126.0: 0.37
+                182_101.0: 0.32,
+                231_251.0: 0.35,
+                578_126.0: 0.37,
             ]),
             // see https://www.bankrate.com/taxes/standard-tax-deduction-amounts/
             standardDeductions: 0.0, // TBD
@@ -28,11 +28,11 @@ enum TaxYear2023_Single {
             // see https://www.unionbank.com/personal/financial-insights/investing/personal-investing/capital-gains-tax-rates-2021-and-how-to-minimize-them
             longtermGainsRates: RawTaxRates(simple: [:]),
             // see https://www.irs.gov/individuals/net-investment-income-tax
-            netInvestmentIncomeRates: RawTaxRates(simple: [200000.0: 0.038]),
+            netInvestmentIncomeRates: RawTaxRates(simple: [200_000.0: 0.038]),
             // see https://www.indeed.com/hire/c/info/medicare-taxes-an-overview-for-employers
             basicMedicareIncomeRates: RawTaxRates(simple: [0.0: 0.0145]),
             // see https://www.healthline.com/health/medicare/additional-medicare-tax
-            additionalMedicareIncomeRates: RawTaxRates(progressive: [0.0: 0.0, 200000.0: 0.009])
+            additionalMedicareIncomeRates: RawTaxRates(progressive: [0.0: 0.0, 200_000.0: 0.009])
         )
     }
 
@@ -64,7 +64,7 @@ enum TaxYear2023_Single {
                 0.0: 0.03078,
                 12000.0: 0.03762,
                 25000.0: 0.03819,
-                50000.0: 0.03876
+                50000.0: 0.03876,
             ])
         )
     }
