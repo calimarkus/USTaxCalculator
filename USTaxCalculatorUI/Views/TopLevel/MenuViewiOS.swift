@@ -18,13 +18,13 @@ struct MenuViewiOS: View {
                             HStack {
                                 Image(systemName: "dollarsign.circle.fill")
                                 VStack(alignment: .leading) {
-                                    if taxdata.title.count > 0 {
-                                        Text(taxdata.title)
-                                        Text(FormattingHelper.formattedTitle(taxdata: taxdata))
+                                    if let subtitle = taxdata.formattedSubtitle {
+                                        Text(taxdata.formattedTitle)
+                                        Text(subtitle)
                                             .font(.footnote)
                                             .foregroundColor(.secondary)
                                     } else {
-                                        Text(FormattingHelper.formattedTitle(taxdata: taxdata))
+                                        Text(taxdata.formattedTitle)
                                     }
                                 }
                             }
@@ -55,7 +55,7 @@ struct MenuViewiOS: View {
             .navigationDestination(for: NavigationTarget.self) { target in
                 if !target.isEditing {
                     TaxDataListView(appState: appState, taxdata: target.taxdata)
-                        .navigationTitle(target.taxdata.formattedTitle())
+                        .navigationTitle(target.taxdata.formattedTitle)
                         .navigationBarTitleDisplayMode(.inline)
                         .toolbar {
                             ToolbarItem {
@@ -70,7 +70,7 @@ struct MenuViewiOS: View {
                             navPath = [NavigationTarget(taxdata: data)]
                         }
                     }
-                    .navigationTitle(target.taxdata.formattedTitle())
+                    .navigationTitle(target.taxdata.formattedTitle)
                     .navigationBarTitleDisplayMode(.inline)
                     .navigationBarBackButtonHidden()
                 }

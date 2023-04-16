@@ -33,8 +33,4 @@ struct CalculatedTaxData: Identifiable, Hashable {
     func hash(into hasher: inout Hasher) {
         hasher.combine(id)
     }
-
-    func formattedTitle() -> String {
-        title.count > 0 ? title : FormattingHelper.formattedTitle(taxdata: self)
-    }
 }

@@ -4,20 +4,28 @@
 
 import Foundation
 
-struct FormattingHelper {
-    static func formattedTitle(taxdata: CalculatedTaxData) -> String {
-        formattedTitle(taxyear: taxdata.taxYear,
-                       filingType: taxdata.filingType,
-                       states: taxdata.stateTaxes.map(\.state))
+extension CalculatedTaxData {
+    var formattedTitle: String {
+        title.count > 0 ? title : infoTitle
     }
 
-    static func formattedTitle(taxDataInput: TaxDataInput) -> String {
-        formattedTitle(taxyear: taxDataInput.taxYear,
-                       filingType: taxDataInput.filingType,
-                       states: taxDataInput.income.stateIncomes.map(\.state))
+    var formattedSubtitle: String? {
+        title.count > 0 ? infoTitle : nil
     }
 
-    private static func formattedTitle(taxyear: TaxYear, filingType: FilingType, states: [TaxState]) -> String {
+    private var infoTitle: String {
+        FormattingHelper.formattedTaxYear(taxYear, filingType, states: stateTaxes.map(\.state))
+    }
+}
+
+extension TaxDataInput {
+    var formattedTitle: String {
+        FormattingHelper.formattedTaxYear(taxYear, filingType, states: income.stateIncomes.map(\.state))
+    }
+}
+
+enum FormattingHelper {
+    fileprivate static func formattedTaxYear(_ taxyear: TaxYear, _ filingType: FilingType, states: [TaxState]) -> String {
         "Year \(taxyear.rawValue), \(filingType.rawValue), \(formattedStates(states: states))"
     }
 

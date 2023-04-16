@@ -22,10 +22,10 @@ struct TaxSummaryTextFormatter {
     func taxDataSummary(_ td: CalculatedTaxData) -> String {
         // output
         var summary = ""
-        if td.title.count > 0 {
-            summary.appendLine(td.title.uppercased())
+        summary.appendLine(td.formattedTitle.uppercased())
+        if let subtitle = td.formattedSubtitle {
+            summary.appendLine(subtitle.uppercased())
         }
-        summary.appendLine(FormattingHelper.formattedTitle(taxdata: td).uppercased())
         summary.appendLine(String(repeating: "=", count: summary.count))
 
         // Federal
