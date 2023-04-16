@@ -1,10 +1,11 @@
 //
-// TaxFactory.swift
+// TaxCalculator.swift
 //
 
-enum TaxFactory {
-    static func calculateTaxesFor(input: TaxDataInput) -> CalculatedTaxData {
+enum TaxCalculator {
+    static func calculateTaxesForInput(_ input: TaxDataInput) -> CalculatedTaxData {
         let taxRates = RawTaxRatesYear.taxRatesYearFor(input.taxYear, input.filingType)
+
         let federalData = Self.federalTaxesFor(
             income: input.income,
             federalDeductions: input.federalDeductions,
@@ -12,9 +13,9 @@ enum TaxFactory {
             taxRates: taxRates.federalRates
         )
 
-        let stateTaxes = input.income.stateIncomes.map {
+        let stateTaxes = input.income.stateIncomes.map { stateIncome in
             Self.stateTaxFor(
-                stateIncome: $0,
+                stateIncome: stateIncome,
                 stateDeductions: input.stateDeductions,
                 stateCredits: input.stateCredits,
                 totalIncome: input.income.totalIncome,
@@ -22,7 +23,7 @@ enum TaxFactory {
             )
         }
 
-        let taxSummaries = Self.calculateTaxSummariesFor(
+        let taxSummaries = Self.taxSummariesFor(
             input: input,
             federalTaxes: federalData.taxes,
             stateTaxes: stateTaxes
@@ -162,7 +163,7 @@ enum TaxFactory {
         }
     }
 
-    private static func calculateTaxSummariesFor(input: TaxDataInput, federalTaxes: [FederalTax], stateTaxes: [StateTax]) -> TaxSummaries {
+    private static func taxSummariesFor(input: TaxDataInput, federalTaxes: [FederalTax], stateTaxes: [StateTax]) -> TaxSummaries {
         let fedTaxes = federalTaxes.reduce(0.0) { partialResult, tax in
             partialResult + tax.taxAmount
         }
