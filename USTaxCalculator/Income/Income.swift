@@ -35,18 +35,3 @@ extension Income {
     var namedTotalCapitalGains: NamedValue { NamedValue(amount: totalCapitalGains, name: "Total Capital Gains") }
     var namedLongtermCapitalGains: NamedValue { NamedValue(amount: longtermCapitalGains, name: "Longterm Capital Gains") }
 }
-
-extension Income {
-    static func + (lhs: Income, rhs: Income) throws -> Income {
-        try Income(
-            wages: lhs.wages + rhs.wages,
-            federalWithholdings: lhs.federalWithholdings + rhs.federalWithholdings,
-            medicareWages: lhs.medicareWages + rhs.medicareWages,
-            medicareWithholdings: lhs.medicareWithholdings + rhs.medicareWithholdings,
-            dividendsAndInterests: lhs.dividendsAndInterests + rhs.dividendsAndInterests,
-            capitalGains: lhs.capitalGains + rhs.capitalGains,
-            longtermCapitalGains: lhs.longtermCapitalGains + rhs.longtermCapitalGains,
-            stateIncomes: StateIncome.merge(lhs.stateIncomes, rhs.stateIncomes)
-        )
-    }
-}
