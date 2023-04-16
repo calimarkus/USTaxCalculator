@@ -17,14 +17,14 @@ extension Income {
             dividendsAndInterests: lhs.dividendsAndInterests + rhs.dividendsAndInterests,
             capitalGains: lhs.capitalGains + rhs.capitalGains,
             longtermCapitalGains: lhs.longtermCapitalGains + rhs.longtermCapitalGains,
-            stateIncomes: StateIncome.merge(lhs.stateIncomes, rhs.stateIncomes)
+            stateIncomes: StateIncome.mergeMatchingStateIncomes(lhs.stateIncomes, rhs.stateIncomes)
         )
     }
 }
 
 private extension IncomeAmount {
-    func mergeWith(_ rhs: IncomeAmount) throws -> IncomeAmount {
-        switch self {
+    static func + (lhs: IncomeAmount, rhs: IncomeAmount) throws -> IncomeAmount {
+        switch lhs {
             case .fullFederal:
                 switch rhs {
                     case .fullFederal: return .fullFederal
@@ -41,29 +41,30 @@ private extension IncomeAmount {
 }
 
 private extension StateIncome {
-    private func mergeWith(_ rhs: StateIncome) throws -> StateIncome {
-        guard state == rhs.state, localTax == rhs.localTax else {
+    static func + (lhs: StateIncome, rhs: StateIncome) throws -> StateIncome {
+        guard lhs.state == rhs.state, lhs.localTax == rhs.localTax else {
             throw StateIncomeError.illegalStateIncomeAddition
         }
         return try StateIncome(
-            state: state,
-            wages: wages.mergeWith(rhs.wages),
-            withholdings: withholdings + rhs.withholdings,
-            additionalStateIncome: additionalStateIncome + rhs.additionalStateIncome,
-            localTax: localTax
+            state: lhs.state,
+            wages: lhs.wages + rhs.wages,
+            withholdings: lhs.withholdings + rhs.withholdings,
+            additionalStateIncome: lhs.additionalStateIncome + rhs.additionalStateIncome,
+            localTax: lhs.localTax
         )
     }
 
-    static func merge(_ lhs: [StateIncome], _ rhs: [StateIncome]) throws -> [StateIncome] {
+    static func mergeMatchingStateIncomes(_ lhs: [StateIncome], _ rhs: [StateIncome]) throws -> [StateIncome] {
         var leftStates: [TaxState: StateIncome] = [:]
         lhs.forEach { leftStates[$0.state] = $0 }
-        let mergedRightStateIncomes: [StateIncome] = try rhs.map {
-            if let matchingLeft = leftStates[$0.state] {
-                let merged = try matchingLeft.mergeWith($0)
-                leftStates.removeValue(forKey: $0.state)
+
+        let mergedRightStateIncomes: [StateIncome] = try rhs.map { rhsIncome in
+            if let matchingLeft = leftStates[rhsIncome.state] {
+                let merged = try matchingLeft + rhsIncome
+                leftStates.removeValue(forKey: rhsIncome.state)
                 return merged
             } else {
-                return $0
+                return rhsIncome
             }
         }
 
