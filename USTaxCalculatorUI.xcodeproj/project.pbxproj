@@ -123,8 +123,6 @@
 		7EF5BD4C29EB3876001D9B7F /* TaxYear2023_Single.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EF5BD4A29EB3876001D9B7F /* TaxYear2023_Single.swift */; };
 		7EF5BD4E29EB4D4A001D9B7F /* RawTaxRatesMapping.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EF5BD4D29EB4D4A001D9B7F /* RawTaxRatesMapping.swift */; };
 		7EF5BD4F29EB4D4A001D9B7F /* RawTaxRatesMapping.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EF5BD4D29EB4D4A001D9B7F /* RawTaxRatesMapping.swift */; };
-		7EF5BD5129EB5414001D9B7F /* DeductionsFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EF5BD5029EB5414001D9B7F /* DeductionsFactory.swift */; };
-		7EF5BD5229EB5414001D9B7F /* DeductionsFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EF5BD5029EB5414001D9B7F /* DeductionsFactory.swift */; };
 		7EF5BD5A29EB59EE001D9B7F /* TaxYear2020_MarriedJointly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EF5BD5629EB59EE001D9B7F /* TaxYear2020_MarriedJointly.swift */; };
 		7EF5BD5B29EB59EE001D9B7F /* TaxYear2020_MarriedJointly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EF5BD5629EB59EE001D9B7F /* TaxYear2020_MarriedJointly.swift */; };
 		7EF5BD5C29EB59EE001D9B7F /* TaxYear2021_MarriedJointly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EF5BD5729EB59EE001D9B7F /* TaxYear2021_MarriedJointly.swift */; };
@@ -224,7 +222,6 @@
 		7EF5BD4529EB380D001D9B7F /* TaxYear2021_Single.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaxYear2021_Single.swift; sourceTree = "<group>"; };
 		7EF5BD4A29EB3876001D9B7F /* TaxYear2023_Single.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaxYear2023_Single.swift; sourceTree = "<group>"; };
 		7EF5BD4D29EB4D4A001D9B7F /* RawTaxRatesMapping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RawTaxRatesMapping.swift; sourceTree = "<group>"; };
-		7EF5BD5029EB5414001D9B7F /* DeductionsFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeductionsFactory.swift; sourceTree = "<group>"; };
 		7EF5BD5629EB59EE001D9B7F /* TaxYear2020_MarriedJointly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaxYear2020_MarriedJointly.swift; sourceTree = "<group>"; };
 		7EF5BD5729EB59EE001D9B7F /* TaxYear2021_MarriedJointly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaxYear2021_MarriedJointly.swift; sourceTree = "<group>"; };
 		7EF5BD5829EB59EE001D9B7F /* TaxYear2022_MarriedJointly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaxYear2022_MarriedJointly.swift; sourceTree = "<group>"; };
@@ -453,7 +450,6 @@
 				7E572F09282910B300DDB15E /* Tax.swift */,
 				7E572F0A282910B300DDB15E /* TaxCalculator.swift */,
 				7E572F08282910B300DDB15E /* TaxSummaries.swift */,
-				7EF5BD5029EB5414001D9B7F /* DeductionsFactory.swift */,
 				7E572EFC282910B300DDB15E /* CalculatedTaxData.swift */,
 			);
 			path = Taxes;
@@ -738,7 +734,6 @@
 				7E3464572833C26E008C58A2 /* GlobalAppState.swift in Sources */,
 				7E440865285AE2AB0052DDD5 /* NavigationTargets.swift in Sources */,
 				7EF5BD5D29EB59EE001D9B7F /* TaxYear2021_MarriedJointly.swift in Sources */,
-				7EF5BD5229EB5414001D9B7F /* DeductionsFactory.swift in Sources */,
 				7EF5BD4729EB380D001D9B7F /* TaxYear2020_Single.swift in Sources */,
 				7E3464582833C26E008C58A2 /* TaxDataDocument.swift in Sources */,
 				7E3464592833C26E008C58A2 /* Colors.swift in Sources */,
@@ -825,7 +820,6 @@
 				7E572F15282910B300DDB15E /* Colors.swift in Sources */,
 				7E572F2D282910B300DDB15E /* TaxSummaries.swift in Sources */,
 				7E107F58282BC6C000E2B64A /* AddStateButton.swift in Sources */,
-				7EF5BD5129EB5414001D9B7F /* DeductionsFactory.swift in Sources */,
 				7E5074D7282B7F28000C4398 /* StateTaxReductionsEntryView.swift in Sources */,
 				7E572F1A282910B300DDB15E /* CurrencyView.swift in Sources */,
 				7E5074D5282B7E2B000C4398 /* StateIncomeEntryView.swift in Sources */,

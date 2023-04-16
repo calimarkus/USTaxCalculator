@@ -36,9 +36,18 @@ enum TaxCalculator {
             taxSummaries: taxSummaries
         )
     }
+}
 
-    private static func federalTaxesFor(income: Income, federalDeductions: DeductionAmount, federalCredits: Double, taxRates: FederalTaxRates) -> FederalTaxData {
-        let deductions = DeductionsFactory.calculateDeductionsForDeductionAmount(
+private extension TaxCalculator {
+    static func calculateDeductionsForDeductionAmount(_ amount: DeductionAmount, standardDeduction: Double) -> Double {
+        switch amount {
+            case let .standard(additional): return additional + standardDeduction
+            case let .custom(customAmount): return customAmount
+        }
+    }
+
+    static func federalTaxesFor(income: Income, federalDeductions: DeductionAmount, federalCredits: Double, taxRates: FederalTaxRates) -> FederalTaxData {
+        let deductions = Self.calculateDeductionsForDeductionAmount(
             federalDeductions,
             standardDeduction: taxRates.standardDeductions
         )
@@ -110,16 +119,15 @@ enum TaxCalculator {
                               taxes: federalTaxes)
     }
 
-    private static func stateTaxFor(stateIncome: StateIncome,
-                                    stateDeductions: [TaxState: DeductionAmount],
-                                    stateCredits: [TaxState: Double],
-                                    totalIncome: Double,
-                                    taxRates: RawTaxRatesYear) -> StateTax
+    static func stateTaxFor(stateIncome: StateIncome,
+                            stateDeductions: [TaxState: DeductionAmount],
+                            stateCredits: [TaxState: Double],
+                            totalIncome: Double,
+                            taxRates: RawTaxRatesYear) -> StateTax
     {
-        let deductions = DeductionsFactory.calculateStateDeductions(
-            for: stateIncome.state,
-            stateDeductions: stateDeductions,
-            taxRates: taxRates
+        let deductions = Self.calculateDeductionsForDeductionAmount(
+            stateDeductions[stateIncome.state] ?? DeductionAmount.standard(),
+            standardDeduction: taxRates.standardDeductionForState(stateIncome.state)
         )
         let taxableStateIncome = max(0.0, totalIncome + stateIncome.additionalStateIncome - deductions)
         let namedTaxableStateIncome = NamedValue(amount: taxableStateIncome, name: "Taxable State Income")
@@ -145,7 +153,7 @@ enum TaxCalculator {
                         stateAttributedIncome: stateIncome.attributableIncomeGivenFederalIncome(totalIncome))
     }
 
-    private static func localTaxBracketForLocalTax(_ localTax: LocalTaxType, taxableIncome: NamedValue, taxRates: RawTaxRatesYear) -> LocalTax? {
+    static func localTaxBracketForLocalTax(_ localTax: LocalTaxType, taxableIncome: NamedValue, taxRates: RawTaxRatesYear) -> LocalTax? {
         switch localTax {
             case .none:
                 return nil
@@ -163,7 +171,7 @@ enum TaxCalculator {
         }
     }
 
-    private static func taxSummariesFor(input: TaxDataInput, federalTaxes: [FederalTax], stateTaxes: [StateTax]) -> TaxSummaries {
+    static func taxSummariesFor(input: TaxDataInput, federalTaxes: [FederalTax], stateTaxes: [StateTax]) -> TaxSummaries {
         let fedTaxes = federalTaxes.reduce(0.0) { partialResult, tax in
             partialResult + tax.taxAmount
         }
