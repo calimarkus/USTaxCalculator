@@ -24,6 +24,30 @@ extension TaxDataInput {
     }
 }
 
+extension TaxBracket {
+    var formattedString: String {
+        formattedStringWith(locale: nil)
+    }
+
+    func formattedStringWith(locale: Locale?) -> String {
+        if startingAt > 0.0 {
+            return "\(FormattingHelper.formatPercentage(rate, locale: locale)) over \(formattedBracketStart(locale: locale))"
+        } else {
+            return FormattingHelper.formatPercentage(rate, locale: locale)
+        }
+    }
+
+    private func formattedBracketStart(locale: Locale? = nil) -> String {
+        var val = startingAt / 1000.0
+        var symbol = "K"
+        if val > 1000.0 {
+            val /= 1000.0
+            symbol = "M"
+        }
+        return "\(FormattingHelper.formatCurrency(val, locale: locale))\(symbol)+"
+    }
+}
+
 enum FormattingHelper {
     fileprivate static func formattedTaxYear(_ taxyear: TaxYear, _ filingType: FilingType, states: [TaxState]) -> String {
         "Year \(taxyear.rawValue), \(filingType.rawValue), \(formattedStates(states: states))"
@@ -31,10 +55,6 @@ enum FormattingHelper {
 
     static func formattedStates(states: [TaxState]) -> String {
         states.map { "\($0)" }.joined(separator: "+")
-    }
-
-    static func formattedTaxYearShort(taxData: CalculatedTaxData) -> String {
-        "'" + String(taxData.taxYear.rawValue).suffix(2)
     }
 
     static func formatCurrency(_ num: Double, locale: Locale? = nil) -> String {
@@ -54,23 +74,5 @@ enum FormattingHelper {
         formatter.minimumFractionDigits = 1
 
         return formatter.string(from: rate as NSNumber)!
-    }
-
-    static func formattedBracketStart(_ bracket: TaxBracket, locale: Locale? = nil) -> String {
-        var val = bracket.startingAt / 1000.0
-        var symbol = "K"
-        if val > 1000.0 {
-            val /= 1000.0
-            symbol = "M"
-        }
-        return "\(formatCurrency(val, locale: locale))\(symbol)+"
-    }
-
-    static func formattedBracketInfo(_ bracket: TaxBracket, locale: Locale? = nil) -> String {
-        if bracket.startingAt > 0.0 {
-            return "\(formatPercentage(bracket.rate, locale: locale)) over \(formattedBracketStart(bracket, locale: locale))"
-        } else {
-            return formatPercentage(bracket.rate, locale: locale)
-        }
     }
 }

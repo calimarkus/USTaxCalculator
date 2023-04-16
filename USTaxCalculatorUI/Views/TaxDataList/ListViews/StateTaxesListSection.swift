@@ -50,7 +50,7 @@ struct StateTaxesListSection: View {
                 ExplainableCurrencyView(
                     CurrencyViewConfig(
                         title: "State Tax",
-                        subtitle: "(\(FormattingHelper.formattedBracketInfo(stateTax.bracket)))",
+                        subtitle: "(\(stateTax.bracket.formattedString))",
                         amount: stateTax.stateOnlyTaxAmount,
                         showSeparator: hasIncomeRate
                     ),
@@ -64,7 +64,7 @@ struct StateTaxesListSection: View {
                     ExplainableCurrencyView(
                         CurrencyViewConfig(
                             title: "Local Tax (\(localTax.city))",
-                            subtitle: "(\(FormattingHelper.formattedBracketInfo(localTax.bracket)))",
+                            subtitle: "(\(localTax.bracket.formattedString))",
                             amount: localTax.taxAmount
                         ),
                         explanation:
