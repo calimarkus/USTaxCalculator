@@ -24,7 +24,7 @@ struct TaxDataListView: View {
                     let stateTax = taxdata.stateTaxes[idx]
                     StateTaxesListSection(isExpanded: appState.stateCollapseStateBinding(for: stateTax.state),
                                           isFirst: idx == 0,
-                                          totalIncome: taxdata.income.totalIncome,
+                                          totalIncome: taxdata.totalIncome,
                                           stateTax: stateTax,
                                           summary: taxdata.taxSummaries.states[stateTax.state])
                 }

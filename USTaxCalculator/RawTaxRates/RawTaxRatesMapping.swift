@@ -1,9 +1,9 @@
 //
 //
 
-extension TaxYear {
-    func rawTaxRatesForFilingType(_ filingType: FilingType) -> RawTaxRatesYear {
-        switch self {
+extension RawTaxRatesYear {
+    static func taxRatesYearFor(_ taxYear: TaxYear, _ filingType: FilingType) -> RawTaxRatesYear {
+        switch taxYear {
         case .y2020:
             switch filingType {
             case .single:

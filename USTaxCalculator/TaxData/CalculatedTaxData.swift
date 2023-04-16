@@ -30,25 +30,22 @@ struct FederalTaxData {
 struct CalculatedTaxData: Identifiable, Hashable {
     var id = UUID()
 
-    let title: String
-    let filingType: FilingType
-    let taxYear: TaxYear
-
-    let income: Income
+    let inputData: TaxDataInput
     let federal: FederalTaxData
     let stateTaxes: [StateTax]
     let taxSummaries: TaxSummaries
 
-    let inputData: TaxDataInput
+    // convenience getters
+    var title: String { inputData.title }
+    var taxYear: TaxYear { inputData.taxYear }
+    var filingType: FilingType { inputData.filingType }
+    var income: Income { inputData.income }
+    var totalIncome: Double { inputData.income.totalIncome }
 
     init(_ input: TaxDataInput) {
-        title = input.title
-        filingType = input.filingType
-        taxYear = input.taxYear
-        income = input.income
         inputData = input
 
-        let taxRates = taxYear.rawTaxRatesForFilingType(filingType)
+        let taxRates = RawTaxRatesYear.taxRatesYearFor(input.taxYear, input.filingType)
         federal = FederalTaxData(input, taxRates: taxRates.federalRates)
 
         stateTaxes = input.income.stateIncomes.map {

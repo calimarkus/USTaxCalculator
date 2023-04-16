@@ -7,7 +7,7 @@ struct FormattingHelper {
     static func formattedTitle(taxdata: CalculatedTaxData) -> String {
         return formattedTitle(taxyear: taxdata.taxYear,
                               filingType: taxdata.filingType,
-                              states: taxdata.income.stateIncomes.map { $0.state })
+                              states: taxdata.stateTaxes.map { $0.state })
     }
 
     static func formattedTitle(taxDataInput: TaxDataInput) -> String {

@@ -95,12 +95,12 @@ struct StateTaxesListSection_Previews: PreviewProvider {
             let exampleData = ExampleData.exampleTaxDataJohnAndSarah_21()
             StateTaxesListSection(isExpanded: $isExpanded1,
                                   isFirst: true,
-                                  totalIncome: exampleData.income.totalIncome,
+                                  totalIncome: exampleData.totalIncome,
                                   stateTax: exampleData.stateTaxes[0],
                                   summary: exampleData.taxSummaries.states[exampleData.stateTaxes[0].state])
             StateTaxesListSection(isExpanded: $isExpanded2,
                                   isFirst: false,
-                                  totalIncome: exampleData.income.totalIncome,
+                                  totalIncome: exampleData.totalIncome,
                                   stateTax: exampleData.stateTaxes[1],
                                   summary: exampleData.taxSummaries.states[exampleData.stateTaxes[1].state])
         }

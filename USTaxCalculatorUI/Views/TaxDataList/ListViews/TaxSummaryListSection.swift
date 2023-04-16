@@ -9,7 +9,7 @@ struct TaxSummaryListSection: View {
     var body: some View {
         NonCollapsableSectionTitle(title: "Income", isFirst: true)
         TaxListGroupView {
-            SumView(title: "Total Income", amount: taxdata.income.totalIncome, showSeparator: false)
+            SumView(title: "Total Income", amount: taxdata.totalIncome, showSeparator: false)
         }
 
         NonCollapsableSectionTitle(title: "Federal Taxes")
@@ -36,6 +36,6 @@ struct TaxSummaryListSection_Previews: PreviewProvider {
             TaxSummaryListSection(taxdata: ExampleData.exampleTaxDataJohnAndSarah_21())
         }
         .padding()
-        .frame(height: 460)
+        .fixedSize()
     }
 }

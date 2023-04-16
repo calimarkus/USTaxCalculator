@@ -95,9 +95,6 @@ struct TaxSummaryFormatter {
     }
 
     func taxDataSummary(_ td: CalculatedTaxData) -> String {
-        let income = td.income
-        let taxSummaries = td.taxSummaries
-
         // output
         var summary = ""
         if td.title.count > 0 {
@@ -107,22 +104,22 @@ struct TaxSummaryFormatter {
         summary.appendLine(String(repeating: "=", count: summary.count))
 
         // Federal
-        summary.append(federalSummary(income: income, taxData: td.federal, taxSummary: td.taxSummaries.federal))
+        summary.append(federalSummary(income: td.income, taxData: td.federal, taxSummary: td.taxSummaries.federal))
 
         // States
-        summary.append(stateSummary(income: income, stateTaxes: td.stateTaxes, taxSummaries: td.taxSummaries.states))
+        summary.append(stateSummary(income: td.income, stateTaxes: td.stateTaxes, taxSummaries: td.taxSummaries.states))
 
         // State Summary
-        if income.stateIncomes.count > 0 {
-            summary.appendTitle("State Summary (\(FormattingHelper.formattedStates(states: income.stateIncomes.map { $0.state })))")
-            summary.append(formattedTaxSummary(taxSummaries.stateTotal))
+        if td.income.stateIncomes.count > 0 {
+            summary.appendTitle("State Summary (\(FormattingHelper.formattedStates(states: td.income.stateIncomes.map { $0.state })))")
+            summary.append(formattedTaxSummary(td.taxSummaries.stateTotal))
         }
 
         // Summary
         summary.appendTitle("Summary")
-        summary.appendLine(formattedCurrency("- Total Income:", income.totalIncome))
+        summary.appendLine(formattedCurrency("- Total Income:", td.income.totalIncome))
         summary.appendLine()
-        summary.append(formattedTaxSummary(taxSummaries.total))
+        summary.append(formattedTaxSummary(td.taxSummaries.total))
 
         return summary
     }
