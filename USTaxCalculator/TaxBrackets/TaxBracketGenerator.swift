@@ -4,10 +4,10 @@
 enum TaxBracketGenerator {
     static func bracketGroupForRawTaxRates(_ rawTaxRates: RawTaxRates) -> TaxBracketGroup {
         switch rawTaxRates.type {
-        case .simple:
-            return simplebracketGroupForRawTaxRates(rawTaxRates)
-        case .progressive:
-            return progressivebracketGroupForRawTaxRates(rawTaxRates)
+            case .simple:
+                return simplebracketGroupForRawTaxRates(rawTaxRates)
+            case .progressive:
+                return progressivebracketGroupForRawTaxRates(rawTaxRates)
         }
     }
 

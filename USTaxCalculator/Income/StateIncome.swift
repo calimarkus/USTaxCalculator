@@ -45,15 +45,15 @@ struct StateIncome: Codable, Equatable {
 extension StateIncome {
     func incomeRateGivenFederalIncome(_ federalIncome: Double) -> Double {
         switch wages {
-        case .fullFederal: return 1.0
-        case let .partial(income): return income / federalIncome
+            case .fullFederal: return 1.0
+            case let .partial(income): return income / federalIncome
         }
     }
 
     func attributableIncomeGivenFederalIncome(_ federalIncome: Double) -> Double {
         switch wages {
-        case .fullFederal: return federalIncome
-        case let .partial(income): return income
+            case .fullFederal: return federalIncome
+            case let .partial(income): return income
         }
     }
 }
@@ -61,14 +61,17 @@ extension StateIncome {
 private extension IncomeAmount {
     func mergeWith(_ rhs: IncomeAmount) throws -> IncomeAmount {
         switch self {
-        case .fullFederal: switch rhs {
-            case .fullFederal: return .fullFederal
-            case .partial: throw StateIncomeError.illegalIncomeAmountAddition
-            }
-        case let .partial(incomeLhs): switch rhs {
-            case .fullFederal: throw StateIncomeError.illegalIncomeAmountAddition
-            case let .partial(incomeRhs): return .partial(incomeLhs + incomeRhs)
-            }
+            case .fullFederal:
+                switch rhs {
+                    case .fullFederal: return .fullFederal
+                    case .partial: throw StateIncomeError.illegalIncomeAmountAddition
+                }
+
+            case let .partial(incomeLhs):
+                switch rhs {
+                    case .fullFederal: throw StateIncomeError.illegalIncomeAmountAddition
+                    case let .partial(incomeRhs): return .partial(incomeLhs + incomeRhs)
+                }
         }
     }
 }

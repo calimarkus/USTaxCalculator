@@ -39,32 +39,32 @@ extension TaxBracket {
     /// calculates the taxes for the given amount, respecting the bracket type
     func calculateTaxesForAmount(_ namedAmount: NamedValue) -> Double {
         switch type {
-        case .basic:
-            return namedAmount.amount * rate
-        case let .progressive(fixedAmount):
-            return fixedAmount + ((namedAmount.amount - startingAt) * rate)
+            case .basic:
+                return namedAmount.amount * rate
+            case let .progressive(fixedAmount):
+                return fixedAmount + ((namedAmount.amount - startingAt) * rate)
         }
     }
 
     /// returns a string describing the calculation of the taxes for the given amount, respecting the bracket type
     func taxCalculationExplanation(_ namedAmount: NamedValue, explanationType: ExplanationType = .values) -> String {
         switch type {
-        case .basic:
-            switch explanationType {
-            case .names:
-                return "\(namedAmount.name) * Rate"
-            case .values:
-                return "\(FormattingHelper.formatCurrency(namedAmount.amount)) * \(FormattingHelper.formatPercentage(rate))"
-            }
-        case let .progressive(fixedAmount):
-            switch explanationType {
-            case .names:
-                let fixedAmountDesc = fixedAmount > 0.0 ? " + Fixed amount" : ""
-                return "(\(namedAmount.name) - Bracket start) * Rate\(fixedAmountDesc)"
-            case .values:
-                let fixedAmountText = fixedAmount > 0.0 ? " + \(FormattingHelper.formatCurrency(fixedAmount))" : ""
-                return "(\(FormattingHelper.formatCurrency(namedAmount.amount)) - \(FormattingHelper.formatCurrency(startingAt))) * \(FormattingHelper.formatPercentage(rate))\(fixedAmountText)"
-            }
+            case .basic:
+                switch explanationType {
+                    case .names:
+                        return "\(namedAmount.name) * Rate"
+                    case .values:
+                        return "\(FormattingHelper.formatCurrency(namedAmount.amount)) * \(FormattingHelper.formatPercentage(rate))"
+                }
+            case let .progressive(fixedAmount):
+                switch explanationType {
+                    case .names:
+                        let fixedAmountDesc = fixedAmount > 0.0 ? " + Fixed amount" : ""
+                        return "(\(namedAmount.name) - Bracket start) * Rate\(fixedAmountDesc)"
+                    case .values:
+                        let fixedAmountText = fixedAmount > 0.0 ? " + \(FormattingHelper.formatCurrency(fixedAmount))" : ""
+                        return "(\(FormattingHelper.formatCurrency(namedAmount.amount)) - \(FormattingHelper.formatCurrency(startingAt))) * \(FormattingHelper.formatPercentage(rate))\(fixedAmountText)"
+                }
         }
     }
 }

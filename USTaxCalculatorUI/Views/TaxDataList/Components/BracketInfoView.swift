@@ -12,10 +12,10 @@ extension TaxBracket: Identifiable {
 extension TaxBracket {
     var isProgressive: Bool {
         switch type {
-        case .progressive:
-            return true
-        case .basic:
-            return false
+            case .progressive:
+                return true
+            case .basic:
+                return false
         }
     }
 }

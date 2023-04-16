@@ -4,8 +4,8 @@
 enum DeductionsFactory {
     static func calculateDeductionsForDeductionAmount(_ amount: DeductionAmount, standardDeduction: Double) -> Double {
         switch amount {
-        case let .standard(additional): return additional + standardDeduction
-        case let .custom(customAmount): return customAmount
+            case let .standard(additional): return additional + standardDeduction
+            case let .custom(customAmount): return customAmount
         }
     }
 

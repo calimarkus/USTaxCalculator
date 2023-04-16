@@ -122,12 +122,12 @@ struct ExplainableCurrencyView: View {
         self.config = config
 
         switch explanation {
-        case let .text(text):
-            infoText = text
-        case let .bracket(bracketGroup, activeBracket, taxableIncome):
-            infoBracketGroup = bracketGroup
-            self.activeBracket = activeBracket
-            self.taxableIncome = taxableIncome
+            case let .text(text):
+                infoText = text
+            case let .bracket(bracketGroup, activeBracket, taxableIncome):
+                infoBracketGroup = bracketGroup
+                self.activeBracket = activeBracket
+                self.taxableIncome = taxableIncome
         }
     }
 
