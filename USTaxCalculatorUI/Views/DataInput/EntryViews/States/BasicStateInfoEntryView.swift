@@ -1,4 +1,5 @@
 //
+// BasicStateInfoEntryView.swift
 //
 
 import SwiftUI

@@ -1,7 +1,7 @@
 //
+// CalculatedTaxData.swift
 //
 
-import Foundation
 import SwiftUI
 
 struct FederalTaxData {

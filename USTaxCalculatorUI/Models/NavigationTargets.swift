@@ -1,7 +1,6 @@
 //
+// NavigationTargets.swift
 //
-
-import Foundation
 
 struct NavigationTarget: Hashable {
     let taxdata: CalculatedTaxData

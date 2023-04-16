@@ -1,4 +1,5 @@
 //
+// GlobalAppState.swift
 //
 
 import SwiftUI

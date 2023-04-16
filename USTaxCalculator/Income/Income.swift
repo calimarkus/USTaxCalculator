@@ -1,4 +1,5 @@
 //
+// Income.swift
 //
 
 struct Income: Codable, Equatable {
