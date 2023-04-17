@@ -91,7 +91,7 @@ enum TaxYear2022_MarriedJointly {
             ]),
             // see https://www.tax.ny.gov/pdf/current_forms/it/it201i.pdf#page=67
             // see https://answerconnect.cch.com/document/jyc0109013e2c83c2542d/state/explanations/new-york-city/nyc-tax-rates-blended-nyc-tax-rates
-            // PS: These are full-year resident rates! Part year resident rates might differ
+            // Note: These are full-year resident rates! Part year resident rates might differ
             // Rates apply for incomes > $65,000
             newYorkCityRates: RawTaxRates(progressive: [
                 0.0: 0.03078,
