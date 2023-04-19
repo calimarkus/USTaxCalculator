@@ -38,21 +38,19 @@ struct BracketInfoView: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 10.0) {
-            Group {
-                Text("Calculation:")
-                    .font(.headline)
-                Text("\(tax.activeBracket.taxCalculationExplanation(tax.taxableIncome, explanationType: .names))")
-                    .padding(.bottom, -4.0)
-                    .foregroundColor(.secondary)
-                Text("\(tax.activeBracket.taxCalculationExplanation(tax.taxableIncome)) = \(FormattingHelper.formatCurrency(tax.activeBracket.calculateTaxesForAmount(tax.taxableIncome)))")
-                    .font(.system(.body, design: .monospaced))
+            Text("\(tax.title) Tax Rates:")
+                .font(.headline)
+            BracketTableView(brackets: sortedBrackets, activeBracket: tax.activeBracket)
 
-                Spacer().frame(height: 4.0)
+            Spacer().frame(height: 4.0)
 
-                Text("\(tax.title) Tax Rates:")
-                    .font(.headline)
-                BracketTableView(brackets: sortedBrackets, activeBracket: tax.activeBracket)
-            }
+            Text("Calculation:")
+                .font(.headline)
+            Text("\(tax.activeBracket.taxCalculationExplanation(tax.taxableIncome, explanationType: .names))")
+                .padding(.bottom, -4.0)
+                .foregroundColor(.secondary)
+            Text("\(tax.activeBracket.taxCalculationExplanation(tax.taxableIncome)) = \(FormattingHelper.formatCurrency(tax.activeBracket.calculateTaxesForAmount(tax.taxableIncome)))")
+                .font(.system(.body, design: .monospaced))
 
             if tax.bracketGroup.sources.count > 0 {
                 Spacer().frame(height: 4.0)
