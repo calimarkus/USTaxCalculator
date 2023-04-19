@@ -2,11 +2,15 @@
 // TaxBracketGroup.swift
 //
 
+import Foundation
+
 struct TaxBracketGroup {
     let sortedBrackets: [TaxBracket]
+    let sources: [URL]
 
-    init(_ brackets: [TaxBracket]) {
+    init(_ brackets: [TaxBracket], sources: [URL] = []) {
         sortedBrackets = brackets.sorted { $0.startingAt > $1.startingAt }
+        self.sources = sources
     }
 
     func matchingBracketFor(taxableIncome: Double) -> TaxBracket {

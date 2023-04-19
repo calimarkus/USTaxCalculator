@@ -16,7 +16,7 @@ enum TaxBracketGenerator {
         let brackets = rawTaxRates.sortedRates.map { rawTaxRate in
             TaxBracket(simpleRate: rawTaxRate.rate, startingAt: rawTaxRate.startingAt)
         }
-        return TaxBracketGroup(brackets)
+        return TaxBracketGroup(brackets, sources: rawTaxRates.sources)
     }
 
     private static func progressiveBracketGroupForRawTaxRates(_ rawTaxRates: RawTaxRates) -> TaxBracketGroup {
@@ -35,6 +35,6 @@ enum TaxBracketGenerator {
             return br
         }
 
-        return TaxBracketGroup(brackets)
+        return TaxBracketGroup(brackets, sources: rawTaxRates.sources)
     }
 }
