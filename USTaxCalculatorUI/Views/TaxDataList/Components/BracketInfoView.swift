@@ -29,6 +29,7 @@ enum BracketInfoSize {
 
 struct BracketInfoView: View {
     let brackets: [TaxBracket]
+    let sources: [URL]
     let activeBracket: TaxBracket?
     let taxableIncome: NamedValue?
 
@@ -37,22 +38,24 @@ struct BracketInfoView: View {
          taxableIncome: NamedValue? = nil)
     {
         brackets = bracketGroup.sortedBrackets.reversed()
+        sources = bracketGroup.sources
         self.activeBracket = activeBracket
         self.taxableIncome = taxableIncome
     }
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 0.0) {
+        VStack(alignment: .leading, spacing: 10.0) {
             if let active = activeBracket, let income = taxableIncome {
-                VStack(alignment: .leading, spacing: 10.0) {
-                    Text("Tax Calculation:")
+                Group {
+                    Text("Calculation:")
                         .font(.headline)
                     Text("\(active.taxCalculationExplanation(income, explanationType: .names))")
                         .padding(.bottom, -4.0)
                         .foregroundColor(.secondary)
                     Text("\(active.taxCalculationExplanation(income)) = \(FormattingHelper.formatCurrency(active.calculateTaxesForAmount(income)))")
                         .font(.system(.body, design: .monospaced))
-                        .padding(.bottom, 14.0)
+
+                    Spacer().frame(height: 4.0)
 
                     Text("Tax Brackets:")
                         .font(.headline)
@@ -61,6 +64,26 @@ struct BracketInfoView: View {
             } else {
                 BracketTableView(brackets: brackets, activeBracket: activeBracket)
             }
+
+            if sources.count > 0 {
+                Spacer().frame(height: 4.0)
+
+                VStack(alignment: .leading, spacing: 5.0) {
+                    Text("Sources:")
+                        .font(.headline)
+                    ForEach(sources, id: \.absoluteString) { source in
+                        Link(source.absoluteString, destination: source)
+                            .font(.subheadline)
+                            .opacity(0.66)
+                            .lineLimit(1)
+                        #if os(macOS)
+                            .font(.caption2)
+                        #endif
+                    }
+                }
+            }
+
+            Spacer().frame(height: 4.0)
         }
         .padding(20.0)
         #if os(macOS)
@@ -96,8 +119,7 @@ struct BracketTableView: View {
                     }
             }
         }
-        .padding(10.0)
-        .padding(.top, -10.0)
+        .padding([.leading, .trailing], 10.0)
     }
 }
 
@@ -176,8 +198,8 @@ extension BracketTableView {
 }
 
 struct BracketInfoView_Previews: PreviewProvider {
-    static let fedBrackets = TaxBracketGenerator.bracketGroupForRawTaxRates(TaxYear2021_Single.taxRates.federalRates.incomeRates)
-    static let longtermGainsBrackets = TaxBracketGenerator.bracketGroupForRawTaxRates(TaxYear2021_Single.taxRates.federalRates.longtermGainsRates)
+    static let fedBrackets = TaxBracketGenerator.bracketGroupForRawTaxRates(TaxYear2020_MarriedJointly.taxRates.federalRates.incomeRates)
+    static let longtermGainsBrackets = TaxBracketGenerator.bracketGroupForRawTaxRates(TaxYear2020_MarriedJointly.taxRates.federalRates.longtermGainsRates)
 
     static var previews: some View {
         BracketInfoView(
