@@ -105,8 +105,8 @@ struct CurrencyView: View {
 }
 
 enum CurrencyExplanation {
-    case text(text: String)
-    case bracket(tax: Tax)
+    case text(_ text: String)
+    case taxInfo(_ tax: Tax)
 }
 
 struct ExplainableCurrencyView: View {
@@ -133,8 +133,8 @@ struct ExplainableCurrencyView: View {
                             Text(text)
                                 .font(.system(.body, design: .monospaced))
                                 .padding()
-                        case let .bracket(tax):
-                            TaxInfoView(tax: tax)
+                        case let .taxInfo(tax):
+                            TaxInfoView(tax)
                     }
                 }
                 .navigationTitle(config.title)
@@ -238,7 +238,7 @@ struct CurrencyView_Previews: PreviewProvider {
         TaxListGroupView {
             ExplainableCurrencyView(
                 CurrencyViewConfig(title: "Alpha", amount: 123.53, showSeparator: false),
-                explanation: CurrencyExplanation.text(text: "info")
+                explanation: .text("info")
             )
             AdditionView(title: "Beta", amount: 25.25)
             AdditionView(title: "Gamma", amount: -12.23)

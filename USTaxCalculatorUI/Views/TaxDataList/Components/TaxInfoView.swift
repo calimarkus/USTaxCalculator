@@ -8,7 +8,7 @@ struct TaxInfoView: View {
     let sortedBrackets: [TaxBracket]
     let tax: Tax
 
-    init(tax: Tax) {
+    init(_ tax: Tax) {
         sortedBrackets = tax.bracketGroup.sortedBrackets.reversed()
         self.tax = tax
     }
@@ -61,14 +61,14 @@ struct TaxInfoView_Previews: PreviewProvider {
     static let longtermGainsBrackets = TaxBracketGenerator.bracketGroupForRawTaxRates(TaxYear2020_MarriedJointly.taxRates.federalRates.longtermGainsRates)
 
     static var previews: some View {
-        TaxInfoView(tax: FederalTax(
+        TaxInfoView(FederalTax(
             title: "Preview Income",
             activeBracket: fedBrackets.sortedBrackets[3],
             bracketGroup: fedBrackets,
             taxableIncome: NamedValue(amount: 92720, name: "Taxable Income")
         ))
 
-        TaxInfoView(tax: FederalTax(
+        TaxInfoView(FederalTax(
             title: "Preview Income",
             activeBracket: longtermGainsBrackets.sortedBrackets[1],
             bracketGroup: longtermGainsBrackets,

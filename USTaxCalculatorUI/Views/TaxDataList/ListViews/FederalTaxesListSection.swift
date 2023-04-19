@@ -28,7 +28,7 @@ struct FederalTaxesListSection: View {
                             amount: tax.taxAmount,
                             showSeparator: idx > 0
                         ),
-                        explanation: .bracket(tax: tax)
+                        explanation: .taxInfo(tax)
                     )
                 }
 

@@ -53,7 +53,7 @@ struct StateTaxesListSection: View {
                         subtitle: "(\(stateTax.activeBracket.formattedString))",
                         amount: stateTax.stateOnlyTaxAmount,
                         showSeparator: hasIncomeRate
-                    ), explanation: .bracket(tax: stateTax)
+                    ), explanation: .taxInfo(stateTax)
                 )
 
                 if let localTax = stateTax.localTax {
@@ -62,7 +62,7 @@ struct StateTaxesListSection: View {
                             title: "\(localTax.title) Tax",
                             subtitle: "(\(localTax.activeBracket.formattedString))",
                             amount: localTax.taxAmount
-                        ), explanation: .bracket(tax: localTax)
+                        ), explanation: .taxInfo(localTax)
                     )
                 }
 
