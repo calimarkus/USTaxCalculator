@@ -102,11 +102,11 @@ struct TaxSummaryTextFormatter {
                 summary.appendLine(alignLeftRight("  - State Income Rate:", formattedRate(stateTax.incomeRate)))
             }
 
-            summary.appendLine(formattedCurrency("  - State Tax:", stateTax.stateOnlyTaxAmount))
+            summary.appendLine(formattedCurrency("  - \(stateTax.title) Tax:", stateTax.stateOnlyTaxAmount))
             summary.appendLine(formattedBracketRate("    ", stateTax.bracket))
 
             if let localTax = stateTax.localTax {
-                summary.appendLine(formattedCurrency("  - Local Tax (\(localTax.city)):", localTax.taxAmount))
+                summary.appendLine(formattedCurrency("  - \(localTax.title) Tax:", localTax.taxAmount))
                 summary.appendLine(formattedBracketRate("    ", localTax.bracket))
             }
 

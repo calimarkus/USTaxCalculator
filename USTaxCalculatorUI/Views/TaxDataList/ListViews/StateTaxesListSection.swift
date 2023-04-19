@@ -49,28 +49,20 @@ struct StateTaxesListSection: View {
 
                 ExplainableCurrencyView(
                     CurrencyViewConfig(
-                        title: "State Tax",
+                        title: "\(stateTax.title) Tax",
                         subtitle: "(\(stateTax.bracket.formattedString))",
                         amount: stateTax.stateOnlyTaxAmount,
                         showSeparator: hasIncomeRate
-                    ),
-                    explanation:
-                    .bracket(bracketGroup: stateTax.bracketGroup,
-                             activeBracket: stateTax.bracket,
-                             taxableIncome: stateTax.taxableIncome)
+                    ), explanation: .bracket(tax: stateTax)
                 )
 
                 if let localTax = stateTax.localTax {
                     ExplainableCurrencyView(
                         CurrencyViewConfig(
-                            title: "Local Tax (\(localTax.city))",
+                            title: "\(localTax.title) Tax",
                             subtitle: "(\(localTax.bracket.formattedString))",
                             amount: localTax.taxAmount
-                        ),
-                        explanation:
-                        .bracket(bracketGroup: localTax.bracketGroup,
-                                 activeBracket: localTax.bracket,
-                                 taxableIncome: localTax.taxableIncome)
+                        ), explanation: .bracket(tax: localTax)
                     )
                 }
 

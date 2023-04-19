@@ -34,6 +34,7 @@ struct ExplainableView<Content: View, InfoContent: View>: View {
                     #if os(macOS)
                         .popover(isPresented: $showingPopover, arrowEdge: .trailing) {
                             infoContent
+                                .frame(maxWidth: 500)
                         }
                     #endif
 

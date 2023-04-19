@@ -8,6 +8,9 @@ struct NamedValue {
 }
 
 protocol Tax {
+    /// The title for this tax
+    var title: String { get }
+
     /// The tax amount
     var taxAmount: Double { get }
 
@@ -39,6 +42,9 @@ struct FederalTax: Tax {
 }
 
 struct StateTax: Tax {
+    /// A generated title
+    var title: String { "\(state) State" }
+
     /// The underlying state
     let state: TaxState
 
@@ -82,6 +88,9 @@ struct StateTax: Tax {
 }
 
 struct LocalTax: Tax {
+    /// A generated title
+    var title: String { "\(city) Local" }
+
     /// The underlying city
     let city: TaxCity
 

@@ -28,50 +28,39 @@ enum BracketInfoSize {
 }
 
 struct BracketInfoView: View {
-    let brackets: [TaxBracket]
-    let sources: [URL]
-    let activeBracket: TaxBracket?
-    let taxableIncome: NamedValue?
+    let sortedBrackets: [TaxBracket]
+    let tax: Tax
 
-    init(bracketGroup: TaxBracketGroup,
-         activeBracket: TaxBracket? = nil,
-         taxableIncome: NamedValue? = nil)
-    {
-        brackets = bracketGroup.sortedBrackets.reversed()
-        sources = bracketGroup.sources
-        self.activeBracket = activeBracket
-        self.taxableIncome = taxableIncome
+    init(tax: Tax) {
+        sortedBrackets = tax.bracketGroup.sortedBrackets.reversed()
+        self.tax = tax
     }
 
     var body: some View {
         VStack(alignment: .leading, spacing: 10.0) {
-            if let active = activeBracket, let income = taxableIncome {
-                Group {
-                    Text("Calculation:")
-                        .font(.headline)
-                    Text("\(active.taxCalculationExplanation(income, explanationType: .names))")
-                        .padding(.bottom, -4.0)
-                        .foregroundColor(.secondary)
-                    Text("\(active.taxCalculationExplanation(income)) = \(FormattingHelper.formatCurrency(active.calculateTaxesForAmount(income)))")
-                        .font(.system(.body, design: .monospaced))
+            Group {
+                Text("Calculation:")
+                    .font(.headline)
+                Text("\(tax.bracket.taxCalculationExplanation(tax.taxableIncome, explanationType: .names))")
+                    .padding(.bottom, -4.0)
+                    .foregroundColor(.secondary)
+                Text("\(tax.bracket.taxCalculationExplanation(tax.taxableIncome)) = \(FormattingHelper.formatCurrency(tax.bracket.calculateTaxesForAmount(tax.taxableIncome)))")
+                    .font(.system(.body, design: .monospaced))
 
-                    Spacer().frame(height: 4.0)
+                Spacer().frame(height: 4.0)
 
-                    Text("Tax Brackets:")
-                        .font(.headline)
-                    BracketTableView(brackets: brackets, activeBracket: activeBracket)
-                }
-            } else {
-                BracketTableView(brackets: brackets, activeBracket: activeBracket)
+                Text("\(tax.title) Tax Rates:")
+                    .font(.headline)
+                BracketTableView(brackets: sortedBrackets, activeBracket: tax.bracket)
             }
 
-            if sources.count > 0 {
+            if tax.bracketGroup.sources.count > 0 {
                 Spacer().frame(height: 4.0)
 
                 VStack(alignment: .leading, spacing: 5.0) {
                     Text("Sources:")
                         .font(.headline)
-                    ForEach(sources, id: \.absoluteString) { source in
+                    ForEach(tax.bracketGroup.sources, id: \.absoluteString) { source in
                         Link(source.absoluteString, destination: source)
                             .font(.subheadline)
                             .opacity(0.66)
@@ -202,20 +191,18 @@ struct BracketInfoView_Previews: PreviewProvider {
     static let longtermGainsBrackets = TaxBracketGenerator.bracketGroupForRawTaxRates(TaxYear2020_MarriedJointly.taxRates.federalRates.longtermGainsRates)
 
     static var previews: some View {
-        BracketInfoView(
+        BracketInfoView(tax: FederalTax(
+            title: "Preview Income",
+            bracket: fedBrackets.sortedBrackets[3],
             bracketGroup: fedBrackets,
-            activeBracket: fedBrackets.sortedBrackets[3],
-            taxableIncome: NamedValue(amount: 92720, name: "Preview Income")
-        )
+            taxableIncome: NamedValue(amount: 92720, name: "Taxable Income")
+        ))
 
-        BracketInfoView(
+        BracketInfoView(tax: FederalTax(
+            title: "Preview Income",
+            bracket: longtermGainsBrackets.sortedBrackets[1],
             bracketGroup: longtermGainsBrackets,
-            activeBracket: longtermGainsBrackets.sortedBrackets[1],
-            taxableIncome: NamedValue(amount: 246_000, name: "Preview Income")
-        )
-
-        BracketInfoView(
-            bracketGroup: longtermGainsBrackets
-        )
+            taxableIncome: NamedValue(amount: 246_000, name: "Taxable Income")
+        ))
     }
 }

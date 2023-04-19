@@ -106,30 +106,16 @@ struct CurrencyView: View {
 
 enum CurrencyExplanation {
     case text(text: String)
-    case bracket(bracketGroup: TaxBracketGroup,
-                 activeBracket: TaxBracket,
-                 taxableIncome: NamedValue)
+    case bracket(tax: Tax)
 }
 
 struct ExplainableCurrencyView: View {
     var config: CurrencyViewConfig
-    var infoText: String?
-
-    var infoBracketGroup: TaxBracketGroup?
-    var activeBracket: TaxBracket?
-    var taxableIncome: NamedValue?
+    var explanation: CurrencyExplanation
 
     init(_ config: CurrencyViewConfig, explanation: CurrencyExplanation) {
         self.config = config
-
-        switch explanation {
-            case let .text(text):
-                infoText = text
-            case let .bracket(bracketGroup, activeBracket, taxableIncome):
-                infoBracketGroup = bracketGroup
-                self.activeBracket = activeBracket
-                self.taxableIncome = taxableIncome
-        }
+        self.explanation = explanation
     }
 
     var body: some View {
@@ -142,14 +128,13 @@ struct ExplainableCurrencyView: View {
                 CurrencyViewText(config)
             } infoContent: {
                 Group {
-                    if let info = infoText {
-                        Text(info)
-                            .font(.system(.body, design: .monospaced))
-                            .padding()
-                    } else if let bracketGroup = infoBracketGroup {
-                        BracketInfoView(bracketGroup: bracketGroup,
-                                        activeBracket: activeBracket,
-                                        taxableIncome: taxableIncome)
+                    switch explanation {
+                        case let .text(text):
+                            Text(text)
+                                .font(.system(.body, design: .monospaced))
+                                .padding()
+                        case let .bracket(tax):
+                            BracketInfoView(tax: tax)
                     }
                 }
                 .navigationTitle(config.title)
