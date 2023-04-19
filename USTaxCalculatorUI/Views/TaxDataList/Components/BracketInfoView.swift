@@ -41,17 +41,17 @@ struct BracketInfoView: View {
             Group {
                 Text("Calculation:")
                     .font(.headline)
-                Text("\(tax.bracket.taxCalculationExplanation(tax.taxableIncome, explanationType: .names))")
+                Text("\(tax.activeBracket.taxCalculationExplanation(tax.taxableIncome, explanationType: .names))")
                     .padding(.bottom, -4.0)
                     .foregroundColor(.secondary)
-                Text("\(tax.bracket.taxCalculationExplanation(tax.taxableIncome)) = \(FormattingHelper.formatCurrency(tax.bracket.calculateTaxesForAmount(tax.taxableIncome)))")
+                Text("\(tax.activeBracket.taxCalculationExplanation(tax.taxableIncome)) = \(FormattingHelper.formatCurrency(tax.activeBracket.calculateTaxesForAmount(tax.taxableIncome)))")
                     .font(.system(.body, design: .monospaced))
 
                 Spacer().frame(height: 4.0)
 
                 Text("\(tax.title) Tax Rates:")
                     .font(.headline)
-                BracketTableView(brackets: sortedBrackets, activeBracket: tax.bracket)
+                BracketTableView(brackets: sortedBrackets, activeBracket: tax.activeBracket)
             }
 
             if tax.bracketGroup.sources.count > 0 {
@@ -193,14 +193,14 @@ struct BracketInfoView_Previews: PreviewProvider {
     static var previews: some View {
         BracketInfoView(tax: FederalTax(
             title: "Preview Income",
-            bracket: fedBrackets.sortedBrackets[3],
+            activeBracket: fedBrackets.sortedBrackets[3],
             bracketGroup: fedBrackets,
             taxableIncome: NamedValue(amount: 92720, name: "Taxable Income")
         ))
 
         BracketInfoView(tax: FederalTax(
             title: "Preview Income",
-            bracket: longtermGainsBrackets.sortedBrackets[1],
+            activeBracket: longtermGainsBrackets.sortedBrackets[1],
             bracketGroup: longtermGainsBrackets,
             taxableIncome: NamedValue(amount: 246_000, name: "Taxable Income")
         ))

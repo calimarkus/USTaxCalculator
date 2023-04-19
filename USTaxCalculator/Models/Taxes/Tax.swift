@@ -15,7 +15,7 @@ protocol Tax {
     var taxAmount: Double { get }
 
     /// The active TaxBracket
-    var bracket: TaxBracket { get }
+    var activeBracket: TaxBracket { get }
 
     /// The underlying TaxBracketGroup
     var bracketGroup: TaxBracketGroup { get }
@@ -29,7 +29,7 @@ struct FederalTax: Tax {
     let title: String
 
     /// The active TaxBracket
-    let bracket: TaxBracket
+    let activeBracket: TaxBracket
 
     /// The underlying TaxBracketGroup
     let bracketGroup: TaxBracketGroup
@@ -38,7 +38,7 @@ struct FederalTax: Tax {
     let taxableIncome: NamedValue
 
     /// The taxes coming from this bracket
-    var taxAmount: Double { bracket.calculateTaxesForAmount(taxableIncome) }
+    var taxAmount: Double { activeBracket.calculateTaxesForAmount(taxableIncome) }
 }
 
 struct StateTax: Tax {
@@ -49,7 +49,7 @@ struct StateTax: Tax {
     let state: TaxState
 
     /// The active TaxBracket
-    let bracket: TaxBracket
+    let activeBracket: TaxBracket
 
     /// The underlying TaxBracketGroup
     let bracketGroup: TaxBracketGroup
@@ -84,7 +84,7 @@ struct StateTax: Tax {
     /// The taxes coming from this bracket
     /// see https://turbotax.intuit.com/tax-tips/state-taxes/multiple-states-figuring-whats-owed-when-you-live-and-work-in-more-than-one-state/L79OKm3jI
     /// using "Common method 1" for multi state taxes
-    var stateOnlyTaxAmount: Double { bracket.calculateTaxesForAmount(taxableIncome) * incomeRate }
+    var stateOnlyTaxAmount: Double { activeBracket.calculateTaxesForAmount(taxableIncome) * incomeRate }
 }
 
 struct LocalTax: Tax {
@@ -95,7 +95,7 @@ struct LocalTax: Tax {
     let city: TaxCity
 
     /// The active TaxBracket
-    let bracket: TaxBracket
+    let activeBracket: TaxBracket
 
     /// The underlying TaxBracketGroup
     let bracketGroup: TaxBracketGroup
@@ -104,5 +104,5 @@ struct LocalTax: Tax {
     let taxableIncome: NamedValue
 
     /// The taxes coming from this bracket
-    var taxAmount: Double { bracket.calculateTaxesForAmount(taxableIncome) }
+    var taxAmount: Double { activeBracket.calculateTaxesForAmount(taxableIncome) }
 }

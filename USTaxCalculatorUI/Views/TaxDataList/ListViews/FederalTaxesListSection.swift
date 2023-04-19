@@ -24,7 +24,7 @@ struct FederalTaxesListSection: View {
                     ExplainableCurrencyView(
                         CurrencyViewConfig(
                             title: "\(tax.title) Tax",
-                            subtitle: "(\(tax.bracket.formattedString))",
+                            subtitle: "(\(tax.activeBracket.formattedString))",
                             amount: tax.taxAmount,
                             showSeparator: idx > 0
                         ),

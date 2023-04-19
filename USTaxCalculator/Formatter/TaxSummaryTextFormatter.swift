@@ -70,7 +70,7 @@ struct TaxSummaryTextFormatter {
 
         for fedTax in taxData.taxes {
             summary.appendLine(formattedCurrency("  - \(fedTax.title) Tax:", fedTax.taxAmount))
-            summary.appendLine(formattedBracketRate("    ", fedTax.bracket))
+            summary.appendLine(formattedBracketRate("    ", fedTax.activeBracket))
         }
 
         if taxData.credits > 0 {
@@ -103,11 +103,11 @@ struct TaxSummaryTextFormatter {
             }
 
             summary.appendLine(formattedCurrency("  - \(stateTax.title) Tax:", stateTax.stateOnlyTaxAmount))
-            summary.appendLine(formattedBracketRate("    ", stateTax.bracket))
+            summary.appendLine(formattedBracketRate("    ", stateTax.activeBracket))
 
             if let localTax = stateTax.localTax {
                 summary.appendLine(formattedCurrency("  - \(localTax.title) Tax:", localTax.taxAmount))
-                summary.appendLine(formattedBracketRate("    ", localTax.bracket))
+                summary.appendLine(formattedBracketRate("    ", localTax.activeBracket))
             }
 
             if credit > 0 {
@@ -150,7 +150,7 @@ private extension TaxSummaryTextFormatter {
     }
 
     func formattedExplanation(_ tax: Tax) -> String {
-        String(repeating: " ", count: 15) + "Math: \(tax.bracket.taxCalculationExplanation(tax.taxableIncome))"
+        String(repeating: " ", count: 15) + "Math: \(tax.activeBracket.taxCalculationExplanation(tax.taxableIncome))"
     }
 
     func formattedTaxSummary(_ summary: TaxSummary, title: String = "") -> String {

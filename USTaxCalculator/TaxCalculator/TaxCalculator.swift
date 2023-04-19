@@ -61,7 +61,7 @@ private extension TaxCalculator {
         let incomeBracket = incomeBracketGroup.matchingBracketFor(taxableIncome: taxableFederalIncome)
         federalTaxes.append(
             FederalTax(title: "Income",
-                       bracket: incomeBracket,
+                       activeBracket: incomeBracket,
                        bracketGroup: incomeBracketGroup,
                        taxableIncome: namedTaxableFederalIncome)
         )
@@ -72,7 +72,7 @@ private extension TaxCalculator {
         if longtermGainsBracket.rate > 0.0 {
             federalTaxes.append(
                 FederalTax(title: "Longterm Gains",
-                           bracket: longtermGainsBracket,
+                           activeBracket: longtermGainsBracket,
                            bracketGroup: longtermGainBracketGroup,
                            taxableIncome: income.namedLongtermCapitalGains)
             )
@@ -88,7 +88,7 @@ private extension TaxCalculator {
                 : NamedValue(amount: taxableRegularIncome, name: "Taxable Income for NII"))
             federalTaxes.append(
                 FederalTax(title: "Net Investment Income",
-                           bracket: niiBracket,
+                           activeBracket: niiBracket,
                            bracketGroup: niiBracketGroup,
                            taxableIncome: taxableNIIIncome)
             )
@@ -102,7 +102,7 @@ private extension TaxCalculator {
             let basicBracket = basicBracketGroup.matchingBracketFor(taxableIncome: income.medicareWages)
             let expectedBasicWithholding = income.medicareWages * basicBracket.rate
             let tax = FederalTax(title: "Additional Medicare",
-                                 bracket: medicareBracket,
+                                 activeBracket: medicareBracket,
                                  bracketGroup: medicareBracketGroup,
                                  taxableIncome: income.namedMedicareWages)
             let expectedTotalWithholding = expectedBasicWithholding + tax.taxAmount
@@ -141,7 +141,7 @@ private extension TaxCalculator {
                                                   taxRates: taxRates)
 
         return StateTax(state: stateIncome.state,
-                        bracket: bracket,
+                        activeBracket: bracket,
                         bracketGroup: stateBracketGroup,
                         localTax: localTax,
                         taxableIncome: namedTaxableStateIncome,
@@ -164,7 +164,7 @@ private extension TaxCalculator {
 
                 return LocalTax(
                     city: city,
-                    bracket: bracket,
+                    activeBracket: bracket,
                     bracketGroup: localBracketGroup,
                     taxableIncome: taxableIncome
                 )
