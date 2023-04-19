@@ -99,6 +99,8 @@
 		7E572F33282910B300DDB15E /* RawTaxRates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E572F0F282910B300DDB15E /* RawTaxRates.swift */; };
 		7E58C75329EC5FD400392E33 /* IncomeAddition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E58C75229EC5F1300392E33 /* IncomeAddition.swift */; };
 		7E58C75429EC5FD400392E33 /* IncomeAddition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E58C75229EC5F1300392E33 /* IncomeAddition.swift */; };
+		7E58C75B29F07E2900392E33 /* TaxInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E58C75A29F07E2900392E33 /* TaxInfoView.swift */; };
+		7E58C75C29F07E2900392E33 /* TaxInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E58C75A29F07E2900392E33 /* TaxInfoView.swift */; };
 		7E6CBBD7283B375B00DEFF80 /* MacOSViewModifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E6CBBD6283B375B00DEFF80 /* MacOSViewModifiers.swift */; };
 		7E6CBBD8283B375B00DEFF80 /* MacOSViewModifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E6CBBD6283B375B00DEFF80 /* MacOSViewModifiers.swift */; };
 		7ECD5F16282FF28E00C676D9 /* TaxSummaryListSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ECD5F15282FF28E00C676D9 /* TaxSummaryListSection.swift */; };
@@ -203,6 +205,7 @@
 		7E572F0E282910B300DDB15E /* TaxBracket.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaxBracket.swift; sourceTree = "<group>"; };
 		7E572F0F282910B300DDB15E /* RawTaxRates.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RawTaxRates.swift; sourceTree = "<group>"; };
 		7E58C75229EC5F1300392E33 /* IncomeAddition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IncomeAddition.swift; sourceTree = "<group>"; };
+		7E58C75A29F07E2900392E33 /* TaxInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaxInfoView.swift; sourceTree = "<group>"; };
 		7E6CBBD6283B375B00DEFF80 /* MacOSViewModifiers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MacOSViewModifiers.swift; sourceTree = "<group>"; };
 		7E7BA5D0282CE13D00A54785 /* TaxCalciOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TaxCalciOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7E822CED2804515100096181 /* USTaxCal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = USTaxCal.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -396,6 +399,7 @@
 				7E572EEC282910B300DDB15E /* Buttons */,
 				7E572EF4282910B300DDB15E /* CollapsableSectionTitle.swift */,
 				7E572EEB282910B300DDB15E /* CurrencyView.swift */,
+				7E58C75A29F07E2900392E33 /* TaxInfoView.swift */,
 				7E3C565C28322135002272F3 /* BracketTableView.swift */,
 				7E1239BC282E0D520048BD77 /* TaxListGroupView.swift */,
 				7E572EEA282910B300DDB15E /* TaxSummaryView.swift */,
@@ -729,6 +733,7 @@
 				7EF5BD4329EB3735001D9B7F /* TaxYear2022_Single.swift in Sources */,
 				7EF5BD5B29EB59EE001D9B7F /* TaxYear2020_MarriedJointly.swift in Sources */,
 				7E3464452833C26E008C58A2 /* TaxDataInput.swift in Sources */,
+				7E58C75C29F07E2900392E33 /* TaxInfoView.swift in Sources */,
 				7E3464462833C26E008C58A2 /* CalculatedTaxData.swift in Sources */,
 				7E3464492833C26E008C58A2 /* Income.swift in Sources */,
 				7E34644A2833C26E008C58A2 /* StateIncome.swift in Sources */,
@@ -853,6 +858,7 @@
 				7EF5BD4229EB3735001D9B7F /* TaxYear2022_Single.swift in Sources */,
 				7E572F2F282910B300DDB15E /* TaxCalculator.swift in Sources */,
 				7E1239BD282E0D520048BD77 /* TaxListGroupView.swift in Sources */,
+				7E58C75B29F07E2900392E33 /* TaxInfoView.swift in Sources */,
 				7E3C565D28322135002272F3 /* BracketTableView.swift in Sources */,
 				7E572F31282910B300DDB15E /* TaxBracketGenerator.swift in Sources */,
 			);

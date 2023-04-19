@@ -134,7 +134,7 @@ struct ExplainableCurrencyView: View {
                                 .font(.system(.body, design: .monospaced))
                                 .padding()
                         case let .bracket(tax):
-                            BracketInfoView(tax: tax)
+                            TaxInfoView(tax: tax)
                     }
                 }
                 .navigationTitle(config.title)
