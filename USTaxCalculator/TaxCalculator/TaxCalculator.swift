@@ -10,7 +10,7 @@ enum TaxCalculator {
             income: input.income,
             federalDeductions: input.federalDeductions,
             federalCredits: input.federalCredits,
-            taxRates: taxRates.federalRates
+            federalRates: taxRates.federalRates
         )
 
         let stateTaxes = input.income.stateIncomes.map { stateIncome in
@@ -46,10 +46,10 @@ private extension TaxCalculator {
         }
     }
 
-    static func federalTaxesFor(income: Income, federalDeductions: DeductionAmount, federalCredits: Double, taxRates: FederalTaxRates) -> FederalTaxData {
+    static func federalTaxesFor(income: Income, federalDeductions: DeductionAmount, federalCredits: Double, federalRates: FederalTaxRates) -> FederalTaxData {
         let deductions = Self.calculateDeductionsForDeductionAmount(
             federalDeductions,
-            standardDeduction: taxRates.standardDeductions
+            standardDeduction: federalRates.standardDeductions
         )
         let taxableFederalIncome = max(0.0, income.totalIncome - income.longtermCapitalGains - deductions)
         let namedTaxableFederalIncome = NamedValue(amount: taxableFederalIncome, name: "Taxable Income")
@@ -57,7 +57,7 @@ private extension TaxCalculator {
         var federalTaxes: [FederalTax] = []
 
         // income tax
-        let incomeBracketGroup = TaxBracketGenerator.bracketGroupForRawTaxRates(taxRates.incomeRates)
+        let incomeBracketGroup = TaxBracketGenerator.bracketGroupForRawTaxRates(federalRates.incomeRates)
         let incomeBracket = incomeBracketGroup.matchingBracketFor(taxableIncome: taxableFederalIncome)
         federalTaxes.append(
             FederalTax(title: "Income",
@@ -67,7 +67,7 @@ private extension TaxCalculator {
         )
 
         // longterm gains tax
-        let longtermGainBracketGroup = TaxBracketGenerator.bracketGroupForRawTaxRates(taxRates.longtermGainsRates)
+        let longtermGainBracketGroup = TaxBracketGenerator.bracketGroupForRawTaxRates(federalRates.longtermGainsRates)
         let longtermGainsBracket = longtermGainBracketGroup.matchingBracketFor(taxableIncome: taxableFederalIncome)
         if longtermGainsBracket.rate > 0.0 {
             federalTaxes.append(
@@ -79,7 +79,7 @@ private extension TaxCalculator {
         }
 
         // net investment income tax
-        let niiBracketGroup = TaxBracketGenerator.bracketGroupForRawTaxRates(taxRates.netInvestmentIncomeRates)
+        let niiBracketGroup = TaxBracketGenerator.bracketGroupForRawTaxRates(federalRates.netInvestmentIncomeRates)
         let niiBracket = niiBracketGroup.matchingBracketFor(taxableIncome: taxableFederalIncome)
         if niiBracket.rate > 0.0 {
             let taxableRegularIncome = taxableFederalIncome - niiBracket.startingAt
@@ -95,10 +95,10 @@ private extension TaxCalculator {
         }
 
         // additional medicare tax
-        let medicareBracketGroup = TaxBracketGenerator.bracketGroupForRawTaxRates(taxRates.additionalMedicareIncomeRates)
+        let medicareBracketGroup = TaxBracketGenerator.bracketGroupForRawTaxRates(federalRates.additionalMedicareIncomeRates)
         let medicareBracket = medicareBracketGroup.matchingBracketFor(taxableIncome: income.medicareWages)
         if medicareBracket.rate > 0.0 {
-            let basicBracketGroup = TaxBracketGenerator.bracketGroupForRawTaxRates(taxRates.basicMedicareIncomeRates)
+            let basicBracketGroup = TaxBracketGenerator.bracketGroupForRawTaxRates(federalRates.basicMedicareIncomeRates)
             let basicBracket = basicBracketGroup.matchingBracketFor(taxableIncome: income.medicareWages)
             let expectedBasicWithholding = income.medicareWages * basicBracket.rate
             let tax = FederalTax(title: "Additional Medicare",
