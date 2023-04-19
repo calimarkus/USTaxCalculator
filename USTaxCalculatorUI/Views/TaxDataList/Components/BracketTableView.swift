@@ -1,5 +1,5 @@
 //
-// BracketInfoView.swift
+// BracketTableView.swift
 //
 
 import SwiftUI
@@ -8,9 +8,7 @@ extension TaxBracket: Identifiable {
     var id: Double {
         startingAt
     }
-}
 
-extension TaxBracket {
     var isProgressive: Bool {
         switch type {
             case .progressive:
@@ -19,12 +17,6 @@ extension TaxBracket {
                 return false
         }
     }
-}
-
-enum BracketInfoSize {
-    static let smallColumnMaxWidth = 120.0
-    static let columnSpacing = 20.0
-    static let minWidth = 500.0
 }
 
 struct BracketInfoView: View {
@@ -74,7 +66,7 @@ struct BracketInfoView: View {
         }
         .padding(20.0)
         #if os(macOS)
-            .frame(minWidth: BracketInfoSize.minWidth)
+            .frame(minWidth: 500)
         #endif
     }
 }
@@ -108,11 +100,9 @@ struct BracketTableView: View {
         }
         .padding([.leading, .trailing], 10.0)
     }
-}
 
-extension BracketTableView {
     private var maxSmallColumnWidth: Double {
-        isProgressive ? BracketInfoSize.smallColumnMaxWidth : BracketInfoSize.smallColumnMaxWidth * 2.0
+        isProgressive ? 120.0 : 240.0
     }
 
     private var titleRow: some View {
@@ -170,7 +160,7 @@ extension BracketTableView {
                 Text("\(FormattingHelper.formatPercentage(bracket.rate))")
 
                 #if os(macOS)
-                    if bracket.isProgressive, bracket.startingAt > 0.0 {
+                    if isProgressive, bracket.startingAt > 0.0 {
                         Text("of amount over \(FormattingHelper.formatCurrency(bracket.startingAt))")
                             .font(.subheadline)
                             .foregroundColor(.secondary)
