@@ -49,7 +49,7 @@ private extension TaxCalculator {
     static func federalTaxesFor(income: Income, federalDeductions: DeductionAmount, federalCredits: Double, federalRates: FederalTaxRates) -> FederalTaxData {
         let deductions = Self.calculateDeductionsForDeductionAmount(
             federalDeductions,
-            standardDeduction: federalRates.standardDeductions
+            standardDeduction: federalRates.standardDeductions.value
         )
         let taxableFederalIncome = max(0.0, income.totalIncome - income.longtermCapitalGains - deductions)
         let namedTaxableFederalIncome = NamedValue(amount: taxableFederalIncome, name: "Taxable Income")

@@ -24,7 +24,7 @@ enum TaxYear2022_Single {
                 539_901.0: 0.37,
             ]),
             // see https://www.bankrate.com/taxes/standard-tax-deduction-amounts/
-            standardDeductions: 12950.0,
+            standardDeductions: RawStandardDeduction(12950.0),
             // see https://www.nerdwallet.com/article/taxes/capital-gains-tax-rates
             // see https://www.unionbank.com/personal/financial-insights/investing/personal-investing/capital-gains-tax-rates-2021-and-how-to-minimize-them
             longtermGainsRates: RawTaxRates(simple: [459_751.0: 0.20, 41676.0: 0.15]),
@@ -56,7 +56,7 @@ enum TaxYear2022_Single {
                 677_276.0: 0.123,
             ]),
             // see https://www.ftb.ca.gov/file/personal/deductions/index.html
-            standardDeductions: 5202.0
+            standardDeductions: RawStandardDeduction(5202.0)
         )
     }
 
@@ -79,7 +79,7 @@ enum TaxYear2022_Single {
             ]),
             // see https://www.tax.ny.gov/pit/file/standard_deductions.htm
             // see https://www.efile.com/new-york-tax-rates-forms-and-brackets/
-            standardDeductions: 8000.0,
+            standardDeductions: RawStandardDeduction(8000.0),
             // These rates are a fairly rough approximation, mostly based on 2021
             nonProgressiveIncomeRates: RawTaxRates(simple: [
                 0.0: 0.0625,

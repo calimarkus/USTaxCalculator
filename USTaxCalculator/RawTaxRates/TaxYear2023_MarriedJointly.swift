@@ -24,7 +24,7 @@ enum TaxYear2023_MarriedJointly {
                 693_751.0: 0.37,
             ]),
             // see https://www.bankrate.com/taxes/standard-tax-deduction-amounts/
-            standardDeductions: 0.0,
+            standardDeductions: RawStandardDeduction(0.0),
             // see https://www.nerdwallet.com/article/taxes/capital-gains-tax-rates
             // see https://www.unionbank.com/personal/financial-insights/investing/personal-investing/capital-gains-tax-rates-2021-and-how-to-minimize-them
             longtermGainsRates: RawTaxRates(simple: [:]),
@@ -46,7 +46,7 @@ enum TaxYear2023_MarriedJointly {
         CaliforniaStateTaxRates(
             incomeRates: RawTaxRates(simple: [:]), // TBD
             // see https://www.ftb.ca.gov/file/personal/deductions/index.html
-            standardDeductions: 0.0 // TBD
+            standardDeductions: RawStandardDeduction(0.0) // TBD
         )
     }
 
@@ -55,7 +55,7 @@ enum TaxYear2023_MarriedJointly {
             incomeRates: RawTaxRates(simple: [:]), // TBD
             // see https://www.tax.ny.gov/pit/file/standard_deductions.htm
             // see https://www.efile.com/new-york-tax-rates-forms-and-brackets/
-            standardDeductions: 16050.0,
+            standardDeductions: RawStandardDeduction(16050.0),
             nonProgressiveIncomeRates: RawTaxRates(simple: [:]), // TBD
             // see https://www.tax.ny.gov/pdf/current_forms/it/it201i.pdf#page=67
             // see https://answerconnect.cch.com/document/jyc0109013e2c83c2542d/state/explanations/new-york-city/nyc-tax-rates-blended-nyc-tax-rates

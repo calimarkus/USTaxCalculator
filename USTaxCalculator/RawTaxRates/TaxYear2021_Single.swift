@@ -24,7 +24,7 @@ enum TaxYear2021_Single {
                 523_600.0: 0.37,
             ]),
             // see https://www.bankrate.com/taxes/standard-tax-deduction-amounts/
-            standardDeductions: 12550.0,
+            standardDeductions: RawStandardDeduction(12550.0),
             // see https://www.nerdwallet.com/article/taxes/capital-gains-tax-rates
             // see https://www.unionbank.com/personal/financial-insights/investing/personal-investing/capital-gains-tax-rates-2021-and-how-to-minimize-them
             longtermGainsRates: RawTaxRates(simple: [445_850.0: 0.20, 40400.0: 0.15]),
@@ -56,7 +56,7 @@ enum TaxYear2021_Single {
                 625_369.0: 0.123,
             ]),
             // see https://www.ftb.ca.gov/file/personal/deductions/index.html
-            standardDeductions: 4803.0
+            standardDeductions: RawStandardDeduction(4803.0)
         )
     }
 
@@ -80,7 +80,7 @@ enum TaxYear2021_Single {
             ]),
             // see https://www.tax.ny.gov/pit/file/standard_deductions.htm
             // see https://www.efile.com/new-york-tax-rates-forms-and-brackets/
-            standardDeductions: 8000.0,
+            standardDeductions: RawStandardDeduction(8000.0),
             // see https://www.tax.ny.gov/forms/income_cur_forms.htm
             // see https://www.tax.ny.gov/forms/income_fullyear_forms.htm
             // see https://www.tax.ny.gov/forms/current-forms/it/it201i.htm (IT-201-I instructions)

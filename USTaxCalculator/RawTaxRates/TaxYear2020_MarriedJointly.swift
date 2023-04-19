@@ -24,7 +24,7 @@ enum TaxYear2020_MarriedJointly {
                 622_050.0: 0.37,
             ]),
             // see https://www.bankrate.com/taxes/standard-tax-deduction-amounts/
-            standardDeductions: 24800.0,
+            standardDeductions: RawStandardDeduction(24800.0),
             // see https://www.nerdwallet.com/article/taxes/capital-gains-tax-rates
             // see https://www.unionbank.com/personal/financial-insights/investing/personal-investing/capital-gains-tax-rates-2021-and-how-to-minimize-them
             longtermGainsRates: RawTaxRates(simple: [496_600.0: 0.20, 80000.0: 0.15]),
@@ -56,7 +56,7 @@ enum TaxYear2020_MarriedJointly {
                 1_198_024.0: 0.123,
             ]),
             // see https://www.ftb.ca.gov/about-ftb/newsroom/tax-news/november-2020/standard-deductions-exemption-amounts-and-tax-rates-for-2020-tax-year.html
-            standardDeductions: 9202.0
+            standardDeductions: RawStandardDeduction(9202.0)
         )
     }
 
@@ -78,7 +78,7 @@ enum TaxYear2020_MarriedJointly {
             ]),
             // see https://www.tax.ny.gov/pit/file/standard_deductions.htm
             // see https://www.efile.com/new-york-tax-rates-forms-and-brackets/
-            standardDeductions: 16050.0,
+            standardDeductions: RawStandardDeduction(16050.0),
             // see https://www.tax.ny.gov/forms/income_cur_forms.htm
             // see https://www.tax.ny.gov/forms/income_fullyear_forms.htm
             // see https://www.tax.ny.gov/forms/current-forms/it/it201i.htm (IT-201-I instructions)

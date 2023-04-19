@@ -24,7 +24,7 @@ enum TaxYear2022_MarriedJointly {
                 647_851.0: 0.37,
             ]),
             // see https://www.bankrate.com/taxes/standard-tax-deduction-amounts/
-            standardDeductions: 25900.0,
+            standardDeductions: RawStandardDeduction(25900.0),
             // see https://www.nerdwallet.com/article/taxes/capital-gains-tax-rates
             // see https://www.unionbank.com/personal/financial-insights/investing/personal-investing/capital-gains-tax-rates-2021-and-how-to-minimize-them
             longtermGainsRates: RawTaxRates(simple: [517_200.0: 0.20, 83351.0: 0.15]),
@@ -56,7 +56,7 @@ enum TaxYear2022_MarriedJointly {
                 1_354_551.0: 0.123,
             ]),
             // see https://www.ftb.ca.gov/file/personal/deductions/index.html
-            standardDeductions: 10404.0
+            standardDeductions: RawStandardDeduction(10404.0)
         )
     }
 
@@ -79,7 +79,7 @@ enum TaxYear2022_MarriedJointly {
             ]),
             // see https://www.tax.ny.gov/pit/file/standard_deductions.htm
             // see https://www.efile.com/new-york-tax-rates-forms-and-brackets/
-            standardDeductions: 16050.0,
+            standardDeductions: RawStandardDeduction(16050.0),
             // These rates are a fairly rough approximation, mostly based on 2021
             nonProgressiveIncomeRates: RawTaxRates(simple: [
                 0.0: 0.0585,
