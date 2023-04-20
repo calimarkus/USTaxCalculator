@@ -2,8 +2,6 @@
 // TaxYear2020_MarriedJointly.swift
 //
 
-import Foundation
-
 enum TaxYear2020_MarriedJointly {
     static var taxRates: RawTaxRatesYear {
         RawTaxRatesYear(
@@ -16,7 +14,7 @@ enum TaxYear2020_MarriedJointly {
     private static var federalRates: FederalTaxRates {
         FederalTaxRates(
             incomeRates: RawTaxRates(progressive: [
-                0.0: 0.1,
+                0.0: 0.10,
                 19750.0: 0.12,
                 80250.0: 0.22,
                 171_050.0: 0.24,
@@ -90,7 +88,7 @@ enum TaxYear2020_MarriedJointly {
                 "https://www.efile.com/new-york-tax-rates-forms-and-brackets/",
             ]),
             //
-            // This is simplified - more math is involved to do these properly as above link shows.
+            // This is simplified - more math is involved to do these properly as the source link shows.
             // That rate changes for every increment of 50k, partly based on the progressive rate, which is rather complex.
             // The proper fix is to implement the full tax computation worksheets.
             //

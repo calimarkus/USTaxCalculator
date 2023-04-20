@@ -13,7 +13,6 @@ enum TaxYear2021_MarriedJointly {
 
     private static var federalRates: FederalTaxRates {
         FederalTaxRates(
-            // see https://www.nerdwallet.com/article/taxes/federal-income-tax-brackets
             incomeRates: RawTaxRates(progressive: [
                 0.0: 0.1,
                 19900.0: 0.12,
@@ -22,26 +21,29 @@ enum TaxYear2021_MarriedJointly {
                 329_850.0: 0.32,
                 418_850.0: 0.35,
                 628_300.0: 0.37,
+            ], sources: [
+                "https://www.nerdwallet.com/article/taxes/federal-income-tax-brackets",
             ]),
-            // see https://www.bankrate.com/taxes/standard-tax-deduction-amounts/
-            standardDeductions: RawStandardDeduction(25100.0),
-            // see https://www.nerdwallet.com/article/taxes/capital-gains-tax-rates
-            // see https://www.unionbank.com/personal/financial-insights/investing/personal-investing/capital-gains-tax-rates-2021-and-how-to-minimize-them
-            longtermGainsRates: RawTaxRates(simple: [501_600.0: 0.20, 80800.0: 0.15]),
-            // see https://www.irs.gov/individuals/net-investment-income-tax
-            netInvestmentIncomeRates: RawTaxRates(simple: [250_000.0: 0.038]),
-            // see https://www.indeed.com/hire/c/info/medicare-taxes-an-overview-for-employers
-            basicMedicareIncomeRates: RawTaxRates(simple: [0.0: 0.0145]),
-            // see https://www.healthline.com/health/medicare/additional-medicare-tax
-            additionalMedicareIncomeRates: RawTaxRates(progressive: [0.0: 0.0, 250_000.0: 0.009])
+            standardDeductions: RawStandardDeduction(25100.0, sources: [
+                "https://www.bankrate.com/taxes/standard-tax-deduction-amounts/",
+            ]),
+            longtermGainsRates: RawTaxRates(simple: [501_600.0: 0.20, 80800.0: 0.15], sources: [
+                "https://www.nerdwallet.com/article/taxes/capital-gains-tax-rates",
+                "https://www.unionbank.com/personal/financial-insights/investing/personal-investing/capital-gains-tax-rates-2021-and-how-to-minimize-them",
+            ]),
+            netInvestmentIncomeRates: RawTaxRates(simple: [250_000.0: 0.038], sources: [
+                "https://www.irs.gov/individuals/net-investment-income-tax",
+            ]),
+            basicMedicareIncomeRates: RawTaxRates(simple: [0.0: 0.0145], sources: [
+                "https://www.indeed.com/hire/c/info/medicare-taxes-an-overview-for-employers",
+            ]),
+            additionalMedicareIncomeRates: RawTaxRates(progressive: [0.0: 0.0, 250_000.0: 0.009], sources: [
+                "https://www.healthline.com/health/medicare/additional-medicare-tax",
+            ])
         )
     }
 
-    // CA
-    // see https://www.nerdwallet.com/article/taxes/california-state-tax
-    // see https://www.ftb.ca.gov/forms/2020/2020-California-Tax-Rate-Schedules.pdf
-    //
-    // Note: These are only valid for incomes of $100,000+
+    /// Note: These are only valid for incomes of $100,000+
     private static var californiaRates: CaliforniaStateTaxRates {
         CaliforniaStateTaxRates(
             incomeRates: RawTaxRates(progressive: [
@@ -54,17 +56,18 @@ enum TaxYear2021_MarriedJointly {
                 625_372.0: 0.103,
                 750_442.0: 0.113,
                 1_250_738.0: 0.123,
+            ], sources: [
+                "https://www.nerdwallet.com/article/taxes/california-state-tax",
+                "https://www.ftb.ca.gov/forms/2020/2020-California-Tax-Rate-Schedules.pdf",
             ]),
-            // see https://www.ftb.ca.gov/file/personal/deductions/index.html
-            standardDeductions: RawStandardDeduction(9606.0)
+            standardDeductions: RawStandardDeduction(9606.0, sources: [
+                "https://www.ftb.ca.gov/file/personal/deductions/index.html",
+            ])
         )
     }
 
     private static var newYorkRates: NewYorkStateTaxRates {
         NewYorkStateTaxRates(
-            // see https://www.nerdwallet.com/article/taxes/new-york-state-tax
-            // see https://www.forbes.com/advisor/taxes/new-york-state-tax/
-            // see https://www.tax.ny.gov/pdf/current_forms/it/it201i.pdf#page=51
             // Rates apply for incomes < $107,650
             incomeRates: RawTaxRates(progressive: [
                 0.0: 0.04,
@@ -77,15 +80,17 @@ enum TaxYear2021_MarriedJointly {
                 2_155_350.0: 0.0965,
                 5_000_000.0: 0.103,
                 25_000_000.0: 0.109,
+            ], sources: [
+                "https://www.nerdwallet.com/article/taxes/new-york-state-tax",
+                "https://www.forbes.com/advisor/taxes/new-york-state-tax/",
+                "https://www.tax.ny.gov/pdf/current_forms/it/it201i.pdf#page=51",
             ]),
-            // see https://www.tax.ny.gov/pit/file/standard_deductions.htm
-            // see https://www.efile.com/new-york-tax-rates-forms-and-brackets/
-            standardDeductions: RawStandardDeduction(16050.0),
-            // see https://www.tax.ny.gov/forms/income_cur_forms.htm
-            // see https://www.tax.ny.gov/forms/income_fullyear_forms.htm
-            // see https://www.tax.ny.gov/forms/current-forms/it/it201i.htm (IT-201-I instructions)
+            standardDeductions: RawStandardDeduction(16050.0, sources: [
+                "https://www.tax.ny.gov/pit/file/standard_deductions.htm",
+                "https://www.efile.com/new-york-tax-rates-forms-and-brackets/",
+            ]),
             //
-            // This is simplified - more math is involved to do these properly as above link shows.
+            // This is simplified - more math is involved to do these properly as the source link shows.
             // That rate changes for every increment of 50k, partly based on the progressive rate, which is rather complex.
             // The proper fix is to implement the full tax computation worksheets.
             //
@@ -97,9 +102,11 @@ enum TaxYear2021_MarriedJointly {
                 2_155_350.0: 0.0965,
                 5_000_000.0: 0.103,
                 25_000_000.0: 0.109,
+            ], sources: [
+                "https://www.tax.ny.gov/forms/income_cur_forms.htm",
+                "https://www.tax.ny.gov/forms/income_fullyear_forms.htm",
+                "https://www.tax.ny.gov/forms/current-forms/it/it201i.htm",
             ]),
-            // see https://www.tax.ny.gov/pdf/current_forms/it/it201i.pdf#page=67
-            // see https://answerconnect.cch.com/document/jyc0109013e2c83c2542d/state/explanations/new-york-city/nyc-tax-rates-blended-nyc-tax-rates
             // Note: These are full-year resident rates! Part year resident rates might differ
             // Rates apply for incomes > $65,000
             newYorkCityRates: RawTaxRates(progressive: [
@@ -107,6 +114,9 @@ enum TaxYear2021_MarriedJointly {
                 21600.0: 0.03762,
                 45000.0: 0.03819,
                 90000.0: 0.03876,
+            ], sources: [
+                "https://www.tax.ny.gov/pdf/current_forms/it/it201i.pdf#page=67",
+                "https://answerconnect.cch.com/document/jyc0109013e2c83c2542d/state/explanations/new-york-city/nyc-tax-rates-blended-nyc-tax-rates",
             ])
         )
     }
