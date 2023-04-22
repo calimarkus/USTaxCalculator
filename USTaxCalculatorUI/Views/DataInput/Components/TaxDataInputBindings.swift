@@ -5,11 +5,11 @@
 import SwiftUI
 
 extension TaxDataInput {
-    static func stateDeductionsBinding(_ stateDeductions: Binding<[TaxState: DeductionAmount]>,
-                                       for state: TaxState) -> Binding<DeductionAmount>
+    static func stateDeductionsBinding(_ stateDeductions: Binding<[TaxState: DeductionInput]>,
+                                       for state: TaxState) -> Binding<DeductionInput>
     {
         Binding(get: {
-            stateDeductions.wrappedValue[state, default: DeductionAmount.standard(additionalDeductions: 0.0)]
+            stateDeductions.wrappedValue[state, default: DeductionInput.standard(additionalDeductions: 0.0)]
         }, set: {
             stateDeductions.wrappedValue[state] = $0
         })

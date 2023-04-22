@@ -4,8 +4,8 @@
 
 import SwiftUI
 
-extension DeductionAmount {
-    static func pickerSelectionBinding(_ deduction: Binding<DeductionAmount>) -> Binding<DeductionAmount> {
+extension DeductionInput {
+    static func pickerSelectionBinding(_ deduction: Binding<DeductionInput>) -> Binding<DeductionInput> {
         Binding {
             switch deduction.wrappedValue {
                 case .standard: return .standard(additionalDeductions: 0.0)
@@ -16,7 +16,7 @@ extension DeductionAmount {
         }
     }
 
-    static func valueBinding(_ deduction: Binding<DeductionAmount>, isCustomDeduction: Bool) -> Binding<Double> {
+    static func valueBinding(_ deduction: Binding<DeductionInput>, isCustomDeduction: Bool) -> Binding<Double> {
         Binding {
             switch deduction.wrappedValue {
                 case let .standard(val): return val

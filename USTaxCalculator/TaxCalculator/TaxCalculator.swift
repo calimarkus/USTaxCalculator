@@ -39,14 +39,14 @@ enum TaxCalculator {
 }
 
 private extension TaxCalculator {
-    static func calculateDeductionsForDeductionAmount(_ amount: DeductionAmount, standardDeduction: Double) -> Double {
+    static func calculateDeductionsForDeductionAmount(_ amount: DeductionInput, standardDeduction: Double) -> Double {
         switch amount {
             case let .standard(additional): return additional + standardDeduction
             case let .custom(customAmount): return customAmount
         }
     }
 
-    static func federalTaxesFor(income: Income, federalDeductions: DeductionAmount, federalCredits: Double, federalRates: FederalTaxRates) -> FederalTaxData {
+    static func federalTaxesFor(income: Income, federalDeductions: DeductionInput, federalCredits: Double, federalRates: FederalTaxRates) -> FederalTaxData {
         let deductions = Self.calculateDeductionsForDeductionAmount(
             federalDeductions,
             standardDeduction: federalRates.standardDeductions.value
@@ -120,13 +120,13 @@ private extension TaxCalculator {
     }
 
     static func stateTaxFor(stateIncome: StateIncome,
-                            stateDeductions: [TaxState: DeductionAmount],
+                            stateDeductions: [TaxState: DeductionInput],
                             stateCredits: [TaxState: Double],
                             totalIncome: Double,
                             taxRates: RawTaxRatesYear) -> StateTax
     {
         let deductions = Self.calculateDeductionsForDeductionAmount(
-            stateDeductions[stateIncome.state] ?? DeductionAmount.standard(),
+            stateDeductions[stateIncome.state] ?? DeductionInput.standard(),
             standardDeduction: taxRates.standardDeductionForState(stateIncome.state)
         )
         let taxableStateIncome = max(0.0, totalIncome + stateIncome.additionalStateIncome - deductions)

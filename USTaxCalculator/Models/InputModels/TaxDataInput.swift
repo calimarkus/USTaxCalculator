@@ -9,14 +9,14 @@ enum TaxYear: Int, Codable, Equatable {
 //    case y2023 = 2023
 }
 
-enum DeductionAmount: Hashable, Codable, Equatable {
-    case standard(additionalDeductions: Double = 0.0)
-    case custom(_ amount: Double)
-}
-
 enum FilingType: String, CaseIterable, Codable, Equatable {
     case single = "Single"
     case marriedJointly = "Jointly"
+}
+
+enum DeductionInput: Hashable, Codable, Equatable {
+    case standard(additionalDeductions: Double = 0.0)
+    case custom(_ amount: Double)
 }
 
 struct TaxDataInput: Codable, Equatable {
@@ -30,9 +30,9 @@ struct TaxDataInput: Codable, Equatable {
     var income: Income = .init()
 
     /// Federal deductions that apply.
-    var federalDeductions: DeductionAmount = .standard()
+    var federalDeductions: DeductionInput = .standard()
     /// State deductions that apply to each state. Missing states will utilize standard deductions.
-    var stateDeductions: [TaxState: DeductionAmount] = [:]
+    var stateDeductions: [TaxState: DeductionInput] = [:]
 
     /// Federal withholdings not listed on the W-2 (e.g. estimated payments, etc.)
     var additionalFederalWithholding: Double = 0.0
