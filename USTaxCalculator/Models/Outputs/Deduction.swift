@@ -22,7 +22,9 @@ struct Deduction {
                 return []
         }
     }
+}
 
+extension Deduction: CalculatableValue {
     /// returns the deduction amount
     func calculateAmount() -> Double {
         switch input {
@@ -32,8 +34,8 @@ struct Deduction {
     }
 
     /// returns a string describing the calculation of the deduction
-    func calculationExplanation(explanationType: ExplanationType = .values) -> String {
-        switch explanationType {
+    func calculationExplanation(as type: ExplanationType) -> String {
+        switch type {
             case .names:
                 switch input {
                     case let .standard(additional):

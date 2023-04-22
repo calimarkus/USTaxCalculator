@@ -5,28 +5,25 @@
 import SwiftUI
 
 struct CalculationExplanationView: View {
-    let explanation: String
-    let calculation: String
+    let value: any CalculatableValue
 
     var body: some View {
         VStack(alignment: .leading, spacing: 10.0) {
             Text("Calculation:")
                 .font(.headline)
-            Text(explanation)
+            Text(value.calculationExplanation(as: .names))
                 .padding(.bottom, -4.0)
                 .foregroundColor(.secondary)
-            Text(calculation)
+            Text("\(value.calculationExplanation(as: .values)) + \(value.formattedAmount())")
                 .font(.system(.body, design: .monospaced))
         }
     }
 }
 
 struct CalculationExplanationView_Previews: PreviewProvider {
+    static let input: DeductionInput = .standard(additionalDeductions: 500.0)
     static var previews: some View {
-        CalculationExplanationView(
-            explanation: "This + that",
-            calculation: "50 + 20"
-        )
-        .padding(20.0)
+        CalculationExplanationView(value: Deduction(input: input, standardDeduction: TaxYear2021_Single.taxRates.federalRates.standardDeductions))
+            .padding(20.0)
     }
 }

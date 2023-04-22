@@ -9,11 +9,6 @@ enum BracketType: Hashable {
     case basic
 }
 
-enum ExplanationType {
-    case names
-    case values
-}
-
 struct TaxBracket: Hashable {
     /// The rate that should be applied
     let rate: Double

@@ -7,7 +7,7 @@ struct NamedValue {
     let name: String
 }
 
-protocol Tax {
+protocol Tax: CalculatableValue {
     /// The title for this tax
     var title: String { get }
 
@@ -22,6 +22,16 @@ protocol Tax {
 
     /// The taxable income for this specific Bracket
     var taxableIncome: NamedValue { get }
+}
+
+extension Tax {
+    func calculateAmount() -> Double {
+        activeBracket.calculateTaxesForAmount(taxableIncome)
+    }
+
+    func calculationExplanation(as type: ExplanationType) -> String {
+        activeBracket.taxCalculationExplanation(taxableIncome, explanationType: type)
+    }
 }
 
 struct FederalTax: Tax {

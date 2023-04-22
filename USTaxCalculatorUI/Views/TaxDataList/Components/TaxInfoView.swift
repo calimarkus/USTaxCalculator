@@ -21,9 +21,7 @@ struct TaxInfoView: View {
 
             Spacer().frame(height: 4.0)
 
-            let explanation = tax.activeBracket.taxCalculationExplanation(tax.taxableIncome, explanationType: .names)
-            let calculation = "\(tax.activeBracket.taxCalculationExplanation(tax.taxableIncome)) = \(FormattingHelper.formatCurrency(tax.activeBracket.calculateTaxesForAmount(tax.taxableIncome)))"
-            CalculationExplanationView(explanation: explanation, calculation: calculation)
+            CalculationExplanationView(value: tax)
 
             if tax.bracketGroup.sources.count > 0 {
                 Spacer().frame(height: 4.0)
