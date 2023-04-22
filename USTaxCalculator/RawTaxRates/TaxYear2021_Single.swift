@@ -27,7 +27,7 @@ enum TaxYear2021_Single {
             standardDeductions: RawStandardDeduction(12550.0, sources: [
                 "https://www.bankrate.com/taxes/standard-tax-deduction-amounts/",
             ]),
-            longtermGainsRates: RawTaxRates(simple: [445_850.0: 0.20, 40400.0: 0.15], sources: [
+            longtermGainsRates: RawTaxRates(simple: [40400.0: 0.15, 445_850.0: 0.20], sources: [
                 "https://www.nerdwallet.com/article/taxes/capital-gains-tax-rates",
                 "https://www.unionbank.com/personal/financial-insights/investing/personal-investing/capital-gains-tax-rates-2021-and-how-to-minimize-them",
             ]),

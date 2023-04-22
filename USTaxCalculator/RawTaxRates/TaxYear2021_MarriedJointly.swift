@@ -27,7 +27,7 @@ enum TaxYear2021_MarriedJointly {
             standardDeductions: RawStandardDeduction(25100.0, sources: [
                 "https://www.bankrate.com/taxes/standard-tax-deduction-amounts/",
             ]),
-            longtermGainsRates: RawTaxRates(simple: [501_600.0: 0.20, 80800.0: 0.15], sources: [
+            longtermGainsRates: RawTaxRates(simple: [80800.0: 0.15, 501_600.0: 0.20], sources: [
                 "https://www.nerdwallet.com/article/taxes/capital-gains-tax-rates",
                 "https://www.unionbank.com/personal/financial-insights/investing/personal-investing/capital-gains-tax-rates-2021-and-how-to-minimize-them",
             ]),
