@@ -4,22 +4,6 @@
 
 import SwiftUI
 
-struct AdditionView: View {
-    var title: String
-    let amount: Double
-    var showSeparator: Bool = true
-
-    var body: some View {
-        CurrencyView(CurrencyViewConfig(
-            title: title,
-            amount: amount,
-            showPlusMinus: true,
-            showSeparator: showSeparator,
-            isSecondaryLabel: true
-        ))
-    }
-}
-
 struct SumView: View {
     var title: String
     var subtitle: String = ""
@@ -65,6 +49,18 @@ struct CurrencyViewConfig {
         } else {
             return nil
         }
+    }
+}
+
+extension CurrencyViewConfig {
+    static func secondaryAdditionConfig(title: String, amount: Double) -> CurrencyViewConfig {
+        CurrencyViewConfig(
+            title: title,
+            amount: amount,
+            showPlusMinus: true,
+            showSeparator: true,
+            isSecondaryLabel: true
+        )
     }
 }
 
@@ -243,12 +239,12 @@ struct CurrencyView_Previews: PreviewProvider {
                 CurrencyViewConfig(title: "Alpha", amount: 123.53, showSeparator: false),
                 explanation: .text("info")
             )
-            AdditionView(title: "Beta", amount: 25.25)
-            AdditionView(title: "Gamma", amount: -12.23)
+            CurrencyView(.secondaryAdditionConfig(title: "Beta", amount: 25.25))
+            CurrencyView(.secondaryAdditionConfig(title: "Gamma", amount: -12.23))
             SumView(title: "Total", amount: 123.53 + 25.25)
             CurrencyView(CurrencyViewConfig(title: "PS", amount: -12.23))
             CurrencyView(CurrencyViewConfig(title: "PS", subtitle: "(some explanation)", amount: 0.0))
-            AdditionView(title: "Gamma", amount: -0.0)
+            CurrencyView(.secondaryAdditionConfig(title: "Gamma", amount: -0.0))
         }.padding()
     }
 }

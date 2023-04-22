@@ -24,17 +24,13 @@ struct StateTaxesListSection: View {
             TaxListGroupView {
                 CurrencyView(CurrencyViewConfig(title: "Total Income", amount: totalIncome, showSeparator: false))
                 if stateTax.additionalStateIncome > 0.0 {
-                    AdditionView(title: "Additional State Income",
-                                 amount: stateTax.additionalStateIncome)
+                    CurrencyView(.secondaryAdditionConfig(
+                        title: "Additional State Income",
+                        amount: stateTax.additionalStateIncome
+                    ))
                 }
                 ExplainableCurrencyView(
-                    CurrencyViewConfig(
-                        title: "State Deduction",
-                        amount: -stateTax.deduction.calculateAmount(),
-                        showPlusMinus: true,
-                        showSeparator: true,
-                        isSecondaryLabel: true
-                    ),
+                    .secondaryAdditionConfig(title: "State Deduction", amount: -stateTax.deduction.calculateAmount()),
                     explanation: .deductionInfo(stateTax.deduction)
                 )
                 SumView(title: "Taxable Income", amount: stateTax.taxableIncome.amount)

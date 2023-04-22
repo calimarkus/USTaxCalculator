@@ -33,18 +33,14 @@ struct FederalIncomeListSection: View {
                 }
 
                 if income.longtermCapitalGains > 0 {
-                    AdditionView(title: "Longterm capital gains",
-                                 amount: -income.longtermCapitalGains)
+                    CurrencyView(.secondaryAdditionConfig(
+                        title: "Longterm capital gains",
+                        amount: -income.longtermCapitalGains
+                    ))
                 }
 
                 ExplainableCurrencyView(
-                    CurrencyViewConfig(
-                        title: "Deduction",
-                        amount: -taxdata.deduction.calculateAmount(),
-                        showPlusMinus: true,
-                        showSeparator: true,
-                        isSecondaryLabel: true
-                    ),
+                    .secondaryAdditionConfig(title: "Deduction", amount: -taxdata.deduction.calculateAmount()),
                     explanation: .deductionInfo(taxdata.deduction)
                 )
             }

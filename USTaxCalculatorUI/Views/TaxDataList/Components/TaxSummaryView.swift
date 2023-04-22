@@ -16,7 +16,7 @@ struct TaxSummaryView: View {
                 showSeparator: false)
 
         if expanded {
-            AdditionView(title: "Withheld", amount: -summary.withholdings)
+            CurrencyView(.secondaryAdditionConfig(title: "Withheld", amount: -summary.withholdings))
         }
 
         let paymentTitle = summary.outstandingPayment < 0 ? "Tax Refund" : "To Pay"
