@@ -14,7 +14,7 @@ struct CalculationExplanationView: View {
             Text(value.calculationExplanation(as: .names))
                 .padding(.bottom, -4.0)
                 .foregroundColor(.secondary)
-            Text("\(value.calculationExplanation(as: .values)) + \(value.formattedAmount())")
+            Text("\(value.calculationExplanation(as: .values))")
                 .font(.system(.body, design: .monospaced))
         }
     }

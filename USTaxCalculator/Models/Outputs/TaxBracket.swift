@@ -44,23 +44,27 @@ extension TaxBracket {
 
     /// returns a string describing the calculation of the taxes for the given amount, respecting the bracket type
     func taxCalculationExplanation(_ namedAmount: NamedValue, explanationType: ExplanationType = .values) -> String {
-        switch type {
-            case .basic:
-                switch explanationType {
-                    case .names:
+        switch explanationType {
+            case .names:
+                switch type {
+                    case .basic:
                         return "\(namedAmount.name) * Rate"
-                    case .values:
-                        return "\(FormattingHelper.formatCurrency(namedAmount.amount)) * \(FormattingHelper.formatPercentage(rate))"
-                }
-            case let .progressive(fixedAmount):
-                switch explanationType {
-                    case .names:
+                    case let .progressive(fixedAmount):
                         let fixedAmountDesc = fixedAmount > 0.0 ? " + Fixed amount" : ""
                         return "(\(namedAmount.name) - Bracket start) * Rate\(fixedAmountDesc)"
-                    case .values:
-                        let fixedAmountText = fixedAmount > 0.0 ? " + \(FormattingHelper.formatCurrency(fixedAmount))" : ""
-                        return "(\(FormattingHelper.formatCurrency(namedAmount.amount)) - \(FormattingHelper.formatCurrency(startingAt))) * \(FormattingHelper.formatPercentage(rate))\(fixedAmountText)"
                 }
+            case .values:
+                return "\(taxCalculationExplanationForAmount(namedAmount)) = \(FormattingHelper.formatCurrency(calculateTaxesForAmount(namedAmount)))"
+        }
+    }
+
+    private func taxCalculationExplanationForAmount(_ namedAmount: NamedValue) -> String {
+        switch type {
+            case .basic:
+                return "\(FormattingHelper.formatCurrency(namedAmount.amount)) * \(FormattingHelper.formatPercentage(rate))"
+            case let .progressive(fixedAmount):
+                let fixedAmountText = fixedAmount > 0.0 ? " + \(FormattingHelper.formatCurrency(fixedAmount))" : ""
+                return "(\(FormattingHelper.formatCurrency(namedAmount.amount)) - \(FormattingHelper.formatCurrency(startingAt))) * \(FormattingHelper.formatPercentage(rate))\(fixedAmountText)"
         }
     }
 }

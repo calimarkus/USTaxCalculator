@@ -48,7 +48,8 @@ extension Deduction: CalculatableValue {
                     case let .standard(additional):
                         let standardFormatted = FormattingHelper.formatCurrency(standardDeduction.value)
                         let additionalFormatted = FormattingHelper.formatCurrency(additional)
-                        return additional > 0 ? "\(standardFormatted) + \(additionalFormatted)" : standardFormatted
+                        let total = FormattingHelper.formatCurrency(calculateAmount())
+                        return additional > 0 ? "\(standardFormatted) + \(additionalFormatted) = \(total)" : standardFormatted
                     case let .custom(customAmount):
                         return FormattingHelper.formatCurrency(customAmount)
                 }
