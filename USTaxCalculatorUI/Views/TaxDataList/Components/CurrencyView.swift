@@ -107,6 +107,7 @@ struct CurrencyView: View {
 enum CurrencyExplanation {
     case text(_ text: String)
     case taxInfo(_ tax: Tax)
+    case deductionInfo(_ deduction: Deduction)
 }
 
 struct ExplainableCurrencyView: View {
@@ -135,6 +136,8 @@ struct ExplainableCurrencyView: View {
                                 .padding()
                         case let .taxInfo(tax):
                             TaxInfoView(tax)
+                        case let .deductionInfo(deduction):
+                            DeductionInfoView(deduction)
                     }
                 }
                 .navigationTitle(config.title)

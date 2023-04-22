@@ -27,7 +27,16 @@ struct StateTaxesListSection: View {
                     AdditionView(title: "Additional State Income",
                                  amount: stateTax.additionalStateIncome)
                 }
-                AdditionView(title: "State Deduction", amount: -stateTax.deduction.calculateAmount())
+                ExplainableCurrencyView(
+                    CurrencyViewConfig(
+                        title: "State Deduction",
+                        amount: -stateTax.deduction.calculateAmount(),
+                        showPlusMinus: true,
+                        showSeparator: true,
+                        isSecondaryLabel: true
+                    ),
+                    explanation: .deductionInfo(stateTax.deduction)
+                )
                 SumView(title: "Taxable Income", amount: stateTax.taxableIncome.amount)
             }
 
@@ -62,7 +71,8 @@ struct StateTaxesListSection: View {
                             title: "\(localTax.title) Tax",
                             subtitle: "(\(localTax.activeBracket.formattedString))",
                             amount: localTax.taxAmount
-                        ), explanation: .taxInfo(localTax)
+                        ),
+                        explanation: .taxInfo(localTax)
                     )
                 }
 

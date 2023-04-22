@@ -37,7 +37,16 @@ struct FederalIncomeListSection: View {
                                  amount: -income.longtermCapitalGains)
                 }
 
-                AdditionView(title: "Deduction", amount: -taxdata.deduction.calculateAmount())
+                ExplainableCurrencyView(
+                    CurrencyViewConfig(
+                        title: "Deduction",
+                        amount: -taxdata.deduction.calculateAmount(),
+                        showPlusMinus: true,
+                        showSeparator: true,
+                        isSecondaryLabel: true
+                    ),
+                    explanation: .deductionInfo(taxdata.deduction)
+                )
             }
             SumView(title: "Taxable Income", amount: taxdata.taxableIncome, showSeparator: isExpanded)
         }
