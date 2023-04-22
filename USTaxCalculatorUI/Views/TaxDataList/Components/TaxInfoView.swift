@@ -21,30 +21,13 @@ struct TaxInfoView: View {
 
             Spacer().frame(height: 4.0)
 
-            Text("Calculation:")
-                .font(.headline)
-            Text("\(tax.activeBracket.taxCalculationExplanation(tax.taxableIncome, explanationType: .names))")
-                .padding(.bottom, -4.0)
-                .foregroundColor(.secondary)
-            Text("\(tax.activeBracket.taxCalculationExplanation(tax.taxableIncome)) = \(FormattingHelper.formatCurrency(tax.activeBracket.calculateTaxesForAmount(tax.taxableIncome)))")
-                .font(.system(.body, design: .monospaced))
+            let explanation = tax.activeBracket.taxCalculationExplanation(tax.taxableIncome, explanationType: .names)
+            let calculation = "\(tax.activeBracket.taxCalculationExplanation(tax.taxableIncome)) = \(FormattingHelper.formatCurrency(tax.activeBracket.calculateTaxesForAmount(tax.taxableIncome)))"
+            CalculationExplanationView(explanation: explanation, calculation: calculation)
 
             if tax.bracketGroup.sources.count > 0 {
                 Spacer().frame(height: 4.0)
-
-                VStack(alignment: .leading, spacing: 5.0) {
-                    Text("Sources:")
-                        .font(.headline)
-                    ForEach(tax.bracketGroup.sources, id: \.absoluteString) { source in
-                        Link(source.absoluteString, destination: source)
-                            .font(.subheadline)
-                            .opacity(0.66)
-                            .lineLimit(1)
-                        #if os(macOS)
-                            .font(.caption2)
-                        #endif
-                    }
-                }
+                SourcesListView(sources: tax.bracketGroup.sources)
             }
 
             Spacer().frame(height: 4.0)
