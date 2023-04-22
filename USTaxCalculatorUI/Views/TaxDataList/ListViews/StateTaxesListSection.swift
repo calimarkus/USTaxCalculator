@@ -27,7 +27,7 @@ struct StateTaxesListSection: View {
                     AdditionView(title: "Additional State Income",
                                  amount: stateTax.additionalStateIncome)
                 }
-                AdditionView(title: "State Deductions", amount: -stateTax.deductions)
+                AdditionView(title: "State Deduction", amount: -stateTax.deduction.calculateAmount())
                 SumView(title: "Taxable Income", amount: stateTax.taxableIncome.amount)
             }
 

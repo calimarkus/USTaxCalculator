@@ -64,7 +64,7 @@ struct StateTax: Tax {
     var additionalStateIncome: Double = 0.0
 
     /// Deductions that apply to this state
-    let deductions: Double
+    let deduction: Deduction
 
     /// Withholdings that apply to this state
     let withholdings: Double

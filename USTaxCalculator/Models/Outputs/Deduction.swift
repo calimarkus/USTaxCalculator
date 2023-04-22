@@ -5,21 +5,12 @@
 import Foundation
 
 struct Deduction {
-    /// The name of this deduction
-    let title: String
-
     private var input: DeductionInput
     private var standardDeduction: RawStandardDeduction
 
-    init(title: String, input: DeductionInput, standardDeduction: RawStandardDeduction) {
-        self.title = title
+    init(input: DeductionInput, standardDeduction: RawStandardDeduction) {
         self.input = input
         self.standardDeduction = standardDeduction
-    }
-
-    /// returns the deduction amount
-    var amount: NamedValue {
-        NamedValue(amount: calculateAmount(), name: title)
     }
 
     /// The original sources of the deduction amount
@@ -32,7 +23,8 @@ struct Deduction {
         }
     }
 
-    private func calculateAmount() -> Double {
+    /// returns the deduction amount
+    func calculateAmount() -> Double {
         switch input {
             case let .standard(additional): return additional + standardDeduction.value
             case let .custom(customAmount): return customAmount

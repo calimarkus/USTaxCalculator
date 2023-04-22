@@ -6,7 +6,7 @@ import SwiftUI
 
 struct FederalTaxData {
     let taxableIncome: Double
-    let deductions: Double
+    let deduction: Deduction
     let credits: Double
     let taxes: [FederalTax]
 }

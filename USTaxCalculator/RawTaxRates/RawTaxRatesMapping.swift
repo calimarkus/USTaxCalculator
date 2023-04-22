@@ -31,12 +31,12 @@ extension RawTaxRatesYear {
 }
 
 extension RawTaxRatesYear {
-    func standardDeductionForState(_ state: TaxState) -> Double {
+    func standardDeductionForState(_ state: TaxState) -> RawStandardDeduction {
         switch state {
             case .NY:
-                return newYorkRates.standardDeductions.value
+                return newYorkRates.standardDeductions
             case .CA:
-                return californiaRates.standardDeductions.value
+                return californiaRates.standardDeductions
         }
     }
 

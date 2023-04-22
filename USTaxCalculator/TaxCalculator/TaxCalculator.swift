@@ -39,19 +39,9 @@ enum TaxCalculator {
 }
 
 private extension TaxCalculator {
-    static func calculateDeductionsForDeductionAmount(_ amount: DeductionInput, standardDeduction: Double) -> Double {
-        switch amount {
-            case let .standard(additional): return additional + standardDeduction
-            case let .custom(customAmount): return customAmount
-        }
-    }
-
     static func federalTaxesFor(income: Income, federalDeductions: DeductionInput, federalCredits: Double, federalRates: FederalTaxRates) -> FederalTaxData {
-        let deductions = Self.calculateDeductionsForDeductionAmount(
-            federalDeductions,
-            standardDeduction: federalRates.standardDeductions.value
-        )
-        let taxableFederalIncome = max(0.0, income.totalIncome - income.longtermCapitalGains - deductions)
+        let deduction = Deduction(input: federalDeductions, standardDeduction: federalRates.standardDeductions)
+        let taxableFederalIncome = max(0.0, income.totalIncome - income.longtermCapitalGains - deduction.calculateAmount())
         let namedTaxableFederalIncome = NamedValue(amount: taxableFederalIncome, name: "Taxable Income")
 
         var federalTaxes: [FederalTax] = []
@@ -114,7 +104,7 @@ private extension TaxCalculator {
         }
 
         return FederalTaxData(taxableIncome: taxableFederalIncome,
-                              deductions: deductions,
+                              deduction: deduction,
                               credits: federalCredits,
                               taxes: federalTaxes)
     }
@@ -125,11 +115,11 @@ private extension TaxCalculator {
                             totalIncome: Double,
                             taxRates: RawTaxRatesYear) -> StateTax
     {
-        let deductions = Self.calculateDeductionsForDeductionAmount(
-            stateDeductions[stateIncome.state] ?? DeductionInput.standard(),
+        let deduction = Deduction(
+            input: stateDeductions[stateIncome.state] ?? DeductionInput.standard(),
             standardDeduction: taxRates.standardDeductionForState(stateIncome.state)
         )
-        let taxableStateIncome = max(0.0, totalIncome + stateIncome.additionalStateIncome - deductions)
+        let taxableStateIncome = max(0.0, totalIncome + stateIncome.additionalStateIncome - deduction.calculateAmount())
         let namedTaxableStateIncome = NamedValue(amount: taxableStateIncome, name: "Taxable State Income")
 
         let rawStateIncomeRates = taxRates.stateIncomeRates(for: stateIncome.state, taxableIncome: taxableStateIncome)
@@ -146,7 +136,7 @@ private extension TaxCalculator {
                         localTax: localTax,
                         taxableIncome: namedTaxableStateIncome,
                         additionalStateIncome: stateIncome.additionalStateIncome,
-                        deductions: deductions,
+                        deduction: deduction,
                         withholdings: stateIncome.withholdings,
                         credits: stateCredits[stateIncome.state] ?? 0.0,
                         incomeRate: stateIncome.incomeRateGivenFederalIncome(totalIncome),
