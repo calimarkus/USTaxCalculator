@@ -33,7 +33,7 @@ struct StateTaxesListSection: View {
                     .secondaryAdditionConfig(title: "State Deduction", amount: -stateTax.deduction.calculateAmount()),
                     explanation: .deductionInfo(stateTax.deduction)
                 )
-                SumView(title: "Taxable Income", amount: stateTax.taxableIncome.amount)
+                CurrencyView(.boldSumConfig(title: "Taxable Income", amount: stateTax.taxableIncome.amount))
             }
 
             TaxListGroupView {

@@ -4,23 +4,6 @@
 
 import SwiftUI
 
-struct SumView: View {
-    var title: String
-    var subtitle: String = ""
-    let amount: Double
-    var showSeparator: Bool = true
-
-    var body: some View {
-        CurrencyView(CurrencyViewConfig(
-            title: title,
-            subtitle: subtitle,
-            amount: amount,
-            showSeparator: showSeparator,
-            boldValue: true
-        ))
-    }
-}
-
 struct CurrencyViewConfig {
     var title: String = ""
     var subtitle: String = ""
@@ -31,19 +14,19 @@ struct CurrencyViewConfig {
     var isSecondaryLabel: Bool = false
     var boldValue: Bool = false
 
-    var titleText: String {
+    fileprivate var titleText: String {
         let colon = (title.count > 0 && amount != 0.0 ? ":" : "")
         let spacing = (isSecondaryLabel ? "  " : "")
         return "\(spacing)\(title)\(colon)"
     }
 
-    func amountText(amount: Double) -> String {
+    fileprivate func amountText(amount: Double) -> String {
         let sanitizedAmount = amount == 0.0 ? abs(amount) : amount
         let plus = (showPlusMinus && sanitizedAmount > 0 ? "+" : "")
         return "\(plus)\(FormattingHelper.formatCurrency(sanitizedAmount))"
     }
 
-    var valueColor: Color? {
+    fileprivate var valueColor: Color? {
         if showPlusMinus, amount < 0 {
             return .tax.taxReducingAmount
         } else {
@@ -62,9 +45,19 @@ extension CurrencyViewConfig {
             isSecondaryLabel: true
         )
     }
+
+    static func boldSumConfig(title: String, subtitle: String = "", amount: Double, showSeparator: Bool = true) -> CurrencyViewConfig {
+        CurrencyViewConfig(
+            title: title,
+            subtitle: subtitle,
+            amount: amount,
+            showSeparator: showSeparator,
+            boldValue: true
+        )
+    }
 }
 
-struct CurrencyViewText: View {
+private struct CurrencyViewText: View {
     var config: CurrencyViewConfig
 
     init(_ config: CurrencyViewConfig) {
@@ -241,7 +234,7 @@ struct CurrencyView_Previews: PreviewProvider {
             )
             CurrencyView(.secondaryAdditionConfig(title: "Beta", amount: 25.25))
             CurrencyView(.secondaryAdditionConfig(title: "Gamma", amount: -12.23))
-            SumView(title: "Total", amount: 123.53 + 25.25)
+            CurrencyView(.boldSumConfig(title: "Total", amount: 123.53 + 25.25))
             CurrencyView(CurrencyViewConfig(title: "PS", amount: -12.23))
             CurrencyView(CurrencyViewConfig(title: "PS", subtitle: "(some explanation)", amount: 0.0))
             CurrencyView(.secondaryAdditionConfig(title: "Gamma", amount: -0.0))
