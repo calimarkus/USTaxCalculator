@@ -37,6 +37,7 @@ struct TaxSummaryListSection_Previews: PreviewProvider {
             TaxSummaryListSection(taxdata: ExampleData.exampleTaxDataJohnAndSarah_21())
         }
         .padding()
+        .frame(minWidth: 500)
         .fixedSize()
     }
 }

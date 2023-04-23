@@ -162,12 +162,11 @@ private extension TaxCalculator {
     }
 
     static func taxSummariesFor(input: TaxDataInput, federalTaxes: [FederalTax], stateTaxes: [StateTax]) -> TaxSummaries {
+        // federal
         let fedTaxes = federalTaxes.reduce(0.0) { partialResult, tax in
             partialResult + tax.taxAmount
         }
-
-        // federal
-        let federal = TaxSummary.fromTotalIncome(
+        let federal = TaxSummary(
             taxes: fedTaxes - input.federalCredits,
             withholdings: input.income.federalWithholdings + input.additionalFederalWithholding,
             totalIncome: input.income.totalIncome
@@ -176,24 +175,13 @@ private extension TaxCalculator {
         // states
         var states: [TaxState: TaxSummary] = [:]
         for tax in stateTaxes {
-            states[tax.state] = TaxSummary.fromTotalIncome(
+            states[tax.state] = TaxSummary(
                 taxes: tax.taxAmount - (input.stateCredits[tax.state] ?? 0.0),
                 withholdings: tax.withholdings,
                 totalIncome: input.income.totalIncome
             )
         }
 
-        // state summary
-        var stateTotal = TaxSummary(taxes: 0.0, withholdings: 0.0, effectiveTaxRate: 0.0)
-        for (_, summary) in states {
-            stateTotal = stateTotal + summary
-        }
-
-        return TaxSummaries(
-            federal: federal,
-            states: states,
-            stateTotal: stateTotal,
-            total: federal + stateTotal
-        )
+        return TaxSummaries(federal: federal, states: states)
     }
 }
