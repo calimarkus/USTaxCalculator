@@ -8,9 +8,16 @@ enum TaxCalculator {
 
         let federalData = Self.federalTaxesFor(
             income: input.income,
-            federalDeductions: input.federalDeductions,
-            federalCredits: input.federalCredits,
-            federalRates: taxRates.federalRates
+            deductions: input.federalDeductions,
+            withholdings: input.totalFederalWitholdings,
+            credits: input.federalCredits,
+            taxRates: taxRates.federalRates
+        )
+
+        let federalSummary = TaxSummary(
+            taxes: federalData.totalTaxes - input.federalCredits,
+            withholdings: input.totalFederalWitholdings,
+            totalIncome: input.income.totalIncome
         )
 
         let stateTaxes = input.income.stateIncomes.map { stateIncome in
@@ -23,31 +30,34 @@ enum TaxCalculator {
             )
         }
 
-        let taxSummaries = Self.taxSummariesFor(
-            input: input,
-            federalTaxes: federalData.taxes,
-            stateTaxes: stateTaxes
-        )
+        var stateSummaries: [TaxState: TaxSummary] = [:]
+        for tax in stateTaxes {
+            stateSummaries[tax.state] = TaxSummary(
+                taxes: tax.taxAmount - tax.credits,
+                withholdings: tax.withholdings,
+                totalIncome: input.income.totalIncome
+            )
+        }
 
         return CalculatedTaxData(
             inputData: input,
             federalData: federalData,
             stateTaxes: stateTaxes,
-            taxSummaries: taxSummaries
+            taxSummaries: TaxSummaries(federal: federalSummary, states: stateSummaries)
         )
     }
 }
 
 private extension TaxCalculator {
-    static func federalTaxesFor(income: Income, federalDeductions: DeductionInput, federalCredits: Double, federalRates: FederalTaxRates) -> FederalTaxData {
-        let deduction = Deduction(input: federalDeductions, standardDeduction: federalRates.standardDeductions)
+    static func federalTaxesFor(income: Income, deductions: DeductionInput, withholdings: Double, credits: Double, taxRates: FederalTaxRates) -> FederalTaxData {
+        let deduction = Deduction(input: deductions, standardDeduction: taxRates.standardDeductions)
         let taxableFederalIncome = max(0.0, income.totalIncome - income.longtermCapitalGains - deduction.calculateAmount())
         let namedTaxableFederalIncome = NamedValue(amount: taxableFederalIncome, name: "Taxable Income")
 
         var federalTaxes: [FederalTax] = []
 
         // income tax
-        let incomeBracketGroup = TaxBracketGenerator.bracketGroupForRawTaxRates(federalRates.incomeRates)
+        let incomeBracketGroup = TaxBracketGenerator.bracketGroupForRawTaxRates(taxRates.incomeRates)
         let incomeBracket = incomeBracketGroup.matchingBracketFor(taxableIncome: taxableFederalIncome)
         federalTaxes.append(
             FederalTax(title: "Income",
@@ -57,7 +67,7 @@ private extension TaxCalculator {
         )
 
         // longterm gains tax
-        let longtermGainBracketGroup = TaxBracketGenerator.bracketGroupForRawTaxRates(federalRates.longtermGainsRates)
+        let longtermGainBracketGroup = TaxBracketGenerator.bracketGroupForRawTaxRates(taxRates.longtermGainsRates)
         let longtermGainsBracket = longtermGainBracketGroup.matchingBracketFor(taxableIncome: taxableFederalIncome)
         if longtermGainsBracket.rate > 0.0 {
             federalTaxes.append(
@@ -69,7 +79,7 @@ private extension TaxCalculator {
         }
 
         // net investment income tax
-        let niiBracketGroup = TaxBracketGenerator.bracketGroupForRawTaxRates(federalRates.netInvestmentIncomeRates)
+        let niiBracketGroup = TaxBracketGenerator.bracketGroupForRawTaxRates(taxRates.netInvestmentIncomeRates)
         let niiBracket = niiBracketGroup.matchingBracketFor(taxableIncome: taxableFederalIncome)
         if niiBracket.rate > 0.0 {
             let taxableRegularIncome = taxableFederalIncome - niiBracket.startingAt
@@ -85,10 +95,10 @@ private extension TaxCalculator {
         }
 
         // additional medicare tax
-        let medicareBracketGroup = TaxBracketGenerator.bracketGroupForRawTaxRates(federalRates.additionalMedicareIncomeRates)
+        let medicareBracketGroup = TaxBracketGenerator.bracketGroupForRawTaxRates(taxRates.additionalMedicareIncomeRates)
         let medicareBracket = medicareBracketGroup.matchingBracketFor(taxableIncome: income.medicareWages)
         if medicareBracket.rate > 0.0 {
-            let basicBracketGroup = TaxBracketGenerator.bracketGroupForRawTaxRates(federalRates.basicMedicareIncomeRates)
+            let basicBracketGroup = TaxBracketGenerator.bracketGroupForRawTaxRates(taxRates.basicMedicareIncomeRates)
             let basicBracket = basicBracketGroup.matchingBracketFor(taxableIncome: income.medicareWages)
             let expectedBasicWithholding = income.medicareWages * basicBracket.rate
             let tax = FederalTax(title: "Additional Medicare",
@@ -105,7 +115,8 @@ private extension TaxCalculator {
 
         return FederalTaxData(taxableIncome: taxableFederalIncome,
                               deduction: deduction,
-                              credits: federalCredits,
+                              withholdings: withholdings,
+                              credits: credits,
                               taxes: federalTaxes)
     }
 
@@ -159,29 +170,5 @@ private extension TaxCalculator {
                     taxableIncome: taxableIncome
                 )
         }
-    }
-
-    static func taxSummariesFor(input: TaxDataInput, federalTaxes: [FederalTax], stateTaxes: [StateTax]) -> TaxSummaries {
-        // federal
-        let fedTaxes = federalTaxes.reduce(0.0) { partialResult, tax in
-            partialResult + tax.taxAmount
-        }
-        let federal = TaxSummary(
-            taxes: fedTaxes - input.federalCredits,
-            withholdings: input.income.federalWithholdings + input.additionalFederalWithholding,
-            totalIncome: input.income.totalIncome
-        )
-
-        // states
-        var states: [TaxState: TaxSummary] = [:]
-        for tax in stateTaxes {
-            states[tax.state] = TaxSummary(
-                taxes: tax.taxAmount - (input.stateCredits[tax.state] ?? 0.0),
-                withholdings: tax.withholdings,
-                totalIncome: input.income.totalIncome
-            )
-        }
-
-        return TaxSummaries(federal: federal, states: states)
     }
 }

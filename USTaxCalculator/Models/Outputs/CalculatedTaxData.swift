@@ -7,8 +7,15 @@ import SwiftUI
 struct FederalTaxData {
     let taxableIncome: Double
     let deduction: Deduction
+    let withholdings: Double
     let credits: Double
     let taxes: [FederalTax]
+
+    var totalTaxes: Double {
+        taxes.reduce(0.0) { partialResult, tax in
+            partialResult + tax.taxAmount
+        }
+    }
 }
 
 struct CalculatedTaxData: Identifiable, Hashable {
