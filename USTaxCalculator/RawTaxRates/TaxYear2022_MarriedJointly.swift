@@ -89,7 +89,7 @@ enum TaxYear2022_MarriedJointly {
                 "https://www.efile.com/new-york-tax-rates-forms-and-brackets/",
             ]),
             // These rates are a fairly rough approximation, mostly based on 2021
-            nonProgressiveIncomeRates: RawTaxRates(simple: [
+            highIncomeRates: RawTaxRates(simple: [
                 0.0: 0.0585,
                 161_550.0: 0.0633,
                 323_200.0: 0.0685,

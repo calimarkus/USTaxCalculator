@@ -95,7 +95,7 @@ enum TaxYear2021_Single {
             // The proper fix is to implement the full tax computation worksheets.
             //
             // Rates apply for incomes >= $107,650
-            nonProgressiveIncomeRates: RawTaxRates(simple: [
+            highIncomeRates: RawTaxRates(simple: [
                 0.0: 0.0633,
                 215_400: 0.0685,
                 1_077_550: 0.0965,

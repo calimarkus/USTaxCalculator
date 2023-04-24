@@ -47,9 +47,9 @@ extension RawTaxRatesYear {
 
             case .NY:
                 // new york doesn't use progressive rates for incomes higher than 107,650
-                // see comments on RawTaxRates.nonProgressiveNewYorkStateRates
+                // see comments on RawTaxRates.highIncomeRates
                 if taxableIncome > 107_650 {
-                    return newYorkRates.nonProgressiveIncomeRates
+                    return newYorkRates.highIncomeRates
                 } else {
                     return newYorkRates.incomeRates
                 }

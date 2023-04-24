@@ -93,7 +93,7 @@ enum TaxYear2020_MarriedJointly {
             // The proper fix is to implement the full tax computation worksheets.
             //
             // Rates apply for incomes >= $107,650
-            nonProgressiveIncomeRates:
+            highIncomeRates:
             // These year 2020 rates are approximated (based on 2021 nonprogressive and progressive 2020)
             RawTaxRates(simple: [
                 0.0: 0.0609,

@@ -89,7 +89,7 @@ enum TaxYear2022_Single {
                 "https://www.efile.com/new-york-tax-rates-forms-and-brackets/",
             ]),
             // These rates are a fairly rough approximation, mostly based on 2021
-            nonProgressiveIncomeRates: RawTaxRates(simple: [
+            highIncomeRates: RawTaxRates(simple: [
                 0.0: 0.0625,
                 215_400: 0.0685,
                 1_077_550: 0.0965,

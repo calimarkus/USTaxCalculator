@@ -63,7 +63,7 @@ enum TaxYear2023_Single {
                 "https://www.tax.ny.gov/pit/file/standard_deductions.htm",
                 "https://www.efile.com/new-york-tax-rates-forms-and-brackets/",
             ]),
-            nonProgressiveIncomeRates: RawTaxRates(simple: [:]), // TBD
+            highIncomeRates: RawTaxRates(simple: [:]), // TBD
             /// Note: These are full-year resident rates! Part year resident rates might differ
             /// Rates apply for incomes > $65,000
             newYorkCityRates: RawTaxRates(progressive: [

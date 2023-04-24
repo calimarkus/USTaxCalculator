@@ -85,6 +85,6 @@ struct NewYorkStateTaxRates {
     let incomeRates: RawTaxRates
     let standardDeductions: RawStandardDeduction
 
-    let nonProgressiveIncomeRates: RawTaxRates
+    let highIncomeRates: RawTaxRates
     let newYorkCityRates: RawTaxRates
 }
