@@ -19,6 +19,7 @@ struct RawTaxRate {
 enum RawTaxRateType {
     case simple
     case progressive
+    case interpolated
 }
 
 struct RawTaxRates {
@@ -32,6 +33,10 @@ struct RawTaxRates {
 
     init(progressive startingAtToTaxRateMap: [Double: Double], sources: [URL] = []) {
         self.init(startingAtToTaxRateMap, .progressive, sources: sources)
+    }
+
+    init(interpolated startingAtToTaxRateMap: [Double: Double], sources: [URL] = []) {
+        self.init(startingAtToTaxRateMap, .interpolated, sources: sources)
     }
 
     private init(_ startingAtToTaxRateMap: [Double: Double], _ type: RawTaxRateType, sources: [URL] = []) {
@@ -79,6 +84,8 @@ struct FederalTaxRates {
 struct CaliforniaStateTaxRates {
     let incomeRates: RawTaxRates
     let standardDeductions: RawStandardDeduction
+
+    var lowIncomeRates: RawTaxRates?
 }
 
 struct NewYorkStateTaxRates {

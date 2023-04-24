@@ -43,8 +43,8 @@ enum TaxYear2022_Single {
         )
     }
 
-    /// Note: These are only valid for incomes of $100,000+
     private static var californiaRates: CaliforniaStateTaxRates {
+        /// Note: These apply to incomes above $100k
         CaliforniaStateTaxRates(
             incomeRates: RawTaxRates(progressive: [
                 0.0: 0.01,
@@ -62,6 +62,23 @@ enum TaxYear2022_Single {
             ]),
             standardDeductions: RawStandardDeduction(5202.0, sources: [
                 "https://www.ftb.ca.gov/file/personal/deductions/index.html",
+            ]),
+            /// Note: These apply to for incomes of up to $100k
+            lowIncomeRates: RawTaxRates(interpolated: [
+                0: 0.01,
+                5000: 0.01,
+                10000: 0.01,
+                20000: 0.015,
+                30000: 0.021,
+                40000: 0.027,
+                50000: 0.033,
+                60000: 0.040,
+                70000: 0.047,
+                80000: 0.052,
+                90000: 0.057,
+                100_000: 0.060,
+            ], sources: [
+                "https://www.ftb.ca.gov/forms/2022/2022-540-taxtable.pdf",
             ])
         )
     }
