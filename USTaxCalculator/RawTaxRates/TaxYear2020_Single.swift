@@ -43,7 +43,6 @@ enum TaxYear2020_Single {
         )
     }
 
-    /// Note: These are only valid for incomes of $100,000+
     private static var californiaRates: CaliforniaStateTaxRates {
         CaliforniaStateTaxRates(
             incomeRates: RawTaxRates(.progressive, [
@@ -62,6 +61,26 @@ enum TaxYear2020_Single {
             ]),
             standardDeductions: RawStandardDeduction(4601.0, sources: [
                 "https://www.ftb.ca.gov/about-ftb/newsroom/tax-news/november-2020/standard-deductions-exemption-amounts-and-tax-rates-for-2020-tax-year.html",
+            ]),
+            // CA doesn't use progressive rates for incomes lower or equal to 100,000
+            lowIncomeRateEligibility: { taxableIncome in
+                taxableIncome <= 100_000
+            },
+            lowIncomeRates: RawTaxRates(.interpolated, [
+                0: 0.01,
+                5000: 0.01,
+                10000: 0.011,
+                20000: 0.0155,
+                30000: 0.023,
+                40000: 0.030,
+                50000: 0.038,
+                60000: 0.045,
+                70000: 0.052,
+                80000: 0.057,
+                90000: 0.061,
+                100_000: 0.064,
+            ], sources: [
+                "https://www.ftb.ca.gov/forms/2020/2020-540-taxtable.pdf",
             ])
         )
     }

@@ -72,8 +72,8 @@ enum TaxYear2023_MarriedJointly {
                 taxableIncome > 107_650
             },
             highIncomeRates: RawTaxRates(.simple, [:]), // TBD
-            /// Note: These are full-year resident rates! Part year resident rates might differ
-            /// Rates apply for incomes > $65,000
+            // Note: These are full-year resident rates! Part year resident rates might differ
+            // Rates apply for incomes > $65,000
             newYorkCityRates: RawTaxRates(.progressive, [
                 0.0: 0.03078,
                 21600.0: 0.03762,
