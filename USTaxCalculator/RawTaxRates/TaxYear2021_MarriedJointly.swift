@@ -68,7 +68,6 @@ enum TaxYear2021_MarriedJointly {
 
     private static var newYorkRates: NewYorkStateTaxRates {
         NewYorkStateTaxRates(
-            // Rates apply for incomes < $107,650
             incomeRates: RawTaxRates(.progressive, [
                 0.0: 0.04,
                 17150.0: 0.045,
@@ -89,12 +88,13 @@ enum TaxYear2021_MarriedJointly {
                 "https://www.tax.ny.gov/pit/file/standard_deductions.htm",
                 "https://www.efile.com/new-york-tax-rates-forms-and-brackets/",
             ]),
-            //
+            // new york doesn't use progressive rates for incomes higher than $107,650
+            highIncomeRateEligibility: { taxableIncome in
+                taxableIncome > 107_650
+            },
             // This is simplified - more math is involved to do these properly as the source link shows.
             // That rate changes for every increment of 50k, partly based on the progressive rate, which is rather complex.
             // The proper fix is to implement the full tax computation worksheets.
-            //
-            // Rates apply for incomes >= $107,650
             highIncomeRates: RawTaxRates(.simple, [
                 0.0: 0.0597,
                 161_550.0: 0.0633,

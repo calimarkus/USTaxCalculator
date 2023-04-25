@@ -43,17 +43,18 @@ extension RawTaxRatesYear {
     func stateIncomeRates(for state: TaxState, taxableIncome: Double) -> RawTaxRates {
         switch state {
             case .CA:
-                // CA doesn't use progressive rates for incomes lower or equal to 100,000
-                if let lowIncomeRates = californiaRates.lowIncomeRates, taxableIncome <= 100_000 {
+                guard let eligibilityCheck = californiaRates.lowIncomeRateEligibility, let lowIncomeRates = californiaRates.lowIncomeRates else {
+                    return californiaRates.incomeRates
+                }
+
+                if eligibilityCheck(taxableIncome) {
                     return lowIncomeRates
                 } else {
                     return californiaRates.incomeRates
                 }
 
             case .NY:
-                // new york doesn't use progressive rates for incomes higher than 107,650
-                // see comments on RawTaxRates.highIncomeRates
-                if taxableIncome > 107_650 {
+                if newYorkRates.highIncomeRateEligibility(taxableIncome) {
                     return newYorkRates.highIncomeRates
                 } else {
                     return newYorkRates.incomeRates

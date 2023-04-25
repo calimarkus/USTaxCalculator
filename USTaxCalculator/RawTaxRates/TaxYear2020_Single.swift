@@ -87,14 +87,17 @@ enum TaxYear2020_Single {
                 "https://www.tax.ny.gov/pit/file/standard_deductions.htm",
                 "https://www.efile.com/new-york-tax-rates-forms-and-brackets/",
             ]),
+            // new york doesn't use progressive rates for incomes higher than $107,650
+            highIncomeRateEligibility: { taxableIncome in
+                taxableIncome > 107_650
+            },
             //
             // This is simplified - more math is involved to do these properly as the source link shows.
             // That rate changes for every increment of 50k, partly based on the progressive rate, which is rather complex.
             // The proper fix is to implement the full tax computation worksheets.
             //
-            // Rates apply for incomes >= $107,650
-            highIncomeRates:
             // These year 2020 rates are approximated (based on 2021 nonprogressive and progressive 2020)
+            highIncomeRates:
             RawTaxRates(.simple, [
                 0.0: 0.0609,
                 80650.0: 0.0641,

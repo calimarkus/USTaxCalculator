@@ -44,7 +44,6 @@ enum TaxYear2022_Single {
     }
 
     private static var californiaRates: CaliforniaStateTaxRates {
-        /// Note: These apply to incomes above $100k
         CaliforniaStateTaxRates(
             incomeRates: RawTaxRates(.progressive, [
                 0.0: 0.01,
@@ -63,7 +62,10 @@ enum TaxYear2022_Single {
             standardDeductions: RawStandardDeduction(5202.0, sources: [
                 "https://www.ftb.ca.gov/file/personal/deductions/index.html",
             ]),
-            /// Note: These apply to for incomes of up to $100k
+            // CA doesn't use progressive rates for incomes lower or equal to $100,000
+            lowIncomeRateEligibility: { taxableIncome in
+                taxableIncome <= 100_000
+            },
             lowIncomeRates: RawTaxRates(.interpolated, [
                 0: 0.01,
                 5000: 0.01,
@@ -85,7 +87,6 @@ enum TaxYear2022_Single {
 
     private static var newYorkRates: NewYorkStateTaxRates {
         NewYorkStateTaxRates(
-            // Rates apply for incomes < $107,650
             incomeRates: RawTaxRates(.progressive, [
                 0.0: 0.04,
                 8500.0: 0.045,
@@ -105,6 +106,10 @@ enum TaxYear2022_Single {
                 "https://www.tax.ny.gov/pit/file/standard_deductions.htm",
                 "https://www.efile.com/new-york-tax-rates-forms-and-brackets/",
             ]),
+            // new york doesn't use progressive rates for incomes higher than $107,650
+            highIncomeRateEligibility: { taxableIncome in
+                taxableIncome > 107_650
+            },
             // These rates are a fairly rough approximation, mostly based on 2021
             highIncomeRates: RawTaxRates(.simple, [
                 0.0: 0.0625,
