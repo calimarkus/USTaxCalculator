@@ -63,7 +63,7 @@ enum TaxYear2021_Single {
                 "https://www.ftb.ca.gov/file/personal/deductions/index.html",
             ]),
             // CA doesn't use progressive rates for incomes lower or equal to $100,000
-            lowIncomeRateEligibility: { taxableIncome in
+            isEligableForLowIncomeRates: { taxableIncome in
                 taxableIncome <= 100_000
             },
             lowIncomeRates: RawTaxRates(.interpolated, [
@@ -108,7 +108,7 @@ enum TaxYear2021_Single {
                 "https://www.efile.com/new-york-tax-rates-forms-and-brackets/",
             ]),
             // new york doesn't use progressive rates for incomes higher than $107,650
-            highIncomeRateEligibility: { taxableIncome in
+            isEligableForHighIncomeRates: { taxableIncome in
                 taxableIncome > 107_650
             },
             // This is simplified - more math is involved to do these properly as the source link shows.

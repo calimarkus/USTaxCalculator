@@ -63,7 +63,7 @@ enum TaxYear2020_Single {
                 "https://www.ftb.ca.gov/about-ftb/newsroom/tax-news/november-2020/standard-deductions-exemption-amounts-and-tax-rates-for-2020-tax-year.html",
             ]),
             // CA doesn't use progressive rates for incomes lower or equal to 100,000
-            lowIncomeRateEligibility: { taxableIncome in
+            isEligableForLowIncomeRates: { taxableIncome in
                 taxableIncome <= 100_000
             },
             lowIncomeRates: RawTaxRates(.interpolated, [
@@ -107,7 +107,7 @@ enum TaxYear2020_Single {
                 "https://www.efile.com/new-york-tax-rates-forms-and-brackets/",
             ]),
             // new york doesn't use progressive rates for incomes higher than $107,650
-            highIncomeRateEligibility: { taxableIncome in
+            isEligableForHighIncomeRates: { taxableIncome in
                 taxableIncome > 107_650
             },
             //

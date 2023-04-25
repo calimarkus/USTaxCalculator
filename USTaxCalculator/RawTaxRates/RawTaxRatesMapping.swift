@@ -43,14 +43,14 @@ extension RawTaxRatesYear {
     func stateIncomeRates(for state: TaxState, taxableIncome: Double) -> RawTaxRates {
         switch state {
             case .CA:
-                if californiaRates.lowIncomeRateEligibility(taxableIncome) {
+                if californiaRates.isEligableForLowIncomeRates(taxableIncome) {
                     return californiaRates.lowIncomeRates
                 } else {
                     return californiaRates.incomeRates
                 }
 
             case .NY:
-                if newYorkRates.highIncomeRateEligibility(taxableIncome) {
+                if newYorkRates.isEligableForHighIncomeRates(taxableIncome) {
                     return newYorkRates.highIncomeRates
                 } else {
                     return newYorkRates.incomeRates

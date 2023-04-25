@@ -53,7 +53,7 @@ enum TaxYear2023_MarriedJointly {
                 "https://www.ftb.ca.gov/file/personal/deductions/index.html",
             ]),
             // CA doesn't use progressive rates for incomes lower or equal to 100,000
-            lowIncomeRateEligibility: { taxableIncome in
+            isEligableForLowIncomeRates: { taxableIncome in
                 taxableIncome <= 100_000
             },
             lowIncomeRates: RawTaxRates(.interpolated, [:], sources: [])
@@ -68,7 +68,7 @@ enum TaxYear2023_MarriedJointly {
                 "https://www.efile.com/new-york-tax-rates-forms-and-brackets/",
             ]),
             // new york doesn't use progressive rates for incomes higher than $107,650
-            highIncomeRateEligibility: { taxableIncome in
+            isEligableForHighIncomeRates: { taxableIncome in
                 taxableIncome > 107_650
             },
             highIncomeRates: RawTaxRates(.simple, [:]), // TBD
