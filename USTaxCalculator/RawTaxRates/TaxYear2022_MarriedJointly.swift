@@ -13,7 +13,7 @@ enum TaxYear2022_MarriedJointly {
 
     private static var federalRates: FederalTaxRates {
         FederalTaxRates(
-            incomeRates: RawTaxRates(progressive: [
+            incomeRates: RawTaxRates(.progressive, [
                 0.0: 0.1,
                 20551.0: 0.12,
                 83551.0: 0.22,
@@ -27,17 +27,17 @@ enum TaxYear2022_MarriedJointly {
             standardDeductions: RawStandardDeduction(25900.0, sources: [
                 "https://www.bankrate.com/taxes/standard-tax-deduction-amounts/",
             ]),
-            longtermGainsRates: RawTaxRates(simple: [83351.0: 0.15, 517_200.0: 0.20], sources: [
+            longtermGainsRates: RawTaxRates(.simple, [83351.0: 0.15, 517_200.0: 0.20], sources: [
                 "https://www.nerdwallet.com/article/taxes/capital-gains-tax-rates",
                 "https://www.unionbank.com/personal/financial-insights/investing/personal-investing/capital-gains-tax-rates-2021-and-how-to-minimize-them",
             ]),
-            netInvestmentIncomeRates: RawTaxRates(simple: [250_000.0: 0.038], sources: [
+            netInvestmentIncomeRates: RawTaxRates(.simple, [250_000.0: 0.038], sources: [
                 "https://www.irs.gov/individuals/net-investment-income-tax",
             ]),
-            basicMedicareIncomeRates: RawTaxRates(simple: [0.0: 0.0145], sources: [
+            basicMedicareIncomeRates: RawTaxRates(.simple, [0.0: 0.0145], sources: [
                 "https://www.indeed.com/hire/c/info/medicare-taxes-an-overview-for-employers",
             ]),
-            additionalMedicareIncomeRates: RawTaxRates(progressive: [0.0: 0.0, 250_000.0: 0.009], sources: [
+            additionalMedicareIncomeRates: RawTaxRates(.progressive, [0.0: 0.0, 250_000.0: 0.009], sources: [
                 "https://www.healthline.com/health/medicare/additional-medicare-tax",
             ])
         )
@@ -46,7 +46,7 @@ enum TaxYear2022_MarriedJointly {
     /// Note: These are only valid for incomes of $100,000+
     private static var californiaRates: CaliforniaStateTaxRates {
         CaliforniaStateTaxRates(
-            incomeRates: RawTaxRates(progressive: [
+            incomeRates: RawTaxRates(.progressive, [
                 0.0: 0.01,
                 20199.0: 0.02,
                 47885.0: 0.04,
@@ -64,7 +64,7 @@ enum TaxYear2022_MarriedJointly {
                 "https://www.ftb.ca.gov/file/personal/deductions/index.html",
             ]),
             /// Note: These apply to for incomes of up to $100k
-            lowIncomeRates: RawTaxRates(interpolated: [
+            lowIncomeRates: RawTaxRates(.interpolated, [
                 0: 0.01,
                 5000: 0.01,
                 10000: 0.01,
@@ -86,7 +86,7 @@ enum TaxYear2022_MarriedJointly {
     private static var newYorkRates: NewYorkStateTaxRates {
         NewYorkStateTaxRates(
             // Rates apply for incomes < $107,650
-            incomeRates: RawTaxRates(progressive: [
+            incomeRates: RawTaxRates(.progressive, [
                 0.0: 0.04,
                 17150.0: 0.045,
                 23600.0: 0.0525,
@@ -106,7 +106,7 @@ enum TaxYear2022_MarriedJointly {
                 "https://www.efile.com/new-york-tax-rates-forms-and-brackets/",
             ]),
             // These rates are a fairly rough approximation, mostly based on 2021
-            highIncomeRates: RawTaxRates(simple: [
+            highIncomeRates: RawTaxRates(.simple, [
                 0.0: 0.0585,
                 161_550.0: 0.0633,
                 323_200.0: 0.0685,
@@ -120,7 +120,7 @@ enum TaxYear2022_MarriedJointly {
             ]),
             // Note: These are full-year resident rates! Part year resident rates might differ
             // Rates apply for incomes > $65,000
-            newYorkCityRates: RawTaxRates(progressive: [
+            newYorkCityRates: RawTaxRates(.progressive, [
                 0.0: 0.03078,
                 21600.0: 0.03762,
                 45000.0: 0.03819,

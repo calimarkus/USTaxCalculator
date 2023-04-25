@@ -23,23 +23,11 @@ enum RawTaxRateType {
 }
 
 struct RawTaxRates {
-    let sortedRates: [RawTaxRate]
     let type: RawTaxRateType
+    let sortedRates: [RawTaxRate]
     let sources: [URL]
 
-    init(simple startingAtToTaxRateMap: [Double: Double], sources: [URL] = []) {
-        self.init(startingAtToTaxRateMap, .simple, sources: sources)
-    }
-
-    init(progressive startingAtToTaxRateMap: [Double: Double], sources: [URL] = []) {
-        self.init(startingAtToTaxRateMap, .progressive, sources: sources)
-    }
-
-    init(interpolated startingAtToTaxRateMap: [Double: Double], sources: [URL] = []) {
-        self.init(startingAtToTaxRateMap, .interpolated, sources: sources)
-    }
-
-    private init(_ startingAtToTaxRateMap: [Double: Double], _ type: RawTaxRateType, sources: [URL] = []) {
+    init(_ type: RawTaxRateType, _ startingAtToTaxRateMap: [Double: Double], sources: [URL] = []) {
         let rates = startingAtToTaxRateMap.map { startingAt, rate in
             RawTaxRate(startingAt: startingAt, rate: rate)
         }
