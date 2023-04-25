@@ -62,7 +62,6 @@ enum FormattingHelper {
         formatter.numberStyle = .currency
         formatter.locale = locale
         formatter.maximumFractionDigits = 0
-        formatter.roundingMode = num >= 0 ? .ceiling : .floor
         return formatter.string(from: num as NSNumber)!
     }
 
