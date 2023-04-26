@@ -11,11 +11,23 @@ extension TaxBracket: Identifiable {
 
     var isProgressive: Bool {
         switch type {
-            case .progressive:
-                return true
             case .basic:
                 return false
+            case .interpolated:
+                return false
+            case .progressive:
+                return true
         }
+    }
+}
+
+struct BracketHighlightView: View {
+    var body: some View {
+        Color.accentColor
+            .opacity(0.33)
+            .cornerRadius(6.0)
+            .padding(-4.0)
+            .padding([.leading, .trailing], -10.0)
     }
 }
 
@@ -37,13 +49,19 @@ struct BracketTableView: View {
                 bracketRow(bracket: bracket)
                     .background {
                         if let activeBracket, activeBracket.startingAt == bracket.startingAt {
-                            Color.accentColor
-                                .opacity(0.33)
-                                .cornerRadius(6.0)
-                                .padding(-4.0)
-                                .padding([.leading, .trailing], -10.0)
+                            BracketHighlightView()
                         }
                     }
+
+                if let activeBracket {
+                    if case let .interpolated(lower, _) = activeBracket.type, lower.startingAt == bracket.startingAt {
+                        Spacer().frame(height: 8.0)
+                        bracketRow(bracket: activeBracket)
+                            .background {
+                                BracketHighlightView()
+                            }
+                    }
+                }
             }
         }
         .padding([.leading, .trailing], 10.0)
@@ -125,6 +143,7 @@ struct BracketTableView: View {
 struct BracketTableView_Previews: PreviewProvider {
     static let fedBrackets = TaxBracketGenerator.bracketGroupForRawTaxRates(TaxYear2020_MarriedJointly.taxRates.federalRates.incomeRates)
     static let longtermGainsBrackets = TaxBracketGenerator.bracketGroupForRawTaxRates(TaxYear2020_MarriedJointly.taxRates.federalRates.longtermGainsRates)
+    static let caliLowIncomeBrackets = TaxBracketGenerator.bracketGroupForRawTaxRates(TaxYear2020_MarriedJointly.taxRates.californiaRates.lowIncomeRates)
 
     static var previews: some View {
         BracketTableView(brackets: fedBrackets.sortedBrackets.reversed(), activeBracket: fedBrackets.sortedBrackets[3])
@@ -132,6 +151,10 @@ struct BracketTableView_Previews: PreviewProvider {
             .padding(20.0)
 
         BracketTableView(brackets: longtermGainsBrackets.sortedBrackets.reversed(), activeBracket: longtermGainsBrackets.sortedBrackets[1])
+            .padding(.top, -20.0)
+            .padding(20.0)
+
+        BracketTableView(brackets: caliLowIncomeBrackets.sortedBrackets.reversed(), activeBracket: caliLowIncomeBrackets.matchingBracketFor(taxableIncome: 64800))
             .padding(.top, -20.0)
             .padding(20.0)
     }

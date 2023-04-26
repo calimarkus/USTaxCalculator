@@ -39,18 +39,15 @@ struct InterpolatedTaxBracketGroup: TaxBracketGroup {
     }
 
     func matchingBracketFor(taxableIncome: Double) -> TaxBracket {
-        var bracketBefore: TaxBracket = sortedBrackets.first!
-        var bracketAfter: TaxBracket = sortedBrackets.first!
+        var higherBracket: TaxBracket = sortedBrackets.first!
+        var lowerBracket: TaxBracket = sortedBrackets.first!
         for bracket in sortedBrackets {
             if taxableIncome >= bracket.startingAt {
-                bracketAfter = bracket
+                lowerBracket = bracket
                 break
             }
-            bracketBefore = bracket
+            higherBracket = bracket
         }
-
-        // interpolate between two rates
-        let interpolatedRate = bracketBefore.rate + (bracketAfter.rate - bracketBefore.rate) / 2.0
-        return TaxBracket(simpleRate: interpolatedRate, startingAt: taxableIncome)
+        return TaxBracket(interpolatedRateStartingAt: taxableIncome, lowerBracket: lowerBracket, higherBracket: higherBracket)
     }
 }
