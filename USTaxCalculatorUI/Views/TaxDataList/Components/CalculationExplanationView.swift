@@ -5,9 +5,9 @@
 import SwiftUI
 
 struct CalculationExplanationView: View {
-    let value: any CalculatableValue
+    let value: any ExplainableValue
 
-    init(_ value: any CalculatableValue) {
+    init(_ value: any ExplainableValue) {
         self.value = value
     }
 

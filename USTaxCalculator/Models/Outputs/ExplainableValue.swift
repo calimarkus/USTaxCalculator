@@ -1,5 +1,5 @@
 //
-// CalculatableValue.swift
+// ExplainableValue.swift
 //
 
 import Foundation
@@ -9,7 +9,6 @@ enum ExplanationType {
     case values
 }
 
-protocol CalculatableValue {
-    func calculate() -> Double
+protocol ExplainableValue {
     func calculationExplanation(as type: ExplanationType) -> String
 }

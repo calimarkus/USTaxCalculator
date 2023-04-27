@@ -7,7 +7,7 @@ struct NamedValue {
     let name: String
 }
 
-protocol Tax: CalculatableValue {
+protocol Tax: ExplainableValue {
     /// The title for this tax
     var title: String { get }
 
@@ -25,10 +25,6 @@ protocol Tax: CalculatableValue {
 }
 
 extension Tax {
-    func calculate() -> Double {
-        activeBracket.calculateTaxesForAmount(taxableIncome)
-    }
-
     func calculationExplanation(as type: ExplanationType) -> String {
         activeBracket.taxCalculationExplanation(taxableIncome, explanationType: type)
     }
@@ -101,8 +97,7 @@ struct StateTax: Tax {
     }
 }
 
-extension StateTax: CalculatableValue {
-    func calculate() -> Double { stateOnlyTaxAmount }
+extension StateTax: ExplainableValue {
     func calculationExplanation(as type: ExplanationType) -> String { stateOnlyTaxExplanation(as: type) }
 }
 
