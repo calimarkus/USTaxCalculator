@@ -21,7 +21,7 @@ enum TaxCalculator {
         )
 
         let stateTaxes = input.income.stateIncomes.map { stateIncome in
-            Self.stateTaxFor(
+            Self.stateTaxDataFor(
                 stateIncome: stateIncome,
                 stateDeductions: input.stateDeductions,
                 stateCredits: input.stateCredits,
@@ -31,10 +31,10 @@ enum TaxCalculator {
         }
 
         var stateSummaries: [TaxState: TaxSummary] = [:]
-        for tax in stateTaxes {
-            stateSummaries[tax.state] = TaxSummary(
-                taxes: tax.taxAmount - tax.credits,
-                withholdings: tax.withholdings,
+        for taxData in stateTaxes {
+            stateSummaries[taxData.state] = TaxSummary(
+                taxes: taxData.tax.taxAmount - taxData.credits,
+                withholdings: taxData.withholdings,
                 totalIncome: input.income.totalIncome
             )
         }
@@ -42,7 +42,7 @@ enum TaxCalculator {
         return CalculatedTaxData(
             inputData: input,
             federalData: federalData,
-            stateTaxes: stateTaxes,
+            stateTaxDatas: stateTaxes,
             taxSummaries: TaxSummaries(federal: federalSummary, states: stateSummaries)
         )
     }
@@ -120,11 +120,11 @@ private extension TaxCalculator {
                               taxes: federalTaxes)
     }
 
-    static func stateTaxFor(stateIncome: StateIncome,
-                            stateDeductions: [TaxState: DeductionInput],
-                            stateCredits: [TaxState: Double],
-                            totalIncome: Double,
-                            taxRates: RawTaxRatesYear) -> StateTax
+    static func stateTaxDataFor(stateIncome: StateIncome,
+                                stateDeductions: [TaxState: DeductionInput],
+                                stateCredits: [TaxState: Double],
+                                totalIncome: Double,
+                                taxRates: RawTaxRatesYear) -> StateTaxData
     {
         let deduction = Deduction(
             input: stateDeductions[stateIncome.state] ?? DeductionInput.standard(),
@@ -141,18 +141,20 @@ private extension TaxCalculator {
                                                   taxableIncome: namedTaxableStateIncome,
                                                   taxRates: taxRates)
 
-        return StateTax(state: stateIncome.state,
-                        activeBracket: bracket,
-                        bracketGroup: stateBracketGroup,
-                        localTax: localTax,
-                        taxableIncome: namedTaxableStateIncome,
-                        additionalStateIncome: stateIncome.additionalStateIncome,
-                        deduction: deduction,
-                        withholdings: stateIncome.withholdings,
-                        credits: stateCredits[stateIncome.state] ?? 0.0,
-                        incomeRate: stateIncome.stateIncomeRate(for: totalIncome),
-                        incomeRateExplanation: stateIncome.stateIncomeRateExplanation(for: totalIncome),
-                        stateAttributedIncome: stateIncome.stateAttributableIncome(for: totalIncome))
+        let stateTax = StateTax(state: stateIncome.state,
+                                activeBracket: bracket,
+                                bracketGroup: stateBracketGroup,
+                                localTax: localTax,
+                                taxableIncome: namedTaxableStateIncome,
+                                incomeRate: stateIncome.stateIncomeRate(for: totalIncome),
+                                incomeRateExplanation: stateIncome.stateIncomeRateExplanation(for: totalIncome),
+                                stateAttributedIncome: stateIncome.stateAttributableIncome(for: totalIncome))
+
+        return StateTaxData(additionalStateIncome: stateIncome.additionalStateIncome,
+                            deduction: deduction,
+                            withholdings: stateIncome.withholdings,
+                            credits: stateCredits[stateIncome.state] ?? 0.0,
+                            tax: stateTax)
     }
 
     static func localTaxBracketForLocalTax(_ localTax: LocalTaxType, taxableIncome: NamedValue, taxRates: RawTaxRatesYear) -> LocalTax? {

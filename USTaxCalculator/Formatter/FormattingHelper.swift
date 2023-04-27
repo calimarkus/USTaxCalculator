@@ -14,7 +14,7 @@ extension CalculatedTaxData {
     }
 
     private var infoTitle: String {
-        FormattingHelper.formattedTaxYear(taxYear, filingType, states: stateTaxes.map(\.state))
+        FormattingHelper.formattedTaxYear(taxYear, filingType, states: stateTaxDatas.map(\.state))
     }
 }
 

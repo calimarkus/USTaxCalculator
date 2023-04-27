@@ -70,18 +70,6 @@ struct StateTax: Tax {
     /// The taxable income for this state
     let taxableIncome: NamedValue
 
-    /// State Income that's not part of the wages on the W-2
-    var additionalStateIncome: Double = 0.0
-
-    /// Deductions that apply to this state
-    let deduction: Deduction
-
-    /// Withholdings that apply to this state
-    var withholdings: Double = 0.0
-
-    /// Credits that apply to this state
-    var credits: Double = 0.0
-
     /// The income rate for this state - stateAttributableIncome / totalIncome (only relevant in multi state situations)
     let incomeRate: Double
 
@@ -97,7 +85,9 @@ struct StateTax: Tax {
     /// The taxes coming from this bracket
     /// see https://turbotax.intuit.com/tax-tips/state-taxes/multiple-states-figuring-whats-owed-when-you-live-and-work-in-more-than-one-state/L79OKm3jI
     /// using "Common method 1" for multi state taxes
-    var stateOnlyTaxAmount: Double { activeBracket.calculateTaxesForAmount(taxableIncome) * incomeRate }
+    var stateOnlyTaxAmount: Double {
+        activeBracket.calculateTaxesForAmount(taxableIncome) * incomeRate
+    }
 
     func stateOnlyTaxExplanation(as type: ExplanationType) -> String {
         switch type {

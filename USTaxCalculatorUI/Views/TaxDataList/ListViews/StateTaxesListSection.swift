@@ -13,25 +13,26 @@ struct StateTaxesListSection: View {
 
     let isFirst: Bool
     let totalIncome: Double
-    let stateTax: StateTax
+    let stateTaxData: StateTaxData
     let summary: TaxSummary?
 
     var body: some View {
-        let title = "\(stateTax.state) Taxes"
+        let stateTax = stateTaxData.tax
+        let title = "\(stateTaxData.state) Taxes"
         CollapsableSectionTitle(title: title, isFirst: isFirst, isExpanded: $isExpanded)
 
         if isExpanded {
             TaxListGroupView {
                 CurrencyView(CurrencyViewConfig(title: "Total Income", amount: totalIncome, showSeparator: false))
-                if stateTax.additionalStateIncome > 0.0 {
+                if stateTaxData.additionalStateIncome > 0.0 {
                     CurrencyView(.secondaryAdditionConfig(
                         title: "Additional State Income",
-                        amount: stateTax.additionalStateIncome
+                        amount: stateTaxData.additionalStateIncome
                     ))
                 }
                 ExplainableCurrencyView(
-                    .secondaryAdditionConfig(title: "State Deduction", amount: -stateTax.deduction.calculateAmount()),
-                    explanation: .deductionInfo(stateTax.deduction)
+                    .secondaryAdditionConfig(title: "State Deduction", amount: -stateTaxData.deduction.calculateAmount()),
+                    explanation: .deductionInfo(stateTaxData.deduction)
                 )
                 CurrencyView(.boldSumConfig(title: "Taxable Income", amount: stateTax.taxableIncome.amount))
             }
@@ -70,8 +71,8 @@ struct StateTaxesListSection: View {
                     )
                 }
 
-                if stateTax.credits > 0.0 {
-                    CurrencyView(CurrencyViewConfig(title: "Tax Credits", amount: -stateTax.credits, showPlusMinus: true))
+                if stateTaxData.credits > 0.0 {
+                    CurrencyView(CurrencyViewConfig(title: "Tax Credits", amount: -stateTaxData.credits, showPlusMinus: true))
                 }
             }
         }
@@ -93,13 +94,13 @@ struct StateTaxesListSection_Previews: PreviewProvider {
             StateTaxesListSection(isExpanded: $isExpanded1,
                                   isFirst: true,
                                   totalIncome: exampleData.totalIncome,
-                                  stateTax: exampleData.stateTaxes[0],
-                                  summary: exampleData.taxSummaries.states[exampleData.stateTaxes[0].state])
+                                  stateTaxData: exampleData.stateTaxDatas[0],
+                                  summary: exampleData.taxSummaries.states[exampleData.stateTaxDatas[0].state])
             StateTaxesListSection(isExpanded: $isExpanded2,
                                   isFirst: false,
                                   totalIncome: exampleData.totalIncome,
-                                  stateTax: exampleData.stateTaxes[1],
-                                  summary: exampleData.taxSummaries.states[exampleData.stateTaxes[1].state])
+                                  stateTaxData: exampleData.stateTaxDatas[1],
+                                  summary: exampleData.taxSummaries.states[exampleData.stateTaxDatas[1].state])
         }
         .padding()
     }

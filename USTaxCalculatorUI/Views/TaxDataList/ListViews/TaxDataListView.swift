@@ -21,13 +21,13 @@ struct TaxDataListView: View {
             }
 
             TaxDataTabView(.states) {
-                ForEach(taxdata.stateTaxes.indices, id: \.self) { idx in
-                    let stateTax = taxdata.stateTaxes[idx]
-                    StateTaxesListSection(isExpanded: appState.stateCollapseStateBinding(for: stateTax.state),
+                ForEach(taxdata.stateTaxDatas.indices, id: \.self) { idx in
+                    let stateTaxData = taxdata.stateTaxDatas[idx]
+                    StateTaxesListSection(isExpanded: appState.stateCollapseStateBinding(for: stateTaxData.state),
                                           isFirst: idx == 0,
                                           totalIncome: taxdata.totalIncome,
-                                          stateTax: stateTax,
-                                          summary: taxdata.taxSummaries.states[stateTax.state])
+                                          stateTaxData: stateTaxData,
+                                          summary: taxdata.taxSummaries.states[stateTaxData.state])
                 }
             }
 

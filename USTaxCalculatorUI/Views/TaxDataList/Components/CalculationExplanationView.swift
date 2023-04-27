@@ -39,7 +39,6 @@ struct CalculationExplanationView_Previews: PreviewProvider {
             activeBracket: caliBrackets.sortedBrackets[5],
             bracketGroup: caliBrackets,
             taxableIncome: NamedValue(amount: 150_000, name: "CA State Income"),
-            deduction: Deduction(input: .standard(), standardDeduction: TaxYear2020_MarriedJointly.taxRates.californiaRates.standardDeductions),
             incomeRate: 0.66,
             incomeRateExplanation: "Rate explanation.."
         )).frame(width: 400).padding(20.0)

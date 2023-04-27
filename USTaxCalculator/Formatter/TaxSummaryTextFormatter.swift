@@ -32,7 +32,7 @@ struct TaxSummaryTextFormatter {
         summary.append(federalSummary(income: td.income, taxData: td.federalData, taxSummary: td.taxSummaries.federal))
 
         // States
-        summary.append(stateSummary(income: td.income, stateTaxes: td.stateTaxes, taxSummaries: td.taxSummaries.states))
+        summary.append(stateSummary(income: td.income, stateTaxDatas: td.stateTaxDatas, taxSummaries: td.taxSummaries.states))
 
         // State Summary
         if td.income.stateIncomes.count > 0 {
@@ -84,17 +84,18 @@ struct TaxSummaryTextFormatter {
     }
 
     private func stateSummary(income: Income,
-                              stateTaxes: [StateTax],
+                              stateTaxDatas: [StateTaxData],
                               taxSummaries: [TaxState: TaxSummary]) -> String
     {
         var summary = ""
         summary.appendTitle("State Taxes")
 
-        for stateTax in stateTaxes {
-            let credit = stateTax.credits
+        for stateTaxData in stateTaxDatas {
+            let stateTax = stateTaxData.tax
+
             summary.appendLine("- \(stateTax.state)")
             summary.appendLine(formattedCurrency("  Total Income:", income.totalIncome))
-            summary.appendLine(formattedCurrency("  Deduction:", -stateTax.deduction.calculateAmount()))
+            summary.appendLine(formattedCurrency("  Deduction:", -stateTaxData.deduction.calculateAmount()))
             summary.appendLine(formattedCurrency("  Taxable Income:", stateTax.taxableIncome.amount))
 
             if stateTax.incomeRate < 1.0 {
@@ -110,8 +111,8 @@ struct TaxSummaryTextFormatter {
                 summary.appendLine(formattedBracketRate("    ", localTax.activeBracket))
             }
 
-            if credit > 0 {
-                summary.appendLine(formattedCurrency("  - Tax Credits:", -credit))
+            if stateTaxData.credits > 0 {
+                summary.appendLine(formattedCurrency("  - Tax Credits:", -stateTaxData.credits))
             }
 
             if let taxSummary = taxSummaries[stateTax.state] {
