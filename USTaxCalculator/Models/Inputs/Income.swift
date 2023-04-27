@@ -34,4 +34,5 @@ extension Income {
     var namedCapitalGains: NamedValue { NamedValue(amount: capitalGains, name: "Capital Gains") }
     var namedTotalCapitalGains: NamedValue { NamedValue(amount: totalCapitalGains, name: "Total Capital Gains") }
     var namedLongtermCapitalGains: NamedValue { NamedValue(amount: longtermCapitalGains, name: "Longterm Capital Gains") }
+    var namedTotalIncome: NamedValue { NamedValue(amount: totalIncome, name: "Total Income") }
 }

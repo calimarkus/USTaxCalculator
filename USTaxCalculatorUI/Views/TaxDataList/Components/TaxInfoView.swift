@@ -56,7 +56,10 @@ struct TaxInfoView_Previews: PreviewProvider {
             activeBracket: caliBrackets.sortedBrackets[5],
             bracketGroup: caliBrackets,
             taxableIncome: NamedValue(amount: 150_000, name: "CA State Income"),
-            stateAttributedIncome: StateAttributedIncome(incomeAmount: .partial(80000), federalIncome: 145_000)
+            stateAttributedIncome: StateAttributedIncome(
+                incomeAmount: .partial(80000),
+                federalIncome: NamedValue(amount: 145_000, name: "Total Income")
+            )
         )).frame(maxWidth: 500)
 
         TaxInfoView(FederalTax(

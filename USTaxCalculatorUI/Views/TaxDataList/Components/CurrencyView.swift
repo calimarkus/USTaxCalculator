@@ -135,10 +135,10 @@ struct ExplainableCurrencyView: View {
     }
 }
 
-struct LabeledExplainableValueView: View {
+struct LabeledExplainableValueView<Content: View>: View {
     var titleText: String
     var valueText: String
-    var infoText: String
+    var infoContent: Content
     var showSeparator: Bool = true
 
     var body: some View {
@@ -151,14 +151,9 @@ struct LabeledExplainableValueView: View {
                 Text(valueText)
                     .font(.system(.body, design: .monospaced))
             } infoContent: {
-                VStack(alignment: .leading, spacing: 10.0) {
-                    Text("Calculation:")
-                        .font(.headline)
-                    Text(infoText)
-                        .font(.system(.body, design: .monospaced))
-                }
-                .padding(20.0)
-                .navigationTitle(titleText)
+                infoContent
+                    .padding(20.0)
+                    .navigationTitle(titleText)
             }
         }
     }

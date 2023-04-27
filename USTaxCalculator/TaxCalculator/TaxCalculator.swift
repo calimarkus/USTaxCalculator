@@ -25,7 +25,7 @@ enum TaxCalculator {
                 stateIncome: stateIncome,
                 stateDeductions: input.stateDeductions,
                 stateCredits: input.stateCredits,
-                totalIncome: input.income.totalIncome,
+                totalIncome: input.income.namedTotalIncome,
                 taxRates: taxRates
             )
         }
@@ -123,14 +123,14 @@ private extension TaxCalculator {
     static func stateTaxDataFor(stateIncome: StateIncome,
                                 stateDeductions: [TaxState: DeductionInput],
                                 stateCredits: [TaxState: Double],
-                                totalIncome: Double,
+                                totalIncome: NamedValue,
                                 taxRates: RawTaxRatesYear) -> StateTaxData
     {
         let deduction = Deduction(
             input: stateDeductions[stateIncome.state] ?? DeductionInput.standard(),
             standardDeduction: taxRates.standardDeductionForState(stateIncome.state)
         )
-        let taxableStateIncome = max(0.0, totalIncome + stateIncome.additionalStateIncome - deduction.calculateAmount())
+        let taxableStateIncome = max(0.0, totalIncome.amount + stateIncome.additionalStateIncome - deduction.calculateAmount())
         let namedTaxableStateIncome = NamedValue(amount: taxableStateIncome, name: "Taxable State Income")
 
         let rawStateIncomeRates = taxRates.stateIncomeRates(for: stateIncome.state, taxableIncome: taxableStateIncome)

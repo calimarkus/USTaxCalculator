@@ -48,7 +48,7 @@ struct StateTaxesListSection: View {
 
                     LabeledExplainableValueView(titleText: "State Income Rate",
                                                 valueText: FormattingHelper.formatPercentage(stateTax.stateAttributedIncome.rate),
-                                                infoText: stateTax.stateAttributedIncome.rateExplanation)
+                                                infoContent: CalculationExplanationView(stateTax.stateAttributedIncome))
                 }
 
                 ExplainableCurrencyView(
