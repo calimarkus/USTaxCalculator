@@ -10,14 +10,17 @@ extension TaxBracket: Identifiable {
     }
 
     var isProgressive: Bool {
-        switch type {
-            case .basic:
-                return false
-            case .interpolated:
-                return false
-            case .progressive:
-                return true
+        if case .progressive = type {
+            return true
         }
+        return false
+    }
+
+    var isInterpolated: Bool {
+        if case .interpolated = type {
+            return true
+        }
+        return false
     }
 }
 
@@ -35,12 +38,26 @@ struct BracketTableView: View {
     let brackets: [TaxBracket]
     let activeBracket: TaxBracket?
 
-    var isProgressive: Bool {
+    private var isProgressive: Bool {
         brackets.last?.isProgressive ?? false
     }
 
+    private func isActiveBracket(_ bracket: TaxBracket) -> Bool {
+        guard let activeBracket else {
+            return false
+        }
+        return activeBracket.startingAt == bracket.startingAt
+    }
+
+    private func shouldInsertInterpolatedActiveBracket(_ bracket: TaxBracket, _ activeBracket: TaxBracket) -> Bool {
+        if case let .interpolated(lower, _) = activeBracket.type, lower.startingAt == bracket.startingAt {
+            return true
+        }
+        return false
+    }
+
     var body: some View {
-        VStack(alignment: .leading, spacing: 0.0) {
+        VStack(spacing: 0.0) {
             titleRow
 
             ForEach(brackets) { bracket in
@@ -48,19 +65,13 @@ struct BracketTableView: View {
 
                 bracketRow(bracket: bracket)
                     .background {
-                        if let activeBracket, activeBracket.startingAt == bracket.startingAt {
+                        if isActiveBracket(bracket) {
                             BracketHighlightView()
                         }
                     }
 
-                if let activeBracket {
-                    if case let .interpolated(lower, _) = activeBracket.type, lower.startingAt == bracket.startingAt {
-                        Spacer().frame(height: 8.0)
-                        bracketRow(bracket: activeBracket)
-                            .background {
-                                BracketHighlightView()
-                            }
-                    }
+                if let activeBracket, shouldInsertInterpolatedActiveBracket(bracket, activeBracket) {
+                    interpolatedBracketRow(activeBracket)
                 }
             }
         }
@@ -131,11 +142,38 @@ struct BracketTableView: View {
                             .font(.subheadline)
                             .foregroundColor(.secondary)
                             .padding(.leading, 6.0)
+                    } else if bracket.isInterpolated {
+                        Text("(interpolated)")
+                            .font(.subheadline)
+                            .foregroundColor(.secondary)
+                            .padding(.leading, 6.0)
                     }
                 #endif
 
                 Spacer()
             }
+        }
+    }
+
+    private func interpolatedBracketRow(_ bracket: TaxBracket) -> some View {
+        VStack(spacing: 0.0) {
+            HStack(alignment: .center) {
+                Spacer().frame(width: maxSmallColumnWidth)
+                Image(systemName: "ellipsis").padding(.leading, 8.0)
+                Spacer()
+            }
+            .frame(height: 26.0)
+            bracketRow(bracket: bracket)
+                .background {
+                    BracketHighlightView()
+                }
+            HStack(alignment: .center) {
+                Spacer().frame(width: maxSmallColumnWidth)
+                Image(systemName: "ellipsis").padding(.leading, 8.0)
+                Spacer()
+            }
+            .frame(height: 26.0)
+            .padding(.bottom, -10.0)
         }
     }
 }
