@@ -69,7 +69,7 @@ private extension TaxCalculator {
         // longterm gains tax
         let longtermGainBracketGroup = TaxBracketGenerator.bracketGroupForRawTaxRates(taxRates.longtermGainsRates)
         let longtermGainsBracket = longtermGainBracketGroup.matchingBracketFor(taxableIncome: taxableFederalIncome)
-        if longtermGainsBracket.rate > 0.0 {
+        if longtermGainsBracket.rate > 0.0, income.namedLongtermCapitalGains.amount > 0.0 {
             federalTaxes.append(
                 FederalTax(title: "Longterm Gains",
                            activeBracket: longtermGainsBracket,
