@@ -150,8 +150,9 @@ private extension TaxCalculator {
                         deduction: deduction,
                         withholdings: stateIncome.withholdings,
                         credits: stateCredits[stateIncome.state] ?? 0.0,
-                        incomeRate: stateIncome.incomeRateGivenFederalIncome(totalIncome),
-                        stateAttributedIncome: stateIncome.attributableIncomeGivenFederalIncome(totalIncome))
+                        incomeRate: stateIncome.stateIncomeRate(for: totalIncome),
+                        incomeRateExplanation: stateIncome.stateIncomeRateExplanation(for: totalIncome),
+                        stateAttributedIncome: stateIncome.stateAttributableIncome(for: totalIncome))
     }
 
     static func localTaxBracketForLocalTax(_ localTax: LocalTaxType, taxableIncome: NamedValue, taxRates: RawTaxRatesYear) -> LocalTax? {

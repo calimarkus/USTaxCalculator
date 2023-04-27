@@ -22,6 +22,7 @@ struct CalculationExplanationView: View {
 
 struct CalculationExplanationView_Previews: PreviewProvider {
     static let input: DeductionInput = .standard(additionalDeductions: 500.0)
+
     static var previews: some View {
         CalculationExplanationView(value: Deduction(input: input, standardDeduction: TaxYear2021_Single.taxRates.federalRates.standardDeductions))
             .padding(20.0)

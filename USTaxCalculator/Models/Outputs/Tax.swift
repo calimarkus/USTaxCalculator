@@ -85,6 +85,9 @@ struct StateTax: Tax {
     /// The income rate for this state - stateAttributableIncome / totalIncome (only relevant in multi state situations)
     var incomeRate: Double = 1.0
 
+    /// An explanation of how the incomeRate was calculated
+    var incomeRateExplanation: String
+
     /// The income attributed to this state (only relevant in multi state situations)
     var stateAttributedIncome: Double = 0.0
 
@@ -95,6 +98,33 @@ struct StateTax: Tax {
     /// see https://turbotax.intuit.com/tax-tips/state-taxes/multiple-states-figuring-whats-owed-when-you-live-and-work-in-more-than-one-state/L79OKm3jI
     /// using "Common method 1" for multi state taxes
     var stateOnlyTaxAmount: Double { activeBracket.calculateTaxesForAmount(taxableIncome) * incomeRate }
+
+    func stateOnlyTaxExplanation(as type: ExplanationType) -> String {
+        switch type {
+            case .names:
+                let bracketInfo = activeBracket.taxCalculationExplanation(taxableIncome, explanationType: .names)
+                if incomeRate < 1.0 {
+                    return "(\(bracketInfo)) * State Income Rate"
+                }
+                return bracketInfo
+            case .values:
+                if incomeRate < 1.0 {
+                    let bracketInfo = activeBracket.taxCalculationExplanation(taxableIncome, includeTotalValue: false)
+                    return "(\(bracketInfo)) * \(FormattingHelper.formatPercentage(incomeRate)) = \(FormattingHelper.formatCurrency(stateOnlyTaxAmount))"
+                }
+                return activeBracket.taxCalculationExplanation(taxableIncome, includeTotalValue: true)
+        }
+    }
+}
+
+extension StateTax {
+    func calculateAmount() -> Double {
+        stateOnlyTaxAmount
+    }
+
+    func calculationExplanation(as type: ExplanationType) -> String {
+        stateOnlyTaxExplanation(as: type)
+    }
 }
 
 struct LocalTax: Tax {

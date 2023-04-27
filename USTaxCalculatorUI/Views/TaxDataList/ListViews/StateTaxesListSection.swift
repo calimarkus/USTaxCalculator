@@ -45,11 +45,9 @@ struct StateTaxesListSection: View {
                         showSeparator: false
                     ))
 
-                    let incomeRateText = FormattingHelper.formatPercentage(stateTax.incomeRate)
-                    let info = "\(FormattingHelper.formatCurrency(stateTax.stateAttributedIncome)) / \(FormattingHelper.formatCurrency(totalIncome)) = \(incomeRateText)"
                     LabeledExplainableValueView(titleText: "State Income Rate",
-                                                valueText: incomeRateText,
-                                                infoText: info)
+                                                valueText: FormattingHelper.formatPercentage(stateTax.incomeRate),
+                                                infoText: stateTax.incomeRateExplanation)
                 }
 
                 ExplainableCurrencyView(
@@ -88,7 +86,7 @@ struct StateTaxesListSection: View {
 
 struct StateTaxesListSection_Previews: PreviewProvider {
     @State static var isExpanded1: Bool = true
-    @State static var isExpanded2: Bool = false
+    @State static var isExpanded2: Bool = true
     static var previews: some View {
         VStack(alignment: .leading) {
             let exampleData = ExampleData.exampleTaxDataJohnAndSarah_21()
@@ -103,7 +101,6 @@ struct StateTaxesListSection_Previews: PreviewProvider {
                                   stateTax: exampleData.stateTaxes[1],
                                   summary: exampleData.taxSummaries.states[exampleData.stateTaxes[1].state])
         }
-        .frame(height: 540.0)
         .padding()
     }
 }

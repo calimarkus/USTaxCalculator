@@ -53,7 +53,7 @@ extension TaxBracket {
     }
 
     /// returns a string describing the calculation of the taxes for the given amount, respecting the bracket type
-    func taxCalculationExplanation(_ namedAmount: NamedValue, explanationType: ExplanationType = .values) -> String {
+    func taxCalculationExplanation(_ namedAmount: NamedValue, explanationType: ExplanationType = .values, includeTotalValue: Bool = true) -> String {
         switch explanationType {
             case .names:
                 switch type {
@@ -66,7 +66,11 @@ extension TaxBracket {
                         return "(\(namedAmount.name) - Bracket start) * Rate\(fixedAmountDesc)"
                 }
             case .values:
-                return "\(taxCalculationExplanationForAmount(namedAmount)) = \(FormattingHelper.formatCurrency(calculateTaxesForAmount(namedAmount)))"
+                let explanation = taxCalculationExplanationForAmount(namedAmount)
+                if includeTotalValue {
+                    return "\(explanation) = \(FormattingHelper.formatCurrency(calculateTaxesForAmount(namedAmount)))"
+                }
+                return explanation
         }
     }
 
