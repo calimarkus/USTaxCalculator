@@ -31,7 +31,7 @@ struct StateTaxesListSection: View {
                     ))
                 }
                 ExplainableCurrencyView(
-                    .secondaryAdditionConfig(title: "State Deduction", amount: -stateTaxData.deduction.calculate()),
+                    .secondaryAdditionConfig(title: "State Deduction", amount: -stateTaxData.deduction.amount),
                     explanation: .deductionInfo(stateTaxData.deduction)
                 )
                 CurrencyView(.boldSumConfig(title: "Taxable Income", amount: stateTax.taxableIncome.amount))

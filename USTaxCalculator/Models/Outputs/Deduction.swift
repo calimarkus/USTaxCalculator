@@ -13,6 +13,14 @@ struct Deduction {
         self.standardDeduction = standardDeduction
     }
 
+    /// returns the deduction amount
+    var amount: Double {
+        switch input {
+            case let .standard(additional): return additional + standardDeduction.value
+            case let .custom(customAmount): return customAmount
+        }
+    }
+
     /// The original sources of the deduction amount
     var sources: [URL] {
         switch input {
@@ -25,15 +33,9 @@ struct Deduction {
 }
 
 extension Deduction: CalculatableValue {
-    /// returns the deduction amount
-    func calculate() -> Double {
-        switch input {
-            case let .standard(additional): return additional + standardDeduction.value
-            case let .custom(customAmount): return customAmount
-        }
-    }
+    func calculate() -> Double { amount }
 
-    /// returns a string describing the calculation of the deduction
+    /// a string describing the calculation of the deduction
     func calculationExplanation(as type: ExplanationType) -> String {
         switch type {
             case .names:
