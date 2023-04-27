@@ -51,6 +51,40 @@ struct FederalTax: Tax {
     var taxAmount: Double { activeBracket.calculateTaxesForAmount(taxableIncome) }
 }
 
+struct StateAttributedIncome {
+    let incomeAmount: IncomeAmount
+    private let federalIncome: Double
+
+    init(incomeAmount: IncomeAmount, federalIncome: Double) {
+        self.incomeAmount = incomeAmount
+        self.federalIncome = federalIncome
+    }
+
+    /// The income rate for this state - stateAttributableIncome / totalIncome (only relevant in multi state situations)
+    var rate: Double {
+        switch incomeAmount {
+            case .fullFederal: return 1.0
+            case let .partial(income): return income / federalIncome
+        }
+    }
+
+    /// An explanation of how the incomeRate was calculated
+    var rateExplanation: String {
+        var explanation = "\(FormattingHelper.formatCurrency(amount))"
+        explanation += " / \(FormattingHelper.formatCurrency(federalIncome))"
+        explanation += " = \(FormattingHelper.formatPercentage(rate))"
+        return explanation
+    }
+
+    /// The income attributed to this state (only relevant in multi state situations)
+    var amount: Double {
+        switch incomeAmount {
+            case .fullFederal: return federalIncome
+            case let .partial(income): return income
+        }
+    }
+}
+
 struct StateTax: Tax {
     /// A generated title
     var title: String { "\(state) State" }
@@ -70,14 +104,8 @@ struct StateTax: Tax {
     /// The taxable income for this state
     let taxableIncome: NamedValue
 
-    /// The income rate for this state - stateAttributableIncome / totalIncome (only relevant in multi state situations)
-    let incomeRate: Double
-
-    /// An explanation of how the incomeRate was calculated
-    let incomeRateExplanation: String
-
     /// The income attributed to this state (only relevant in multi state situations)
-    var stateAttributedIncome: Double = 0.0
+    var stateAttributedIncome: StateAttributedIncome
 
     /// The taxes coming from this bracket AND the local bracket
     var taxAmount: Double { stateOnlyTaxAmount + (localTax?.taxAmount ?? 0.0) }
@@ -86,21 +114,21 @@ struct StateTax: Tax {
     /// see https://turbotax.intuit.com/tax-tips/state-taxes/multiple-states-figuring-whats-owed-when-you-live-and-work-in-more-than-one-state/L79OKm3jI
     /// using "Common method 1" for multi state taxes
     var stateOnlyTaxAmount: Double {
-        activeBracket.calculateTaxesForAmount(taxableIncome) * incomeRate
+        activeBracket.calculateTaxesForAmount(taxableIncome) * stateAttributedIncome.rate
     }
 
     func stateOnlyTaxExplanation(as type: ExplanationType) -> String {
         switch type {
             case .names:
                 let bracketInfo = activeBracket.taxCalculationExplanation(taxableIncome, explanationType: .names)
-                if incomeRate < 1.0 {
+                if stateAttributedIncome.rate < 1.0 {
                     return "(\(bracketInfo)) * State Income Rate"
                 }
                 return bracketInfo
             case .values:
-                if incomeRate < 1.0 {
+                if stateAttributedIncome.rate < 1.0 {
                     let bracketInfo = activeBracket.taxCalculationExplanation(taxableIncome, includeTotalValue: false)
-                    return "(\(bracketInfo)) * \(FormattingHelper.formatPercentage(incomeRate)) = \(FormattingHelper.formatCurrency(stateOnlyTaxAmount))"
+                    return "(\(bracketInfo)) * \(FormattingHelper.formatPercentage(stateAttributedIncome.rate)) = \(FormattingHelper.formatCurrency(stateOnlyTaxAmount))"
                 }
                 return activeBracket.taxCalculationExplanation(taxableIncome, includeTotalValue: true)
         }

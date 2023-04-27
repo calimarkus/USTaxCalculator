@@ -141,14 +141,14 @@ private extension TaxCalculator {
                                                   taxableIncome: namedTaxableStateIncome,
                                                   taxRates: taxRates)
 
+        let attributedIncome = StateAttributedIncome(incomeAmount: stateIncome.wages, federalIncome: totalIncome)
+
         let stateTax = StateTax(state: stateIncome.state,
                                 activeBracket: bracket,
                                 bracketGroup: stateBracketGroup,
                                 localTax: localTax,
                                 taxableIncome: namedTaxableStateIncome,
-                                incomeRate: stateIncome.stateIncomeRate(for: totalIncome),
-                                incomeRateExplanation: stateIncome.stateIncomeRateExplanation(for: totalIncome),
-                                stateAttributedIncome: stateIncome.stateAttributableIncome(for: totalIncome))
+                                stateAttributedIncome: attributedIncome)
 
         return StateTaxData(additionalStateIncome: stateIncome.additionalStateIncome,
                             deduction: deduction,

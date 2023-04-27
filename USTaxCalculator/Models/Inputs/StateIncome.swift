@@ -37,26 +37,3 @@ struct StateIncome: Codable, Equatable {
     /// Any local taxes that apply to this state
     var localTax: LocalTaxType = .none
 }
-
-extension StateIncome {
-    func stateIncomeRate(for federalIncome: Double) -> Double {
-        switch wages {
-            case .fullFederal: return 1.0
-            case let .partial(income): return income / federalIncome
-        }
-    }
-
-    func stateIncomeRateExplanation(for federalIncome: Double) -> String {
-        var explanation = "\(FormattingHelper.formatCurrency(stateAttributableIncome(for: federalIncome)))"
-        explanation += " / \(FormattingHelper.formatCurrency(federalIncome))"
-        explanation += " = \(FormattingHelper.formatPercentage(stateIncomeRate(for: federalIncome)))"
-        return explanation
-    }
-
-    func stateAttributableIncome(for federalIncome: Double) -> Double {
-        switch wages {
-            case .fullFederal: return federalIncome
-            case let .partial(income): return income
-        }
-    }
-}

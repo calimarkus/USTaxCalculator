@@ -38,9 +38,8 @@ struct CalculationExplanationView_Previews: PreviewProvider {
             state: .CA,
             activeBracket: caliBrackets.sortedBrackets[5],
             bracketGroup: caliBrackets,
-            taxableIncome: NamedValue(amount: 150_000, name: "CA State Income"),
-            incomeRate: 0.66,
-            incomeRateExplanation: "Rate explanation.."
+            taxableIncome: NamedValue(amount: 80000, name: "CA State Income"),
+            stateAttributedIncome: StateAttributedIncome(incomeAmount: .partial(80000), federalIncome: 145_000)
         )).frame(width: 400).padding(20.0)
     }
 }
