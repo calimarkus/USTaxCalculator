@@ -62,7 +62,7 @@ struct TaxSummaryTextFormatter {
         if income.longtermCapitalGains > 0 {
             summary.appendLine(formattedCurrency("", -income.longtermCapitalGains, "(longterm gains)"))
         }
-        summary.appendLine(formattedCurrency("", -taxData.deduction.calculateAmount(), "(deduction)"))
+        summary.appendLine(formattedCurrency("", -taxData.deduction.calculate(), "(deduction)"))
         summary.appendLine(formattedCurrency("- Taxable Income:", taxData.taxableIncome))
 
         summary.appendLine()
@@ -95,7 +95,7 @@ struct TaxSummaryTextFormatter {
 
             summary.appendLine("- \(stateTax.state)")
             summary.appendLine(formattedCurrency("  Total Income:", income.totalIncome))
-            summary.appendLine(formattedCurrency("  Deduction:", -stateTaxData.deduction.calculateAmount()))
+            summary.appendLine(formattedCurrency("  Deduction:", -stateTaxData.deduction.calculate()))
             summary.appendLine(formattedCurrency("  Taxable Income:", stateTax.taxableIncome.amount))
 
             if stateTax.stateAttributedIncome.rate < 1.0 {

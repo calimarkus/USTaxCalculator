@@ -45,6 +45,6 @@ struct StateAttributedIncome {
 }
 
 extension StateAttributedIncome: CalculatableValue {
-    func calculateAmount() -> Double { rate }
+    func calculate() -> Double { rate }
     func calculationExplanation(as type: ExplanationType) -> String { rateExplanation(as: type) }
 }

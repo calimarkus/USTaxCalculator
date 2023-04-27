@@ -25,7 +25,7 @@ protocol Tax: CalculatableValue {
 }
 
 extension Tax {
-    func calculateAmount() -> Double {
+    func calculate() -> Double {
         activeBracket.calculateTaxesForAmount(taxableIncome)
     }
 
@@ -102,7 +102,7 @@ struct StateTax: Tax {
 }
 
 extension StateTax: CalculatableValue {
-    func calculateAmount() -> Double { stateOnlyTaxAmount }
+    func calculate() -> Double { stateOnlyTaxAmount }
     func calculationExplanation(as type: ExplanationType) -> String { stateOnlyTaxExplanation(as: type) }
 }
 

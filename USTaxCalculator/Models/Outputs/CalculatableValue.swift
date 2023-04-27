@@ -10,6 +10,6 @@ enum ExplanationType {
 }
 
 protocol CalculatableValue {
-    func calculateAmount() -> Double
+    func calculate() -> Double
     func calculationExplanation(as type: ExplanationType) -> String
 }

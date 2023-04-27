@@ -40,7 +40,7 @@ struct FederalIncomeListSection: View {
                 }
 
                 ExplainableCurrencyView(
-                    .secondaryAdditionConfig(title: "Deduction", amount: -taxdata.deduction.calculateAmount()),
+                    .secondaryAdditionConfig(title: "Deduction", amount: -taxdata.deduction.calculate()),
                     explanation: .deductionInfo(taxdata.deduction)
                 )
             }

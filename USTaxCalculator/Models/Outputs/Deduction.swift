@@ -26,7 +26,7 @@ struct Deduction {
 
 extension Deduction: CalculatableValue {
     /// returns the deduction amount
-    func calculateAmount() -> Double {
+    func calculate() -> Double {
         switch input {
             case let .standard(additional): return additional + standardDeduction.value
             case let .custom(customAmount): return customAmount
@@ -48,7 +48,7 @@ extension Deduction: CalculatableValue {
                     case let .standard(additional):
                         let standardFormatted = FormattingHelper.formatCurrency(standardDeduction.value)
                         let additionalFormatted = FormattingHelper.formatCurrency(additional)
-                        let total = FormattingHelper.formatCurrency(calculateAmount())
+                        let total = FormattingHelper.formatCurrency(calculate())
                         return additional > 0 ? "\(standardFormatted) + \(additionalFormatted) = \(total)" : standardFormatted
                     case let .custom(customAmount):
                         return FormattingHelper.formatCurrency(customAmount)
