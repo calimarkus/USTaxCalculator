@@ -101,14 +101,9 @@ struct StateTax: Tax {
     }
 }
 
-extension StateTax {
-    func calculateAmount() -> Double {
-        stateOnlyTaxAmount
-    }
-
-    func calculationExplanation(as type: ExplanationType) -> String {
-        stateOnlyTaxExplanation(as: type)
-    }
+extension StateTax: CalculatableValue {
+    func calculateAmount() -> Double { stateOnlyTaxAmount }
+    func calculationExplanation(as type: ExplanationType) -> String { stateOnlyTaxExplanation(as: type) }
 }
 
 struct LocalTax: Tax {
