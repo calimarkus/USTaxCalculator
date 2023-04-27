@@ -77,16 +77,16 @@ struct StateTax: Tax {
     let deduction: Deduction
 
     /// Withholdings that apply to this state
-    let withholdings: Double
+    var withholdings: Double = 0.0
 
     /// Credits that apply to this state
-    let credits: Double
+    var credits: Double = 0.0
 
     /// The income rate for this state - stateAttributableIncome / totalIncome (only relevant in multi state situations)
-    var incomeRate: Double = 1.0
+    let incomeRate: Double
 
     /// An explanation of how the incomeRate was calculated
-    var incomeRateExplanation: String
+    let incomeRateExplanation: String
 
     /// The income attributed to this state (only relevant in multi state situations)
     var stateAttributedIncome: Double = 0.0

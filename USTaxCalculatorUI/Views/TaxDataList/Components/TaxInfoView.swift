@@ -21,7 +21,8 @@ struct TaxInfoView: View {
 
             Spacer().frame(height: 4.0)
 
-            CalculationExplanationView(value: tax)
+            CalculationExplanationView(tax)
+                .fixedSize(horizontal: false, vertical: true)
 
             if tax.bracketGroup.sources.count > 0 {
                 Spacer().frame(height: 4.0)
@@ -39,15 +40,26 @@ struct TaxInfoView: View {
 
 struct TaxInfoView_Previews: PreviewProvider {
     static let fedBrackets = TaxBracketGenerator.bracketGroupForRawTaxRates(TaxYear2020_MarriedJointly.taxRates.federalRates.incomeRates)
+    static let caliBrackets = TaxBracketGenerator.bracketGroupForRawTaxRates(TaxYear2020_MarriedJointly.taxRates.californiaRates.incomeRates)
     static let longtermGainsBrackets = TaxBracketGenerator.bracketGroupForRawTaxRates(TaxYear2020_MarriedJointly.taxRates.federalRates.longtermGainsRates)
 
     static var previews: some View {
         TaxInfoView(FederalTax(
-            title: "Preview Income",
+            title: "Federal Income",
             activeBracket: fedBrackets.sortedBrackets[3],
             bracketGroup: fedBrackets,
             taxableIncome: NamedValue(amount: 92720, name: "Taxable Income")
         ))
+
+        TaxInfoView(StateTax(
+            state: .CA,
+            activeBracket: caliBrackets.sortedBrackets[5],
+            bracketGroup: caliBrackets,
+            taxableIncome: NamedValue(amount: 150_000, name: "CA State Income"),
+            deduction: Deduction(input: .standard(), standardDeduction: TaxYear2020_MarriedJointly.taxRates.californiaRates.standardDeductions),
+            incomeRate: 0.66,
+            incomeRateExplanation: "Rate explanation.."
+        )).frame(maxWidth: 500)
 
         TaxInfoView(FederalTax(
             title: "Preview Income",

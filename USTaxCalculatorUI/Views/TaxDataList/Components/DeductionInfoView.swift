@@ -13,7 +13,7 @@ struct DeductionInfoView: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 10.0) {
-            CalculationExplanationView(value: deduction)
+            CalculationExplanationView(deduction)
 
             if deduction.sources.count > 0 {
                 Spacer().frame(height: 4.0)
