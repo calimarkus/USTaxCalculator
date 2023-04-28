@@ -64,15 +64,18 @@ struct StateTax: Tax {
     /// See this source: https://turbotax.intuit.com/tax-tips/state-taxes/multiple-states-figuring-whats-owed-when-you-live-and-work-in-more-than-one-state/L79OKm3jI
     /// It is currently using the "Common method 1" for multi state taxes.
     var taxAmount: Double {
-        activeBracket.calculateTaxes(for: taxableIncome) * stateAttributedIncome.rate
+        activeBracket.calculateTaxes(for: taxableIncome) * attributableIncome.rate
     }
 
     /// A string explaining how the tax amount was calculated
     func calculationExplanation(as type: ExplanationType) -> String {
-        let attributableRate: NamedValue? = (stateAttributedIncome.rate < 1.0 ? NamedValue(amount: stateAttributedIncome.rate, name: "State Income Rate") : nil)
-        return activeBracket.taxCalculationExplanation(for: taxableIncome, explanationType: type, attributableRate: attributableRate)
+        activeBracket.taxCalculationExplanation(
+            for: taxableIncome,
+            explanationType: type,
+            attributableRate: attributableIncome.rate < 1.0 ? attributableIncome.namedRate : nil
+        )
     }
 
     /// The income attributed to this state (only relevant in multi state situations)
-    let stateAttributedIncome: StateAttributedIncome
+    let attributableIncome: AttributableIncome
 }

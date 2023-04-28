@@ -144,14 +144,15 @@ private extension TaxCalculator {
         let stateBracketGroup = TaxBracketGenerator.bracketGroupForRawTaxRates(rawStateIncomeRates)
         let bracket = stateBracketGroup.matchingBracketFor(taxableIncome: taxableStateIncome)
 
-        let attributedIncome = StateAttributedIncome(incomeAmount: stateIncome.wages,
-                                                     federalIncome: totalIncome)
+        let attributedIncome = AttributableIncome(name: "State Income",
+                                                  incomeAmount: stateIncome.wages,
+                                                  totalIncome: totalIncome)
 
         let stateTax = StateTax(title: "\(state) State",
                                 activeBracket: bracket,
                                 bracketGroup: stateBracketGroup,
                                 taxableIncome: namedTaxableStateIncome,
-                                stateAttributedIncome: attributedIncome)
+                                attributableIncome: attributedIncome)
 
         let localTax = localTaxBracketForLocalTax(stateIncome.localTax,
                                                   taxableIncome: namedTaxableStateIncome,

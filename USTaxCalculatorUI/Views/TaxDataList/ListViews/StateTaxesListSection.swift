@@ -38,17 +38,17 @@ struct StateTaxesListSection: View {
             }
 
             TaxListGroupView {
-                let hasIncomeRate = stateTax.stateAttributedIncome.rate < 1.0
+                let hasIncomeRate = stateTax.attributableIncome.rate < 1.0
                 if hasIncomeRate {
                     CurrencyView(CurrencyViewConfig(
-                        title: "State Attributed Income",
-                        amount: stateTax.stateAttributedIncome.amount,
+                        title: stateTax.attributableIncome.incomeName,
+                        amount: stateTax.attributableIncome.amount,
                         showSeparator: false
                     ))
 
-                    LabeledExplainableValueView(titleText: "State Income Rate",
-                                                valueText: FormattingHelper.formatPercentage(stateTax.stateAttributedIncome.rate),
-                                                infoContent: CalculationExplanationView(stateTax.stateAttributedIncome))
+                    LabeledExplainableValueView(titleText: stateTax.attributableIncome.namedRate.name,
+                                                valueText: FormattingHelper.formatPercentage(stateTax.attributableIncome.rate),
+                                                infoContent: CalculationExplanationView(stateTax.attributableIncome))
                 }
 
                 ExplainableCurrencyView(
