@@ -48,7 +48,7 @@ extension BasicTax {
 }
 
 struct StateTax: Tax {
-    /// A generated title
+    /// The name of this tax
     let title: String
 
     /// The active TaxBracket
@@ -57,17 +57,17 @@ struct StateTax: Tax {
     /// The underlying TaxBracketGroup
     let bracketGroup: TaxBracketGroup
 
-    /// An additional local tax applying to this state
-    var localTax: BasicTax? = nil
-
     /// The taxable income for this state
     let taxableIncome: NamedValue
 
-    /// The income attributed to this state (only relevant in multi state situations)
-    let stateAttributedIncome: StateAttributedIncome
-
     /// The taxes coming from this bracket AND the local bracket
     var taxAmount: Double { stateOnlyTaxAmount + (localTax?.taxAmount ?? 0.0) }
+
+    /// An additional local tax applying to this state
+    var localTax: BasicTax?
+
+    /// The income attributed to this state (only relevant in multi state situations)
+    let stateAttributedIncome: StateAttributedIncome
 
     /// The taxes coming from this bracket
     /// see https://turbotax.intuit.com/tax-tips/state-taxes/multiple-states-figuring-whats-owed-when-you-live-and-work-in-more-than-one-state/L79OKm3jI
