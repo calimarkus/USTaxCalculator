@@ -20,15 +20,16 @@ struct TaxBracket: Hashable {
 
     /// The BracketType defines how the tax is calculated
     let type: BracketType
+
+    init(rate: Double, startingAt: Double, type: BracketType = .basic) {
+        self.rate = rate
+        self.startingAt = startingAt
+        self.type = type
+    }
 }
 
 // convenience inits
 extension TaxBracket {
-    /// applies the given rate to the given income
-    init(simpleRate: Double, startingAt: Double) {
-        self.init(rate: simpleRate, startingAt: startingAt, type: .basic)
-    }
-
     /// applies the given rate to the given income
     init(interpolatedRateStartingAt startingAt: Double, lowerBracket: TaxBracket, higherBracket: TaxBracket) {
         let interpolatedRate = lowerBracket.rate + (higherBracket.rate - lowerBracket.rate) / 2.0
@@ -39,7 +40,10 @@ extension TaxBracket {
     init(fixedAmount: Double, plus rate: Double, over startingAt: Double) {
         self.init(rate: rate, startingAt: startingAt, type: .progressive(fixedAmount: fixedAmount))
     }
+}
 
+// tax calculations
+extension TaxBracket {
     /// calculates the taxes for the given amount, respecting the bracket type
     func calculateTaxesForAmount(_ namedAmount: NamedValue) -> Double {
         switch type {

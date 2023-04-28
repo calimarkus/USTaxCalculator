@@ -25,7 +25,7 @@ struct RegularTaxBracketGroup: TaxBracketGroup {
             taxableIncome >= bracket.startingAt
         }
 
-        return matchingBracket ?? TaxBracket(simpleRate: 0.0, startingAt: 0.0)
+        return matchingBracket ?? TaxBracket(rate: 0.0, startingAt: 0.0)
     }
 }
 
