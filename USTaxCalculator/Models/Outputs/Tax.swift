@@ -62,11 +62,11 @@ struct AttributableTax: Tax {
     let taxableIncome: NamedValue
 
     /// The rate of the taxable income, which this tax applies to
-    let attributableRate: NamedValue
+    let attributedRate: NamedValue
 
     /// The taxes coming from this state
     var taxAmount: Double {
-        activeBracket.calculateTaxes(for: taxableIncome) * attributableRate.amount
+        activeBracket.calculateTaxes(for: taxableIncome) * attributedRate.amount
     }
 
     /// A string explaining how the tax amount was calculated
@@ -74,7 +74,7 @@ struct AttributableTax: Tax {
         activeBracket.taxCalculationExplanation(
             for: taxableIncome,
             explanationType: type,
-            attributableRate: attributableRate.amount < 1.0 ? attributableRate : nil
+            attributedRate: attributedRate.amount < 1.0 ? attributedRate : nil
         )
     }
 }

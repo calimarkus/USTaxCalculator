@@ -98,9 +98,9 @@ struct TaxSummaryTextFormatter {
             summary.appendLine(formattedCurrency("  Deduction:", -stateTaxData.deduction.amount))
             summary.appendLine(formattedCurrency("  Taxable Income:", stateTax.taxableIncome.amount))
 
-            if stateTax.attributableRate.amount < 1.0 {
+            if stateTax.attributedRate.amount < 1.0 {
                 summary.appendLine(formattedCurrency("  - \(stateTaxData.attributableIncome.incomeName):", stateTaxData.attributableIncome.amount))
-                summary.appendLine(alignLeftRight("  - \(stateTax.attributableRate.name):", formattedRate(stateTax.attributableRate.amount)))
+                summary.appendLine(alignLeftRight("  - \(stateTax.attributedRate.name):", formattedRate(stateTax.attributedRate.amount)))
             }
 
             summary.appendLine(formattedCurrency("  - \(stateTax.title) Tax:", stateTax.taxAmount))

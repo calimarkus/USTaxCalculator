@@ -68,19 +68,19 @@ extension TaxBracket {
 // tax calculation explanation
 extension TaxBracket {
     /// returns a string describing the calculation of the taxes for the given amount, respecting the bracket type
-    func taxCalculationExplanation(for namedTaxableAmount: NamedValue, explanationType: ExplanationType = .values, attributableRate: NamedValue? = nil) -> String {
+    func taxCalculationExplanation(for namedTaxableAmount: NamedValue, explanationType: ExplanationType = .values, attributedRate: NamedValue? = nil) -> String {
         switch explanationType {
             case .names:
                 var explanation = namedExplanationWithoutSum(for: namedTaxableAmount)
-                if let attributableRate {
-                    explanation += " * \(attributableRate.name)"
+                if let attributedRate {
+                    explanation += " * \(attributedRate.name)"
                 }
                 return explanation
 
             case .values:
                 var explanation = valueExplanationWithoutSum(for: namedTaxableAmount)
-                if let attributableRate {
-                    explanation += " * \(FormattingHelper.formatPercentage(attributableRate.amount))"
+                if let attributedRate {
+                    explanation += " * \(FormattingHelper.formatPercentage(attributedRate.amount))"
                 }
                 explanation += " = \(FormattingHelper.formatCurrency(calculateTaxes(for: namedTaxableAmount)))"
                 return explanation

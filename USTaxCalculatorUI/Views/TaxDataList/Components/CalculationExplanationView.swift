@@ -39,7 +39,7 @@ struct CalculationExplanationView_Previews: PreviewProvider {
             activeBracket: caliBrackets.sortedBrackets[5],
             bracketGroup: caliBrackets,
             taxableIncome: NamedValue(amount: 80000, name: "CA State Income"),
-            attributableRate: NamedValue(amount: 1.0, name: "")
+            attributedRate: NamedValue(amount: 1.0, name: "")
         )).frame(width: 400).padding(20.0)
     }
 }
