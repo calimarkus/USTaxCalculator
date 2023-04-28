@@ -38,8 +38,8 @@ struct StateTaxesListSection: View {
             }
 
             TaxListGroupView {
-                let hasIncomeRate = stateTaxData.attributableIncome.rate < 1.0
-                if hasIncomeRate {
+                let hasAttributedIncome = stateTaxData.attributableIncome.rate.amount < 1.0
+                if hasAttributedIncome {
                     ExplainableRateView(attributableIncome: stateTaxData.attributableIncome)
                 }
 
@@ -48,7 +48,7 @@ struct StateTaxesListSection: View {
                         title: "\(stateTax.title) Tax",
                         subtitle: "(\(stateTax.activeBracket.formattedString))",
                         amount: stateTax.taxAmount,
-                        showSeparator: hasIncomeRate
+                        showSeparator: hasAttributedIncome
                     ), explanation: .taxInfo(stateTax)
                 )
 
@@ -86,8 +86,8 @@ struct ExplainableRateView: View {
             amount: attributableIncome.amount,
             showSeparator: false
         ))
-        LabeledExplainableValueView(titleText: attributableIncome.namedRate.name,
-                                    valueText: FormattingHelper.formatPercentage(attributableIncome.rate),
+        LabeledExplainableValueView(titleText: attributableIncome.rate.name,
+                                    valueText: FormattingHelper.formatPercentage(attributableIncome.rate.amount),
                                     infoContent: CalculationExplanationView(attributableIncome))
     }
 }

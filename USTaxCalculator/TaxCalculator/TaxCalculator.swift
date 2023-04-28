@@ -152,7 +152,7 @@ private extension TaxCalculator {
                                        activeBracket: bracket,
                                        bracketGroup: stateBracketGroup,
                                        taxableIncome: namedTaxableStateIncome,
-                                       attributableRate: attributedIncome.namedRate)
+                                       attributableRate: attributedIncome.rate)
 
         let localTax = localTaxBracketForLocalTax(stateIncome.localTax,
                                                   taxableIncome: namedTaxableStateIncome,
