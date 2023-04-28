@@ -11,9 +11,6 @@ protocol Tax: ExplainableValue {
     /// The title for this tax
     var title: String { get }
 
-    /// The tax amount
-    var taxAmount: Double { get }
-
     /// The active TaxBracket
     var activeBracket: TaxBracket { get }
 
@@ -22,6 +19,9 @@ protocol Tax: ExplainableValue {
 
     /// The taxable income for this specific Bracket
     var taxableIncome: NamedValue { get }
+
+    /// The tax amount
+    var taxAmount: Double { get }
 }
 
 extension Tax {

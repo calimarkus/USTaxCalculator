@@ -95,7 +95,7 @@ struct CurrencyView: View {
 
 enum CurrencyExplanation {
     case text(_ text: String)
-    case taxInfo(_ tax: Tax)
+    case taxInfo(_ tax: any Tax)
     case deductionInfo(_ deduction: Deduction)
 }
 

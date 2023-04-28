@@ -6,9 +6,9 @@ import SwiftUI
 
 struct TaxInfoView: View {
     let sortedBrackets: [TaxBracket]
-    let tax: Tax
+    let tax: any Tax
 
-    init(_ tax: Tax) {
+    init(_ tax: any Tax) {
         sortedBrackets = tax.bracketGroup.sortedBrackets.reversed()
         self.tax = tax
     }

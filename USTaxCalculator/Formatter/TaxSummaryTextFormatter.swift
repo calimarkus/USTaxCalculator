@@ -150,7 +150,7 @@ private extension TaxSummaryTextFormatter {
         alignLeftRight("", String(repeating: "-", count: separatorSize.width), shift: separatorSize.shift)
     }
 
-    func formattedExplanation(_ tax: Tax) -> String {
+    func formattedExplanation(_ tax: any Tax) -> String {
         String(repeating: " ", count: 15) + "Math: \(tax.activeBracket.taxCalculationExplanation(tax.taxableIncome))"
     }
 
