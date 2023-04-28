@@ -5,7 +5,7 @@
 import SwiftUI
 
 extension StateTax: Identifiable {
-    var id: TaxState { state }
+    var id: String { title }
 }
 
 struct StateTaxesListSection: View {

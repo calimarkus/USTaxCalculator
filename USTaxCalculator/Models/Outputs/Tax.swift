@@ -49,10 +49,7 @@ extension BasicTax {
 
 struct StateTax: Tax {
     /// A generated title
-    var title: String { "\(state) State" }
-
-    /// The underlying state
-    let state: TaxState
+    let title: String
 
     /// The active TaxBracket
     let activeBracket: TaxBracket
@@ -67,7 +64,7 @@ struct StateTax: Tax {
     let taxableIncome: NamedValue
 
     /// The income attributed to this state (only relevant in multi state situations)
-    var stateAttributedIncome: StateAttributedIncome
+    let stateAttributedIncome: StateAttributedIncome
 
     /// The taxes coming from this bracket AND the local bracket
     var taxAmount: Double { stateOnlyTaxAmount + (localTax?.taxAmount ?? 0.0) }

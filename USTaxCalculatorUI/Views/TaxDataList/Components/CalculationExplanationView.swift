@@ -35,7 +35,7 @@ struct CalculationExplanationView_Previews: PreviewProvider {
         )).padding(20.0)
 
         CalculationExplanationView(StateTax(
-            state: .CA,
+            title: "CA State",
             activeBracket: caliBrackets.sortedBrackets[5],
             bracketGroup: caliBrackets,
             taxableIncome: NamedValue(amount: 80000, name: "CA State Income"),

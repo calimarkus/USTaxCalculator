@@ -5,30 +5,24 @@
 import SwiftUI
 
 struct FederalTaxData {
-    let taxableIncome: Double
+    let taxes: [BasicTax]
+
+    let totalTaxableIncome: Double
+    let totalTaxes: Double
+
     let deduction: Deduction
     let withholdings: Double
     let credits: Double
-    let taxes: [BasicTax]
-
-    var totalTaxes: Double {
-        taxes.reduce(0.0) { partialResult, tax in
-            partialResult + tax.taxAmount
-        }
-    }
 }
 
 struct StateTaxData {
+    let state: TaxState /// The underlying state
+    let tax: StateTax
+
     let additionalStateIncome: Double /// State Income that's not part of the wages on the W-2
     let deduction: Deduction /// Deductions that apply to this state
     let withholdings: Double /// Withholdings that apply to this state
     let credits: Double /// Credits that apply to this state
-    let tax: StateTax
-
-    // convenience getters
-    var state: TaxState {
-        tax.state
-    }
 }
 
 struct CalculatedTaxData: Identifiable, Hashable {

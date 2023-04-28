@@ -63,7 +63,7 @@ struct TaxSummaryTextFormatter {
             summary.appendLine(formattedCurrency("", -income.longtermCapitalGains, "(longterm gains)"))
         }
         summary.appendLine(formattedCurrency("", -taxData.deduction.amount, "(deduction)"))
-        summary.appendLine(formattedCurrency("- Taxable Income:", taxData.taxableIncome))
+        summary.appendLine(formattedCurrency("- Taxable Income:", taxData.totalTaxableIncome))
 
         summary.appendLine()
         summary.appendLine("- Taxes:")
@@ -93,7 +93,7 @@ struct TaxSummaryTextFormatter {
         for stateTaxData in stateTaxDatas {
             let stateTax = stateTaxData.tax
 
-            summary.appendLine("- \(stateTax.state)")
+            summary.appendLine("- \(stateTaxData.state)")
             summary.appendLine(formattedCurrency("  Total Income:", income.totalIncome))
             summary.appendLine(formattedCurrency("  Deduction:", -stateTaxData.deduction.amount))
             summary.appendLine(formattedCurrency("  Taxable Income:", stateTax.taxableIncome.amount))
@@ -115,9 +115,9 @@ struct TaxSummaryTextFormatter {
                 summary.appendLine(formattedCurrency("  - Tax Credits:", -stateTaxData.credits))
             }
 
-            if let taxSummary = taxSummaries[stateTax.state] {
+            if let taxSummary = taxSummaries[stateTaxData.state] {
                 summary.appendLine(formattedSumSeparator())
-                summary.append(formattedTaxSummary(taxSummary, title: "\(stateTax.state)"))
+                summary.append(formattedTaxSummary(taxSummary, title: "\(stateTaxData.state)"))
             }
 
             summary.appendLine()

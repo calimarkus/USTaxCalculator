@@ -52,7 +52,7 @@ struct TaxInfoView_Previews: PreviewProvider {
         ))
 
         TaxInfoView(StateTax(
-            state: .CA,
+            title: "CA State",
             activeBracket: caliBrackets.sortedBrackets[5],
             bracketGroup: caliBrackets,
             taxableIncome: NamedValue(amount: 150_000, name: "CA State Income"),

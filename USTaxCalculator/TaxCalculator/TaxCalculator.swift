@@ -13,7 +13,6 @@ enum TaxCalculator {
             credits: input.federalCredits,
             taxRates: taxRates.federalRates
         )
-
         let federalSummary = TaxSummary(
             taxes: federalData.totalTaxes - input.federalCredits,
             withholdings: input.totalFederalWitholdings,
@@ -113,11 +112,17 @@ private extension TaxCalculator {
             }
         }
 
-        return FederalTaxData(taxableIncome: taxableFederalIncome,
+        // total federal taxes
+        let totalTaxes = federalTaxes.reduce(0.0) { partialResult, tax in
+            partialResult + tax.taxAmount
+        }
+
+        return FederalTaxData(taxes: federalTaxes,
+                              totalTaxableIncome: taxableFederalIncome,
+                              totalTaxes: totalTaxes,
                               deduction: deduction,
                               withholdings: withholdings,
-                              credits: credits,
-                              taxes: federalTaxes)
+                              credits: credits)
     }
 
     static func stateTaxDataFor(stateIncome: StateIncome,
@@ -126,14 +131,16 @@ private extension TaxCalculator {
                                 totalIncome: NamedValue,
                                 taxRates: RawTaxRatesYear) -> StateTaxData
     {
+        let state = stateIncome.state
+
         let deduction = Deduction(
-            input: stateDeductions[stateIncome.state] ?? DeductionInput.standard(),
-            standardDeduction: taxRates.standardDeductionForState(stateIncome.state)
+            input: stateDeductions[state] ?? DeductionInput.standard(),
+            standardDeduction: taxRates.standardDeductionForState(state)
         )
         let taxableStateIncome = max(0.0, totalIncome.amount + stateIncome.additionalStateIncome - deduction.amount)
         let namedTaxableStateIncome = NamedValue(amount: taxableStateIncome, name: "Taxable State Income")
 
-        let rawStateIncomeRates = taxRates.stateIncomeRates(for: stateIncome.state, taxableIncome: taxableStateIncome)
+        let rawStateIncomeRates = taxRates.stateIncomeRates(for: state, taxableIncome: taxableStateIncome)
         let stateBracketGroup = TaxBracketGenerator.bracketGroupForRawTaxRates(rawStateIncomeRates)
         let bracket = stateBracketGroup.matchingBracketFor(taxableIncome: taxableStateIncome)
 
@@ -143,18 +150,19 @@ private extension TaxCalculator {
 
         let attributedIncome = StateAttributedIncome(incomeAmount: stateIncome.wages, federalIncome: totalIncome)
 
-        let stateTax = StateTax(state: stateIncome.state,
+        let stateTax = StateTax(title: "\(state) State",
                                 activeBracket: bracket,
                                 bracketGroup: stateBracketGroup,
                                 localTax: localTax,
                                 taxableIncome: namedTaxableStateIncome,
                                 stateAttributedIncome: attributedIncome)
 
-        return StateTaxData(additionalStateIncome: stateIncome.additionalStateIncome,
+        return StateTaxData(state: state,
+                            tax: stateTax,
+                            additionalStateIncome: stateIncome.additionalStateIncome,
                             deduction: deduction,
                             withholdings: stateIncome.withholdings,
-                            credits: stateCredits[stateIncome.state] ?? 0.0,
-                            tax: stateTax)
+                            credits: stateCredits[state] ?? 0.0)
     }
 
     static func localTaxBracketForLocalTax(_ localTax: LocalTaxType, taxableIncome: NamedValue, taxRates: RawTaxRatesYear) -> BasicTax? {
