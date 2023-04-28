@@ -45,48 +45,48 @@ extension TaxBracket {
 // tax calculations
 extension TaxBracket {
     /// calculates the taxes for the given amount, respecting the bracket type
-    func calculateTaxesForAmount(_ namedAmount: NamedValue) -> Double {
+    func calculateTaxes(for namedTaxableAmount: NamedValue) -> Double {
         switch type {
             case .basic:
-                return namedAmount.amount * rate
+                return namedTaxableAmount.amount * rate
             case .interpolated:
-                return namedAmount.amount * rate // the interpolated rate is calculated in init
+                return namedTaxableAmount.amount * rate // the interpolated rate is calculated in init
             case let .progressive(fixedAmount):
-                return fixedAmount + ((namedAmount.amount - startingAt) * rate)
+                return fixedAmount + ((namedTaxableAmount.amount - startingAt) * rate)
         }
     }
 
     /// returns a string describing the calculation of the taxes for the given amount, respecting the bracket type
-    func taxCalculationExplanation(_ namedAmount: NamedValue, explanationType: ExplanationType = .values, includeTotalValue: Bool = true) -> String {
+    func taxCalculationExplanation(for namedTaxableAmount: NamedValue, explanationType: ExplanationType = .values, includeTotalValue: Bool = true) -> String {
         switch explanationType {
             case .names:
                 switch type {
                     case .basic:
-                        return "\(namedAmount.name) * Rate"
+                        return "\(namedTaxableAmount.name) * Rate"
                     case .interpolated:
-                        return "\(namedAmount.name) * (lower rate + (higher rate - lower rate) / 2.0))"
+                        return "\(namedTaxableAmount.name) * (lower rate + (higher rate - lower rate) / 2.0))"
                     case let .progressive(fixedAmount):
                         let fixedAmountDesc = fixedAmount > 0.0 ? " + Fixed amount" : ""
-                        return "(\(namedAmount.name) - Bracket start) * Rate\(fixedAmountDesc)"
+                        return "(\(namedTaxableAmount.name) - Bracket start) * Rate\(fixedAmountDesc)"
                 }
             case .values:
-                let explanation = taxCalculationExplanationForAmount(namedAmount)
+                var explanation = calculationExplanationWithoutSum(for: namedTaxableAmount)
                 if includeTotalValue {
-                    return "\(explanation) = \(FormattingHelper.formatCurrency(calculateTaxesForAmount(namedAmount)))"
+                    explanation += " = \(FormattingHelper.formatCurrency(calculateTaxes(for: namedTaxableAmount)))"
                 }
                 return explanation
         }
     }
 
-    private func taxCalculationExplanationForAmount(_ namedAmount: NamedValue) -> String {
+    private func calculationExplanationWithoutSum(for namedTaxableAmount: NamedValue) -> String {
         switch type {
             case .basic:
-                return "\(FormattingHelper.formatCurrency(namedAmount.amount)) * \(FormattingHelper.formatPercentage(rate))"
+                return "\(FormattingHelper.formatCurrency(namedTaxableAmount.amount)) * \(FormattingHelper.formatPercentage(rate))"
             case let .interpolated(lowerBracket, higherBracket):
-                return "\(FormattingHelper.formatCurrency(namedAmount.amount)) * (\(FormattingHelper.formatPercentage(lowerBracket.rate)) + (\(FormattingHelper.formatPercentage(lowerBracket.rate)) - \(FormattingHelper.formatPercentage(higherBracket.rate))) / 2.0)"
+                return "\(FormattingHelper.formatCurrency(namedTaxableAmount.amount)) * (\(FormattingHelper.formatPercentage(lowerBracket.rate)) + (\(FormattingHelper.formatPercentage(lowerBracket.rate)) - \(FormattingHelper.formatPercentage(higherBracket.rate))) / 2.0)"
             case let .progressive(fixedAmount):
                 let fixedAmountText = fixedAmount > 0.0 ? " + \(FormattingHelper.formatCurrency(fixedAmount))" : ""
-                return "(\(FormattingHelper.formatCurrency(namedAmount.amount)) - \(FormattingHelper.formatCurrency(startingAt))) * \(FormattingHelper.formatPercentage(rate))\(fixedAmountText)"
+                return "(\(FormattingHelper.formatCurrency(namedTaxableAmount.amount)) - \(FormattingHelper.formatCurrency(startingAt))) * \(FormattingHelper.formatPercentage(rate))\(fixedAmountText)"
         }
     }
 }

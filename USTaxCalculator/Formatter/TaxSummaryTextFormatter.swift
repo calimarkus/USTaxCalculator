@@ -151,7 +151,7 @@ private extension TaxSummaryTextFormatter {
     }
 
     func formattedExplanation(_ tax: any Tax) -> String {
-        String(repeating: " ", count: 15) + "Math: \(tax.activeBracket.taxCalculationExplanation(tax.taxableIncome))"
+        String(repeating: " ", count: 15) + "Math: \(tax.activeBracket.taxCalculationExplanation(for: tax.taxableIncome))"
     }
 
     func formattedTaxSummary(_ summary: TaxSummary, title: String = "") -> String {
