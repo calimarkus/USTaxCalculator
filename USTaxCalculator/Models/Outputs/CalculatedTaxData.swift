@@ -18,6 +18,7 @@ struct FederalTaxData {
 struct StateTaxData {
     let state: TaxState /// The underlying state
     let tax: StateTax
+    var localTax: BasicTax? /// An additional optional local tax applying to this state
 
     let additionalStateIncome: Double /// State Income that's not part of the wages on the W-2
     let deduction: Deduction /// Deductions that apply to this state

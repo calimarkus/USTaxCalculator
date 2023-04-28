@@ -75,7 +75,4 @@ struct StateTax: Tax {
 
     /// The income attributed to this state (only relevant in multi state situations)
     let stateAttributedIncome: StateAttributedIncome
-
-    /// An additional optional local tax applying to this state
-    var localTax: BasicTax?
 }

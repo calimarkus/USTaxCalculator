@@ -60,7 +60,7 @@ struct StateTaxesListSection: View {
                     ), explanation: .taxInfo(stateTax)
                 )
 
-                if let localTax = stateTax.localTax {
+                if let localTax = stateTaxData.localTax {
                     ExplainableCurrencyView(
                         CurrencyViewConfig(
                             title: "\(localTax.title) Tax",

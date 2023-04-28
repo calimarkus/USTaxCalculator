@@ -32,7 +32,7 @@ enum TaxCalculator {
         var stateSummaries: [TaxState: TaxSummary] = [:]
         for taxData in stateTaxes {
             stateSummaries[taxData.state] = TaxSummary(
-                taxes: taxData.tax.taxAmount + (taxData.tax.localTax?.taxAmount ?? 0.0) - taxData.credits,
+                taxes: taxData.tax.taxAmount + (taxData.localTax?.taxAmount ?? 0.0) - taxData.credits,
                 withholdings: taxData.withholdings,
                 totalIncome: input.income.totalIncome
             )
@@ -144,21 +144,22 @@ private extension TaxCalculator {
         let stateBracketGroup = TaxBracketGenerator.bracketGroupForRawTaxRates(rawStateIncomeRates)
         let bracket = stateBracketGroup.matchingBracketFor(taxableIncome: taxableStateIncome)
 
-        let localTax = localTaxBracketForLocalTax(stateIncome.localTax,
-                                                  taxableIncome: namedTaxableStateIncome,
-                                                  taxRates: taxRates)
-
-        let attributedIncome = StateAttributedIncome(incomeAmount: stateIncome.wages, federalIncome: totalIncome)
+        let attributedIncome = StateAttributedIncome(incomeAmount: stateIncome.wages,
+                                                     federalIncome: totalIncome)
 
         let stateTax = StateTax(title: "\(state) State",
                                 activeBracket: bracket,
                                 bracketGroup: stateBracketGroup,
                                 taxableIncome: namedTaxableStateIncome,
-                                stateAttributedIncome: attributedIncome,
-                                localTax: localTax)
+                                stateAttributedIncome: attributedIncome)
+
+        let localTax = localTaxBracketForLocalTax(stateIncome.localTax,
+                                                  taxableIncome: namedTaxableStateIncome,
+                                                  taxRates: taxRates)
 
         return StateTaxData(state: state,
                             tax: stateTax,
+                            localTax: localTax,
                             additionalStateIncome: stateIncome.additionalStateIncome,
                             deduction: deduction,
                             withholdings: stateIncome.withholdings,
