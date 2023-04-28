@@ -9,7 +9,7 @@ struct FederalTaxData {
     let deduction: Deduction
     let withholdings: Double
     let credits: Double
-    let taxes: [FederalTax]
+    let taxes: [BasicTax]
 
     var totalTaxes: Double {
         taxes.reduce(0.0) { partialResult, tax in

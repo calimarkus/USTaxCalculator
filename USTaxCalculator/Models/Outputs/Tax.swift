@@ -24,13 +24,7 @@ protocol Tax: ExplainableValue {
     var taxAmount: Double { get }
 }
 
-extension Tax {
-    func calculationExplanation(as type: ExplanationType) -> String {
-        activeBracket.taxCalculationExplanation(taxableIncome, explanationType: type)
-    }
-}
-
-struct FederalTax: Tax {
+struct BasicTax: Tax {
     /// The name of this tax
     let title: String
 
@@ -47,6 +41,12 @@ struct FederalTax: Tax {
     var taxAmount: Double { activeBracket.calculateTaxesForAmount(taxableIncome) }
 }
 
+extension BasicTax {
+    func calculationExplanation(as type: ExplanationType) -> String {
+        activeBracket.taxCalculationExplanation(taxableIncome, explanationType: type)
+    }
+}
+
 struct StateTax: Tax {
     /// A generated title
     var title: String { "\(state) State" }
@@ -61,7 +61,7 @@ struct StateTax: Tax {
     let bracketGroup: TaxBracketGroup
 
     /// An additional local tax applying to this state
-    var localTax: LocalTax? = nil
+    var localTax: BasicTax? = nil
 
     /// The taxable income for this state
     let taxableIncome: NamedValue
@@ -99,24 +99,4 @@ struct StateTax: Tax {
 
 extension StateTax: ExplainableValue {
     func calculationExplanation(as type: ExplanationType) -> String { stateOnlyTaxExplanation(as: type) }
-}
-
-struct LocalTax: Tax {
-    /// A generated title
-    var title: String { "\(city) Local" }
-
-    /// The underlying city
-    let city: TaxCity
-
-    /// The active TaxBracket
-    let activeBracket: TaxBracket
-
-    /// The underlying TaxBracketGroup
-    let bracketGroup: TaxBracketGroup
-
-    /// The taxable income for this specific Bracket
-    let taxableIncome: NamedValue
-
-    /// The taxes coming from this bracket
-    var taxAmount: Double { activeBracket.calculateTaxesForAmount(taxableIncome) }
 }

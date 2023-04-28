@@ -54,16 +54,16 @@ private extension TaxCalculator {
         let taxableFederalIncome = max(0.0, income.totalIncome - income.longtermCapitalGains - deduction.amount)
         let namedTaxableFederalIncome = NamedValue(amount: taxableFederalIncome, name: "Taxable Income")
 
-        var federalTaxes: [FederalTax] = []
+        var federalTaxes: [BasicTax] = []
 
         // income tax
         let incomeBracketGroup = TaxBracketGenerator.bracketGroupForRawTaxRates(taxRates.incomeRates)
         let incomeBracket = incomeBracketGroup.matchingBracketFor(taxableIncome: taxableFederalIncome)
         federalTaxes.append(
-            FederalTax(title: "Income",
-                       activeBracket: incomeBracket,
-                       bracketGroup: incomeBracketGroup,
-                       taxableIncome: namedTaxableFederalIncome)
+            BasicTax(title: "Income",
+                     activeBracket: incomeBracket,
+                     bracketGroup: incomeBracketGroup,
+                     taxableIncome: namedTaxableFederalIncome)
         )
 
         // longterm gains tax
@@ -71,10 +71,10 @@ private extension TaxCalculator {
         let longtermGainsBracket = longtermGainBracketGroup.matchingBracketFor(taxableIncome: taxableFederalIncome)
         if longtermGainsBracket.rate > 0.0, income.namedLongtermCapitalGains.amount > 0.0 {
             federalTaxes.append(
-                FederalTax(title: "Longterm Gains",
-                           activeBracket: longtermGainsBracket,
-                           bracketGroup: longtermGainBracketGroup,
-                           taxableIncome: income.namedLongtermCapitalGains)
+                BasicTax(title: "Longterm Gains",
+                         activeBracket: longtermGainsBracket,
+                         bracketGroup: longtermGainBracketGroup,
+                         taxableIncome: income.namedLongtermCapitalGains)
             )
         }
 
@@ -87,10 +87,10 @@ private extension TaxCalculator {
                 ? income.namedTotalCapitalGains
                 : NamedValue(amount: taxableRegularIncome, name: "Taxable Income for NII"))
             federalTaxes.append(
-                FederalTax(title: "Net Investment Income",
-                           activeBracket: niiBracket,
-                           bracketGroup: niiBracketGroup,
-                           taxableIncome: taxableNIIIncome)
+                BasicTax(title: "Net Investment Income",
+                         activeBracket: niiBracket,
+                         bracketGroup: niiBracketGroup,
+                         taxableIncome: taxableNIIIncome)
             )
         }
 
@@ -101,10 +101,10 @@ private extension TaxCalculator {
             let basicBracketGroup = TaxBracketGenerator.bracketGroupForRawTaxRates(taxRates.basicMedicareIncomeRates)
             let basicBracket = basicBracketGroup.matchingBracketFor(taxableIncome: income.medicareWages)
             let expectedBasicWithholding = income.medicareWages * basicBracket.rate
-            let tax = FederalTax(title: "Additional Medicare",
-                                 activeBracket: medicareBracket,
-                                 bracketGroup: medicareBracketGroup,
-                                 taxableIncome: income.namedMedicareWages)
+            let tax = BasicTax(title: "Additional Medicare",
+                               activeBracket: medicareBracket,
+                               bracketGroup: medicareBracketGroup,
+                               taxableIncome: income.namedMedicareWages)
             let expectedTotalWithholding = expectedBasicWithholding + tax.taxAmount
 
             // only apply additional medicare tax, if not already withheld
@@ -157,7 +157,7 @@ private extension TaxCalculator {
                             tax: stateTax)
     }
 
-    static func localTaxBracketForLocalTax(_ localTax: LocalTaxType, taxableIncome: NamedValue, taxRates: RawTaxRatesYear) -> LocalTax? {
+    static func localTaxBracketForLocalTax(_ localTax: LocalTaxType, taxableIncome: NamedValue, taxRates: RawTaxRatesYear) -> BasicTax? {
         switch localTax {
             case .none:
                 return nil
@@ -166,8 +166,8 @@ private extension TaxCalculator {
                 let localBracketGroup = TaxBracketGenerator.bracketGroupForRawTaxRates(rawLocalIncomeRates)
                 let bracket = localBracketGroup.matchingBracketFor(taxableIncome: taxableIncome.amount)
 
-                return LocalTax(
-                    city: city,
+                return BasicTax(
+                    title: "\(city) Local",
                     activeBracket: bracket,
                     bracketGroup: localBracketGroup,
                     taxableIncome: taxableIncome

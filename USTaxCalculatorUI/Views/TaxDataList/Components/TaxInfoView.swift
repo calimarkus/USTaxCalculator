@@ -44,7 +44,7 @@ struct TaxInfoView_Previews: PreviewProvider {
     static let longtermGainsBrackets = TaxBracketGenerator.bracketGroupForRawTaxRates(TaxYear2020_MarriedJointly.taxRates.federalRates.longtermGainsRates)
 
     static var previews: some View {
-        TaxInfoView(FederalTax(
+        TaxInfoView(BasicTax(
             title: "Federal Income",
             activeBracket: fedBrackets.sortedBrackets[3],
             bracketGroup: fedBrackets,
@@ -62,7 +62,7 @@ struct TaxInfoView_Previews: PreviewProvider {
             )
         )).frame(maxWidth: 500)
 
-        TaxInfoView(FederalTax(
+        TaxInfoView(BasicTax(
             title: "Preview Income",
             activeBracket: longtermGainsBrackets.sortedBrackets[1],
             bracketGroup: longtermGainsBrackets,

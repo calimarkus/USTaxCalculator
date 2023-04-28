@@ -4,7 +4,7 @@
 
 import SwiftUI
 
-extension FederalTax: Identifiable {
+extension BasicTax: Identifiable {
     var id: String { title }
 }
 
