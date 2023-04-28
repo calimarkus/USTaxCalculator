@@ -4,7 +4,7 @@
 
 import SwiftUI
 
-extension StateTax: Identifiable {
+extension AttributableTax: Identifiable {
     var id: String { title }
 }
 
@@ -38,17 +38,17 @@ struct StateTaxesListSection: View {
             }
 
             TaxListGroupView {
-                let hasIncomeRate = stateTax.attributableIncome.rate < 1.0
+                let hasIncomeRate = stateTaxData.attributableIncome.rate < 1.0
                 if hasIncomeRate {
                     CurrencyView(CurrencyViewConfig(
-                        title: stateTax.attributableIncome.incomeName,
-                        amount: stateTax.attributableIncome.amount,
+                        title: stateTaxData.attributableIncome.incomeName,
+                        amount: stateTaxData.attributableIncome.amount,
                         showSeparator: false
                     ))
 
-                    LabeledExplainableValueView(titleText: stateTax.attributableIncome.namedRate.name,
-                                                valueText: FormattingHelper.formatPercentage(stateTax.attributableIncome.rate),
-                                                infoContent: CalculationExplanationView(stateTax.attributableIncome))
+                    LabeledExplainableValueView(titleText: stateTaxData.attributableIncome.namedRate.name,
+                                                valueText: FormattingHelper.formatPercentage(stateTaxData.attributableIncome.rate),
+                                                infoContent: CalculationExplanationView(stateTaxData.attributableIncome))
                 }
 
                 ExplainableCurrencyView(

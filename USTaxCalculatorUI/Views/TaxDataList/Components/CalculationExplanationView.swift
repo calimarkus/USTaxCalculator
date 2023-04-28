@@ -34,16 +34,12 @@ struct CalculationExplanationView_Previews: PreviewProvider {
             standardDeduction: TaxYear2021_Single.taxRates.federalRates.standardDeductions
         )).padding(20.0)
 
-        CalculationExplanationView(StateTax(
+        CalculationExplanationView(AttributableTax(
             title: "CA State",
             activeBracket: caliBrackets.sortedBrackets[5],
             bracketGroup: caliBrackets,
             taxableIncome: NamedValue(amount: 80000, name: "CA State Income"),
-            attributableIncome: AttributableIncome(
-                name: "State Income",
-                incomeAmount: .partial(80000),
-                totalIncome: NamedValue(amount: 145_000, name: "Total Income")
-            )
+            attributableRate: NamedValue(amount: 1.0, name: "")
         )).frame(width: 400).padding(20.0)
     }
 }

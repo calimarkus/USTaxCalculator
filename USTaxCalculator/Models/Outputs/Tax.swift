@@ -46,7 +46,9 @@ struct BasicTax: Tax {
     }
 }
 
-struct StateTax: Tax {
+/// See this source: https://turbotax.intuit.com/tax-tips/state-taxes/multiple-states-figuring-whats-owed-when-you-live-and-work-in-more-than-one-state/L79OKm3jI
+/// It is currently using the "Common method 1" for multi state taxes.
+struct AttributableTax: Tax {
     /// The name of this tax
     let title: String
 
@@ -59,12 +61,12 @@ struct StateTax: Tax {
     /// The taxable income for this state
     let taxableIncome: NamedValue
 
+    /// The rate of the taxable income, which this tax applies to
+    let attributableRate: NamedValue
+
     /// The taxes coming from this state
-    ///
-    /// See this source: https://turbotax.intuit.com/tax-tips/state-taxes/multiple-states-figuring-whats-owed-when-you-live-and-work-in-more-than-one-state/L79OKm3jI
-    /// It is currently using the "Common method 1" for multi state taxes.
     var taxAmount: Double {
-        activeBracket.calculateTaxes(for: taxableIncome) * attributableIncome.rate
+        activeBracket.calculateTaxes(for: taxableIncome) * attributableRate.amount
     }
 
     /// A string explaining how the tax amount was calculated
@@ -72,10 +74,7 @@ struct StateTax: Tax {
         activeBracket.taxCalculationExplanation(
             for: taxableIncome,
             explanationType: type,
-            attributableRate: attributableIncome.rate < 1.0 ? attributableIncome.namedRate : nil
+            attributableRate: attributableRate.amount < 1.0 ? attributableRate : nil
         )
     }
-
-    /// The income attributed to this state (only relevant in multi state situations)
-    let attributableIncome: AttributableIncome
 }
