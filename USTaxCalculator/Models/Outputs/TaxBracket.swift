@@ -42,10 +42,18 @@ extension TaxBracket {
     }
 }
 
-// tax calculations
+// tax calculation
 extension TaxBracket {
     /// calculates the taxes for the given amount, respecting the bracket type
-    func calculateTaxes(for namedTaxableAmount: NamedValue) -> Double {
+    func calculateTaxes(for namedTaxableAmount: NamedValue, attributableRate: NamedValue? = nil) -> Double {
+        var taxes = taxesWithoutAttributableRate(for: namedTaxableAmount)
+        if let attributableRate {
+            taxes *= attributableRate.amount
+        }
+        return taxes
+    }
+
+    private func taxesWithoutAttributableRate(for namedTaxableAmount: NamedValue) -> Double {
         switch type {
             case .basic:
                 return namedTaxableAmount.amount * rate
@@ -55,30 +63,43 @@ extension TaxBracket {
                 return fixedAmount + ((namedTaxableAmount.amount - startingAt) * rate)
         }
     }
+}
 
+// tax calculation explanation
+extension TaxBracket {
     /// returns a string describing the calculation of the taxes for the given amount, respecting the bracket type
-    func taxCalculationExplanation(for namedTaxableAmount: NamedValue, explanationType: ExplanationType = .values, includeTotalValue: Bool = true) -> String {
+    func taxCalculationExplanation(for namedTaxableAmount: NamedValue, explanationType: ExplanationType = .values, attributableRate: NamedValue? = nil) -> String {
         switch explanationType {
             case .names:
-                switch type {
-                    case .basic:
-                        return "\(namedTaxableAmount.name) * Rate"
-                    case .interpolated:
-                        return "\(namedTaxableAmount.name) * (lower rate + (higher rate - lower rate) / 2.0))"
-                    case let .progressive(fixedAmount):
-                        let fixedAmountDesc = fixedAmount > 0.0 ? " + Fixed amount" : ""
-                        return "(\(namedTaxableAmount.name) - Bracket start) * Rate\(fixedAmountDesc)"
+                var explanation = namedExplanationWithoutSum(for: namedTaxableAmount)
+                if let attributableRate {
+                    explanation += " * \(attributableRate.name)"
                 }
+                return explanation
+
             case .values:
-                var explanation = calculationExplanationWithoutSum(for: namedTaxableAmount)
-                if includeTotalValue {
-                    explanation += " = \(FormattingHelper.formatCurrency(calculateTaxes(for: namedTaxableAmount)))"
+                var explanation = valueExplanationWithoutSum(for: namedTaxableAmount)
+                if let attributableRate {
+                    explanation += " * \(FormattingHelper.formatPercentage(attributableRate.amount))"
                 }
+                explanation += " = \(FormattingHelper.formatCurrency(calculateTaxes(for: namedTaxableAmount)))"
                 return explanation
         }
     }
 
-    private func calculationExplanationWithoutSum(for namedTaxableAmount: NamedValue) -> String {
+    private func namedExplanationWithoutSum(for namedTaxableAmount: NamedValue) -> String {
+        switch type {
+            case .basic:
+                return "\(namedTaxableAmount.name) * Rate"
+            case .interpolated:
+                return "\(namedTaxableAmount.name) * (lower rate + (higher rate - lower rate) / 2.0))"
+            case let .progressive(fixedAmount):
+                let fixedAmountDesc = fixedAmount > 0.0 ? " + Fixed amount" : ""
+                return "(\(namedTaxableAmount.name) - Bracket start) * Rate\(fixedAmountDesc)"
+        }
+    }
+
+    private func valueExplanationWithoutSum(for namedTaxableAmount: NamedValue) -> String {
         switch type {
             case .basic:
                 return "\(FormattingHelper.formatCurrency(namedTaxableAmount.amount)) * \(FormattingHelper.formatPercentage(rate))"
