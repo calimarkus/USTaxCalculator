@@ -1,5 +1,5 @@
 //
-// StateAttributedIncome.swift
+// AttributableIncome.swift
 //
 
 private extension IncomeAmount {
