@@ -32,7 +32,7 @@ enum TaxCalculator {
         var stateSummaries: [TaxState: TaxSummary] = [:]
         for taxData in stateTaxes {
             stateSummaries[taxData.state] = TaxSummary(
-                taxes: taxData.tax.taxAmount - taxData.credits,
+                taxes: taxData.tax.taxAmount + (taxData.tax.localTax?.taxAmount ?? 0.0) - taxData.credits,
                 withholdings: taxData.withholdings,
                 totalIncome: input.income.totalIncome
             )
@@ -154,8 +154,8 @@ private extension TaxCalculator {
                                 activeBracket: bracket,
                                 bracketGroup: stateBracketGroup,
                                 taxableIncome: namedTaxableStateIncome,
-                                localTax: localTax,
-                                stateAttributedIncome: attributedIncome)
+                                stateAttributedIncome: attributedIncome,
+                                localTax: localTax)
 
         return StateTaxData(state: state,
                             tax: stateTax,

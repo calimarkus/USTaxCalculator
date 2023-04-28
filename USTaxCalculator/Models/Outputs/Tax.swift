@@ -60,23 +60,22 @@ struct StateTax: Tax {
     /// The taxable income for this state
     let taxableIncome: NamedValue
 
-    /// The taxes coming from this bracket AND the local bracket
-    var taxAmount: Double { stateOnlyTaxAmount + (localTax?.taxAmount ?? 0.0) }
-
-    /// An additional local tax applying to this state
-    var localTax: BasicTax?
+    /// The taxes coming from this state
+    /// see https://turbotax.intuit.com/tax-tips/state-taxes/multiple-states-figuring-whats-owed-when-you-live-and-work-in-more-than-one-state/L79OKm3jI
+    /// using "Common method 1" for multi state taxes
+    var taxAmount: Double {
+        activeBracket.calculateTaxesForAmount(taxableIncome) * stateAttributedIncome.rate
+    }
 
     /// The income attributed to this state (only relevant in multi state situations)
     let stateAttributedIncome: StateAttributedIncome
 
-    /// The taxes coming from this bracket
-    /// see https://turbotax.intuit.com/tax-tips/state-taxes/multiple-states-figuring-whats-owed-when-you-live-and-work-in-more-than-one-state/L79OKm3jI
-    /// using "Common method 1" for multi state taxes
-    var stateOnlyTaxAmount: Double {
-        activeBracket.calculateTaxesForAmount(taxableIncome) * stateAttributedIncome.rate
-    }
+    /// An additional optional local tax applying to this state
+    var localTax: BasicTax?
+}
 
-    func stateOnlyTaxExplanation(as type: ExplanationType) -> String {
+extension StateTax: ExplainableValue {
+    func calculationExplanation(as type: ExplanationType) -> String {
         switch type {
             case .names:
                 let bracketInfo = activeBracket.taxCalculationExplanation(taxableIncome, explanationType: .names)
@@ -87,13 +86,9 @@ struct StateTax: Tax {
             case .values:
                 if stateAttributedIncome.rate < 1.0 {
                     let bracketInfo = activeBracket.taxCalculationExplanation(taxableIncome, includeTotalValue: false)
-                    return "(\(bracketInfo)) * \(FormattingHelper.formatPercentage(stateAttributedIncome.rate)) = \(FormattingHelper.formatCurrency(stateOnlyTaxAmount))"
+                    return "(\(bracketInfo)) * \(FormattingHelper.formatPercentage(stateAttributedIncome.rate)) = \(FormattingHelper.formatCurrency(taxAmount))"
                 }
                 return activeBracket.taxCalculationExplanation(taxableIncome, includeTotalValue: true)
         }
     }
-}
-
-extension StateTax: ExplainableValue {
-    func calculationExplanation(as type: ExplanationType) -> String { stateOnlyTaxExplanation(as: type) }
 }

@@ -55,7 +55,7 @@ struct StateTaxesListSection: View {
                     CurrencyViewConfig(
                         title: "\(stateTax.title) Tax",
                         subtitle: "(\(stateTax.activeBracket.formattedString))",
-                        amount: stateTax.stateOnlyTaxAmount,
+                        amount: stateTax.taxAmount,
                         showSeparator: hasIncomeRate
                     ), explanation: .taxInfo(stateTax)
                 )
