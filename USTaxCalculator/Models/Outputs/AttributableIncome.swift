@@ -14,20 +14,16 @@ private extension IncomeAmount {
 }
 
 struct AttributableIncome: ExplainableValue {
-    private let name: String
-    private let totalIncome: NamedValue
-
     let amount: Double
     let incomeName: String
     let rate: NamedValue
+    private let totalIncome: NamedValue
 
     init(name: String, incomeAmount: IncomeAmount, totalIncome: NamedValue) {
-        self.name = name
-        self.totalIncome = totalIncome
-
         amount = incomeAmount.calculate(for: totalIncome.amount)
         incomeName = "Attributable \(name)"
         rate = NamedValue(amount: amount / totalIncome.amount, name: "\(name) Rate")
+        self.totalIncome = totalIncome
     }
 
     /// An explanation of how the rate was calculated
