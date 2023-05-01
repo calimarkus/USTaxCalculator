@@ -33,10 +33,10 @@ struct TaxSummaryView_Previews: PreviewProvider {
     static var previews: some View {
         VStack(alignment: .leading) {
             TaxListGroupView {
-                TaxSummaryView(title: "blah", summary: ExampleData.exampleTaxDataJohnAndSarah_21().taxSummaries.federal)
+                TaxSummaryView(title: "blah", summary: ExampleData.exampleTaxDataJohnAndSarah_21().federalData.summary)
             }
             TaxListGroupView {
-                TaxSummaryView(title: "blah", summary: ExampleData.exampleTaxDataJohnAndSarah_21().taxSummaries.federal, expanded: false)
+                TaxSummaryView(title: "blah", summary: ExampleData.exampleTaxDataJohnAndSarah_21().federalData.summary, expanded: false)
             }
         }.padding()
     }

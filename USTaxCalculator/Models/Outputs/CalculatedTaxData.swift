@@ -13,6 +13,8 @@ struct FederalTaxData {
     let deduction: Deduction
     let withholdings: Double
     let credits: Double
+
+    let summary: TaxSummary
 }
 
 struct StateTaxData {
@@ -25,6 +27,8 @@ struct StateTaxData {
     let deduction: Deduction /// Deductions that apply to this state
     let withholdings: Double /// Withholdings that apply to this state
     let credits: Double /// Credits that apply to this state
+
+    let summary: TaxSummary
 }
 
 struct CalculatedTaxData: Identifiable, Hashable {
@@ -33,7 +37,8 @@ struct CalculatedTaxData: Identifiable, Hashable {
     let inputData: TaxDataInput
     let federalData: FederalTaxData
     let stateTaxDatas: [StateTaxData]
-    let taxSummaries: TaxSummaries
+    let statesSummary: TaxSummary
+    var totalSummary: TaxSummary
 
     // convenience getters
     var title: String { inputData.title }

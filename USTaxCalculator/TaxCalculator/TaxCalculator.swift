@@ -13,11 +13,6 @@ enum TaxCalculator {
             credits: input.federalCredits,
             taxRates: taxRates.federalRates
         )
-        let federalSummary = TaxSummary(
-            taxes: federalData.totalTaxes - input.federalCredits,
-            withholdings: input.totalFederalWitholdings,
-            totalIncome: input.income.totalIncome
-        )
 
         let stateTaxes = input.income.stateIncomes.map { stateIncome in
             Self.stateTaxDataFor(
@@ -29,20 +24,14 @@ enum TaxCalculator {
             )
         }
 
-        var stateSummaries: [TaxState: TaxSummary] = [:]
-        for taxData in stateTaxes {
-            stateSummaries[taxData.state] = TaxSummary(
-                taxes: taxData.tax.taxAmount + (taxData.localTax?.taxAmount ?? 0.0) - taxData.credits,
-                withholdings: taxData.withholdings,
-                totalIncome: input.income.totalIncome
-            )
-        }
+        let statesSummary = sumStateSummaries(states: stateTaxes)
 
         return CalculatedTaxData(
             inputData: input,
             federalData: federalData,
             stateTaxDatas: stateTaxes,
-            taxSummaries: TaxSummaries(federal: federalSummary, states: stateSummaries)
+            statesSummary: statesSummary,
+            totalSummary: federalData.summary + statesSummary
         )
     }
 }
@@ -117,12 +106,20 @@ private extension TaxCalculator {
             partialResult + tax.taxAmount
         }
 
+        // summary
+        let federalSummary = TaxSummary(
+            taxes: totalTaxes - credits,
+            withholdings: withholdings,
+            totalIncome: income.totalIncome
+        )
+
         return FederalTaxData(taxes: federalTaxes,
                               totalTaxableIncome: taxableFederalIncome,
                               totalTaxes: totalTaxes,
                               deduction: deduction,
                               withholdings: withholdings,
-                              credits: credits)
+                              credits: credits,
+                              summary: federalSummary)
     }
 
     static func stateTaxDataFor(stateIncome: StateIncome,
@@ -132,6 +129,7 @@ private extension TaxCalculator {
                                 taxRates: RawTaxRatesYear) -> StateTaxData
     {
         let state = stateIncome.state
+        let credits = stateCredits[state] ?? 0.0
 
         let deduction = Deduction(
             input: stateDeductions[state] ?? DeductionInput.standard(),
@@ -158,6 +156,12 @@ private extension TaxCalculator {
                                                   taxableIncome: namedTaxableStateIncome,
                                                   taxRates: taxRates)
 
+        let stateSummary = TaxSummary(
+            taxes: stateTax.taxAmount + (localTax?.taxAmount ?? 0.0) - credits,
+            withholdings: stateIncome.withholdings,
+            totalIncome: totalIncome.amount
+        )
+
         return StateTaxData(state: state,
                             attributableIncome: attributedIncome,
                             tax: stateTax,
@@ -165,7 +169,22 @@ private extension TaxCalculator {
                             additionalStateIncome: stateIncome.additionalStateIncome,
                             deduction: deduction,
                             withholdings: stateIncome.withholdings,
-                            credits: stateCredits[state] ?? 0.0)
+                            credits: credits,
+                            summary: stateSummary)
+    }
+
+    private static func sumStateSummaries(states: [StateTaxData]) -> TaxSummary {
+        guard let first = states.first else {
+            return TaxSummary(taxes: 0.0, withholdings: 0.0, totalIncome: 0.0)
+        }
+
+        var total = first.summary
+        for (i, stateData) in states.enumerated() {
+            if i > 0 {
+                total = total + stateData.summary
+            }
+        }
+        return total
     }
 
     static func localTaxBracketForLocalTax(_ localTax: LocalTaxType, taxableIncome: NamedValue, taxRates: RawTaxRatesYear) -> BasicTax? {

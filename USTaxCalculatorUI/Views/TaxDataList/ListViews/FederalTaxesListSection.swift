@@ -12,7 +12,6 @@ struct FederalTaxesListSection: View {
     @Binding var isExpanded: Bool
 
     let taxdata: FederalTaxData
-    var summary: TaxSummary
 
     var body: some View {
         CollapsableSectionTitle(title: "Federal Taxes", isExpanded: $isExpanded)
@@ -39,7 +38,7 @@ struct FederalTaxesListSection: View {
         }
 
         TaxListGroupView {
-            TaxSummaryView(summary: summary, expanded: isExpanded)
+            TaxSummaryView(summary: taxdata.summary, expanded: isExpanded)
         }
     }
 }
@@ -50,11 +49,9 @@ struct FederalTaxesListSection_Previews: PreviewProvider {
     static var previews: some View {
         VStack(alignment: .leading) {
             FederalTaxesListSection(isExpanded: $isExpanded1,
-                                    taxdata: ExampleData.exampleTaxDataJohnAndSarah_21().federalData,
-                                    summary: ExampleData.exampleTaxDataJohnAndSarah_21().taxSummaries.federal)
+                                    taxdata: ExampleData.exampleTaxDataJohnAndSarah_21().federalData)
             FederalTaxesListSection(isExpanded: $isExpanded2,
-                                    taxdata: ExampleData.exampleTaxDataJohnAndSarah_21().federalData,
-                                    summary: ExampleData.exampleTaxDataJohnAndSarah_21().taxSummaries.federal)
+                                    taxdata: ExampleData.exampleTaxDataJohnAndSarah_21().federalData)
         }.padding()
     }
 }

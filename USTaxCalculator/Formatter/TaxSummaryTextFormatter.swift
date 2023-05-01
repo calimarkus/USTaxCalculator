@@ -29,22 +29,22 @@ struct TaxSummaryTextFormatter {
         summary.appendLine(String(repeating: "=", count: summary.count))
 
         // Federal
-        summary.append(federalSummary(income: td.income, taxData: td.federalData, taxSummary: td.taxSummaries.federal))
+        summary.append(federalSummary(income: td.income, taxData: td.federalData, taxSummary: td.federalData.summary))
 
         // States
-        summary.append(stateSummary(income: td.income, stateTaxDatas: td.stateTaxDatas, taxSummaries: td.taxSummaries.states))
+        summary.append(stateSummary(income: td.income, stateTaxDatas: td.stateTaxDatas))
 
         // State Summary
         if td.income.stateIncomes.count > 0 {
             summary.appendTitle("State Summary (\(FormattingHelper.formattedStates(states: td.income.stateIncomes.map(\.state))))")
-            summary.append(formattedTaxSummary(td.taxSummaries.stateTotal))
+            summary.append(formattedTaxSummary(td.statesSummary))
         }
 
         // Summary
         summary.appendTitle("Summary")
         summary.appendLine(formattedCurrency("- Total Income:", td.income.totalIncome))
         summary.appendLine()
-        summary.append(formattedTaxSummary(td.taxSummaries.total))
+        summary.append(formattedTaxSummary(td.totalSummary))
 
         return summary
     }
@@ -83,10 +83,7 @@ struct TaxSummaryTextFormatter {
         return summary
     }
 
-    private func stateSummary(income: Income,
-                              stateTaxDatas: [StateTaxData],
-                              taxSummaries: [TaxState: TaxSummary]) -> String
-    {
+    private func stateSummary(income: Income, stateTaxDatas: [StateTaxData]) -> String {
         var summary = ""
         summary.appendTitle("State Taxes")
 
@@ -115,10 +112,8 @@ struct TaxSummaryTextFormatter {
                 summary.appendLine(formattedCurrency("  - Tax Credits:", -stateTaxData.credits))
             }
 
-            if let taxSummary = taxSummaries[stateTaxData.state] {
-                summary.appendLine(formattedSumSeparator())
-                summary.append(formattedTaxSummary(taxSummary, title: "\(stateTaxData.state)"))
-            }
+            summary.appendLine(formattedSumSeparator())
+            summary.append(formattedTaxSummary(stateTaxData.summary, title: "\(stateTaxData.state)"))
 
             summary.appendLine()
         }

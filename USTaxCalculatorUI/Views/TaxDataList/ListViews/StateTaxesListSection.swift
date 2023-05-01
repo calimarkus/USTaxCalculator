@@ -14,7 +14,6 @@ struct StateTaxesListSection: View {
     let isFirst: Bool
     let totalIncome: Double
     let stateTaxData: StateTaxData
-    let summary: TaxSummary?
 
     var body: some View {
         let stateTax = stateTaxData.tax
@@ -69,10 +68,8 @@ struct StateTaxesListSection: View {
             }
         }
 
-        if let sum = summary {
-            TaxListGroupView {
-                TaxSummaryView(summary: sum, expanded: isExpanded)
-            }
+        TaxListGroupView {
+            TaxSummaryView(summary: stateTaxData.summary, expanded: isExpanded)
         }
     }
 }
@@ -101,13 +98,11 @@ struct StateTaxesListSection_Previews: PreviewProvider {
             StateTaxesListSection(isExpanded: $isExpanded1,
                                   isFirst: true,
                                   totalIncome: exampleData.totalIncome,
-                                  stateTaxData: exampleData.stateTaxDatas[0],
-                                  summary: exampleData.taxSummaries.states[exampleData.stateTaxDatas[0].state])
+                                  stateTaxData: exampleData.stateTaxDatas[0])
             StateTaxesListSection(isExpanded: $isExpanded2,
                                   isFirst: false,
                                   totalIncome: exampleData.totalIncome,
-                                  stateTaxData: exampleData.stateTaxDatas[1],
-                                  summary: exampleData.taxSummaries.states[exampleData.stateTaxDatas[1].state])
+                                  stateTaxData: exampleData.stateTaxDatas[1])
         }
         .padding()
     }

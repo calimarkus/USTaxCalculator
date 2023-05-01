@@ -15,17 +15,17 @@ struct TaxSummaryListSection: View {
 
         NonCollapsableSectionTitle(title: "Federal Taxes")
         TaxListGroupView {
-            TaxSummaryView(summary: taxdata.taxSummaries.federal)
+            TaxSummaryView(summary: taxdata.federalData.summary)
         }
 
         NonCollapsableSectionTitle(title: "State Taxes (\(FormattingHelper.formattedStates(states: taxdata.stateTaxDatas.map(\.state))))")
         TaxListGroupView {
-            TaxSummaryView(summary: taxdata.taxSummaries.stateTotal)
+            TaxSummaryView(summary: taxdata.statesSummary)
         }
 
         NonCollapsableSectionTitle(title: "Total Taxes")
         TaxListGroupView {
-            TaxSummaryView(summary: taxdata.taxSummaries.total)
+            TaxSummaryView(summary: taxdata.totalSummary)
         }
     }
 }

@@ -16,8 +16,7 @@ struct TaxDataListView: View {
                                          taxdata: taxdata.federalData,
                                          income: taxdata.income)
                 FederalTaxesListSection(isExpanded: $appState.sectionCollapseState.federal,
-                                        taxdata: taxdata.federalData,
-                                        summary: taxdata.taxSummaries.federal)
+                                        taxdata: taxdata.federalData)
             }
 
             TaxDataTabView(.states) {
@@ -26,8 +25,7 @@ struct TaxDataListView: View {
                     StateTaxesListSection(isExpanded: appState.stateCollapseStateBinding(for: stateTaxData.state),
                                           isFirst: idx == 0,
                                           totalIncome: taxdata.totalIncome,
-                                          stateTaxData: stateTaxData,
-                                          summary: taxdata.taxSummaries.states[stateTaxData.state])
+                                          stateTaxData: stateTaxData)
                 }
             }
 
