@@ -82,7 +82,7 @@ extension TaxBracket {
                 if let attributedRate {
                     explanation += " * \(FormattingHelper.formatPercentage(attributedRate.amount))"
                 }
-                explanation += " = \(FormattingHelper.formatCurrency(calculateTaxes(for: namedTaxableAmount)))"
+                explanation += " = \(FormattingHelper.formatCurrency(calculateTaxes(for: namedTaxableAmount, attributableRate: attributedRate)))"
                 return explanation
         }
     }
