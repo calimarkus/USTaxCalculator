@@ -34,20 +34,19 @@ struct StateTaxesListSection: View {
                     explanation: .deductionInfo(stateTaxData.deduction)
                 )
                 CurrencyView(.boldSumConfig(title: "Taxable Income", amount: stateTax.taxableIncome.amount))
+
+                if stateTaxData.attributableIncome.rate.amount < 1.0 {
+                    ExplainableRateView(attributableIncome: stateTaxData.attributableIncome)
+                }
             }
 
             TaxListGroupView {
-                let hasAttributedIncome = stateTaxData.attributableIncome.rate.amount < 1.0
-                if hasAttributedIncome {
-                    ExplainableRateView(attributableIncome: stateTaxData.attributableIncome)
-                }
-
                 ExplainableCurrencyView(
                     CurrencyViewConfig(
                         title: "\(stateTax.title) Tax",
                         subtitle: "(\(stateTax.activeBracket.formattedString))",
                         amount: stateTax.taxAmount,
-                        showSeparator: hasAttributedIncome
+                        showSeparator: false
                     ), explanation: .taxInfo(stateTax)
                 )
 
@@ -81,7 +80,7 @@ struct ExplainableRateView: View {
         CurrencyView(CurrencyViewConfig(
             title: attributableIncome.incomeName,
             amount: attributableIncome.amount,
-            showSeparator: false
+            showSeparator: true
         ))
         LabeledExplainableValueView(titleText: attributableIncome.rate.name,
                                     valueText: FormattingHelper.formatPercentage(attributableIncome.rate.amount),
