@@ -164,8 +164,9 @@ private extension TaxCalculator {
 
         return StateTaxData(state: state,
                             attributableIncome: attributedIncome,
-                            tax: stateTax,
+                            taxes: [stateTax],
                             localTax: localTax,
+                            taxableStateIncome: namedTaxableStateIncome,
                             additionalStateIncome: stateIncome.additionalStateIncome,
                             deduction: deduction,
                             withholdings: stateIncome.withholdings,

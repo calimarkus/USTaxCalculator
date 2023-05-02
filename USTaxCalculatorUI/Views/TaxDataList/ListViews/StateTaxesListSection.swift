@@ -16,9 +16,7 @@ struct StateTaxesListSection: View {
     let stateTaxData: StateTaxData
 
     var body: some View {
-        let stateTax = stateTaxData.tax
-        let title = "\(stateTaxData.state) Taxes"
-        CollapsableSectionTitle(title: title, isFirst: isFirst, isExpanded: $isExpanded)
+        CollapsableSectionTitle(title: "\(stateTaxData.state) Taxes", isFirst: isFirst, isExpanded: $isExpanded)
 
         if isExpanded {
             TaxListGroupView {
@@ -33,7 +31,7 @@ struct StateTaxesListSection: View {
                     .secondaryAdditionConfig(title: "State Deduction", amount: -stateTaxData.deduction.amount),
                     explanation: .deductionInfo(stateTaxData.deduction)
                 )
-                CurrencyView(.boldSumConfig(title: "Taxable Income", amount: stateTax.taxableIncome.amount))
+                CurrencyView(.boldSumConfig(title: "Taxable Income", amount: stateTaxData.taxableStateIncome.amount))
 
                 if stateTaxData.attributableIncome.rate.amount < 1.0 {
                     ExplainableRateView(attributableIncome: stateTaxData.attributableIncome)
@@ -41,14 +39,16 @@ struct StateTaxesListSection: View {
             }
 
             TaxListGroupView {
-                ExplainableCurrencyView(
-                    CurrencyViewConfig(
-                        title: "\(stateTax.title) Tax",
-                        subtitle: "(\(stateTax.activeBracket.formattedString))",
-                        amount: stateTax.taxAmount,
-                        showSeparator: false
-                    ), explanation: .taxInfo(stateTax)
-                )
+                ForEach(stateTaxData.taxes) { stateTax in
+                    ExplainableCurrencyView(
+                        CurrencyViewConfig(
+                            title: "\(stateTax.title) Tax",
+                            subtitle: "(\(stateTax.activeBracket.formattedString))",
+                            amount: stateTax.taxAmount,
+                            showSeparator: false
+                        ), explanation: .taxInfo(stateTax)
+                    )
+                }
 
                 if let localTax = stateTaxData.localTax {
                     ExplainableCurrencyView(

@@ -88,20 +88,20 @@ struct TaxSummaryTextFormatter {
         summary.appendTitle("State Taxes")
 
         for stateTaxData in stateTaxDatas {
-            let stateTax = stateTaxData.tax
-
             summary.appendLine("- \(stateTaxData.state)")
             summary.appendLine(formattedCurrency("  Total Income:", income.totalIncome))
             summary.appendLine(formattedCurrency("  Deduction:", -stateTaxData.deduction.amount))
-            summary.appendLine(formattedCurrency("  Taxable Income:", stateTax.taxableIncome.amount))
+            summary.appendLine(formattedCurrency("  Taxable Income:", stateTaxData.taxableStateIncome.amount))
 
-            if stateTax.attributedRate.amount < 1.0 {
+            if stateTaxData.attributableIncome.rate.amount < 1.0 {
                 summary.appendLine(formattedCurrency("  - \(stateTaxData.attributableIncome.incomeName):", stateTaxData.attributableIncome.amount))
-                summary.appendLine(alignLeftRight("  - \(stateTax.attributedRate.name):", formattedRate(stateTax.attributedRate.amount)))
+                summary.appendLine(alignLeftRight("  - \(stateTaxData.attributableIncome.rate.name):", formattedRate(stateTaxData.attributableIncome.rate.amount)))
             }
 
-            summary.appendLine(formattedCurrency("  - \(stateTax.title) Tax:", stateTax.taxAmount))
-            summary.appendLine(formattedBracketRate("    ", stateTax.activeBracket))
+            for stateTax in stateTaxData.taxes {
+                summary.appendLine(formattedCurrency("  - \(stateTax.title) Tax:", stateTax.taxAmount))
+                summary.appendLine(formattedBracketRate("    ", stateTax.activeBracket))
+            }
 
             if let localTax = stateTaxData.localTax {
                 summary.appendLine(formattedCurrency("  - \(localTax.title) Tax:", localTax.taxAmount))
