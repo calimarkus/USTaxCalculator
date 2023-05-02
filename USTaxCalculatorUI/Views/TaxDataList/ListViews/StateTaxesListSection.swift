@@ -68,7 +68,7 @@ struct StateTaxesListSection: View {
         }
 
         TaxListGroupView {
-            TaxSummaryView(summary: stateTaxData.summary, expanded: isExpanded)
+            TaxSummaryView(summary: stateTaxData.summary)
         }
     }
 }

@@ -38,7 +38,7 @@ struct FederalTaxesListSection: View {
         }
 
         TaxListGroupView {
-            TaxSummaryView(summary: taxdata.summary, expanded: isExpanded)
+            TaxSummaryView(summary: taxdata.summary)
         }
     }
 }

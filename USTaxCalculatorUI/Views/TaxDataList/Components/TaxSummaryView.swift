@@ -7,7 +7,6 @@ import SwiftUI
 struct TaxSummaryView: View {
     var title: String = ""
     let summary: TaxSummary
-    var expanded: Bool = true
 
     var body: some View {
         CurrencyView(.boldSumConfig(
@@ -17,9 +16,7 @@ struct TaxSummaryView: View {
             showSeparator: false
         ))
 
-        if expanded {
-            CurrencyView(.secondaryAdditionConfig(title: "Withheld", amount: -summary.withholdings))
-        }
+        CurrencyView(.secondaryAdditionConfig(title: "Withheld", amount: -summary.withholdings))
 
         let paymentTitle = summary.outstandingPayment < 0 ? "Tax Refund" : "To Pay"
         CurrencyView(.boldSumConfig(
@@ -36,7 +33,7 @@ struct TaxSummaryView_Previews: PreviewProvider {
                 TaxSummaryView(title: "blah", summary: ExampleData.exampleTaxDataJohnAndSarah_21().federalData.summary)
             }
             TaxListGroupView {
-                TaxSummaryView(title: "blah", summary: ExampleData.exampleTaxDataJohnAndSarah_21().federalData.summary, expanded: false)
+                TaxSummaryView(title: "blah", summary: ExampleData.exampleTaxDataJohnAndSarah_21().federalData.summary)
             }
         }.padding()
     }

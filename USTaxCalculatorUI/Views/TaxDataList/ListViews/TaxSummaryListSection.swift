@@ -9,6 +9,7 @@ struct TaxSummaryListSection: View {
 
     var body: some View {
         NonCollapsableSectionTitle(title: "Income", isFirst: true)
+
         TaxListGroupView {
             CurrencyView(.boldSumConfig(title: "Total Income", amount: taxdata.totalIncome, showSeparator: false))
         }
