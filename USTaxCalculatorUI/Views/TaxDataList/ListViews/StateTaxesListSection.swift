@@ -39,13 +39,14 @@ struct StateTaxesListSection: View {
             }
 
             TaxListGroupView {
-                ForEach(stateTaxData.taxes) { stateTax in
+                ForEach(stateTaxData.taxes.indices, id: \.self) { idx in
+                    let stateTax = stateTaxData.taxes[idx]
                     ExplainableCurrencyView(
                         CurrencyViewConfig(
                             title: "\(stateTax.title) Tax",
                             subtitle: "(\(stateTax.activeBracket.formattedString))",
                             amount: stateTax.taxAmount,
-                            showSeparator: false
+                            showSeparator: idx > 0
                         ), explanation: .taxInfo(stateTax)
                     )
                 }

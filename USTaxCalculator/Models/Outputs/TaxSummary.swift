@@ -17,6 +17,9 @@ struct TaxSummary: Equatable {
     }
 
     static func + (lhs: TaxSummary, rhs: TaxSummary) -> TaxSummary {
+        guard lhs.taxes > 0.0, lhs.totalIncome > 0.0 else {
+            return rhs
+        }
         precondition(lhs.totalIncome == rhs.totalIncome)
         return TaxSummary(taxes: lhs.taxes + rhs.taxes,
                           withholdings: lhs.withholdings + rhs.withholdings,

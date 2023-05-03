@@ -14,7 +14,7 @@ enum TaxCalculator {
             taxRates: taxRates.federalRates
         )
 
-        let stateTaxes = input.income.stateIncomes.map { stateIncome in
+        let stateTaxDatas = input.income.stateIncomes.map { stateIncome in
             Self.stateTaxDataFor(
                 stateIncome: stateIncome,
                 stateDeductions: input.stateDeductions,
@@ -24,12 +24,15 @@ enum TaxCalculator {
             )
         }
 
-        let statesSummary = sumStateSummaries(states: stateTaxes)
+        let initial = TaxSummary(taxes: 0.0, withholdings: 0.0, totalIncome: -1.0)
+        let statesSummary = stateTaxDatas.reduce(initial) { partialResult, taxData in
+            partialResult + taxData.summary
+        }
 
         return CalculatedTaxData(
             inputData: input,
             federalData: federalData,
-            stateTaxDatas: stateTaxes,
+            stateTaxDatas: stateTaxDatas,
             statesSummary: statesSummary,
             totalSummary: federalData.summary + statesSummary
         )
@@ -152,19 +155,30 @@ private extension TaxCalculator {
                                        taxableIncome: namedTaxableStateIncome,
                                        attributedRate: attributedIncome.rate)
 
+        var stateTaxes = [stateTax]
+
+        let additionalTax = Self.additionalTaxForState(state, taxRates: taxRates, namedTaxableStateIncome: namedTaxableStateIncome, attributedIncome: attributedIncome)
+        if let additionalTax {
+            stateTaxes.append(additionalTax)
+        }
+
+        let totalStateTaxes = stateTaxes.reduce(0.0) { partialResult, tax in
+            partialResult + tax.taxAmount
+        }
+
         let localTax = localTaxBracketForLocalTax(stateIncome.localTax,
                                                   taxableIncome: namedTaxableStateIncome,
                                                   taxRates: taxRates)
 
         let stateSummary = TaxSummary(
-            taxes: stateTax.taxAmount + (localTax?.taxAmount ?? 0.0) - credits,
+            taxes: totalStateTaxes + (localTax?.taxAmount ?? 0.0) - credits,
             withholdings: stateIncome.withholdings,
             totalIncome: totalIncome.amount
         )
 
         return StateTaxData(state: state,
                             attributableIncome: attributedIncome,
-                            taxes: [stateTax],
+                            taxes: stateTaxes,
                             localTax: localTax,
                             taxableStateIncome: namedTaxableStateIncome,
                             additionalStateIncome: stateIncome.additionalStateIncome,
@@ -174,18 +188,24 @@ private extension TaxCalculator {
                             summary: stateSummary)
     }
 
-    private static func sumStateSummaries(states: [StateTaxData]) -> TaxSummary {
-        guard let first = states.first else {
-            return TaxSummary(taxes: 0.0, withholdings: 0.0, totalIncome: 0.0)
-        }
-
-        var total = first.summary
-        for (i, stateData) in states.enumerated() {
-            if i > 0 {
-                total = total + stateData.summary
+    static func additionalTaxForState(_ state: TaxState,
+                                      taxRates: RawTaxRatesYear,
+                                      namedTaxableStateIncome: NamedValue,
+                                      attributedIncome: AttributableIncome) -> AttributableTax?
+    {
+        if state == .CA {
+            let mentalHealthRates = taxRates.californiaRates.mentalHealthRates
+            let mentalHealthBracketGroup = TaxBracketGenerator.bracketGroupForRawTaxRates(mentalHealthRates)
+            let bracket = mentalHealthBracketGroup.matchingBracketFor(taxableIncome: namedTaxableStateIncome.amount)
+            if bracket.rate > 0.0 {
+                return AttributableTax(title: "CA Mental Health",
+                                       activeBracket: bracket,
+                                       bracketGroup: mentalHealthBracketGroup,
+                                       taxableIncome: namedTaxableStateIncome,
+                                       attributedRate: attributedIncome.rate)
             }
         }
-        return total
+        return nil
     }
 
     static func localTaxBracketForLocalTax(_ localTax: LocalTaxType, taxableIncome: NamedValue, taxRates: RawTaxRatesYear) -> BasicTax? {

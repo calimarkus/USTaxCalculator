@@ -82,6 +82,9 @@ enum TaxYear2021_MarriedJointly {
                 100_000: 0.063,
             ], sources: [
                 "https://www.ftb.ca.gov/forms/2021/2021-540-taxtable.pdf",
+            ]),
+            mentalHealthRates: RawTaxRates(.progressive, [0.0: 0.0, 1_000_000.0: 0.01], sources: [
+                "https://www.mentalhealthca.org/faq-1",
             ])
         )
     }

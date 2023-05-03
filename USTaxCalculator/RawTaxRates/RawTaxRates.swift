@@ -74,7 +74,9 @@ struct CaliforniaStateTaxRates {
     let standardDeductions: RawStandardDeduction
 
     var isEligableForLowIncomeRates: (_ taxableIncome: Double) -> Bool
-    var lowIncomeRates: RawTaxRates
+    let lowIncomeRates: RawTaxRates
+
+    let mentalHealthRates: RawTaxRates
 }
 
 struct NewYorkStateTaxRates {

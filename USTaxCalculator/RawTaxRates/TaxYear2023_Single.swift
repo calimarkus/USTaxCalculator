@@ -56,7 +56,10 @@ enum TaxYear2023_Single {
             isEligableForLowIncomeRates: { taxableIncome in
                 taxableIncome <= 100_000
             },
-            lowIncomeRates: RawTaxRates(.interpolated, [:], sources: [])
+            lowIncomeRates: RawTaxRates(.interpolated, [:], sources: []),
+            mentalHealthRates: RawTaxRates(.progressive, [0.0: 0.0, 1_000_000.0: 0.01], sources: [
+                "https://www.mentalhealthca.org/faq-1",
+            ])
         )
     }
 
