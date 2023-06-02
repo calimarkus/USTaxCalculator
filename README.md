@@ -15,7 +15,7 @@ You can input income & tax data and then see the resulting taxes and how those w
 
 ## Why?
 
-This started as a small swift script to doublecheck some numbers of my taxes. But I kept tinkering with it to explore Swift & SwiftUI more. Now it's is a universal macOS/iOS app with a UI to enter & consume tax data.
+This started as a small swift script to doublecheck some numbers of my taxes. But I kept tinkering with it to explore Swift & SwiftUI more. By now it became a universal macOS/iOS app with a UI to both consume & enter/modify tax data.
 
 ## Disclaimers ⚠️ 
 
