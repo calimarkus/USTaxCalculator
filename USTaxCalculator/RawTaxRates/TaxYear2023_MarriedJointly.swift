@@ -45,18 +45,28 @@ enum TaxYear2023_MarriedJointly {
 
     private static var californiaRates: CaliforniaStateTaxRates {
         CaliforniaStateTaxRates(
-            incomeRates: RawTaxRates(.simple, [:], sources: [
+            incomeRates: RawTaxRates(.progressive, [
+                0.0: 0.01,
+                20825.0: 0.02,
+                49369.0: 0.04,
+                77919.0: 0.06,
+                108_163.0: 0.08,
+                136_701.0: 0.093,
+                698_275.0: 0.103,
+                837_923.0: 0.113,
+                1_369_543.0: 0.123,
+            ], sources: [
                 "https://www.nerdwallet.com/article/taxes/california-state-tax",
                 "https://www.ftb.ca.gov/forms/2020/2020-California-Tax-Rate-Schedules.pdf",
             ]), // TBD
-            standardDeductions: RawStandardDeduction(0.0, sources: [
+            standardDeductions: RawStandardDeduction(10726.0, sources: [
                 "https://www.ftb.ca.gov/file/personal/deductions/index.html",
             ]),
             // CA doesn't use progressive rates for incomes lower or equal to 100,000
             isEligableForLowIncomeRates: { taxableIncome in
                 taxableIncome <= 100_000
             },
-            lowIncomeRates: RawTaxRates(.interpolated, [:], sources: []),
+            lowIncomeRates: RawTaxRates(.interpolated, [:], sources: []), // TBD
             mentalHealthRates: RawTaxRates(.progressive, [0.0: 0.0, 1_000_000.0: 0.01], sources: [
                 "https://www.mentalhealthca.org/faq-1",
             ])

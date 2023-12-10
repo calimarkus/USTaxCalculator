@@ -45,18 +45,28 @@ enum TaxYear2023_Single {
 
     private static var californiaRates: CaliforniaStateTaxRates {
         CaliforniaStateTaxRates(
-            incomeRates: RawTaxRates(.simple, [:], sources: [
+            incomeRates: RawTaxRates(.progressive, [
+                0.0: 0.01,
+                10413.0: 0.02,
+                24685.0: 0.04,
+                38960.0: 0.06,
+                54082.0: 0.08,
+                68351.0: 0.093,
+                349_138.0: 0.103,
+                418_962.0: 0.113,
+                698_272.0: 0.123,
+            ], sources: [
                 "https://www.nerdwallet.com/article/taxes/california-state-tax",
                 "https://www.ftb.ca.gov/forms/2020/2020-California-Tax-Rate-Schedules.pdf",
             ]),
-            standardDeductions: RawStandardDeduction(0.0, sources: [
+            standardDeductions: RawStandardDeduction(5363.0, sources: [
                 "https://www.ftb.ca.gov/file/personal/deductions/index.html",
             ]),
             // CA doesn't use progressive rates for incomes lower or equal to 100,000
             isEligableForLowIncomeRates: { taxableIncome in
                 taxableIncome <= 100_000
             },
-            lowIncomeRates: RawTaxRates(.interpolated, [:], sources: []),
+            lowIncomeRates: RawTaxRates(.interpolated, [:], sources: []), // TBD
             mentalHealthRates: RawTaxRates(.progressive, [0.0: 0.0, 1_000_000.0: 0.01], sources: [
                 "https://www.mentalhealthca.org/faq-1",
             ])
