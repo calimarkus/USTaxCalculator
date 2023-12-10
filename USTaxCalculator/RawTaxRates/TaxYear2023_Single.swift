@@ -24,10 +24,10 @@ enum TaxYear2023_Single {
             ], sources: [
                 "https://www.nerdwallet.com/article/taxes/federal-income-tax-brackets",
             ]),
-            standardDeductions: RawStandardDeduction(0.0, sources: [
+            standardDeductions: RawStandardDeduction(13850.0, sources: [
                 "https://www.bankrate.com/taxes/standard-tax-deduction-amounts/",
-            ]), // TBD
-            longtermGainsRates: RawTaxRates(.simple, [:], sources: [
+            ]),
+            longtermGainsRates: RawTaxRates(.simple, [44626.0: 0.15, 492_301.0: 0.20], sources: [
                 "https://www.nerdwallet.com/article/taxes/capital-gains-tax-rates",
                 "https://www.unionbank.com/personal/financial-insights/investing/personal-investing/capital-gains-tax-rates-2021-and-how-to-minimize-them",
             ]),
