@@ -25,9 +25,9 @@ struct CalculationExplanationView: View {
 }
 
 struct CalculationExplanationView_Previews: PreviewProvider {
-    static let rates = RawTaxRatesGroup.taxRatesGroup(for: .y2020, .marriedJointly)
+    static let ratesGroup = RawTaxRatesGroup.taxRatesGroup(for: .y2020, .marriedJointly)
     static let input: DeductionInput = .standard(additionalDeductions: 500.0)
-    static let caliBrackets = TaxBracketGenerator.bracketGroupForRawTaxRates(rates.rawStateRates(for: .CA).incomeRates(forIncome: 200_000))
+    static let caliBrackets = TaxBracketGenerator.bracketGroupForRawTaxRates(ratesGroup.rawStateTaxRates(for: .CA).incomeRates(forIncome: 200_000))
 
     static var previews: some View {
         CalculationExplanationView(Deduction(

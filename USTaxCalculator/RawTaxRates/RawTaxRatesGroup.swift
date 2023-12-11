@@ -28,7 +28,7 @@ struct RawTaxRatesGroup {
         self.newYorkRates = newYorkRates
     }
 
-    func rawStateRates(for state: TaxState) -> RawStateTaxRates {
+    func rawStateTaxRates(for state: TaxState) -> RawStateTaxRates {
         switch state {
             case .NY: return newYorkRates
             case .CA: return californiaRates

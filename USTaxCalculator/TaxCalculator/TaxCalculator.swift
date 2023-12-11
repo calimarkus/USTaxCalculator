@@ -4,14 +4,14 @@
 
 enum TaxCalculator {
     static func calculateTaxesForInput(_ input: TaxDataInput) -> CalculatedTaxData {
-        let taxRates = RawTaxRatesGroup.taxRatesGroup(for: input.taxYear, input.filingType)
+        let taxRatesGroup = RawTaxRatesGroup.taxRatesGroup(for: input.taxYear, input.filingType)
 
         let federalData = Self.federalTaxesFor(
             income: input.income,
             deductions: input.federalDeductions,
             withholdings: input.totalFederalWitholdings,
             credits: input.federalCredits,
-            taxRates: taxRates.federalRates
+            taxRates: taxRatesGroup.federalRates
         )
 
         let stateTaxDatas = input.income.stateIncomes.map { stateIncome in
@@ -20,7 +20,7 @@ enum TaxCalculator {
                 stateDeductions: input.stateDeductions,
                 stateCredits: input.stateCredits,
                 totalIncome: input.income.namedTotalIncome,
-                taxRates: taxRates
+                taxRatesGroup: taxRatesGroup
             )
         }
 
@@ -129,12 +129,12 @@ private extension TaxCalculator {
                                 stateDeductions: [TaxState: DeductionInput],
                                 stateCredits: [TaxState: Double],
                                 totalIncome: NamedValue,
-                                taxRates: RawTaxRatesGroup) -> StateTaxData
+                                taxRatesGroup: RawTaxRatesGroup) -> StateTaxData
     {
         let state = stateIncome.state
         let credits = stateCredits[state] ?? 0.0
 
-        let rawStateRates = taxRates.rawStateRates(for: state)
+        let rawStateRates = taxRatesGroup.rawStateTaxRates(for: state)
         let deduction = Deduction(
             input: stateDeductions[state] ?? DeductionInput.standard(),
             standardDeduction: rawStateRates.standardDeductions
@@ -158,7 +158,7 @@ private extension TaxCalculator {
 
         var stateTaxes = [stateTax]
 
-        let additionalTax = Self.additionalTaxForState(state, taxRates: taxRates, namedTaxableStateIncome: namedTaxableStateIncome, attributedIncome: attributedIncome)
+        let additionalTax = Self.additionalTaxForState(state, taxRatesGroup: taxRatesGroup, namedTaxableStateIncome: namedTaxableStateIncome, attributedIncome: attributedIncome)
         if let additionalTax {
             stateTaxes.append(additionalTax)
         }
@@ -169,7 +169,7 @@ private extension TaxCalculator {
 
         let localTax = localTaxBracketForLocalTax(stateIncome.localTax,
                                                   taxableIncome: namedTaxableStateIncome,
-                                                  taxRates: taxRates)
+                                                  taxRatesGroup: taxRatesGroup)
 
         let stateSummary = TaxSummary(
             taxes: totalStateTaxes + (localTax?.taxAmount ?? 0.0) - credits,
@@ -190,11 +190,11 @@ private extension TaxCalculator {
     }
 
     static func additionalTaxForState(_ state: TaxState,
-                                      taxRates: RawTaxRatesGroup,
+                                      taxRatesGroup: RawTaxRatesGroup,
                                       namedTaxableStateIncome: NamedValue,
                                       attributedIncome: AttributableIncome) -> AttributableTax?
     {
-        if let mentalHealthRates = taxRates.mentalHealthRates(for: state) {
+        if let mentalHealthRates = taxRatesGroup.mentalHealthRates(for: state) {
             let mentalHealthBracketGroup = TaxBracketGenerator.bracketGroupForRawTaxRates(mentalHealthRates)
             let bracket = mentalHealthBracketGroup.matchingBracketFor(taxableIncome: namedTaxableStateIncome.amount)
             if bracket.rate > 0.0 {
@@ -208,12 +208,12 @@ private extension TaxCalculator {
         return nil
     }
 
-    static func localTaxBracketForLocalTax(_ localTax: LocalTaxType, taxableIncome: NamedValue, taxRates: RawTaxRatesGroup) -> BasicTax? {
+    static func localTaxBracketForLocalTax(_ localTax: LocalTaxType, taxableIncome: NamedValue, taxRatesGroup: RawTaxRatesGroup) -> BasicTax? {
         switch localTax {
             case .none:
                 return nil
             case let .city(city):
-                let rawLocalIncomeRates = taxRates.localIncomeRatesForCity(city, taxableIncome: taxableIncome.amount)
+                let rawLocalIncomeRates = taxRatesGroup.localIncomeRatesForCity(city, taxableIncome: taxableIncome.amount)
                 let localBracketGroup = TaxBracketGenerator.bracketGroupForRawTaxRates(rawLocalIncomeRates)
                 let bracket = localBracketGroup.matchingBracketFor(taxableIncome: taxableIncome.amount)
 
