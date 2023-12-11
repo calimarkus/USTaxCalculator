@@ -27,7 +27,8 @@ struct DeductionInfoView: View {
 }
 
 struct DeductionInfoView_Previews: PreviewProvider {
-    static let someDeduction = Deduction(input: DeductionInput.standard(), standardDeduction: TaxYear2020_MarriedJointly.taxRates.federalRates.standardDeductions)
+    static let rates = RawTaxRates2020.rates(for: .marriedJointly)
+    static let someDeduction = Deduction(input: DeductionInput.standard(), standardDeduction: rates.federalRates.standardDeductions)
 
     static var previews: some View {
         DeductionInfoView(someDeduction)

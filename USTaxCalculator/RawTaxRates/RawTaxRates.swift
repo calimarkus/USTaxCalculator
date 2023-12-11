@@ -47,6 +47,11 @@ struct RawStandardDeduction {
     }
 }
 
+protocol RawTaxRatesYear {
+    static var singleRates: RawTaxRatesGroup { get }
+    static var marriedJointlyRates: RawTaxRatesGroup { get }
+}
+
 struct RawTaxRatesGroup {
     let federalRates: FederalTaxRates
     let californiaRates: CaliforniaStateTaxRates

@@ -129,16 +129,16 @@
 		7EF596E0283A254100870696 /* EditButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EF596DE283A254100870696 /* EditButton.swift */; };
 		7EF5BD4229EB3735001D9B7F /* TaxYear2022_Single.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EF5BD4129EB3735001D9B7F /* TaxYear2022_Single.swift */; };
 		7EF5BD4329EB3735001D9B7F /* TaxYear2022_Single.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EF5BD4129EB3735001D9B7F /* TaxYear2022_Single.swift */; };
-		7EF5BD4629EB380D001D9B7F /* TaxYear2020_Single.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EF5BD4429EB380C001D9B7F /* TaxYear2020_Single.swift */; };
-		7EF5BD4729EB380D001D9B7F /* TaxYear2020_Single.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EF5BD4429EB380C001D9B7F /* TaxYear2020_Single.swift */; };
+		7EF5BD4629EB380D001D9B7F /* RawTaxRates2020_Single.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EF5BD4429EB380C001D9B7F /* RawTaxRates2020_Single.swift */; };
+		7EF5BD4729EB380D001D9B7F /* RawTaxRates2020_Single.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EF5BD4429EB380C001D9B7F /* RawTaxRates2020_Single.swift */; };
 		7EF5BD4829EB380D001D9B7F /* TaxYear2021_Single.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EF5BD4529EB380D001D9B7F /* TaxYear2021_Single.swift */; };
 		7EF5BD4929EB380D001D9B7F /* TaxYear2021_Single.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EF5BD4529EB380D001D9B7F /* TaxYear2021_Single.swift */; };
 		7EF5BD4B29EB3876001D9B7F /* TaxYear2023_Single.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EF5BD4A29EB3876001D9B7F /* TaxYear2023_Single.swift */; };
 		7EF5BD4C29EB3876001D9B7F /* TaxYear2023_Single.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EF5BD4A29EB3876001D9B7F /* TaxYear2023_Single.swift */; };
 		7EF5BD4E29EB4D4A001D9B7F /* RawTaxRatesMapping.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EF5BD4D29EB4D4A001D9B7F /* RawTaxRatesMapping.swift */; };
 		7EF5BD4F29EB4D4A001D9B7F /* RawTaxRatesMapping.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EF5BD4D29EB4D4A001D9B7F /* RawTaxRatesMapping.swift */; };
-		7EF5BD5A29EB59EE001D9B7F /* TaxYear2020_MarriedJointly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EF5BD5629EB59EE001D9B7F /* TaxYear2020_MarriedJointly.swift */; };
-		7EF5BD5B29EB59EE001D9B7F /* TaxYear2020_MarriedJointly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EF5BD5629EB59EE001D9B7F /* TaxYear2020_MarriedJointly.swift */; };
+		7EF5BD5A29EB59EE001D9B7F /* RawTaxRates2020_MarriedJointly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EF5BD5629EB59EE001D9B7F /* RawTaxRates2020_MarriedJointly.swift */; };
+		7EF5BD5B29EB59EE001D9B7F /* RawTaxRates2020_MarriedJointly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EF5BD5629EB59EE001D9B7F /* RawTaxRates2020_MarriedJointly.swift */; };
 		7EF5BD5C29EB59EE001D9B7F /* TaxYear2021_MarriedJointly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EF5BD5729EB59EE001D9B7F /* TaxYear2021_MarriedJointly.swift */; };
 		7EF5BD5D29EB59EE001D9B7F /* TaxYear2021_MarriedJointly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EF5BD5729EB59EE001D9B7F /* TaxYear2021_MarriedJointly.swift */; };
 		7EF5BD5E29EB59EE001D9B7F /* TaxYear2022_MarriedJointly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EF5BD5829EB59EE001D9B7F /* TaxYear2022_MarriedJointly.swift */; };
@@ -239,11 +239,11 @@
 		7EF596DC283A196200870696 /* LocalTaxDataState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalTaxDataState.swift; sourceTree = "<group>"; };
 		7EF596DE283A254100870696 /* EditButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditButton.swift; sourceTree = "<group>"; };
 		7EF5BD4129EB3735001D9B7F /* TaxYear2022_Single.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaxYear2022_Single.swift; sourceTree = "<group>"; };
-		7EF5BD4429EB380C001D9B7F /* TaxYear2020_Single.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaxYear2020_Single.swift; sourceTree = "<group>"; };
+		7EF5BD4429EB380C001D9B7F /* RawTaxRates2020_Single.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RawTaxRates2020_Single.swift; sourceTree = "<group>"; };
 		7EF5BD4529EB380D001D9B7F /* TaxYear2021_Single.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaxYear2021_Single.swift; sourceTree = "<group>"; };
 		7EF5BD4A29EB3876001D9B7F /* TaxYear2023_Single.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaxYear2023_Single.swift; sourceTree = "<group>"; };
 		7EF5BD4D29EB4D4A001D9B7F /* RawTaxRatesMapping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RawTaxRatesMapping.swift; sourceTree = "<group>"; };
-		7EF5BD5629EB59EE001D9B7F /* TaxYear2020_MarriedJointly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaxYear2020_MarriedJointly.swift; sourceTree = "<group>"; };
+		7EF5BD5629EB59EE001D9B7F /* RawTaxRates2020_MarriedJointly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RawTaxRates2020_MarriedJointly.swift; sourceTree = "<group>"; };
 		7EF5BD5729EB59EE001D9B7F /* TaxYear2021_MarriedJointly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaxYear2021_MarriedJointly.swift; sourceTree = "<group>"; };
 		7EF5BD5829EB59EE001D9B7F /* TaxYear2022_MarriedJointly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaxYear2022_MarriedJointly.swift; sourceTree = "<group>"; };
 		7EF5BD5929EB59EE001D9B7F /* TaxYear2023_MarriedJointly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaxYear2023_MarriedJointly.swift; sourceTree = "<group>"; };
@@ -286,8 +286,8 @@
 			children = (
 				7E572F0F282910B300DDB15E /* RawTaxRates.swift */,
 				7EF5BD4D29EB4D4A001D9B7F /* RawTaxRatesMapping.swift */,
-				7EF5BD5629EB59EE001D9B7F /* TaxYear2020_MarriedJointly.swift */,
-				7EF5BD4429EB380C001D9B7F /* TaxYear2020_Single.swift */,
+				7EF5BD5629EB59EE001D9B7F /* RawTaxRates2020_MarriedJointly.swift */,
+				7EF5BD4429EB380C001D9B7F /* RawTaxRates2020_Single.swift */,
 				7EF5BD5729EB59EE001D9B7F /* TaxYear2021_MarriedJointly.swift */,
 				7EF5BD4529EB380D001D9B7F /* TaxYear2021_Single.swift */,
 				7EF5BD5829EB59EE001D9B7F /* TaxYear2022_MarriedJointly.swift */,
@@ -706,7 +706,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7EF5BD4329EB3735001D9B7F /* TaxYear2022_Single.swift in Sources */,
-				7EF5BD5B29EB59EE001D9B7F /* TaxYear2020_MarriedJointly.swift in Sources */,
+				7EF5BD5B29EB59EE001D9B7F /* RawTaxRates2020_MarriedJointly.swift in Sources */,
 				7E3464452833C26E008C58A2 /* TaxDataInput.swift in Sources */,
 				7E58C75C29F07E2900392E33 /* TaxInfoView.swift in Sources */,
 				7E3464462833C26E008C58A2 /* CalculatedTaxData.swift in Sources */,
@@ -733,7 +733,7 @@
 				7E3464572833C26E008C58A2 /* GlobalAppState.swift in Sources */,
 				7E440865285AE2AB0052DDD5 /* NavigationTargets.swift in Sources */,
 				7EF5BD5D29EB59EE001D9B7F /* TaxYear2021_MarriedJointly.swift in Sources */,
-				7EF5BD4729EB380D001D9B7F /* TaxYear2020_Single.swift in Sources */,
+				7EF5BD4729EB380D001D9B7F /* RawTaxRates2020_Single.swift in Sources */,
 				7E3464582833C26E008C58A2 /* TaxDataDocument.swift in Sources */,
 				7E3464592833C26E008C58A2 /* Colors.swift in Sources */,
 				7E34645B2833C26E008C58A2 /* ExplainableView.swift in Sources */,
@@ -791,7 +791,7 @@
 				7EF596DF283A254100870696 /* EditButton.swift in Sources */,
 				7E572F19282910B300DDB15E /* TaxSummaryView.swift in Sources */,
 				7E3C567D28327C44002272F3 /* TaxDataDocument.swift in Sources */,
-				7EF5BD5A29EB59EE001D9B7F /* TaxYear2020_MarriedJointly.swift in Sources */,
+				7EF5BD5A29EB59EE001D9B7F /* RawTaxRates2020_MarriedJointly.swift in Sources */,
 				7E58C76729F462C500392E33 /* SourcesListView.swift in Sources */,
 				7E572F1E282910B300DDB15E /* TaxDataEntryView.swift in Sources */,
 				7E572F23282910B300DDB15E /* MainView.swift in Sources */,
@@ -838,7 +838,7 @@
 				7E266CF3282BE6D4005911D2 /* TaxDataInput.swift in Sources */,
 				7E107F56282BC32000E2B64A /* StateTitleButton.swift in Sources */,
 				7EF5BD4829EB380D001D9B7F /* TaxYear2021_Single.swift in Sources */,
-				7EF5BD4629EB380D001D9B7F /* TaxYear2020_Single.swift in Sources */,
+				7EF5BD4629EB380D001D9B7F /* RawTaxRates2020_Single.swift in Sources */,
 				7E05977B282B45EB0067DB7D /* DeductionsPickerView.swift in Sources */,
 				7E059777282B37910067DB7D /* DeductionAmountBindings.swift in Sources */,
 				7EE085A4283137E800E3EDA3 /* TaxDataTabView.swift in Sources */,

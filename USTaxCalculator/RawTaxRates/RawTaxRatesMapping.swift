@@ -2,16 +2,24 @@
 // RawTaxRatesMapping.swift
 //
 
+extension RawTaxRatesYear {
+    static func rates(for filingType: FilingType) -> RawTaxRatesGroup {
+        switch filingType {
+            case .single:
+                return singleRates
+            case .marriedJointly:
+                return marriedJointlyRates
+        }
+    }
+}
+
+extension RawTaxRates2020: RawTaxRatesYear {}
+
 extension RawTaxRatesGroup {
     static func group(for taxYear: TaxYear, _ filingType: FilingType) -> RawTaxRatesGroup {
         switch taxYear {
             case .y2020:
-                switch filingType {
-                    case .single:
-                        return TaxYear2020_Single.taxRates
-                    case .marriedJointly:
-                        return TaxYear2020_MarriedJointly.taxRates
-                }
+                return RawTaxRates2020.rates(for: filingType)
             case .y2021:
                 switch filingType {
                     case .single:
