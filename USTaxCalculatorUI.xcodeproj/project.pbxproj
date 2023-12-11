@@ -135,8 +135,8 @@
 		7EF5BD4929EB380D001D9B7F /* RawTaxRates2021_Single.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EF5BD4529EB380D001D9B7F /* RawTaxRates2021_Single.swift */; };
 		7EF5BD4B29EB3876001D9B7F /* RawTaxRates2023_Single.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EF5BD4A29EB3876001D9B7F /* RawTaxRates2023_Single.swift */; };
 		7EF5BD4C29EB3876001D9B7F /* RawTaxRates2023_Single.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EF5BD4A29EB3876001D9B7F /* RawTaxRates2023_Single.swift */; };
-		7EF5BD4E29EB4D4A001D9B7F /* RawTaxRatesMapping.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EF5BD4D29EB4D4A001D9B7F /* RawTaxRatesMapping.swift */; };
-		7EF5BD4F29EB4D4A001D9B7F /* RawTaxRatesMapping.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EF5BD4D29EB4D4A001D9B7F /* RawTaxRatesMapping.swift */; };
+		7EF5BD4E29EB4D4A001D9B7F /* RawTaxRatesGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EF5BD4D29EB4D4A001D9B7F /* RawTaxRatesGroup.swift */; };
+		7EF5BD4F29EB4D4A001D9B7F /* RawTaxRatesGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EF5BD4D29EB4D4A001D9B7F /* RawTaxRatesGroup.swift */; };
 		7EF5BD5A29EB59EE001D9B7F /* RawTaxRates2020_MarriedJointly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EF5BD5629EB59EE001D9B7F /* RawTaxRates2020_MarriedJointly.swift */; };
 		7EF5BD5B29EB59EE001D9B7F /* RawTaxRates2020_MarriedJointly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EF5BD5629EB59EE001D9B7F /* RawTaxRates2020_MarriedJointly.swift */; };
 		7EF5BD5C29EB59EE001D9B7F /* RawTaxRates2021_MarriedJointly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EF5BD5729EB59EE001D9B7F /* RawTaxRates2021_MarriedJointly.swift */; };
@@ -242,7 +242,7 @@
 		7EF5BD4429EB380C001D9B7F /* RawTaxRates2020_Single.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RawTaxRates2020_Single.swift; sourceTree = "<group>"; };
 		7EF5BD4529EB380D001D9B7F /* RawTaxRates2021_Single.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RawTaxRates2021_Single.swift; sourceTree = "<group>"; };
 		7EF5BD4A29EB3876001D9B7F /* RawTaxRates2023_Single.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RawTaxRates2023_Single.swift; sourceTree = "<group>"; };
-		7EF5BD4D29EB4D4A001D9B7F /* RawTaxRatesMapping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RawTaxRatesMapping.swift; sourceTree = "<group>"; };
+		7EF5BD4D29EB4D4A001D9B7F /* RawTaxRatesGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RawTaxRatesGroup.swift; sourceTree = "<group>"; };
 		7EF5BD5629EB59EE001D9B7F /* RawTaxRates2020_MarriedJointly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RawTaxRates2020_MarriedJointly.swift; sourceTree = "<group>"; };
 		7EF5BD5729EB59EE001D9B7F /* RawTaxRates2021_MarriedJointly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RawTaxRates2021_MarriedJointly.swift; sourceTree = "<group>"; };
 		7EF5BD5829EB59EE001D9B7F /* RawTaxRates2022_MarriedJointly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RawTaxRates2022_MarriedJointly.swift; sourceTree = "<group>"; };
@@ -285,7 +285,7 @@
 			isa = PBXGroup;
 			children = (
 				7E572F0F282910B300DDB15E /* RawTaxRates.swift */,
-				7EF5BD4D29EB4D4A001D9B7F /* RawTaxRatesMapping.swift */,
+				7EF5BD4D29EB4D4A001D9B7F /* RawTaxRatesGroup.swift */,
 				7EF5BD5629EB59EE001D9B7F /* RawTaxRates2020_MarriedJointly.swift */,
 				7EF5BD4429EB380C001D9B7F /* RawTaxRates2020_Single.swift */,
 				7EF5BD5729EB59EE001D9B7F /* RawTaxRates2021_MarriedJointly.swift */,
@@ -717,7 +717,7 @@
 				7E34644C2833C26E008C58A2 /* FormattingHelper.swift in Sources */,
 				7E58C76229F415A000392E33 /* Deduction.swift in Sources */,
 				7EF5BD4929EB380D001D9B7F /* RawTaxRates2021_Single.swift in Sources */,
-				7EF5BD4F29EB4D4A001D9B7F /* RawTaxRatesMapping.swift in Sources */,
+				7EF5BD4F29EB4D4A001D9B7F /* RawTaxRatesGroup.swift in Sources */,
 				7E34644D2833C26E008C58A2 /* TaxSummary.swift in Sources */,
 				7E34644E2833C26E008C58A2 /* Tax.swift in Sources */,
 				7E34644F2833C26E008C58A2 /* TaxCalculator.swift in Sources */,
@@ -833,7 +833,7 @@
 				7E58C76D29F4690B00392E33 /* DeductionInfoView.swift in Sources */,
 				7E1672EE282A3341009185B2 /* FederalIncomeEntryView.swift in Sources */,
 				7E5074D3282B7CD6000C4398 /* BasicStateInfoEntryView.swift in Sources */,
-				7EF5BD4E29EB4D4A001D9B7F /* RawTaxRatesMapping.swift in Sources */,
+				7EF5BD4E29EB4D4A001D9B7F /* RawTaxRatesGroup.swift in Sources */,
 				7E572F1C282910B300DDB15E /* ExplainableView.swift in Sources */,
 				7E266CF3282BE6D4005911D2 /* TaxDataInput.swift in Sources */,
 				7E107F56282BC32000E2B64A /* StateTitleButton.swift in Sources */,

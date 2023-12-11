@@ -194,8 +194,7 @@ private extension TaxCalculator {
                                       namedTaxableStateIncome: NamedValue,
                                       attributedIncome: AttributableIncome) -> AttributableTax?
     {
-        if state == .CA {
-            let mentalHealthRates = taxRates.californiaRates.mentalHealthRates
+        if let mentalHealthRates = taxRates.mentalHealthRates(for: state) {
             let mentalHealthBracketGroup = TaxBracketGenerator.bracketGroupForRawTaxRates(mentalHealthRates)
             let bracket = mentalHealthBracketGroup.matchingBracketFor(taxableIncome: namedTaxableStateIncome.amount)
             if bracket.rate > 0.0 {
