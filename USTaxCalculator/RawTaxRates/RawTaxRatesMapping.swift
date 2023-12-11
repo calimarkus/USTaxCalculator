@@ -3,7 +3,7 @@
 //
 
 extension RawTaxRatesGroup {
-    static func taxRatesGroupFor(_ taxYear: TaxYear, _ filingType: FilingType) -> RawTaxRatesGroup {
+    static func group(for taxYear: TaxYear, _ filingType: FilingType) -> RawTaxRatesGroup {
         switch taxYear {
             case .y2020:
                 switch filingType {
