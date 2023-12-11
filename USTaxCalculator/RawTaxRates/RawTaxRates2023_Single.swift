@@ -11,7 +11,7 @@ extension RawTaxRates2023 {
         )
     }
 
-    private static var federalRates: FederalTaxRates {
+    fileprivate static var federalRates: FederalTaxRates {
         FederalTaxRates(
             incomeRates: RawTaxRates(.progressive, [
                 0.0: 0.10,
@@ -43,7 +43,7 @@ extension RawTaxRates2023 {
         )
     }
 
-    private static var californiaRates: CaliforniaStateTaxRates {
+    fileprivate static var californiaRates: CaliforniaStateTaxRates {
         CaliforniaStateTaxRates(
             incomeRates: RawTaxRates(.progressive, [
                 0.0: 0.01,
@@ -70,7 +70,7 @@ extension RawTaxRates2023 {
         )
     }
 
-    private static var newYorkRates: NewYorkStateTaxRates {
+    fileprivate static var newYorkRates: NewYorkStateTaxRates {
         NewYorkStateTaxRates(
             incomeRates: RawTaxRates(.simple, [:]), // TBD
             standardDeductions: RawStandardDeduction(8000.0, sources: [

@@ -13,7 +13,7 @@ struct RawTaxRates2021 {
         )
     }
 
-    private static var federalRates: FederalTaxRates {
+    fileprivate static var federalRates: FederalTaxRates {
         FederalTaxRates(
             incomeRates: RawTaxRates(.progressive, [
                 0.0: 0.1,
@@ -46,7 +46,7 @@ struct RawTaxRates2021 {
     }
 
     /// Note: These are only valid for incomes of $100,000+
-    private static var californiaRates: CaliforniaStateTaxRates {
+    fileprivate static var californiaRates: CaliforniaStateTaxRates {
         CaliforniaStateTaxRates(
             incomeRates: RawTaxRates(.progressive, [
                 0.0: 0.01,
@@ -89,7 +89,7 @@ struct RawTaxRates2021 {
         )
     }
 
-    private static var newYorkRates: NewYorkStateTaxRates {
+    fileprivate static var newYorkRates: NewYorkStateTaxRates {
         NewYorkStateTaxRates(
             incomeRates: RawTaxRates(.progressive, [
                 0.0: 0.04,
