@@ -134,14 +134,15 @@ private extension TaxCalculator {
         let state = stateIncome.state
         let credits = stateCredits[state] ?? 0.0
 
+        let rawStateRates = taxRates.rawStateRates(for: state)
         let deduction = Deduction(
             input: stateDeductions[state] ?? DeductionInput.standard(),
-            standardDeduction: taxRates.standardDeductionForState(state)
+            standardDeduction: rawStateRates.standardDeductions
         )
         let taxableStateIncome = max(0.0, totalIncome.amount + stateIncome.additionalStateIncome - deduction.amount)
         let namedTaxableStateIncome = NamedValue(amount: taxableStateIncome, name: "Taxable State Income")
 
-        let rawStateIncomeRates = taxRates.stateIncomeRates(for: state, taxableIncome: taxableStateIncome)
+        let rawStateIncomeRates = rawStateRates.incomeRates(forIncome: taxableStateIncome)
         let stateBracketGroup = TaxBracketGenerator.bracketGroupForRawTaxRates(rawStateIncomeRates)
         let bracket = stateBracketGroup.matchingBracketFor(taxableIncome: taxableStateIncome)
 

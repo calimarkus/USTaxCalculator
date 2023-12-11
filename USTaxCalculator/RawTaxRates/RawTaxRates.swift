@@ -74,7 +74,12 @@ struct FederalTaxRates {
     let additionalMedicareIncomeRates: RawTaxRates
 }
 
-struct CaliforniaStateTaxRates {
+protocol RawStateTaxRates {
+    var standardDeductions: RawStandardDeduction { get }
+    func incomeRates(forIncome income: Double) -> RawTaxRates
+}
+
+struct CaliforniaStateTaxRates: RawStateTaxRates {
     let incomeRates: RawTaxRates
     let standardDeductions: RawStandardDeduction
 
@@ -89,7 +94,7 @@ struct CaliforniaStateTaxRates {
     }
 }
 
-struct NewYorkStateTaxRates {
+struct NewYorkStateTaxRates: RawStateTaxRates {
     let incomeRates: RawTaxRates
     let standardDeductions: RawStandardDeduction
 
