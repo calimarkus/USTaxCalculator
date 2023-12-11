@@ -47,7 +47,7 @@ struct RawStandardDeduction {
     }
 }
 
-struct RawTaxRatesYear {
+struct RawTaxRatesGroup {
     let federalRates: FederalTaxRates
     let californiaRates: CaliforniaStateTaxRates
     let newYorkRates: NewYorkStateTaxRates

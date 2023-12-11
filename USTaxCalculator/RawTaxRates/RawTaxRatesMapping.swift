@@ -2,8 +2,8 @@
 // RawTaxRatesMapping.swift
 //
 
-extension RawTaxRatesYear {
-    static func taxRatesYearFor(_ taxYear: TaxYear, _ filingType: FilingType) -> RawTaxRatesYear {
+extension RawTaxRatesGroup {
+    static func taxRatesGroupFor(_ taxYear: TaxYear, _ filingType: FilingType) -> RawTaxRatesGroup {
         switch taxYear {
             case .y2020:
                 switch filingType {
@@ -30,7 +30,7 @@ extension RawTaxRatesYear {
     }
 }
 
-extension RawTaxRatesYear {
+extension RawTaxRatesGroup {
     func standardDeductionForState(_ state: TaxState) -> RawStandardDeduction {
         switch state {
             case .NY:

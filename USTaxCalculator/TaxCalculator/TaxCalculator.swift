@@ -4,7 +4,7 @@
 
 enum TaxCalculator {
     static func calculateTaxesForInput(_ input: TaxDataInput) -> CalculatedTaxData {
-        let taxRates = RawTaxRatesYear.taxRatesYearFor(input.taxYear, input.filingType)
+        let taxRates = RawTaxRatesGroup.taxRatesGroupFor(input.taxYear, input.filingType)
 
         let federalData = Self.federalTaxesFor(
             income: input.income,
@@ -129,7 +129,7 @@ private extension TaxCalculator {
                                 stateDeductions: [TaxState: DeductionInput],
                                 stateCredits: [TaxState: Double],
                                 totalIncome: NamedValue,
-                                taxRates: RawTaxRatesYear) -> StateTaxData
+                                taxRates: RawTaxRatesGroup) -> StateTaxData
     {
         let state = stateIncome.state
         let credits = stateCredits[state] ?? 0.0
@@ -189,7 +189,7 @@ private extension TaxCalculator {
     }
 
     static func additionalTaxForState(_ state: TaxState,
-                                      taxRates: RawTaxRatesYear,
+                                      taxRates: RawTaxRatesGroup,
                                       namedTaxableStateIncome: NamedValue,
                                       attributedIncome: AttributableIncome) -> AttributableTax?
     {
@@ -208,7 +208,7 @@ private extension TaxCalculator {
         return nil
     }
 
-    static func localTaxBracketForLocalTax(_ localTax: LocalTaxType, taxableIncome: NamedValue, taxRates: RawTaxRatesYear) -> BasicTax? {
+    static func localTaxBracketForLocalTax(_ localTax: LocalTaxType, taxableIncome: NamedValue, taxRates: RawTaxRatesGroup) -> BasicTax? {
         switch localTax {
             case .none:
                 return nil

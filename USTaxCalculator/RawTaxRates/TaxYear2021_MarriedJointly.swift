@@ -3,8 +3,8 @@
 //
 
 enum TaxYear2021_MarriedJointly {
-    static var taxRates: RawTaxRatesYear {
-        RawTaxRatesYear(
+    static var taxRates: RawTaxRatesGroup {
+        RawTaxRatesGroup(
             federalRates: Self.federalRates,
             californiaRates: Self.californiaRates,
             newYorkRates: Self.newYorkRates
