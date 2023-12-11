@@ -40,7 +40,7 @@ enum TaxCalculator {
 }
 
 private extension TaxCalculator {
-    static func federalTaxesFor(income: Income, deductions: DeductionInput, withholdings: Double, credits: Double, taxRates: FederalTaxRates) -> FederalTaxData {
+    static func federalTaxesFor(income: Income, deductions: DeductionInput, withholdings: Double, credits: Double, taxRates: RawFederalTaxRates) -> FederalTaxData {
         let deduction = Deduction(input: deductions, standardDeduction: taxRates.standardDeductions)
         let taxableFederalIncome = max(0.0, income.totalIncome - income.longtermCapitalGains - deduction.amount)
         let namedTaxableFederalIncome = NamedValue(amount: taxableFederalIncome, name: "Taxable Income")

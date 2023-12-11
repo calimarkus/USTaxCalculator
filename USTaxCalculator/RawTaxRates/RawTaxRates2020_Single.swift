@@ -11,8 +11,8 @@ extension RawTaxRates2020 {
         )
     }
 
-    fileprivate static var federalRates: FederalTaxRates {
-        FederalTaxRates(
+    fileprivate static var federalRates: RawFederalTaxRates {
+        RawFederalTaxRates(
             incomeRates: RawTaxRates(.progressive, [
                 0.0: 0.10,
                 9875.0: 0.12,
@@ -43,8 +43,8 @@ extension RawTaxRates2020 {
         )
     }
 
-    fileprivate static var californiaRates: CaliforniaStateTaxRates {
-        CaliforniaStateTaxRates(
+    fileprivate static var californiaRates: RawCaliforniaStateTaxRates {
+        RawCaliforniaStateTaxRates(
             incomeRates: RawTaxRates(.progressive, [
                 0.0: 0.01,
                 8932.0: 0.02,
@@ -85,8 +85,8 @@ extension RawTaxRates2020 {
         )
     }
 
-    fileprivate static var newYorkRates: NewYorkStateTaxRates {
-        NewYorkStateTaxRates(
+    fileprivate static var newYorkRates: RawNewYorkStateTaxRates {
+        RawNewYorkStateTaxRates(
             // Rates apply for incomes < $107,650
             incomeRates: RawTaxRates(.progressive, [
                 0.0: 0.04,

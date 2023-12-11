@@ -18,11 +18,11 @@ protocol RawTaxRatesYear {
 }
 
 struct RawTaxRatesGroup {
-    let federalRates: FederalTaxRates
-    private let californiaRates: CaliforniaStateTaxRates
-    private let newYorkRates: NewYorkStateTaxRates
+    let federalRates: RawFederalTaxRates
+    private let californiaRates: RawCaliforniaStateTaxRates
+    private let newYorkRates: RawNewYorkStateTaxRates
 
-    init(federalRates: FederalTaxRates, californiaRates: CaliforniaStateTaxRates, newYorkRates: NewYorkStateTaxRates) {
+    init(federalRates: RawFederalTaxRates, californiaRates: RawCaliforniaStateTaxRates, newYorkRates: RawNewYorkStateTaxRates) {
         self.federalRates = federalRates
         self.californiaRates = californiaRates
         self.newYorkRates = newYorkRates

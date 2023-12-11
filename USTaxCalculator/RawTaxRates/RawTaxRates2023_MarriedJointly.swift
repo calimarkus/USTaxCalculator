@@ -13,8 +13,8 @@ struct RawTaxRates2023 {
         )
     }
 
-    fileprivate static var federalRates: FederalTaxRates {
-        FederalTaxRates(
+    fileprivate static var federalRates: RawFederalTaxRates {
+        RawFederalTaxRates(
             incomeRates: RawTaxRates(.progressive, [
                 0.0: 0.1,
                 22001.0: 0.12,
@@ -45,8 +45,8 @@ struct RawTaxRates2023 {
         )
     }
 
-    fileprivate static var californiaRates: CaliforniaStateTaxRates {
-        CaliforniaStateTaxRates(
+    fileprivate static var californiaRates: RawCaliforniaStateTaxRates {
+        RawCaliforniaStateTaxRates(
             incomeRates: RawTaxRates(.progressive, [
                 0.0: 0.01,
                 20825.0: 0.02,
@@ -72,8 +72,8 @@ struct RawTaxRates2023 {
         )
     }
 
-    fileprivate static var newYorkRates: NewYorkStateTaxRates {
-        NewYorkStateTaxRates(
+    fileprivate static var newYorkRates: RawNewYorkStateTaxRates {
+        RawNewYorkStateTaxRates(
             incomeRates: RawTaxRates(.simple, [:]), // TBD
             standardDeductions: RawStandardDeduction(16050.0, sources: [
                 "https://www.tax.ny.gov/pit/file/standard_deductions.htm",

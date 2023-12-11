@@ -11,8 +11,8 @@ extension RawTaxRates2022 {
         )
     }
 
-    fileprivate static var federalRates: FederalTaxRates {
-        FederalTaxRates(
+    fileprivate static var federalRates: RawFederalTaxRates {
+        RawFederalTaxRates(
             incomeRates: RawTaxRates(.progressive, [
                 0.0: 0.10,
                 10276.0: 0.12,
@@ -43,8 +43,8 @@ extension RawTaxRates2022 {
         )
     }
 
-    fileprivate static var californiaRates: CaliforniaStateTaxRates {
-        CaliforniaStateTaxRates(
+    fileprivate static var californiaRates: RawCaliforniaStateTaxRates {
+        RawCaliforniaStateTaxRates(
             incomeRates: RawTaxRates(.progressive, [
                 0.0: 0.01,
                 10100.0: 0.02,
@@ -86,8 +86,8 @@ extension RawTaxRates2022 {
         )
     }
 
-    fileprivate static var newYorkRates: NewYorkStateTaxRates {
-        NewYorkStateTaxRates(
+    fileprivate static var newYorkRates: RawNewYorkStateTaxRates {
+        RawNewYorkStateTaxRates(
             incomeRates: RawTaxRates(.progressive, [
                 0.0: 0.04,
                 8500.0: 0.045,
