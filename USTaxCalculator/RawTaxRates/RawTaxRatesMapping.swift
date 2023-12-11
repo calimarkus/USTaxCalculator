@@ -36,12 +36,7 @@ extension RawTaxRatesGroup {
     func stateIncomeRates(for state: TaxState, taxableIncome: Double) -> RawTaxRates {
         switch state {
             case .CA: return californiaRates.incomeRates(forIncome: taxableIncome)
-            case .NY:
-                if newYorkRates.isEligableForHighIncomeRates(taxableIncome) {
-                    return newYorkRates.highIncomeRates
-                } else {
-                    return newYorkRates.incomeRates
-                }
+            case .NY: return newYorkRates.incomeRates(forIncome: taxableIncome)
         }
     }
 

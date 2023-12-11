@@ -108,10 +108,7 @@ struct RawTaxRates2022 {
                 "https://www.tax.ny.gov/pit/file/standard_deductions.htm",
                 "https://www.efile.com/new-york-tax-rates-forms-and-brackets/",
             ]),
-            // new york doesn't use progressive rates for incomes higher than $107,650
-            isEligableForHighIncomeRates: { taxableIncome in
-                taxableIncome > 107_650
-            },
+            highIncomeRateThreshhold: 107_650,
             // These rates are a fairly rough approximation, mostly based on 2021
             highIncomeRates: RawTaxRates(.simple, [
                 0.0: 0.0585,

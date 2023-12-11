@@ -85,11 +85,7 @@ struct CaliforniaStateTaxRates {
 
     func incomeRates(forIncome income: Double) -> RawTaxRates {
         // CA doesn't use progressive rates for incomes lower or equal to X
-        if income <= lowIncomeRatesLimit {
-            return lowIncomeRates
-        } else {
-            return incomeRates
-        }
+        return income <= lowIncomeRatesLimit ? lowIncomeRates : incomeRates
     }
 }
 
@@ -97,8 +93,13 @@ struct NewYorkStateTaxRates {
     let incomeRates: RawTaxRates
     let standardDeductions: RawStandardDeduction
 
-    var isEligableForHighIncomeRates: (_ taxableIncome: Double) -> Bool
+    var highIncomeRateThreshhold: Double
     let highIncomeRates: RawTaxRates
 
     let newYorkCityRates: RawTaxRates
+
+    func incomeRates(forIncome income: Double) -> RawTaxRates {
+        // new york doesn't use progressive rates for incomes higher than X
+        return income > highIncomeRateThreshhold ? highIncomeRates : incomeRates
+    }
 }

@@ -107,10 +107,7 @@ struct RawTaxRates2020 {
                 "https://www.tax.ny.gov/pit/file/standard_deductions.htm",
                 "https://www.efile.com/new-york-tax-rates-forms-and-brackets/",
             ]),
-            // new york doesn't use progressive rates for incomes higher than $107,650
-            isEligableForHighIncomeRates: { taxableIncome in
-                taxableIncome > 107_650
-            },
+            highIncomeRateThreshhold: 107_650,
             // This is simplified - more math is involved to do these properly as the source link shows.
             // That rate changes for every increment of 50k, partly based on the progressive rate, which is rather complex.
             // The proper fix is to implement the full tax computation worksheets.
