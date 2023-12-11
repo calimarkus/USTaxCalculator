@@ -25,14 +25,14 @@ struct CalculationExplanationView: View {
 }
 
 struct CalculationExplanationView_Previews: PreviewProvider {
-    static let rates = RawTaxRates2020.rates(for: .marriedJointly)
+    static let rates = RawTaxRatesGroup.taxRatesGroup(for: .y2020, .marriedJointly)
     static let input: DeductionInput = .standard(additionalDeductions: 500.0)
     static let caliBrackets = TaxBracketGenerator.bracketGroupForRawTaxRates(rates.californiaRates.incomeRates)
 
     static var previews: some View {
         CalculationExplanationView(Deduction(
             input: input,
-            standardDeduction: TaxYear2021_Single.taxRates.federalRates.standardDeductions
+            standardDeduction: RawTaxRatesGroup.taxRatesGroup(for: .y2021, .single).federalRates.standardDeductions
         )).padding(20.0)
 
         CalculationExplanationView(AttributableTax(

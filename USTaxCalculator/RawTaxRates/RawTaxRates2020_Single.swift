@@ -3,7 +3,7 @@
 //
 
 extension RawTaxRates2020 {
-    static var singleRates: RawTaxRatesGroup {
+    var singleRates: RawTaxRatesGroup {
         RawTaxRatesGroup(
             federalRates: Self.federalRates,
             californiaRates: Self.californiaRates,

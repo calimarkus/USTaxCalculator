@@ -39,7 +39,7 @@ struct TaxInfoView: View {
 }
 
 struct TaxInfoView_Previews: PreviewProvider {
-    static let rates = RawTaxRates2020.rates(for: .marriedJointly)
+    static let rates = RawTaxRatesGroup.taxRatesGroup(for: .y2020, .marriedJointly)
     static let fedBrackets = TaxBracketGenerator.bracketGroupForRawTaxRates(rates.federalRates.incomeRates)
     static let caliBrackets = TaxBracketGenerator.bracketGroupForRawTaxRates(rates.californiaRates.incomeRates)
     static let longtermGainsBrackets = TaxBracketGenerator.bracketGroupForRawTaxRates(rates.federalRates.longtermGainsRates)

@@ -1,9 +1,11 @@
 //
-// TaxYear2021_MarriedJointly.swift
+// RawTaxRates2021_MarriedJointly.swift
 //
 
-enum TaxYear2021_MarriedJointly {
-    static var taxRates: RawTaxRatesGroup {
+extension RawTaxRates2021: RawTaxRatesYear {}
+
+struct RawTaxRates2021 {
+    var marriedJointlyRates: RawTaxRatesGroup {
         RawTaxRatesGroup(
             federalRates: Self.federalRates,
             californiaRates: Self.californiaRates,

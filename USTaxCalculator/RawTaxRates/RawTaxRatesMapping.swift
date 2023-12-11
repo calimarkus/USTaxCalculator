@@ -3,38 +3,25 @@
 //
 
 extension RawTaxRatesYear {
-    static func rates(for filingType: FilingType) -> RawTaxRatesGroup {
+    fileprivate func group(for filingType: FilingType) -> RawTaxRatesGroup {
         switch filingType {
-            case .single:
-                return singleRates
-            case .marriedJointly:
-                return marriedJointlyRates
+            case .single: return singleRates
+            case .marriedJointly: return marriedJointlyRates
         }
     }
 }
 
-extension RawTaxRates2020: RawTaxRatesYear {}
-
 extension RawTaxRatesGroup {
-    static func group(for taxYear: TaxYear, _ filingType: FilingType) -> RawTaxRatesGroup {
+    private static func forTaxYear(_ taxYear: TaxYear) -> RawTaxRatesYear {
         switch taxYear {
-            case .y2020:
-                return RawTaxRates2020.rates(for: filingType)
-            case .y2021:
-                switch filingType {
-                    case .single:
-                        return TaxYear2021_Single.taxRates
-                    case .marriedJointly:
-                        return TaxYear2021_MarriedJointly.taxRates
-                }
-            case .y2022:
-                switch filingType {
-                    case .single:
-                        return TaxYear2022_Single.taxRates
-                    case .marriedJointly:
-                        return TaxYear2022_MarriedJointly.taxRates
-                }
+            case .y2020: return RawTaxRates2020()
+            case .y2021: return RawTaxRates2021()
+            case .y2022: return RawTaxRates2022()
         }
+    }
+
+    static func taxRatesGroup(for taxYear: TaxYear, _ filingType: FilingType) -> RawTaxRatesGroup {
+        return forTaxYear(taxYear).group(for: filingType)
     }
 }
 

@@ -2,8 +2,10 @@
 // RawTaxRates2020_MarriedJointly.swift
 //
 
-enum RawTaxRates2020 {
-    static var marriedJointlyRates: RawTaxRatesGroup {
+extension RawTaxRates2020: RawTaxRatesYear {}
+
+struct RawTaxRates2020 {
+    var marriedJointlyRates: RawTaxRatesGroup {
         RawTaxRatesGroup(
             federalRates: Self.federalRates,
             californiaRates: Self.californiaRates,

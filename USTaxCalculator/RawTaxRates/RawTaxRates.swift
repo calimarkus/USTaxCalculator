@@ -48,8 +48,8 @@ struct RawStandardDeduction {
 }
 
 protocol RawTaxRatesYear {
-    static var singleRates: RawTaxRatesGroup { get }
-    static var marriedJointlyRates: RawTaxRatesGroup { get }
+    var singleRates: RawTaxRatesGroup { get }
+    var marriedJointlyRates: RawTaxRatesGroup { get }
 }
 
 struct RawTaxRatesGroup {

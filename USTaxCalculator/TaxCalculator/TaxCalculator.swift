@@ -4,7 +4,7 @@
 
 enum TaxCalculator {
     static func calculateTaxesForInput(_ input: TaxDataInput) -> CalculatedTaxData {
-        let taxRates = RawTaxRatesGroup.group(for: input.taxYear, input.filingType)
+        let taxRates = RawTaxRatesGroup.taxRatesGroup(for: input.taxYear, input.filingType)
 
         let federalData = Self.federalTaxesFor(
             income: input.income,
