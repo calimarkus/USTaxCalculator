@@ -62,10 +62,7 @@ extension RawTaxRates2023 {
             standardDeductions: RawStandardDeduction(5363.0, sources: [
                 "https://www.ftb.ca.gov/file/personal/deductions/index.html",
             ]),
-            // CA doesn't use progressive rates for incomes lower or equal to 100,000
-            isEligableForLowIncomeRates: { taxableIncome in
-                taxableIncome <= 100_000
-            },
+            lowIncomeRatesLimit: 100_000,
             lowIncomeRates: RawTaxRates(.interpolated, [:], sources: []), // TBD
             mentalHealthRates: RawTaxRates(.progressive, [0.0: 0.0, 1_000_000.0: 0.01], sources: [
                 "https://www.mentalhealthca.org/faq-1",

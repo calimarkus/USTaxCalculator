@@ -62,10 +62,7 @@ extension RawTaxRates2020 {
             standardDeductions: RawStandardDeduction(4601.0, sources: [
                 "https://www.ftb.ca.gov/about-ftb/newsroom/tax-news/november-2020/standard-deductions-exemption-amounts-and-tax-rates-for-2020-tax-year.html",
             ]),
-            // CA doesn't use progressive rates for incomes lower or equal to 100,000
-            isEligableForLowIncomeRates: { taxableIncome in
-                taxableIncome <= 100_000
-            },
+            lowIncomeRatesLimit: 100_000,
             lowIncomeRates: RawTaxRates(.interpolated, [
                 0: 0.01,
                 5000: 0.01,

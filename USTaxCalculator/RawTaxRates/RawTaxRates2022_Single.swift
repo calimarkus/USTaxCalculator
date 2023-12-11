@@ -63,9 +63,7 @@ extension RawTaxRates2022 {
                 "https://www.ftb.ca.gov/file/personal/deductions/index.html",
             ]),
             // CA doesn't use progressive rates for incomes lower or equal to $100,000
-            isEligableForLowIncomeRates: { taxableIncome in
-                taxableIncome <= 100_000
-            },
+            lowIncomeRatesLimit: 100_000,
             lowIncomeRates: RawTaxRates(.interpolated, [
                 0: 0.01,
                 5000: 0.01,

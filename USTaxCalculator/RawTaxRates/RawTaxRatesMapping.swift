@@ -28,22 +28,14 @@ extension RawTaxRatesGroup {
 extension RawTaxRatesGroup {
     func standardDeductionForState(_ state: TaxState) -> RawStandardDeduction {
         switch state {
-            case .NY:
-                return newYorkRates.standardDeductions
-            case .CA:
-                return californiaRates.standardDeductions
+            case .NY: return newYorkRates.standardDeductions
+            case .CA: return californiaRates.standardDeductions
         }
     }
 
     func stateIncomeRates(for state: TaxState, taxableIncome: Double) -> RawTaxRates {
         switch state {
-            case .CA:
-                if californiaRates.isEligableForLowIncomeRates(taxableIncome) {
-                    return californiaRates.lowIncomeRates
-                } else {
-                    return californiaRates.incomeRates
-                }
-
+            case .CA: return californiaRates.incomeRates(forIncome: taxableIncome)
             case .NY:
                 if newYorkRates.isEligableForHighIncomeRates(taxableIncome) {
                     return newYorkRates.highIncomeRates
