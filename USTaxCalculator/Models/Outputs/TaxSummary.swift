@@ -7,7 +7,7 @@ struct TaxSummary: Equatable {
     let withholdings: Double
 
     private var totalIncome: Double
-    var effectiveTaxRate: Double { taxes / totalIncome }
+    var effectiveTaxRate: Double { totalIncome > 0.0 ? taxes / totalIncome : 0.0 }
     var outstandingPayment: Double { taxes - withholdings }
 
     init(taxes: Double, withholdings: Double, totalIncome: Double) {
