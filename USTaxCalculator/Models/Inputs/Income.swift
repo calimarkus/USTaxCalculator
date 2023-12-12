@@ -29,10 +29,10 @@ struct Income: Codable, Equatable {
 }
 
 extension Income {
-    var namedWages: NamedValue { NamedValue(amount: wages, name: "Wages") }
-    var namedMedicareWages: NamedValue { NamedValue(amount: medicareWages, name: "Medicare Wages") }
-    var namedCapitalGains: NamedValue { NamedValue(amount: capitalGains, name: "Capital Gains") }
-    var namedTotalCapitalGains: NamedValue { NamedValue(amount: totalCapitalGains, name: "Total Capital Gains") }
-    var namedLongtermCapitalGains: NamedValue { NamedValue(amount: longtermCapitalGains, name: "Longterm Capital Gains") }
-    var namedTotalIncome: NamedValue { NamedValue(amount: totalIncome, name: "Total Income") }
+    var namedWages: NamedValue { .init(wages, named: "Wages") }
+    var namedMedicareWages: NamedValue { .init(medicareWages, named: "Medicare Wages") }
+    var namedCapitalGains: NamedValue { .init(capitalGains, named: "Capital Gains") }
+    var namedTotalCapitalGains: NamedValue { .init(totalCapitalGains, named: "Total Capital Gains") }
+    var namedLongtermCapitalGains: NamedValue { .init(longtermCapitalGains, named: "Longterm Capital Gains") }
+    var namedTotalIncome: NamedValue { .init(totalIncome, named: "Total Income") }
 }

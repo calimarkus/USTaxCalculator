@@ -43,7 +43,7 @@ private extension TaxCalculator {
     static func federalTaxesFor(income: Income, deductions: DeductionInput, withholdings: Double, credits: Double, taxRates: RawFederalTaxRates) -> FederalTaxData {
         let deduction = Deduction(input: deductions, standardDeduction: taxRates.standardDeductions)
         let taxableFederalIncome = max(0.0, income.totalIncome - income.longtermCapitalGains - deduction.amount)
-        let namedTaxableFederalIncome = NamedValue(amount: taxableFederalIncome, name: "Taxable Income")
+        let namedTaxableFederalIncome = NamedValue(taxableFederalIncome, named: "Taxable Income")
 
         var federalTaxes: [BasicTax] = []
 
@@ -76,7 +76,7 @@ private extension TaxCalculator {
             let taxableRegularIncome = taxableFederalIncome - niiBracket.startingAt
             let taxableNIIIncome = (income.totalCapitalGains < taxableRegularIncome
                 ? income.namedTotalCapitalGains
-                : NamedValue(amount: taxableRegularIncome, name: "Taxable Income for NII"))
+                                    : NamedValue(taxableRegularIncome, named: "Taxable Income for NII"))
             federalTaxes.append(
                 BasicTax(title: "Net Investment Income",
                          activeBracket: niiBracket,
@@ -140,7 +140,7 @@ private extension TaxCalculator {
             standardDeduction: rawStateRates.standardDeductions
         )
         let taxableStateIncome = max(0.0, totalIncome.amount + stateIncome.additionalStateIncome - deduction.amount)
-        let namedTaxableStateIncome = NamedValue(amount: taxableStateIncome, name: "Taxable State Income")
+        let namedTaxableStateIncome = NamedValue(taxableStateIncome, named: "Taxable State Income")
 
         let rawStateIncomeRates = rawStateRates.incomeRates(forIncome: taxableStateIncome)
         let stateBracketGroup = TaxBracketGenerator.bracketGroupForRawTaxRates(rawStateIncomeRates)

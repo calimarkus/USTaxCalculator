@@ -49,22 +49,22 @@ struct TaxInfoView_Previews: PreviewProvider {
             title: "Federal Income",
             activeBracket: fedBrackets.sortedBrackets[3],
             bracketGroup: fedBrackets,
-            taxableIncome: NamedValue(amount: 92720, name: "Taxable Income")
+            taxableIncome: NamedValue(92720, named: "Taxable Income")
         ))
 
         TaxInfoView(AttributableTax(
             title: "CA State",
             activeBracket: caliBrackets.sortedBrackets[5],
             bracketGroup: caliBrackets,
-            taxableIncome: NamedValue(amount: 150_000, name: "CA State Income"),
-            attributedRate: NamedValue(amount: 1.0, name: "")
+            taxableIncome: NamedValue(150_000, named: "CA State Income"),
+            attributedRate: NamedValue(1.0, named: "")
         )).frame(maxWidth: 500)
 
         TaxInfoView(BasicTax(
             title: "Preview Income",
             activeBracket: longtermGainsBrackets.sortedBrackets[1],
             bracketGroup: longtermGainsBrackets,
-            taxableIncome: NamedValue(amount: 246_000, name: "Taxable Income")
+            taxableIncome: NamedValue(246_000, named: "Taxable Income")
         ))
     }
 }

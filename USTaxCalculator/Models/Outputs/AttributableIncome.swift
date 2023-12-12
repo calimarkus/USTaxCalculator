@@ -23,7 +23,7 @@ struct AttributableIncome: ExplainableValue {
         amount = incomeAmount.calculate(for: totalIncome.amount)
         incomeName = "Attributable \(name)"
         let rateValue = (totalIncome.amount > 0.0 ? amount / totalIncome.amount : 0.0)
-        rate = NamedValue(amount: rateValue, name: "\(name) Rate")
+        rate = NamedValue(rateValue, named: "\(name) Rate")
         self.totalIncome = totalIncome
     }
 

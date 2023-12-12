@@ -5,6 +5,11 @@
 struct NamedValue {
     let amount: Double
     let name: String
+    
+    init(_ amount: Double, named name: String) {
+        self.amount = amount
+        self.name = name
+    }
 }
 
 protocol Tax: ExplainableValue {
