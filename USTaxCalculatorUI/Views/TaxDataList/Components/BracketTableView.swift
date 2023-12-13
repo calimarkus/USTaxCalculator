@@ -5,6 +5,7 @@
 import SwiftUI
 import TaxOutputModels
 import TaxRates
+import TaxCalculator
 
 extension TaxBracket: Identifiable {
     public var id: Double {

@@ -5,6 +5,7 @@
 import SwiftUI
 import TaxInputModels
 import TaxOutputModels
+import TaxCalculator
 
 class LocalTaxDataState: ObservableObject {
     @Published var taxdatas: [CalculatedTaxData] = exampleData()

@@ -5,6 +5,7 @@
 import TaxOutputModels
 import TaxInputModels
 import TaxPrimitives
+import TaxCalculator
 
 enum ExampleData {
     static func exampleTaxDataJohnAndSarah_21() -> CalculatedTaxData {

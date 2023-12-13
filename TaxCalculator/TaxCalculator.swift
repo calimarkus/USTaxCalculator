@@ -6,8 +6,8 @@ import TaxInputModels
 import TaxOutputModels
 import TaxRates
 
-enum TaxCalculator {
-    static func calculateTaxesForInput(_ input: TaxDataInput) -> CalculatedTaxData {
+public enum TaxCalculator {
+    public static func calculateTaxesForInput(_ input: TaxDataInput) -> CalculatedTaxData {
         let taxRatesGroup = RawTaxRatesGroup.taxRatesGroup(for: input.taxYear, input.filingType)
 
         let federalData = Self.federalTaxesFor(

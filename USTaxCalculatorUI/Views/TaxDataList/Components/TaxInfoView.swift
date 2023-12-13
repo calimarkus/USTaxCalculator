@@ -6,6 +6,7 @@ import SwiftUI
 import TaxOutputModels
 import TaxPrimitives
 import TaxRates
+import TaxCalculator
 
 struct TaxInfoView: View {
     let sortedBrackets: [TaxBracket]

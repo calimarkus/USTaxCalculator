@@ -17,7 +17,7 @@ fileprivate extension TaxYear {
 
 extension RawTaxRatesGroup {
     // MARK: tax state mapping
-    func rawStateTaxRates(for state: TaxState) -> RawStateTaxRates {
+    public func rawStateTaxRates(for state: TaxState) -> RawStateTaxRates {
         switch state {
             case .NY: return newYorkRates
             case .CA: return californiaRates
@@ -25,7 +25,7 @@ extension RawTaxRatesGroup {
     }
 
     // MARK: tax year & filing type mapping
-    static func taxRatesGroup(for taxYear: TaxYear, _ filingType: FilingType) -> RawTaxRatesGroup {
+    public static func taxRatesGroup(for taxYear: TaxYear, _ filingType: FilingType) -> RawTaxRatesGroup {
         let rates = taxYear.rates
         switch filingType {
             case .single: return rates.singleRates

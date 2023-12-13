@@ -3,6 +3,7 @@
 //
 
 import SwiftUI
+import TaxCalculator
 
 struct MainView: View {
     @Binding var document: TaxDataDocument

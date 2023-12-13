@@ -5,8 +5,8 @@
 import TaxRates
 import TaxOutputModels
 
-enum TaxBracketGenerator {
-    static func bracketGroupForRawTaxRates(_ rawTaxRates: RawTaxRates) -> TaxBracketGroup {
+public enum TaxBracketGenerator {
+    public static func bracketGroupForRawTaxRates(_ rawTaxRates: RawTaxRates) -> TaxBracketGroup {
         switch rawTaxRates.type {
             case .simple:
                 return simpleBracketGroupForRawTaxRates(rawTaxRates)
