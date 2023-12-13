@@ -3,7 +3,7 @@
 
 import TaxOutputModels
 
-protocol ExplainableTax: Tax, ExplainableValue {}
+public protocol ExplainableTax: Tax, ExplainableValue {}
 
 extension BasicTax: ExplainableTax {
     /// A string explaining how the tax amount was calculated

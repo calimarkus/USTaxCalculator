@@ -16,12 +16,18 @@ extension String {
     }
 }
 
-struct TaxSummaryTextFormatter {
-    let columnWidth: Int
-    let separatorSize: (width: Int, shift: Int)
-    var locale: Locale = .init(identifier: "en_US")
+public struct TaxSummaryTextFormatter {
+    public let columnWidth: Int
+    public let separatorSize: (width: Int, shift: Int)
+    public var locale: Locale = .init(identifier: "en_US")
 
-    func taxDataSummary(_ td: CalculatedTaxData) -> String {
+    public init(columnWidth: Int, separatorSize: (width: Int, shift: Int), locale: Locale = .init(identifier: "en_US")) {
+        self.columnWidth = columnWidth
+        self.separatorSize = separatorSize
+        self.locale = locale
+    }
+
+    public func taxDataSummary(_ td: CalculatedTaxData) -> String {
         // output
         var summary = ""
         summary.appendLine(td.formattedTitle.uppercased())

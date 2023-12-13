@@ -5,7 +5,7 @@ import TaxPrimitives
 import TaxOutputModels
 
 // tax calculation explanation
-extension TaxBracket {
+public extension TaxBracket {
     /// returns a string describing the calculation of the taxes for the given amount, respecting the bracket type
     func taxCalculationExplanation(for namedTaxableAmount: NamedValue, explanationType: ExplanationType = .values, attributedRate: NamedValue? = nil) -> String {
         switch explanationType {

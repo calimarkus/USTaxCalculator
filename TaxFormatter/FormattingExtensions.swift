@@ -5,7 +5,7 @@ import Foundation
 import TaxInputModels
 import TaxOutputModels
 
-extension CalculatedTaxData {
+public extension CalculatedTaxData {
     var formattedTitle: String {
         title.count > 0 ? title : infoTitle
     }
@@ -19,13 +19,13 @@ extension CalculatedTaxData {
     }
 }
 
-extension TaxDataInput {
+public extension TaxDataInput {
     var formattedTitle: String {
         FormattingHelper.formattedTaxYear(taxYear, filingType, states: income.stateIncomes.map(\.state))
     }
 }
 
-extension TaxBracket {
+public extension TaxBracket {
     var formattedString: String {
         formattedStringWith(locale: nil)
     }

@@ -4,6 +4,7 @@
 
 import SwiftUI
 import TaxOutputModels
+import TaxFormatter
 
 extension BasicTax: Identifiable {
     public var id: String { title }

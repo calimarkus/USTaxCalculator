@@ -4,6 +4,7 @@
 
 import SwiftUI
 import TaxOutputModels
+import TaxFormatter
 
 struct CurrencyViewConfig {
     var title: String = ""

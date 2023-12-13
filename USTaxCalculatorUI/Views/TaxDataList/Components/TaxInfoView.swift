@@ -7,6 +7,7 @@ import TaxOutputModels
 import TaxPrimitives
 import TaxRates
 import TaxCalculator
+import TaxFormatter
 
 struct TaxInfoView: View {
     let sortedBrackets: [TaxBracket]
