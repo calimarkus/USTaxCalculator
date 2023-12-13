@@ -2,6 +2,10 @@
 // ExampleData.swift
 //
 
+import TaxOutputModels
+import TaxInputModels
+import TaxPrimitives
+
 enum ExampleData {
     static func exampleTaxDataJohnAndSarah_21() -> CalculatedTaxData {
         TaxCalculator.calculateTaxesForInput(TaxDataInput(

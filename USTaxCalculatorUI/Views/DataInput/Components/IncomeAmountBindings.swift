@@ -3,6 +3,7 @@
 //
 
 import SwiftUI
+import TaxInputModels
 
 extension IncomeAmount {
     static func pickerSelectionBinding(_ amount: Binding<IncomeAmount>) -> Binding<IncomeAmount> {

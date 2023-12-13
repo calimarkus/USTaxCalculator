@@ -3,6 +3,7 @@
 //
 
 import SwiftUI
+import TaxOutputModels
 
 struct CurrencyViewConfig {
     var title: String = ""
@@ -95,7 +96,7 @@ struct CurrencyView: View {
 
 enum CurrencyExplanation {
     case text(_ text: String)
-    case taxInfo(_ tax: any Tax)
+    case taxInfo(_ tax: any ExplainableTax)
     case deductionInfo(_ deduction: Deduction)
 }
 

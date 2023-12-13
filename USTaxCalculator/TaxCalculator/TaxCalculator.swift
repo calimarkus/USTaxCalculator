@@ -1,6 +1,10 @@
 //
 // TaxCalculator.swift
 //
+import TaxPrimitives
+import TaxInputModels
+import TaxOutputModels
+import TaxRates
 
 enum TaxCalculator {
     static func calculateTaxesForInput(_ input: TaxDataInput) -> CalculatedTaxData {

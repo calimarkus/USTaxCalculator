@@ -3,6 +3,7 @@
 //
 
 import SwiftUI
+import TaxOutputModels
 
 struct TaxSummaryView: View {
     var title: String = ""

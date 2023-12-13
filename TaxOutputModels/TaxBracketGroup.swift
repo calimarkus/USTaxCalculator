@@ -4,23 +4,23 @@
 
 import Foundation
 
-protocol TaxBracketGroup {
+public protocol TaxBracketGroup {
     var sortedBrackets: [TaxBracket] { get }
     var sources: [URL] { get }
 
     func matchingBracketFor(taxableIncome: Double) -> TaxBracket
 }
 
-struct RegularTaxBracketGroup: TaxBracketGroup {
-    let sortedBrackets: [TaxBracket]
-    let sources: [URL]
+public struct RegularTaxBracketGroup: TaxBracketGroup {
+    public let sortedBrackets: [TaxBracket]
+    public let sources: [URL]
 
-    init(_ brackets: [TaxBracket], sources: [URL] = []) {
+    public init(_ brackets: [TaxBracket], sources: [URL] = []) {
         sortedBrackets = brackets.sorted { $0.startingAt > $1.startingAt }
         self.sources = sources
     }
 
-    func matchingBracketFor(taxableIncome: Double) -> TaxBracket {
+    public func matchingBracketFor(taxableIncome: Double) -> TaxBracket {
         let matchingBracket = sortedBrackets.first { bracket in
             taxableIncome >= bracket.startingAt
         }
@@ -29,16 +29,16 @@ struct RegularTaxBracketGroup: TaxBracketGroup {
     }
 }
 
-struct InterpolatedTaxBracketGroup: TaxBracketGroup {
-    let sortedBrackets: [TaxBracket]
-    let sources: [URL]
+public struct InterpolatedTaxBracketGroup: TaxBracketGroup {
+    public let sortedBrackets: [TaxBracket]
+    public let sources: [URL]
 
-    init(_ brackets: [TaxBracket], sources: [URL] = []) {
+    public init(_ brackets: [TaxBracket], sources: [URL] = []) {
         sortedBrackets = brackets.sorted { $0.startingAt > $1.startingAt }
         self.sources = sources
     }
 
-    func matchingBracketFor(taxableIncome: Double) -> TaxBracket {
+    public func matchingBracketFor(taxableIncome: Double) -> TaxBracket {
         var higherBracket: TaxBracket = sortedBrackets.first!
         var lowerBracket: TaxBracket = sortedBrackets.first!
         for bracket in sortedBrackets {

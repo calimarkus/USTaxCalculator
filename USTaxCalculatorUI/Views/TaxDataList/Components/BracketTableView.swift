@@ -3,9 +3,11 @@
 //
 
 import SwiftUI
+import TaxOutputModels
+import TaxRates
 
 extension TaxBracket: Identifiable {
-    var id: Double {
+    public var id: Double {
         startingAt
     }
 

@@ -3,6 +3,7 @@
 //
 
 import SwiftUI
+import TaxInputModels
 
 #if os(macOS)
     struct TaxDataEntryView: View {

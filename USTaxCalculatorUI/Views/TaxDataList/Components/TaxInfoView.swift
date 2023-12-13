@@ -3,12 +3,15 @@
 //
 
 import SwiftUI
+import TaxOutputModels
+import TaxPrimitives
+import TaxRates
 
 struct TaxInfoView: View {
     let sortedBrackets: [TaxBracket]
-    let tax: any Tax
+    let tax: any ExplainableTax
 
-    init(_ tax: any Tax) {
+    init(_ tax: any ExplainableTax) {
         sortedBrackets = tax.bracketGroup.sortedBrackets.reversed()
         self.tax = tax
     }

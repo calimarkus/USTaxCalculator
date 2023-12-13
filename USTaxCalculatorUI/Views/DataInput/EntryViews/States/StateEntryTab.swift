@@ -3,6 +3,7 @@
 //
 
 import SwiftUI
+import TaxInputModels
 
 struct StateEntryTab: View {
     @Binding var input: TaxDataInput

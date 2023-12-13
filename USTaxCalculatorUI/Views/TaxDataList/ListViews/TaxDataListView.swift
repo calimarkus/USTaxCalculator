@@ -3,6 +3,7 @@
 //
 
 import SwiftUI
+import TaxOutputModels
 
 struct TaxDataListView: View {
     @ObservedObject var appState: GlobalAppState

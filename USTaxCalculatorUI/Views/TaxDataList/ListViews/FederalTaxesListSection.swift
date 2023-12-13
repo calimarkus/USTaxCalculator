@@ -3,9 +3,10 @@
 //
 
 import SwiftUI
+import TaxOutputModels
 
 extension BasicTax: Identifiable {
-    var id: String { title }
+    public var id: String { title }
 }
 
 struct FederalTaxesListSection: View {

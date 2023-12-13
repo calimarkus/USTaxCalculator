@@ -1,40 +1,11 @@
 //
-// Deduction.swift
 //
 
-import Foundation
-
-struct Deduction {
-    private var input: DeductionInput
-    private var standardDeduction: RawStandardDeduction
-
-    init(input: DeductionInput, standardDeduction: RawStandardDeduction) {
-        self.input = input
-        self.standardDeduction = standardDeduction
-    }
-
-    /// returns the deduction amount
-    var amount: Double {
-        switch input {
-            case let .standard(additional): return additional + standardDeduction.value
-            case let .custom(customAmount): return customAmount
-        }
-    }
-
-    /// The original sources of the deduction amount
-    var sources: [URL] {
-        switch input {
-            case .standard:
-                return standardDeduction.sources
-            case .custom:
-                return []
-        }
-    }
-}
+import TaxOutputModels
 
 extension Deduction: ExplainableValue {
     /// a string describing the calculation of the deduction
-    func calculationExplanation(as type: ExplanationType) -> String {
+    public func calculationExplanation(as type: ExplanationType) -> String {
         switch type {
             case .names:
                 switch input {

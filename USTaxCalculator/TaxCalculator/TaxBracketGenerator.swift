@@ -2,6 +2,9 @@
 // TaxBracketGenerator.swift
 //
 
+import TaxRates
+import TaxOutputModels
+
 enum TaxBracketGenerator {
     static func bracketGroupForRawTaxRates(_ rawTaxRates: RawTaxRates) -> TaxBracketGroup {
         switch rawTaxRates.type {

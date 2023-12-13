@@ -4,11 +4,11 @@
 
 import Foundation
 
-enum ExplanationType {
+public enum ExplanationType {
     case names
     case values
 }
 
-protocol ExplainableValue {
+public protocol ExplainableValue {
     func calculationExplanation(as type: ExplanationType) -> String
 }

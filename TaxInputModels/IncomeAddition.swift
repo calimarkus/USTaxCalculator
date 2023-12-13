@@ -2,14 +2,16 @@
 // IncomeAddition.swift
 //
 
-enum StateIncomeError: Error {
+import TaxPrimitives
+
+public enum StateIncomeError: Error {
     case illegalStateIncomeAddition
     case illegalIncomeAmountAddition
 }
 
-extension Income {
+public extension Income {
     static func + (lhs: Income, rhs: Income) throws -> Income {
-        try Income(
+        Income(
             wages: lhs.wages + rhs.wages,
             federalWithholdings: lhs.federalWithholdings + rhs.federalWithholdings,
             medicareWages: lhs.medicareWages + rhs.medicareWages,
@@ -17,7 +19,7 @@ extension Income {
             dividendsAndInterests: lhs.dividendsAndInterests + rhs.dividendsAndInterests,
             capitalGains: lhs.capitalGains + rhs.capitalGains,
             longtermCapitalGains: lhs.longtermCapitalGains + rhs.longtermCapitalGains,
-            stateIncomes: StateIncome.mergeMatchingStateIncomes(lhs.stateIncomes, rhs.stateIncomes)
+            stateIncomes: try StateIncome.mergeMatchingStateIncomes(lhs.stateIncomes, rhs.stateIncomes)
         )
     }
 }
@@ -45,9 +47,9 @@ private extension StateIncome {
         guard lhs.state == rhs.state, lhs.localTax == rhs.localTax else {
             throw StateIncomeError.illegalStateIncomeAddition
         }
-        return try StateIncome(
+        return StateIncome(
             state: lhs.state,
-            wages: lhs.wages + rhs.wages,
+            wages: try lhs.wages + rhs.wages,
             withholdings: lhs.withholdings + rhs.withholdings,
             additionalStateIncome: lhs.additionalStateIncome + rhs.additionalStateIncome,
             localTax: lhs.localTax

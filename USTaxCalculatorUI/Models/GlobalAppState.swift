@@ -3,6 +3,7 @@
 //
 
 import SwiftUI
+import TaxPrimitives
 
 struct SectionCollapseState {
     var income: Bool = true

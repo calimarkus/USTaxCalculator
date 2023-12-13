@@ -3,6 +3,7 @@
 //
 
 import SwiftUI
+import TaxInputModels
 
 struct ExportAsTextButton: View {
     @Binding var taxDataInput: TaxDataInput

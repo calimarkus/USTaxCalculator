@@ -3,6 +3,7 @@
 //
 
 import SwiftUI
+import TaxInputModels
 
 extension DeductionInput {
     static func pickerSelectionBinding(_ deduction: Binding<DeductionInput>) -> Binding<DeductionInput> {

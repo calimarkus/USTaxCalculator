@@ -4,8 +4,10 @@
 
 extension RawTaxRates2022: RawTaxRatesYear {}
 
-struct RawTaxRates2022 {
-    var marriedJointlyRates: RawTaxRatesGroup {
+public struct RawTaxRates2022 {
+    public init() {}
+    
+    public var marriedJointlyRates: RawTaxRatesGroup {
         RawTaxRatesGroup(
             federalRates: Self.federalRates,
             californiaRates: Self.californiaRates,

@@ -3,6 +3,9 @@
 //
 
 import SwiftUI
+import TaxInputModels
+import TaxOutputModels
+import TaxRates
 
 struct DeductionInfoView: View {
     let deduction: Deduction

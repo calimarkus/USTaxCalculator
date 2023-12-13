@@ -3,6 +3,8 @@
 //
 
 import SwiftUI
+import TaxPrimitives
+import TaxInputModels
 
 struct BasicStateInfoEntryView<HeaderContent: View>: View {
     @Binding var stateIncome: StateIncome
@@ -37,7 +39,7 @@ struct BasicStateInfoEntryView<HeaderContent: View>: View {
 }
 
 struct BasicStateInfoEntryView_Previews: PreviewProvider {
-    @State static var stateIncome: StateIncome = .init()
+    @State static var stateIncome = StateIncome(state: .CA)
     static var previews: some View {
         Form {
             BasicStateInfoEntryView(stateIncome: $stateIncome) {
