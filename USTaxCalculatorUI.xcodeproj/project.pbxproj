@@ -531,7 +531,7 @@
 			path = TaxDataList;
 			sourceTree = "<group>";
 		};
-		7E289ADC29D2CDED00F74350 /* Examples */ = {
+		7E289ADC29D2CDED00F74350 /* ExampleData */ = {
 			isa = PBXGroup;
 			children = (
 				7E289ADD29D2CDED00F74350 /* example_jack21.ustaxcalc */,
@@ -539,7 +539,7 @@
 				7E289ADF29D2CDED00F74350 /* example_simple20.ustaxcalc */,
 				7E289AE029D2CDED00F74350 /* example_johnsarah.ustaxcalc */,
 			);
-			path = Examples;
+			path = ExampleData;
 			sourceTree = "<group>";
 		};
 		7E5074D0282B7CA6000C4398 /* Federal */ = {
@@ -665,7 +665,7 @@
 			isa = PBXGroup;
 			children = (
 				7E3C567E28327E2A002272F3 /* USTaxCal-Info.plist */,
-				7E289ADC29D2CDED00F74350 /* Examples */,
+				7E289ADC29D2CDED00F74350 /* ExampleData */,
 				7E9A11092B2916CB0059EF08 /* TaxPrimitives */,
 				7E9A10D42B2913440059EF08 /* TaxRates */,
 				7E9A10F22B2914A70059EF08 /* TaxInputModels */,
