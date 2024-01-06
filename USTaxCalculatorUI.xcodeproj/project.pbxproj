@@ -111,7 +111,7 @@
 		7E9A11382B29237A0059EF08 /* Deduction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E58C76029F415A000392E33 /* Deduction.swift */; };
 		7E9A11392B29237A0059EF08 /* TaxBracket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E572F0E282910B300DDB15E /* TaxBracket.swift */; };
 		7E9A114B2B2926190059EF08 /* libTaxPrimitives.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7E9A11082B2916CB0059EF08 /* libTaxPrimitives.a */; };
-		7E9A11522B2926390059EF08 /* libTaxInputModels.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7E9A10F12B2914A70059EF08 /* libTaxInputModels.a */; };
+		7E9A11522B2926390059EF08 /* libTaxIncomeModels.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7E9A10F12B2914A70059EF08 /* libTaxIncomeModels.a */; };
 		7E9A11542B2926390059EF08 /* libTaxRates.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7E9A10D32B2913440059EF08 /* libTaxRates.a */; };
 		7E9A11662B2932DA0059EF08 /* TaxCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E572F0A282910B300DDB15E /* TaxCalculator.swift */; };
 		7E9A11672B2932DA0059EF08 /* RawTaxRatesMapping.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E9A10FB2B2915630059EF08 /* RawTaxRatesMapping.swift */; };
@@ -194,7 +194,7 @@
 			containerPortal = 7E822CE52804515100096181 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 7E9A10F02B2914A70059EF08;
-			remoteInfo = TaxInputModels;
+			remoteInfo = TaxIncomeModels;
 		};
 		7E9A11502B2926340059EF08 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -342,7 +342,7 @@
 		7E822CFE2804515300096181 /* USTaxCalTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = USTaxCalTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7E822D082804515300096181 /* USTaxCalUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = USTaxCalUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7E9A10D32B2913440059EF08 /* libTaxRates.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libTaxRates.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		7E9A10F12B2914A70059EF08 /* libTaxInputModels.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libTaxInputModels.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		7E9A10F12B2914A70059EF08 /* libTaxIncomeModels.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libTaxIncomeModels.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		7E9A10FB2B2915630059EF08 /* RawTaxRatesMapping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RawTaxRatesMapping.swift; sourceTree = "<group>"; };
 		7E9A11082B2916CB0059EF08 /* libTaxPrimitives.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libTaxPrimitives.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		7E9A11112B2917270059EF08 /* TaxPrimitives.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaxPrimitives.swift; sourceTree = "<group>"; };
@@ -435,7 +435,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7E9A11522B2926390059EF08 /* libTaxInputModels.a in Frameworks */,
+				7E9A11522B2926390059EF08 /* libTaxIncomeModels.a in Frameworks */,
 				7E9A11542B2926390059EF08 /* libTaxRates.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -605,7 +605,7 @@
 				7E289ADC29D2CDED00F74350 /* ExampleData */,
 				7E9A11092B2916CB0059EF08 /* TaxPrimitives */,
 				7E9A10D42B2913440059EF08 /* TaxRates */,
-				7E9A10F22B2914A70059EF08 /* TaxInputModels */,
+				7E9A10F22B2914A70059EF08 /* TaxIncomeModels */,
 				7E9A112C2B2923720059EF08 /* TaxOutputModels */,
 				7E9A11602B2932B30059EF08 /* TaxCalculator */,
 				7E9A11742B2933B10059EF08 /* TaxFormatter */,
@@ -625,7 +625,7 @@
 				7E822D082804515300096181 /* USTaxCalUITests.xctest */,
 				7E7BA5D0282CE13D00A54785 /* TaxCalciOS.app */,
 				7E9A10D32B2913440059EF08 /* libTaxRates.a */,
-				7E9A10F12B2914A70059EF08 /* libTaxInputModels.a */,
+				7E9A10F12B2914A70059EF08 /* libTaxIncomeModels.a */,
 				7E9A11082B2916CB0059EF08 /* libTaxPrimitives.a */,
 				7E9A112B2B2923720059EF08 /* libTaxOutputModels.a */,
 				7E9A115F2B2932B20059EF08 /* libTaxCalculator.a */,
@@ -659,14 +659,14 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		7E9A10F22B2914A70059EF08 /* TaxInputModels */ = {
+		7E9A10F22B2914A70059EF08 /* TaxIncomeModels */ = {
 			isa = PBXGroup;
 			children = (
 				7E572F01282910B300DDB15E /* Income.swift */,
 				7E572F02282910B300DDB15E /* StateIncome.swift */,
 				7E58C75229EC5F1300392E33 /* IncomeAddition.swift */,
 			);
-			path = TaxInputModels;
+			path = TaxIncomeModels;
 			sourceTree = "<group>";
 		};
 		7E9A11092B2916CB0059EF08 /* TaxPrimitives */ = {
@@ -834,9 +834,9 @@
 			productReference = 7E9A10D32B2913440059EF08 /* libTaxRates.a */;
 			productType = "com.apple.product-type.library.static";
 		};
-		7E9A10F02B2914A70059EF08 /* TaxInputModels */ = {
+		7E9A10F02B2914A70059EF08 /* TaxIncomeModels */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 7E9A10F52B2914A70059EF08 /* Build configuration list for PBXNativeTarget "TaxInputModels" */;
+			buildConfigurationList = 7E9A10F52B2914A70059EF08 /* Build configuration list for PBXNativeTarget "TaxIncomeModels" */;
 			buildPhases = (
 				7E9A10ED2B2914A70059EF08 /* Sources */,
 				7E9A10EE2B2914A70059EF08 /* Frameworks */,
@@ -847,9 +847,9 @@
 			dependencies = (
 				7E9A114A2B2926100059EF08 /* PBXTargetDependency */,
 			);
-			name = TaxInputModels;
-			productName = TaxInputModels;
-			productReference = 7E9A10F12B2914A70059EF08 /* libTaxInputModels.a */;
+			name = TaxIncomeModels;
+			productName = TaxIncomeModels;
+			productReference = 7E9A10F12B2914A70059EF08 /* libTaxIncomeModels.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 		7E9A11072B2916CB0059EF08 /* TaxPrimitives */ = {
@@ -983,7 +983,7 @@
 			targets = (
 				7E9A11072B2916CB0059EF08 /* TaxPrimitives */,
 				7E9A10D22B2913440059EF08 /* TaxRates */,
-				7E9A10F02B2914A70059EF08 /* TaxInputModels */,
+				7E9A10F02B2914A70059EF08 /* TaxIncomeModels */,
 				7E9A112A2B2923720059EF08 /* TaxOutputModels */,
 				7E9A115E2B2932B20059EF08 /* TaxCalculator */,
 				7E9A11722B2933B10059EF08 /* TaxFormatter */,
@@ -1258,7 +1258,7 @@
 		};
 		7E9A114D2B2926340059EF08 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 7E9A10F02B2914A70059EF08 /* TaxInputModels */;
+			target = 7E9A10F02B2914A70059EF08 /* TaxIncomeModels */;
 			targetProxy = 7E9A114C2B2926340059EF08 /* PBXContainerItemProxy */;
 		};
 		7E9A11512B2926340059EF08 /* PBXTargetDependency */ = {
@@ -1909,7 +1909,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		7E9A10F52B2914A70059EF08 /* Build configuration list for PBXNativeTarget "TaxInputModels" */ = {
+		7E9A10F52B2914A70059EF08 /* Build configuration list for PBXNativeTarget "TaxIncomeModels" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				7E9A10F62B2914A70059EF08 /* Debug */,

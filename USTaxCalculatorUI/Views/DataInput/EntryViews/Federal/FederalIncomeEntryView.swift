@@ -3,7 +3,7 @@
 //
 
 import SwiftUI
-import TaxInputModels
+import TaxIncomeModels
 
 struct FederalTaxDataEntryView: View {
     @Binding var income: Income

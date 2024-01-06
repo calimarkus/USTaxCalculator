@@ -3,7 +3,7 @@
 //
 
 import TaxPrimitives
-import TaxInputModels
+import TaxIncomeModels
 import Foundation
 
 public struct FederalTaxData {

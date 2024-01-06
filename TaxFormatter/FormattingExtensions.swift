@@ -2,7 +2,7 @@
 //
 
 import Foundation
-import TaxInputModels
+import TaxIncomeModels
 import TaxOutputModels
 
 public extension CalculatedTaxData {

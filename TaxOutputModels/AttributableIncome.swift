@@ -3,7 +3,7 @@
 //
 
 import TaxPrimitives
-import TaxInputModels
+import TaxIncomeModels
 
 private extension IncomeAmount {
     func calculate(for totalIncome: Double) -> Double {

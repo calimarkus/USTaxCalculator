@@ -4,7 +4,7 @@
 
 import SwiftUI
 import TaxPrimitives
-import TaxInputModels
+import TaxIncomeModels
 
 struct BasicStateInfoEntryView<HeaderContent: View>: View {
     @Binding var stateIncome: StateIncome

@@ -3,7 +3,7 @@
 //
 
 import SwiftUI
-import TaxInputModels
+import TaxIncomeModels
 import TaxOutputModels
 import TaxCalculator
 
