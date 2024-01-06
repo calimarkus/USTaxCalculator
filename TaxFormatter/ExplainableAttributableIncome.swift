@@ -1,7 +1,7 @@
 //
 //
 
-import TaxOutputModels
+import TaxCalculator
 
 extension AttributableIncome: ExplainableValue {
     /// An explanation of how the rate was calculated

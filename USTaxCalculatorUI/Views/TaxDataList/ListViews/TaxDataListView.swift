@@ -4,6 +4,7 @@
 
 import SwiftUI
 import TaxOutputModels
+import TaxCalculator
 
 struct TaxDataListView: View {
     @ObservedObject var appState: GlobalAppState

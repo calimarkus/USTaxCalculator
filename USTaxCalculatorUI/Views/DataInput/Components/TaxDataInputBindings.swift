@@ -4,6 +4,7 @@
 
 import SwiftUI
 import TaxOutputModels
+import TaxCalculator
 import TaxPrimitives
 
 public extension TaxDataInput {

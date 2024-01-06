@@ -4,7 +4,7 @@
 
 import SwiftUI
 import TaxIncomeModels
-import TaxOutputModels
+import TaxCalculator
 
 struct FederalIncomeListSection: View {
     @Binding var isExpanded: Bool

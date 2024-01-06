@@ -2,7 +2,7 @@
 // NavigationTargets.swift
 //
 
-import TaxOutputModels
+import TaxCalculator
 
 struct NavigationTarget: Hashable {
     let taxdata: CalculatedTaxData

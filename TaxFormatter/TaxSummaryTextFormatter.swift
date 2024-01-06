@@ -5,6 +5,7 @@
 import Foundation
 import TaxOutputModels
 import TaxIncomeModels
+import TaxCalculator
 
 extension String {
     mutating func appendLine(_ string: String = "") {

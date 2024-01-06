@@ -4,7 +4,7 @@
 
 import SwiftUI
 import UniformTypeIdentifiers
-import TaxOutputModels
+import TaxCalculator
 
 extension UTType {
     static let taxDocument = UTType(exportedAs: "com.ustaxcalc.item")

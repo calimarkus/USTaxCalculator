@@ -4,6 +4,7 @@
 import Foundation
 import TaxIncomeModels
 import TaxOutputModels
+import TaxCalculator
 
 public extension CalculatedTaxData {
     var formattedTitle: String {

@@ -4,7 +4,7 @@
 
 import SwiftUI
 import TaxIncomeModels
-import TaxOutputModels
+import TaxCalculator
 
 struct StateEntryTab: View {
     @Binding var input: TaxDataInput
