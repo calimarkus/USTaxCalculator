@@ -3,7 +3,7 @@
 //
 
 import SwiftUI
-import TaxInputModels
+import TaxOutputModels
 
 struct DeductionsPickerView: View {
     @Binding var deductions: DeductionInput

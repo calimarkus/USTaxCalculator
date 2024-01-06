@@ -3,8 +3,12 @@
 //
 
 import Foundation
-import TaxInputModels
 import TaxRates
+
+public enum DeductionInput: Hashable, Codable, Equatable {
+    case standard(additionalDeductions: Double = 0.0)
+    case custom(_ amount: Double)
+}
 
 public struct Deduction {
     public var input: DeductionInput

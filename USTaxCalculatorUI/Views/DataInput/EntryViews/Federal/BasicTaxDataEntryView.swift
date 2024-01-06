@@ -3,7 +3,7 @@
 //
 
 import SwiftUI
-import TaxInputModels
+import TaxOutputModels
 import TaxPrimitives
 
 struct BasicTaxDataEntryView: View {

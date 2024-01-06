@@ -3,11 +3,7 @@
 //
 
 import TaxPrimitives
-
-public enum DeductionInput: Hashable, Codable, Equatable {
-    case standard(additionalDeductions: Double = 0.0)
-    case custom(_ amount: Double)
-}
+import TaxInputModels
 
 public struct TaxDataInput: Codable, Equatable {
     /// An additional description for this data, which will be combined with the default title if provided like e.g. "title - Year 2021 (Single, NY+CA)"

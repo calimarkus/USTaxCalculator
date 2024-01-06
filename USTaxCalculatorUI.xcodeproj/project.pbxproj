@@ -85,6 +85,7 @@
 		7E58C76E29F4690B00392E33 /* DeductionInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E58C76C29F4690B00392E33 /* DeductionInfoView.swift */; };
 		7E6CBBD7283B375B00DEFF80 /* MacOSViewModifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E6CBBD6283B375B00DEFF80 /* MacOSViewModifiers.swift */; };
 		7E6CBBD8283B375B00DEFF80 /* MacOSViewModifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E6CBBD6283B375B00DEFF80 /* MacOSViewModifiers.swift */; };
+		7E8D58852B4A0691007D05BD /* TaxDataInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E266CF2282BE6D4005911D2 /* TaxDataInput.swift */; };
 		7E9A10DC2B2913880059EF08 /* RawTaxRates2020_Single.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EF5BD4429EB380C001D9B7F /* RawTaxRates2020_Single.swift */; };
 		7E9A10DD2B2913880059EF08 /* RawTaxRates2021_Single.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EF5BD4529EB380D001D9B7F /* RawTaxRates2021_Single.swift */; };
 		7E9A10DE2B2913880059EF08 /* RawTaxRates2020_MarriedJointly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EF5BD5629EB59EE001D9B7F /* RawTaxRates2020_MarriedJointly.swift */; };
@@ -96,7 +97,6 @@
 		7E9A10E42B2913880059EF08 /* RawTaxRates2022_MarriedJointly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EF5BD5829EB59EE001D9B7F /* RawTaxRates2022_MarriedJointly.swift */; };
 		7E9A10E52B2913880059EF08 /* RawTaxRates2023_MarriedJointly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EF5BD5929EB59EE001D9B7F /* RawTaxRates2023_MarriedJointly.swift */; };
 		7E9A10F82B2914C70059EF08 /* StateIncome.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E572F02282910B300DDB15E /* StateIncome.swift */; };
-		7E9A10F92B2914C70059EF08 /* TaxDataInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E266CF2282BE6D4005911D2 /* TaxDataInput.swift */; };
 		7E9A10FA2B2914C70059EF08 /* Income.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E572F01282910B300DDB15E /* Income.swift */; };
 		7E9A11122B2917270059EF08 /* TaxPrimitives.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E9A11112B2917270059EF08 /* TaxPrimitives.swift */; };
 		7E9A11142B29175C0059EF08 /* NamedValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E9A11132B29175C0059EF08 /* NamedValue.swift */; };
@@ -665,7 +665,6 @@
 				7E572F01282910B300DDB15E /* Income.swift */,
 				7E572F02282910B300DDB15E /* StateIncome.swift */,
 				7E58C75229EC5F1300392E33 /* IncomeAddition.swift */,
-				7E266CF2282BE6D4005911D2 /* TaxDataInput.swift */,
 			);
 			path = TaxInputModels;
 			sourceTree = "<group>";
@@ -682,14 +681,15 @@
 		7E9A112C2B2923720059EF08 /* TaxOutputModels */ = {
 			isa = PBXGroup;
 			children = (
-				7E572F09282910B300DDB15E /* Tax.swift */,
-				7E58C76029F415A000392E33 /* Deduction.swift */,
 				7E510E0629FB1DB700054E5A /* AttributableIncome.swift */,
+				7E572EFC282910B300DDB15E /* CalculatedTaxData.swift */,
+				7E58C76029F415A000392E33 /* Deduction.swift */,
+				7E58C76929F468A500392E33 /* ExplainableValue.swift */,
+				7E572F09282910B300DDB15E /* Tax.swift */,
 				7E572F0E282910B300DDB15E /* TaxBracket.swift */,
 				7E3C565A2832042B002272F3 /* TaxBracketGroup.swift */,
+				7E266CF2282BE6D4005911D2 /* TaxDataInput.swift */,
 				7E572F08282910B300DDB15E /* TaxSummary.swift */,
-				7E572EFC282910B300DDB15E /* CalculatedTaxData.swift */,
-				7E58C76929F468A500392E33 /* ExplainableValue.swift */,
 			);
 			path = TaxOutputModels;
 			sourceTree = "<group>";
@@ -1163,7 +1163,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7E9A10F92B2914C70059EF08 /* TaxDataInput.swift in Sources */,
 				7E9A10FA2B2914C70059EF08 /* Income.swift in Sources */,
 				7E9A11262B2921BC0059EF08 /* IncomeAddition.swift in Sources */,
 				7E9A10F82B2914C70059EF08 /* StateIncome.swift in Sources */,
@@ -1187,6 +1186,7 @@
 				7E9A11322B29237A0059EF08 /* AttributableIncome.swift in Sources */,
 				7E9A11342B29237A0059EF08 /* TaxSummary.swift in Sources */,
 				7E9A11392B29237A0059EF08 /* TaxBracket.swift in Sources */,
+				7E8D58852B4A0691007D05BD /* TaxDataInput.swift in Sources */,
 				7E9A11362B29237A0059EF08 /* Tax.swift in Sources */,
 				7E9A11332B29237A0059EF08 /* CalculatedTaxData.swift in Sources */,
 				7E9A11372B29237A0059EF08 /* TaxBracketGroup.swift in Sources */,
