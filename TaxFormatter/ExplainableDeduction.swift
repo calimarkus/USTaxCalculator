@@ -8,14 +8,14 @@ extension Deduction: ExplainableValue {
     public func calculationExplanation(as type: ExplanationType) -> String {
         switch type {
             case .names:
-                switch input {
+                switch kind {
                     case let .standard(additional):
                         return additional > 0 ? "Standard Deduction + Additional Amount" : "Standard Deduction"
                     case .custom:
                         return "Custom Amount"
                 }
             case .values:
-                switch input {
+                switch kind {
                     case let .standard(additional):
                         let standardFormatted = FormattingHelper.formatCurrency(standardDeduction.value)
                         let additionalFormatted = FormattingHelper.formatCurrency(additional)

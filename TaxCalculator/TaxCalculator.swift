@@ -44,8 +44,8 @@ public enum TaxCalculator {
 }
 
 private extension TaxCalculator {
-    static func federalTaxesFor(income: Income, deductions: DeductionInput, withholdings: Double, credits: Double, taxRates: RawFederalTaxRates) -> FederalTaxData {
-        let deduction = Deduction(input: deductions, standardDeduction: taxRates.standardDeductions)
+    static func federalTaxesFor(income: Income, deductions: DeductionKind, withholdings: Double, credits: Double, taxRates: RawFederalTaxRates) -> FederalTaxData {
+        let deduction = Deduction(kind: deductions, standardDeduction: taxRates.standardDeductions)
         let taxableFederalIncome = max(0.0, income.totalIncome - income.longtermCapitalGains - deduction.amount)
         let namedTaxableFederalIncome = NamedValue(taxableFederalIncome, named: "Taxable Income")
 
@@ -130,7 +130,7 @@ private extension TaxCalculator {
     }
 
     static func stateTaxDataFor(stateIncome: StateIncome,
-                                stateDeductions: [TaxState: DeductionInput],
+                                stateDeductions: [TaxState: DeductionKind],
                                 stateCredits: [TaxState: Double],
                                 totalIncome: NamedValue,
                                 taxRatesGroup: RawTaxRatesGroup) -> StateTaxData
@@ -140,7 +140,7 @@ private extension TaxCalculator {
 
         let rawStateRates = taxRatesGroup.rawStateTaxRates(for: state)
         let deduction = Deduction(
-            input: stateDeductions[state] ?? DeductionInput.standard(),
+            kind: stateDeductions[state] ?? .standard(),
             standardDeduction: rawStateRates.standardDeductions
         )
         let taxableStateIncome = max(0.0, totalIncome.amount + stateIncome.additionalStateIncome - deduction.amount)

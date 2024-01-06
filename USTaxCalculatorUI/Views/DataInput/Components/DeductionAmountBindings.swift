@@ -5,8 +5,8 @@
 import SwiftUI
 import TaxOutputModels
 
-extension DeductionInput {
-    static func pickerSelectionBinding(_ deduction: Binding<DeductionInput>) -> Binding<DeductionInput> {
+extension DeductionKind {
+    static func pickerSelectionBinding(_ deduction: Binding<DeductionKind>) -> Binding<DeductionKind> {
         Binding {
             switch deduction.wrappedValue {
                 case .standard: return .standard(additionalDeductions: 0.0)
@@ -17,7 +17,7 @@ extension DeductionInput {
         }
     }
 
-    static func valueBinding(_ deduction: Binding<DeductionInput>, isCustomDeduction: Bool) -> Binding<Double> {
+    static func valueBinding(_ deduction: Binding<DeductionKind>, isCustomDeduction: Bool) -> Binding<Double> {
         Binding {
             switch deduction.wrappedValue {
                 case let .standard(val): return val

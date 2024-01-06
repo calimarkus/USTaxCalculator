@@ -16,9 +16,9 @@ public struct TaxDataInput: Codable, Equatable {
     public var income: Income = .init()
 
     /// Federal deductions that apply.
-    public var federalDeductions: DeductionInput = .standard()
+    public var federalDeductions: DeductionKind = .standard()
     /// State deductions that apply to each state. Missing states will utilize standard deductions.
-    public var stateDeductions: [TaxState: DeductionInput] = [:]
+    public var stateDeductions: [TaxState: DeductionKind] = [:]
 
     /// Federal withholdings not listed on the W-2 (e.g. estimated payments, etc.)
     public var additionalFederalWithholding: Double = 0.0
@@ -28,7 +28,7 @@ public struct TaxDataInput: Codable, Equatable {
     /// Tax credits that apply to your state taxes
     public var stateCredits: [TaxState: Double] = [:]
 
-    public init(title: String = "", filingType: FilingType = .single, taxYear: TaxYear = .y2021, income: Income = .init(), federalDeductions: DeductionInput = .standard(), stateDeductions: [TaxState : DeductionInput] = [:], additionalFederalWithholding: Double = 0.0, federalCredits: Double = 0.0, stateCredits: [TaxState : Double] = [:]) {
+    public init(title: String = "", filingType: FilingType = .single, taxYear: TaxYear = .y2021, income: Income = .init(), federalDeductions: DeductionKind = .standard(), stateDeductions: [TaxState : DeductionKind] = [:], additionalFederalWithholding: Double = 0.0, federalCredits: Double = 0.0, stateCredits: [TaxState : Double] = [:]) {
         self.title = title
         self.filingType = filingType
         self.taxYear = taxYear

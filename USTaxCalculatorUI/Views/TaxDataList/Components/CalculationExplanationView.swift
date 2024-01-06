@@ -31,12 +31,12 @@ struct CalculationExplanationView: View {
 
 struct CalculationExplanationView_Previews: PreviewProvider {
     static let ratesGroup = RawTaxRatesGroup.taxRatesGroup(for: .y2020, .marriedJointly)
-    static let input: DeductionInput = .standard(additionalDeductions: 500.0)
+    static let kind: DeductionKind = .standard(additionalDeductions: 500.0)
     static let caliBrackets = TaxBracketGenerator.bracketGroupForRawTaxRates(ratesGroup.rawStateTaxRates(for: .CA).incomeRates(forIncome: 200_000))
 
     static var previews: some View {
         CalculationExplanationView(Deduction(
-            input: input,
+            kind: kind,
             standardDeduction: RawTaxRatesGroup.taxRatesGroup(for: .y2021, .single).federalRates.standardDeductions
         )).padding(20.0)
 

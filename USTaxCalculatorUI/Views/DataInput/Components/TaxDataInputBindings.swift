@@ -7,11 +7,11 @@ import TaxOutputModels
 import TaxPrimitives
 
 public extension TaxDataInput {
-    static func stateDeductionsBinding(_ stateDeductions: Binding<[TaxState: DeductionInput]>,
-                                       for state: TaxState) -> Binding<DeductionInput>
+    static func stateDeductionsBinding(_ stateDeductions: Binding<[TaxState: DeductionKind]>,
+                                       for state: TaxState) -> Binding<DeductionKind>
     {
         Binding(get: {
-            stateDeductions.wrappedValue[state, default: DeductionInput.standard(additionalDeductions: 0.0)]
+            stateDeductions.wrappedValue[state, default: .standard(additionalDeductions: 0.0)]
         }, set: {
             stateDeductions.wrappedValue[state] = $0
         })

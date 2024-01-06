@@ -5,23 +5,23 @@
 import Foundation
 import TaxRates
 
-public enum DeductionInput: Hashable, Codable, Equatable {
+public enum DeductionKind: Hashable, Codable, Equatable {
     case standard(additionalDeductions: Double = 0.0)
     case custom(_ amount: Double)
 }
 
 public struct Deduction {
-    public var input: DeductionInput
+    public var kind: DeductionKind
     public var standardDeduction: RawStandardDeduction
 
-    public init(input: DeductionInput, standardDeduction: RawStandardDeduction) {
-        self.input = input
+    public init(kind: DeductionKind, standardDeduction: RawStandardDeduction) {
+        self.kind = kind
         self.standardDeduction = standardDeduction
     }
 
     /// returns the deduction amount
     public var amount: Double {
-        switch input {
+        switch kind {
             case let .standard(additional): return additional + standardDeduction.value
             case let .custom(customAmount): return customAmount
         }
@@ -29,7 +29,7 @@ public struct Deduction {
 
     /// The original sources of the deduction amount
     public var sources: [URL] {
-        switch input {
+        switch kind {
             case .standard:
                 return standardDeduction.sources
             case .custom:

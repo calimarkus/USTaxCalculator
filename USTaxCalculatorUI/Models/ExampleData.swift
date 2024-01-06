@@ -35,7 +35,7 @@ enum ExampleData {
                     ),
                 ]
             ),
-            federalDeductions: DeductionInput.standard(),
+            federalDeductions: .standard(),
             federalCredits: 500,
             stateCredits: [.NY: 3500, .CA: 100]
         ))
@@ -63,7 +63,7 @@ enum ExampleData {
                     ),
                 ]
             ),
-            federalDeductions: DeductionInput.standard(),
+            federalDeductions: .standard(),
             federalCredits: 730
         ))
     }
@@ -88,7 +88,7 @@ enum ExampleData {
                     ),
                 ]
             ),
-            federalDeductions: DeductionInput.standard(),
+            federalDeductions: .standard(),
             stateCredits: [.CA: 250]
         ))
     }
@@ -110,7 +110,7 @@ enum ExampleData {
                     ),
                 ]
             ),
-            federalDeductions: DeductionInput.standard()
+            federalDeductions: .standard()
         ))
     }
 }
