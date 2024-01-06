@@ -51,6 +51,10 @@
 		7E3C565D28322135002272F3 /* BracketTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E3C565C28322135002272F3 /* BracketTableView.swift */; };
 		7E3C567D28327C44002272F3 /* TaxDataDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E3C567C28327C44002272F3 /* TaxDataDocument.swift */; };
 		7E440865285AE2AB0052DDD5 /* NavigationTargets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E440864285AE2AB0052DDD5 /* NavigationTargets.swift */; };
+		7E4BBB892B49F493008D7182 /* libTaxOutputModels.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7E9A112B2B2923720059EF08 /* libTaxOutputModels.a */; };
+		7E4BBB8C2B49F5AA008D7182 /* libTaxOutputModels.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7E9A112B2B2923720059EF08 /* libTaxOutputModels.a */; };
+		7E4BBB8F2B49F63D008D7182 /* libTaxFormatter.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7E9A11732B2933B10059EF08 /* libTaxFormatter.a */; };
+		7E4BBB922B49F64F008D7182 /* libTaxFormatter.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7E9A11732B2933B10059EF08 /* libTaxFormatter.a */; };
 		7E5074CF282B7BDD000C4398 /* TaxDataInputBindings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E5074CE282B7BDD000C4398 /* TaxDataInputBindings.swift */; };
 		7E5074D3282B7CD6000C4398 /* BasicStateInfoEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E5074D2282B7CD6000C4398 /* BasicStateInfoEntryView.swift */; };
 		7E5074D5282B7E2B000C4398 /* StateIncomeEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E5074D4282B7E2B000C4398 /* StateIncomeEntryView.swift */; };
@@ -91,18 +95,12 @@
 		7E9A10E32B2913880059EF08 /* RawTaxRates2021_MarriedJointly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EF5BD5729EB59EE001D9B7F /* RawTaxRates2021_MarriedJointly.swift */; };
 		7E9A10E42B2913880059EF08 /* RawTaxRates2022_MarriedJointly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EF5BD5829EB59EE001D9B7F /* RawTaxRates2022_MarriedJointly.swift */; };
 		7E9A10E52B2913880059EF08 /* RawTaxRates2023_MarriedJointly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EF5BD5929EB59EE001D9B7F /* RawTaxRates2023_MarriedJointly.swift */; };
-		7E9A10E72B29139F0059EF08 /* libTaxRates.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7E9A10D32B2913440059EF08 /* libTaxRates.a */; };
-		7E9A10EA2B2913AB0059EF08 /* libTaxRates.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7E9A10D32B2913440059EF08 /* libTaxRates.a */; };
 		7E9A10F82B2914C70059EF08 /* StateIncome.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E572F02282910B300DDB15E /* StateIncome.swift */; };
 		7E9A10F92B2914C70059EF08 /* TaxDataInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E266CF2282BE6D4005911D2 /* TaxDataInput.swift */; };
 		7E9A10FA2B2914C70059EF08 /* Income.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E572F01282910B300DDB15E /* Income.swift */; };
-		7E9A10FE2B2916610059EF08 /* libTaxInputModels.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7E9A10F12B2914A70059EF08 /* libTaxInputModels.a */; };
-		7E9A11012B29166C0059EF08 /* libTaxInputModels.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7E9A10F12B2914A70059EF08 /* libTaxInputModels.a */; };
 		7E9A11122B2917270059EF08 /* TaxPrimitives.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E9A11112B2917270059EF08 /* TaxPrimitives.swift */; };
 		7E9A11142B29175C0059EF08 /* NamedValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E9A11132B29175C0059EF08 /* NamedValue.swift */; };
-		7E9A111B2B2917FC0059EF08 /* libTaxPrimitives.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7E9A11082B2916CB0059EF08 /* libTaxPrimitives.a */; };
 		7E9A111F2B2919F30059EF08 /* StaticURLStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E9A111E2B2919F30059EF08 /* StaticURLStrings.swift */; };
-		7E9A11202B291A310059EF08 /* libTaxPrimitives.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7E9A11082B2916CB0059EF08 /* libTaxPrimitives.a */; };
 		7E9A11262B2921BC0059EF08 /* IncomeAddition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E58C75229EC5F1300392E33 /* IncomeAddition.swift */; };
 		7E9A11322B29237A0059EF08 /* AttributableIncome.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E510E0629FB1DB700054E5A /* AttributableIncome.swift */; };
 		7E9A11332B29237A0059EF08 /* CalculatedTaxData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E572EFC282910B300DDB15E /* CalculatedTaxData.swift */; };
@@ -114,10 +112,7 @@
 		7E9A11392B29237A0059EF08 /* TaxBracket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E572F0E282910B300DDB15E /* TaxBracket.swift */; };
 		7E9A114B2B2926190059EF08 /* libTaxPrimitives.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7E9A11082B2916CB0059EF08 /* libTaxPrimitives.a */; };
 		7E9A11522B2926390059EF08 /* libTaxInputModels.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7E9A10F12B2914A70059EF08 /* libTaxInputModels.a */; };
-		7E9A11532B2926390059EF08 /* libTaxPrimitives.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7E9A11082B2916CB0059EF08 /* libTaxPrimitives.a */; };
 		7E9A11542B2926390059EF08 /* libTaxRates.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7E9A10D32B2913440059EF08 /* libTaxRates.a */; };
-		7E9A11552B2926690059EF08 /* libTaxOutputModels.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7E9A112B2B2923720059EF08 /* libTaxOutputModels.a */; };
-		7E9A11582B29266D0059EF08 /* libTaxOutputModels.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7E9A112B2B2923720059EF08 /* libTaxOutputModels.a */; };
 		7E9A11662B2932DA0059EF08 /* TaxCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E572F0A282910B300DDB15E /* TaxCalculator.swift */; };
 		7E9A11672B2932DA0059EF08 /* RawTaxRatesMapping.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E9A10FB2B2915630059EF08 /* RawTaxRatesMapping.swift */; };
 		7E9A11682B2932DA0059EF08 /* TaxBracketGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E572F0D282910B300DDB15E /* TaxBracketGenerator.swift */; };
@@ -130,8 +125,6 @@
 		7E9A117E2B2933CD0059EF08 /* ExplainableTaxBracket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E9A11432B2925710059EF08 /* ExplainableTaxBracket.swift */; };
 		7E9A117F2B2933CD0059EF08 /* ExplainableTax.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E9A11462B2925930059EF08 /* ExplainableTax.swift */; };
 		7E9A11802B2933CD0059EF08 /* ExplainableAttributableIncome.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E9A11402B2925440059EF08 /* ExplainableAttributableIncome.swift */; };
-		7E9A11812B2933E30059EF08 /* libTaxFormatter.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7E9A11732B2933B10059EF08 /* libTaxFormatter.a */; };
-		7E9A11842B2933EA0059EF08 /* libTaxFormatter.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7E9A11732B2933B10059EF08 /* libTaxFormatter.a */; };
 		7ECD5F16282FF28E00C676D9 /* TaxSummaryListSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ECD5F15282FF28E00C676D9 /* TaxSummaryListSection.swift */; };
 		7ECD5F17282FF46400C676D9 /* TaxSummaryListSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ECD5F15282FF28E00C676D9 /* TaxSummaryListSection.swift */; };
 		7ED9F866282A8251007A5CE5 /* FederalEntryTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ED9F865282A8251007A5CE5 /* FederalEntryTab.swift */; };
@@ -147,6 +140,34 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		7E4BBB822B49F485008D7182 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7E822CE52804515100096181 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7E9A112A2B2923720059EF08;
+			remoteInfo = TaxOutputModels;
+		};
+		7E4BBB8A2B49F5A7008D7182 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7E822CE52804515100096181 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7E9A112A2B2923720059EF08;
+			remoteInfo = TaxOutputModels;
+		};
+		7E4BBB8D2B49F639008D7182 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7E822CE52804515100096181 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7E9A11722B2933B10059EF08;
+			remoteInfo = TaxFormatter;
+		};
+		7E4BBB902B49F647008D7182 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7E822CE52804515100096181 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7E9A11722B2933B10059EF08;
+			remoteInfo = TaxFormatter;
+		};
 		7E822CFF2804515300096181 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 7E822CE52804515100096181 /* Project object */;
@@ -160,48 +181,6 @@
 			proxyType = 1;
 			remoteGlobalIDString = 7E822CEC2804515100096181;
 			remoteInfo = USTaxCal;
-		};
-		7E9A10E82B29139F0059EF08 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7E822CE52804515100096181 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 7E9A10D22B2913440059EF08;
-			remoteInfo = TaxRates;
-		};
-		7E9A10EB2B2913AB0059EF08 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7E822CE52804515100096181 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 7E9A10D22B2913440059EF08;
-			remoteInfo = TaxRates;
-		};
-		7E9A10FF2B2916610059EF08 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7E822CE52804515100096181 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 7E9A10F02B2914A70059EF08;
-			remoteInfo = TaxInputModels;
-		};
-		7E9A11022B29166C0059EF08 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7E822CE52804515100096181 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 7E9A10F02B2914A70059EF08;
-			remoteInfo = TaxInputModels;
-		};
-		7E9A111C2B2917FC0059EF08 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7E822CE52804515100096181 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 7E9A11072B2916CB0059EF08;
-			remoteInfo = CoreModels;
-		};
-		7E9A11212B291A310059EF08 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7E822CE52804515100096181 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 7E9A11072B2916CB0059EF08;
-			remoteInfo = TaxPrimitives;
 		};
 		7E9A11492B2926100059EF08 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -217,33 +196,12 @@
 			remoteGlobalIDString = 7E9A10F02B2914A70059EF08;
 			remoteInfo = TaxInputModels;
 		};
-		7E9A114E2B2926340059EF08 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7E822CE52804515100096181 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 7E9A11072B2916CB0059EF08;
-			remoteInfo = TaxPrimitives;
-		};
 		7E9A11502B2926340059EF08 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 7E822CE52804515100096181 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 7E9A10D22B2913440059EF08;
 			remoteInfo = TaxRates;
-		};
-		7E9A11562B2926690059EF08 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7E822CE52804515100096181 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 7E9A112A2B2923720059EF08;
-			remoteInfo = TaxOutputModels;
-		};
-		7E9A11592B29266D0059EF08 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7E822CE52804515100096181 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 7E9A112A2B2923720059EF08;
-			remoteInfo = TaxOutputModels;
 		};
 		7E9A116A2B2933170059EF08 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -258,20 +216,6 @@
 			proxyType = 1;
 			remoteGlobalIDString = 7E9A115E2B2932B20059EF08;
 			remoteInfo = TaxCalculator;
-		};
-		7E9A11822B2933E30059EF08 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7E822CE52804515100096181 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 7E9A11722B2933B10059EF08;
-			remoteInfo = TaxFormatter;
-		};
-		7E9A11852B2933EA0059EF08 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7E822CE52804515100096181 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 7E9A11722B2933B10059EF08;
-			remoteInfo = TaxFormatter;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -437,11 +381,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7E9A11842B2933EA0059EF08 /* libTaxFormatter.a in Frameworks */,
-				7E9A11582B29266D0059EF08 /* libTaxOutputModels.a in Frameworks */,
-				7E9A11012B29166C0059EF08 /* libTaxInputModels.a in Frameworks */,
-				7E9A11202B291A310059EF08 /* libTaxPrimitives.a in Frameworks */,
-				7E9A10EA2B2913AB0059EF08 /* libTaxRates.a in Frameworks */,
+				7E4BBB922B49F64F008D7182 /* libTaxFormatter.a in Frameworks */,
 				7E9A116C2B29331C0059EF08 /* libTaxCalculator.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -450,11 +390,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7E9A11812B2933E30059EF08 /* libTaxFormatter.a in Frameworks */,
-				7E9A11552B2926690059EF08 /* libTaxOutputModels.a in Frameworks */,
-				7E9A111B2B2917FC0059EF08 /* libTaxPrimitives.a in Frameworks */,
-				7E9A10FE2B2916610059EF08 /* libTaxInputModels.a in Frameworks */,
-				7E9A10E72B29139F0059EF08 /* libTaxRates.a in Frameworks */,
+				7E4BBB8F2B49F63D008D7182 /* libTaxFormatter.a in Frameworks */,
 				7E9A11692B2933170059EF08 /* libTaxCalculator.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -500,7 +436,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				7E9A11522B2926390059EF08 /* libTaxInputModels.a in Frameworks */,
-				7E9A11532B2926390059EF08 /* libTaxPrimitives.a in Frameworks */,
 				7E9A11542B2926390059EF08 /* libTaxRates.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -509,6 +444,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7E4BBB892B49F493008D7182 /* libTaxOutputModels.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -516,6 +452,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7E4BBB8C2B49F5AA008D7182 /* libTaxOutputModels.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -817,12 +754,8 @@
 			buildRules = (
 			);
 			dependencies = (
-				7E9A10EC2B2913AB0059EF08 /* PBXTargetDependency */,
-				7E9A11032B29166C0059EF08 /* PBXTargetDependency */,
-				7E9A11222B291A310059EF08 /* PBXTargetDependency */,
-				7E9A115A2B29266D0059EF08 /* PBXTargetDependency */,
+				7E4BBB912B49F647008D7182 /* PBXTargetDependency */,
 				7E9A116E2B29331C0059EF08 /* PBXTargetDependency */,
-				7E9A11862B2933EA0059EF08 /* PBXTargetDependency */,
 			);
 			name = TaxCalciOS;
 			productName = TaxCalciOS;
@@ -840,12 +773,8 @@
 			buildRules = (
 			);
 			dependencies = (
-				7E9A10E92B29139F0059EF08 /* PBXTargetDependency */,
-				7E9A11002B2916610059EF08 /* PBXTargetDependency */,
-				7E9A111D2B2917FC0059EF08 /* PBXTargetDependency */,
-				7E9A11572B2926690059EF08 /* PBXTargetDependency */,
+				7E4BBB8E2B49F639008D7182 /* PBXTargetDependency */,
 				7E9A116B2B2933170059EF08 /* PBXTargetDependency */,
-				7E9A11832B2933E30059EF08 /* PBXTargetDependency */,
 			);
 			name = USTaxCal;
 			productName = USTaxCal;
@@ -952,7 +881,6 @@
 			);
 			dependencies = (
 				7E9A114D2B2926340059EF08 /* PBXTargetDependency */,
-				7E9A114F2B2926340059EF08 /* PBXTargetDependency */,
 				7E9A11512B2926340059EF08 /* PBXTargetDependency */,
 			);
 			name = TaxOutputModels;
@@ -971,6 +899,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				7E4BBB832B49F485008D7182 /* PBXTargetDependency */,
 			);
 			name = TaxCalculator;
 			productName = TaxCalculator;
@@ -988,6 +917,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				7E4BBB8B2B49F5A7008D7182 /* PBXTargetDependency */,
 			);
 			name = TaxFormatter;
 			productName = TaxFormatter;
@@ -1291,6 +1221,26 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		7E4BBB832B49F485008D7182 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 7E9A112A2B2923720059EF08 /* TaxOutputModels */;
+			targetProxy = 7E4BBB822B49F485008D7182 /* PBXContainerItemProxy */;
+		};
+		7E4BBB8B2B49F5A7008D7182 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 7E9A112A2B2923720059EF08 /* TaxOutputModels */;
+			targetProxy = 7E4BBB8A2B49F5A7008D7182 /* PBXContainerItemProxy */;
+		};
+		7E4BBB8E2B49F639008D7182 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 7E9A11722B2933B10059EF08 /* TaxFormatter */;
+			targetProxy = 7E4BBB8D2B49F639008D7182 /* PBXContainerItemProxy */;
+		};
+		7E4BBB912B49F647008D7182 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 7E9A11722B2933B10059EF08 /* TaxFormatter */;
+			targetProxy = 7E4BBB902B49F647008D7182 /* PBXContainerItemProxy */;
+		};
 		7E822D002804515300096181 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 7E822CEC2804515100096181 /* USTaxCal */;
@@ -1300,36 +1250,6 @@
 			isa = PBXTargetDependency;
 			target = 7E822CEC2804515100096181 /* USTaxCal */;
 			targetProxy = 7E822D092804515300096181 /* PBXContainerItemProxy */;
-		};
-		7E9A10E92B29139F0059EF08 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 7E9A10D22B2913440059EF08 /* TaxRates */;
-			targetProxy = 7E9A10E82B29139F0059EF08 /* PBXContainerItemProxy */;
-		};
-		7E9A10EC2B2913AB0059EF08 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 7E9A10D22B2913440059EF08 /* TaxRates */;
-			targetProxy = 7E9A10EB2B2913AB0059EF08 /* PBXContainerItemProxy */;
-		};
-		7E9A11002B2916610059EF08 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 7E9A10F02B2914A70059EF08 /* TaxInputModels */;
-			targetProxy = 7E9A10FF2B2916610059EF08 /* PBXContainerItemProxy */;
-		};
-		7E9A11032B29166C0059EF08 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 7E9A10F02B2914A70059EF08 /* TaxInputModels */;
-			targetProxy = 7E9A11022B29166C0059EF08 /* PBXContainerItemProxy */;
-		};
-		7E9A111D2B2917FC0059EF08 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 7E9A11072B2916CB0059EF08 /* TaxPrimitives */;
-			targetProxy = 7E9A111C2B2917FC0059EF08 /* PBXContainerItemProxy */;
-		};
-		7E9A11222B291A310059EF08 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 7E9A11072B2916CB0059EF08 /* TaxPrimitives */;
-			targetProxy = 7E9A11212B291A310059EF08 /* PBXContainerItemProxy */;
 		};
 		7E9A114A2B2926100059EF08 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -1341,25 +1261,10 @@
 			target = 7E9A10F02B2914A70059EF08 /* TaxInputModels */;
 			targetProxy = 7E9A114C2B2926340059EF08 /* PBXContainerItemProxy */;
 		};
-		7E9A114F2B2926340059EF08 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 7E9A11072B2916CB0059EF08 /* TaxPrimitives */;
-			targetProxy = 7E9A114E2B2926340059EF08 /* PBXContainerItemProxy */;
-		};
 		7E9A11512B2926340059EF08 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 7E9A10D22B2913440059EF08 /* TaxRates */;
 			targetProxy = 7E9A11502B2926340059EF08 /* PBXContainerItemProxy */;
-		};
-		7E9A11572B2926690059EF08 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 7E9A112A2B2923720059EF08 /* TaxOutputModels */;
-			targetProxy = 7E9A11562B2926690059EF08 /* PBXContainerItemProxy */;
-		};
-		7E9A115A2B29266D0059EF08 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 7E9A112A2B2923720059EF08 /* TaxOutputModels */;
-			targetProxy = 7E9A11592B29266D0059EF08 /* PBXContainerItemProxy */;
 		};
 		7E9A116B2B2933170059EF08 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -1370,16 +1275,6 @@
 			isa = PBXTargetDependency;
 			target = 7E9A115E2B2932B20059EF08 /* TaxCalculator */;
 			targetProxy = 7E9A116D2B29331C0059EF08 /* PBXContainerItemProxy */;
-		};
-		7E9A11832B2933E30059EF08 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 7E9A11722B2933B10059EF08 /* TaxFormatter */;
-			targetProxy = 7E9A11822B2933E30059EF08 /* PBXContainerItemProxy */;
-		};
-		7E9A11862B2933EA0059EF08 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 7E9A11722B2933B10059EF08 /* TaxFormatter */;
-			targetProxy = 7E9A11852B2933EA0059EF08 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
