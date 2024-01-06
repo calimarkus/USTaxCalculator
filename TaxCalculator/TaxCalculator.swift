@@ -6,6 +6,8 @@ import TaxIncomeModels
 import TaxModels
 import TaxRates
 
+extension RawStandardDeduction : StandardDeduction {}
+
 public enum TaxCalculator {
     public static func calculateTaxesForInput(_ input: TaxDataInput) -> CalculatedTaxData {
         let taxRatesGroup = RawTaxRatesGroup.taxRatesGroup(for: input.taxYear, input.filingType)

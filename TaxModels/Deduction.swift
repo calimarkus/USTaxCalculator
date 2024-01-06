@@ -3,7 +3,11 @@
 //
 
 import Foundation
-import TaxRates
+
+public protocol StandardDeduction {
+    var value: Double { get }
+    var sources: [URL] { get }
+}
 
 public enum DeductionKind: Hashable, Codable, Equatable {
     case standard(additionalDeductions: Double = 0.0)
@@ -12,9 +16,9 @@ public enum DeductionKind: Hashable, Codable, Equatable {
 
 public struct Deduction {
     public var kind: DeductionKind
-    public var standardDeduction: RawStandardDeduction
+    public var standardDeduction: StandardDeduction
 
-    public init(kind: DeductionKind, standardDeduction: RawStandardDeduction) {
+    public init(kind: DeductionKind, standardDeduction: StandardDeduction) {
         self.kind = kind
         self.standardDeduction = standardDeduction
     }
