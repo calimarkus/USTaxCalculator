@@ -80,9 +80,11 @@
 		7E58C76D29F4690B00392E33 /* DeductionInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E58C76C29F4690B00392E33 /* DeductionInfoView.swift */; };
 		7E58C76E29F4690B00392E33 /* DeductionInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E58C76C29F4690B00392E33 /* DeductionInfoView.swift */; };
 		7E6708A02B2D2F76009B7EE0 /* TaxCalculator in Frameworks */ = {isa = PBXBuildFile; productRef = 7E67089F2B2D2F76009B7EE0 /* TaxCalculator */; };
-		7E6708A22B2D2F9C009B7EE0 /* TaxCalculator in Frameworks */ = {isa = PBXBuildFile; productRef = 7E6708A12B2D2F9C009B7EE0 /* TaxCalculator */; };
 		7E6CBBD7283B375B00DEFF80 /* MacOSViewModifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E6CBBD6283B375B00DEFF80 /* MacOSViewModifiers.swift */; };
 		7E6CBBD8283B375B00DEFF80 /* MacOSViewModifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E6CBBD6283B375B00DEFF80 /* MacOSViewModifiers.swift */; };
+		7E8D58752B4A02F2007D05BD /* TaxCalculator in Frameworks */ = {isa = PBXBuildFile; productRef = 7E8D58742B4A02F2007D05BD /* TaxCalculator */; };
+		7E8D58782B4A0300007D05BD /* TaxFormatter in Frameworks */ = {isa = PBXBuildFile; productRef = 7E8D58772B4A0300007D05BD /* TaxFormatter */; };
+		7E8D58802B4A034A007D05BD /* TaxFormatter in Frameworks */ = {isa = PBXBuildFile; productRef = 7E8D587F2B4A034A007D05BD /* TaxFormatter */; };
 		7ECD5F16282FF28E00C676D9 /* TaxSummaryListSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ECD5F15282FF28E00C676D9 /* TaxSummaryListSection.swift */; };
 		7ECD5F17282FF46400C676D9 /* TaxSummaryListSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ECD5F15282FF28E00C676D9 /* TaxSummaryListSection.swift */; };
 		7ED9F866282A8251007A5CE5 /* FederalEntryTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ED9F865282A8251007A5CE5 /* FederalEntryTab.swift */; };
@@ -179,6 +181,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7E6708A02B2D2F76009B7EE0 /* TaxCalculator in Frameworks */,
+				7E8D58802B4A034A007D05BD /* TaxFormatter in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -186,7 +189,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7E6708A22B2D2F9C009B7EE0 /* TaxCalculator in Frameworks */,
+				7E8D58752B4A02F2007D05BD /* TaxCalculator in Frameworks */,
+				7E8D58782B4A0300007D05BD /* TaxFormatter in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -413,10 +417,13 @@
 			buildRules = (
 			);
 			dependencies = (
+				7E8D58842B4A0351007D05BD /* PBXTargetDependency */,
+				7E8D58822B4A034E007D05BD /* PBXTargetDependency */,
 			);
 			name = TaxCalciOS;
 			packageProductDependencies = (
 				7E67089F2B2D2F76009B7EE0 /* TaxCalculator */,
+				7E8D587F2B4A034A007D05BD /* TaxFormatter */,
 			);
 			productName = TaxCalciOS;
 			productReference = 7E7BA5D0282CE13D00A54785 /* TaxCalciOS.app */;
@@ -433,10 +440,13 @@
 			buildRules = (
 			);
 			dependencies = (
+				7E8D587E2B4A0344007D05BD /* PBXTargetDependency */,
+				7E8D587C2B4A033E007D05BD /* PBXTargetDependency */,
 			);
 			name = USTaxCal;
 			packageProductDependencies = (
-				7E6708A12B2D2F9C009B7EE0 /* TaxCalculator */,
+				7E8D58742B4A02F2007D05BD /* TaxCalculator */,
+				7E8D58772B4A0300007D05BD /* TaxFormatter */,
 			);
 			productName = USTaxCal;
 			productReference = 7E822CED2804515100096181 /* USTaxCal.app */;
@@ -514,7 +524,8 @@
 			);
 			mainGroup = 7E822CE42804515100096181;
 			packageReferences = (
-				7E67089E2B2D2F76009B7EE0 /* XCLocalSwiftPackageReference "TaxCalculator" */,
+				7E8D58732B4A02F2007D05BD /* XCLocalSwiftPackageReference "Packages/TaxCalculator" */,
+				7E8D58762B4A0300007D05BD /* XCLocalSwiftPackageReference "Packages/TaxFormatter" */,
 			);
 			productRefGroup = 7E822CEE2804515100096181 /* Products */;
 			projectDirPath = "";
@@ -686,6 +697,22 @@
 			isa = PBXTargetDependency;
 			target = 7E822CEC2804515100096181 /* USTaxCal */;
 			targetProxy = 7E822D092804515300096181 /* PBXContainerItemProxy */;
+		};
+		7E8D587C2B4A033E007D05BD /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			productRef = 7E8D587B2B4A033E007D05BD /* TaxFormatter */;
+		};
+		7E8D587E2B4A0344007D05BD /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			productRef = 7E8D587D2B4A0344007D05BD /* TaxCalculator */;
+		};
+		7E8D58822B4A034E007D05BD /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			productRef = 7E8D58812B4A034E007D05BD /* TaxCalculator */;
+		};
+		7E8D58842B4A0351007D05BD /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			productRef = 7E8D58832B4A0351007D05BD /* TaxFormatter */;
 		};
 /* End PBXTargetDependency section */
 
@@ -1041,9 +1068,13 @@
 /* End XCConfigurationList section */
 
 /* Begin XCLocalSwiftPackageReference section */
-		7E67089E2B2D2F76009B7EE0 /* XCLocalSwiftPackageReference "TaxCalculator" */ = {
+		7E8D58732B4A02F2007D05BD /* XCLocalSwiftPackageReference "Packages/TaxCalculator" */ = {
 			isa = XCLocalSwiftPackageReference;
-			relativePath = TaxCalculator;
+			relativePath = Packages/TaxCalculator;
+		};
+		7E8D58762B4A0300007D05BD /* XCLocalSwiftPackageReference "Packages/TaxFormatter" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = Packages/TaxFormatter;
 		};
 /* End XCLocalSwiftPackageReference section */
 
@@ -1052,10 +1083,38 @@
 			isa = XCSwiftPackageProductDependency;
 			productName = TaxCalculator;
 		};
-		7E6708A12B2D2F9C009B7EE0 /* TaxCalculator */ = {
+		7E8D58742B4A02F2007D05BD /* TaxCalculator */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 7E67089E2B2D2F76009B7EE0 /* XCLocalSwiftPackageReference "TaxCalculator" */;
 			productName = TaxCalculator;
+		};
+		7E8D58772B4A0300007D05BD /* TaxFormatter */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = TaxFormatter;
+		};
+		7E8D587B2B4A033E007D05BD /* TaxFormatter */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7E8D58762B4A0300007D05BD /* XCLocalSwiftPackageReference "Packages/TaxFormatter" */;
+			productName = TaxFormatter;
+		};
+		7E8D587D2B4A0344007D05BD /* TaxCalculator */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7E8D58732B4A02F2007D05BD /* XCLocalSwiftPackageReference "Packages/TaxCalculator" */;
+			productName = TaxCalculator;
+		};
+		7E8D587F2B4A034A007D05BD /* TaxFormatter */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7E8D58762B4A0300007D05BD /* XCLocalSwiftPackageReference "Packages/TaxFormatter" */;
+			productName = TaxFormatter;
+		};
+		7E8D58812B4A034E007D05BD /* TaxCalculator */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7E8D58732B4A02F2007D05BD /* XCLocalSwiftPackageReference "Packages/TaxCalculator" */;
+			productName = TaxCalculator;
+		};
+		7E8D58832B4A0351007D05BD /* TaxFormatter */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7E8D58762B4A0300007D05BD /* XCLocalSwiftPackageReference "Packages/TaxFormatter" */;
+			productName = TaxFormatter;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
