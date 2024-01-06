@@ -2,7 +2,7 @@
 // ExampleData.swift
 //
 
-import TaxOutputModels
+import TaxModels
 import TaxIncomeModels
 import TaxPrimitives
 import TaxCalculator

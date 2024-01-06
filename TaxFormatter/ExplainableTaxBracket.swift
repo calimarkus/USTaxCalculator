@@ -2,7 +2,7 @@
 //
 
 import TaxPrimitives
-import TaxOutputModels
+import TaxModels
 
 // tax calculation explanation
 public extension TaxBracket {

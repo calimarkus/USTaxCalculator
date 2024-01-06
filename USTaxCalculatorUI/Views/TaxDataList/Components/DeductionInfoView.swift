@@ -4,7 +4,7 @@
 
 import SwiftUI
 import TaxIncomeModels
-import TaxOutputModels
+import TaxModels
 import TaxRates
 
 struct DeductionInfoView: View {

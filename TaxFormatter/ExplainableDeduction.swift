@@ -1,7 +1,7 @@
 //
 //
 
-import TaxOutputModels
+import TaxModels
 
 extension Deduction: ExplainableValue {
     /// a string describing the calculation of the deduction

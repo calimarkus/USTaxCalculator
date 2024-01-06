@@ -3,7 +3,7 @@
 //
 import TaxPrimitives
 import TaxIncomeModels
-import TaxOutputModels
+import TaxModels
 import TaxRates
 
 public enum TaxCalculator {

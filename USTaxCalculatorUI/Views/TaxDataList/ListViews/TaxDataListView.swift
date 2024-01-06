@@ -3,7 +3,7 @@
 //
 
 import SwiftUI
-import TaxOutputModels
+import TaxModels
 import TaxCalculator
 
 struct TaxDataListView: View {

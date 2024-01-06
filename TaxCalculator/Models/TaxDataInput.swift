@@ -4,7 +4,7 @@
 
 import TaxPrimitives
 import TaxIncomeModels
-import TaxOutputModels
+import TaxModels
 
 public struct TaxDataInput: Codable, Equatable {
     /// An additional description for this data, which will be combined with the default title if provided like e.g. "title - Year 2021 (Single, NY+CA)"

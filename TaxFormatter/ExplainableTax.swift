@@ -1,7 +1,7 @@
 //
 //
 
-import TaxOutputModels
+import TaxModels
 
 public protocol ExplainableTax: Tax, ExplainableValue {}
 

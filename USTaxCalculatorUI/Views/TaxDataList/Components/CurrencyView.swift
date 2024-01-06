@@ -3,7 +3,7 @@
 //
 
 import SwiftUI
-import TaxOutputModels
+import TaxModels
 import TaxFormatter
 
 struct CurrencyViewConfig {
