@@ -3,7 +3,7 @@
 //
 
 import SwiftUI
-import TaxIncomeModels
+import TaxModels
 
 struct StateTitleButton: View {
     @Binding var stateIncome: StateIncome

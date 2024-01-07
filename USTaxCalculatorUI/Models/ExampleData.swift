@@ -3,7 +3,6 @@
 //
 
 import TaxModels
-import TaxIncomeModels
 import TaxPrimitives
 import TaxCalculator
 

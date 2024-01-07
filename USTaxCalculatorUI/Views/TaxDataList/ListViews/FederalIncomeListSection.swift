@@ -3,7 +3,7 @@
 //
 
 import SwiftUI
-import TaxIncomeModels
+import TaxModels
 import TaxCalculator
 
 struct FederalIncomeListSection: View {

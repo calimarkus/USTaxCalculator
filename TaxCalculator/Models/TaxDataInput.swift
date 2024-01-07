@@ -3,7 +3,6 @@
 //
 
 import TaxPrimitives
-import TaxIncomeModels
 import TaxModels
 
 public struct TaxDataInput: Codable, Equatable {

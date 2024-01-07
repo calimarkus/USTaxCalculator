@@ -2,7 +2,6 @@
 // TaxCalculator.swift
 //
 import TaxPrimitives
-import TaxIncomeModels
 import TaxModels
 import TaxRates
 
