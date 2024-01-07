@@ -1,6 +1,7 @@
 //
 //
 
+import TaxModels
 import TaxCalculator
 
 extension AttributableIncome: ExplainableValue {

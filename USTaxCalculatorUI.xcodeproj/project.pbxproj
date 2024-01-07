@@ -84,7 +84,6 @@
 		7E58C76E29F4690B00392E33 /* DeductionInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E58C76C29F4690B00392E33 /* DeductionInfoView.swift */; };
 		7E6CBBD7283B375B00DEFF80 /* MacOSViewModifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E6CBBD6283B375B00DEFF80 /* MacOSViewModifiers.swift */; };
 		7E6CBBD8283B375B00DEFF80 /* MacOSViewModifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E6CBBD6283B375B00DEFF80 /* MacOSViewModifiers.swift */; };
-		7E8D58862B4A0973007D05BD /* ExplainableValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E58C76929F468A500392E33 /* ExplainableValue.swift */; };
 		7E8D58882B4A0D88007D05BD /* CalculatedTaxData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E572EFC282910B300DDB15E /* CalculatedTaxData.swift */; };
 		7E8D58892B4A0D88007D05BD /* TaxSummary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E572F08282910B300DDB15E /* TaxSummary.swift */; };
 		7E8D588A2B4A0D88007D05BD /* TaxDataInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E266CF2282BE6D4005911D2 /* TaxDataInput.swift */; };
@@ -116,13 +115,13 @@
 		7E9A117C2B2933CD0059EF08 /* ExplainableDeduction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E9A113D2B2924D80059EF08 /* ExplainableDeduction.swift */; };
 		7E9A117D2B2933CD0059EF08 /* FormattingExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E9A113A2B29248B0059EF08 /* FormattingExtensions.swift */; };
 		7E9A117E2B2933CD0059EF08 /* ExplainableTaxBracket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E9A11432B2925710059EF08 /* ExplainableTaxBracket.swift */; };
-		7E9A117F2B2933CD0059EF08 /* ExplainableTax.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E9A11462B2925930059EF08 /* ExplainableTax.swift */; };
 		7E9A11802B2933CD0059EF08 /* ExplainableAttributableIncome.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E9A11402B2925440059EF08 /* ExplainableAttributableIncome.swift */; };
 		7EC0D4332B4B48530052C0E9 /* IncomeAddition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E58C75229EC5F1300392E33 /* IncomeAddition.swift */; };
 		7EC0D4342B4B48530052C0E9 /* StateIncome.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E572F02282910B300DDB15E /* StateIncome.swift */; };
 		7EC0D4352B4B48530052C0E9 /* Income.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E572F01282910B300DDB15E /* Income.swift */; };
 		7EC0D4362B4B48E70052C0E9 /* TaxPrimitives.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E9A11112B2917270059EF08 /* TaxPrimitives.swift */; };
 		7EC0D4372B4B48E70052C0E9 /* NamedValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E9A11132B29175C0059EF08 /* NamedValue.swift */; };
+		7EC0D4392B4B4DD20052C0E9 /* ExplainableValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E58C76929F468A500392E33 /* ExplainableValue.swift */; };
 		7ECD5F16282FF28E00C676D9 /* TaxSummaryListSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ECD5F15282FF28E00C676D9 /* TaxSummaryListSection.swift */; };
 		7ECD5F17282FF46400C676D9 /* TaxSummaryListSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ECD5F15282FF28E00C676D9 /* TaxSummaryListSection.swift */; };
 		7ED9F866282A8251007A5CE5 /* FederalEntryTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ED9F865282A8251007A5CE5 /* FederalEntryTab.swift */; };
@@ -317,7 +316,6 @@
 		7E9A113D2B2924D80059EF08 /* ExplainableDeduction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExplainableDeduction.swift; sourceTree = "<group>"; };
 		7E9A11402B2925440059EF08 /* ExplainableAttributableIncome.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExplainableAttributableIncome.swift; sourceTree = "<group>"; };
 		7E9A11432B2925710059EF08 /* ExplainableTaxBracket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExplainableTaxBracket.swift; sourceTree = "<group>"; };
-		7E9A11462B2925930059EF08 /* ExplainableTax.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExplainableTax.swift; sourceTree = "<group>"; };
 		7E9A115F2B2932B20059EF08 /* libTaxCalculator.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libTaxCalculator.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		7E9A11732B2933B10059EF08 /* libTaxFormatter.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libTaxFormatter.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		7ECD5F15282FF28E00C676D9 /* TaxSummaryListSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaxSummaryListSection.swift; sourceTree = "<group>"; };
@@ -640,9 +638,7 @@
 			children = (
 				7E9A11402B2925440059EF08 /* ExplainableAttributableIncome.swift */,
 				7E9A113D2B2924D80059EF08 /* ExplainableDeduction.swift */,
-				7E9A11462B2925930059EF08 /* ExplainableTax.swift */,
 				7E9A11432B2925710059EF08 /* ExplainableTaxBracket.swift */,
-				7E58C76929F468A500392E33 /* ExplainableValue.swift */,
 				7E9A113A2B29248B0059EF08 /* FormattingExtensions.swift */,
 				7E572F05282910B300DDB15E /* FormattingHelper.swift */,
 				7E572F04282910B300DDB15E /* TaxSummaryTextFormatter.swift */,
@@ -676,6 +672,7 @@
 			children = (
 				7E9A11112B2917270059EF08 /* TaxPrimitives.swift */,
 				7E9A11132B29175C0059EF08 /* NamedValue.swift */,
+				7E58C76929F468A500392E33 /* ExplainableValue.swift */,
 			);
 			path = Primitives;
 			sourceTree = "<group>";
@@ -1090,6 +1087,7 @@
 				7EC0D4332B4B48530052C0E9 /* IncomeAddition.swift in Sources */,
 				7E9A11372B29237A0059EF08 /* TaxBracketGroup.swift in Sources */,
 				7EC0D4362B4B48E70052C0E9 /* TaxPrimitives.swift in Sources */,
+				7EC0D4392B4B4DD20052C0E9 /* ExplainableValue.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1111,10 +1109,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7E9A117F2B2933CD0059EF08 /* ExplainableTax.swift in Sources */,
 				7E9A11802B2933CD0059EF08 /* ExplainableAttributableIncome.swift in Sources */,
 				7E9A117A2B2933CD0059EF08 /* TaxSummaryTextFormatter.swift in Sources */,
-				7E8D58862B4A0973007D05BD /* ExplainableValue.swift in Sources */,
 				7E9A117C2B2933CD0059EF08 /* ExplainableDeduction.swift in Sources */,
 				7E9A117D2B2933CD0059EF08 /* FormattingExtensions.swift in Sources */,
 				7E9A117E2B2933CD0059EF08 /* ExplainableTaxBracket.swift in Sources */,

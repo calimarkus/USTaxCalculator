@@ -2,8 +2,6 @@
 // ExplainableValue.swift
 //
 
-import Foundation
-
 public enum ExplanationType {
     case names
     case values

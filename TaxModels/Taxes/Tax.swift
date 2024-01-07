@@ -2,6 +2,8 @@
 // Tax.swift
 //
 
+public protocol ExplainableTax: Tax, ExplainableValue {}
+
 public protocol Tax {
     /// The title for this tax
     var title: String { get }
