@@ -27,7 +27,15 @@ public struct Income: Codable, Equatable {
     /// Computed total income (wages + total capital gains)
     public var totalIncome: Double { wages + totalCapitalGains }
 
-    public init(wages: Double = 0.0, federalWithholdings: Double = 0.0, medicareWages: Double = 0.0, medicareWithholdings: Double = 0.0, dividendsAndInterests: Double = 0.0, capitalGains: Double = 0.0, longtermCapitalGains: Double = 0.0, stateIncomes: [StateIncome] = []) {
+    public init(wages: Double = 0.0,
+                federalWithholdings: Double = 0.0,
+                medicareWages: Double = 0.0,
+                medicareWithholdings: Double = 0.0,
+                dividendsAndInterests: Double = 0.0,
+                capitalGains: Double = 0.0,
+                longtermCapitalGains: Double = 0.0,
+                stateIncomes: [StateIncome] = [])
+    {
         self.wages = wages
         self.federalWithholdings = federalWithholdings
         self.medicareWages = medicareWages

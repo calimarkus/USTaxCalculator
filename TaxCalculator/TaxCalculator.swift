@@ -4,7 +4,7 @@
 import TaxModels
 import TaxRates
 
-extension RawStandardDeduction : StandardDeduction {}
+extension RawStandardDeduction: StandardDeduction {}
 
 public enum TaxCalculator {
     public static func calculateTaxesForInput(_ input: TaxDataInput) -> CalculatedTaxData {
@@ -80,7 +80,7 @@ private extension TaxCalculator {
             let taxableRegularIncome = taxableFederalIncome - niiBracket.startingAt
             let taxableNIIIncome = (income.totalCapitalGains < taxableRegularIncome
                 ? income.namedTotalCapitalGains
-                                    : NamedValue(taxableRegularIncome, named: "Taxable Income for NII"))
+                : NamedValue(taxableRegularIncome, named: "Taxable Income for NII"))
             federalTaxes.append(
                 BasicTax(title: "Net Investment Income",
                          activeBracket: niiBracket,

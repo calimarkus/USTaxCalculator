@@ -3,8 +3,8 @@
 //
 
 import Foundation
-import TaxModels
 import TaxCalculator
+import TaxModels
 
 extension String {
     mutating func appendLine(_ string: String = "") {

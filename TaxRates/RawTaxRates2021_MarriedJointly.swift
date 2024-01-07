@@ -6,7 +6,7 @@ extension RawTaxRates2021: RawTaxRatesYear {}
 
 public struct RawTaxRates2021 {
     public init() {}
-    
+
     public var marriedJointlyRates: RawTaxRatesGroup {
         RawTaxRatesGroup(
             federalRates: Self.federalRates,

@@ -2,8 +2,8 @@
 //
 
 import Foundation
-import TaxModels
 import TaxCalculator
+import TaxModels
 
 public extension CalculatedTaxData {
     var formattedTitle: String {

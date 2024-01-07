@@ -23,7 +23,12 @@ public struct StateIncome: Codable, Equatable {
     /// Any local taxes that apply to this state
     public var localTax: LocalTaxType = .none
 
-    public init(state: TaxState = .CA, wages: IncomeAmount = .fullFederal, withholdings: Double = 0.0, additionalStateIncome: Double = 0.0, localTax: LocalTaxType = .none) {
+    public init(state: TaxState = .CA,
+                wages: IncomeAmount = .fullFederal,
+                withholdings: Double = 0.0,
+                additionalStateIncome: Double = 0.0,
+                localTax: LocalTaxType = .none)
+    {
         self.state = state
         self.wages = wages
         self.withholdings = withholdings

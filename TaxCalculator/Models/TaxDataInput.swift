@@ -27,7 +27,16 @@ public struct TaxDataInput: Codable, Equatable {
     /// Tax credits that apply to your state taxes
     public var stateCredits: [TaxState: Double] = [:]
 
-    public init(title: String = "", filingType: FilingType = .single, taxYear: TaxYear = .y2021, income: Income = .init(), federalDeductions: DeductionKind = .standard(), stateDeductions: [TaxState : DeductionKind] = [:], additionalFederalWithholding: Double = 0.0, federalCredits: Double = 0.0, stateCredits: [TaxState : Double] = [:]) {
+    public init(title: String = "",
+                filingType: FilingType = .single,
+                taxYear: TaxYear = .y2021,
+                income: Income = .init(),
+                federalDeductions: DeductionKind = .standard(),
+                stateDeductions: [TaxState: DeductionKind] = [:],
+                additionalFederalWithholding: Double = 0.0,
+                federalCredits: Double = 0.0,
+                stateCredits: [TaxState: Double] = [:])
+    {
         self.title = title
         self.filingType = filingType
         self.taxYear = taxYear

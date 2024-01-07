@@ -19,7 +19,7 @@ public struct AttributableIncome {
     public let amount: Double
     public let incomeName: String
     public let rate: NamedValue
-    
+
     public let totalIncome: NamedValue
 
     public init(name: String, incomeAmount: IncomeAmount, totalIncome: NamedValue) {

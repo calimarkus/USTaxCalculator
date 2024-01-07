@@ -2,7 +2,7 @@
 // TaxBracket.swift
 //
 
-indirect public enum BracketType: Hashable {
+public indirect enum BracketType: Hashable {
     /// applies the given rate to the given income
     case basic
     /// calculates the rate based on the closest two matches and applies that to the given income

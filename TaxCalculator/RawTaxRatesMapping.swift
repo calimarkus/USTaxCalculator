@@ -4,8 +4,9 @@
 import TaxModels
 import TaxRates
 
-fileprivate extension TaxYear {
+private extension TaxYear {
     // MARK: tax year mapping
+
     var rates: RawTaxRatesYear {
         switch self {
             case .y2020: return RawTaxRates2020()
@@ -17,6 +18,7 @@ fileprivate extension TaxYear {
 
 extension RawTaxRatesGroup {
     // MARK: tax state mapping
+
     public func rawStateTaxRates(for state: TaxState) -> RawStateTaxRates {
         switch state {
             case .NY: return newYorkRates
@@ -25,6 +27,7 @@ extension RawTaxRatesGroup {
     }
 
     // MARK: tax year & filing type mapping
+
     public static func taxRatesGroup(for taxYear: TaxYear, _ filingType: FilingType) -> RawTaxRatesGroup {
         let rates = taxYear.rates
         switch filingType {
