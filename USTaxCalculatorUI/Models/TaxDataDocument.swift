@@ -3,8 +3,8 @@
 //
 
 import SwiftUI
-import UniformTypeIdentifiers
 import TaxCalculator
+import UniformTypeIdentifiers
 
 extension UTType {
     static let taxDocument = UTType(exportedAs: "com.ustaxcalc.item")

@@ -3,9 +3,9 @@
 //
 
 import SwiftUI
-import TaxModels
-import TaxFormatter
 import TaxCalculator
+import TaxFormatter
+import TaxModels
 
 extension BasicTax: Identifiable {
     public var id: String { title }

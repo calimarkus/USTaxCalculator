@@ -3,9 +3,9 @@
 //
 
 import SwiftUI
-import TaxModels
 import TaxCalculator
 import TaxFormatter
+import TaxModels
 
 struct TaxSummaryListSection: View {
     let taxdata: CalculatedTaxData

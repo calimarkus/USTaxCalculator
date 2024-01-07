@@ -3,9 +3,9 @@
 //
 
 import SwiftUI
-import TaxModels
 import TaxCalculator
 import TaxFormatter
+import TaxModels
 
 struct TaxSummaryView: View {
     var title: String = ""

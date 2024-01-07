@@ -3,10 +3,10 @@
 //
 
 import SwiftUI
-import TaxModels
-import TaxFormatter
-import TaxRates
 import TaxCalculator
+import TaxFormatter
+import TaxModels
+import TaxRates
 
 struct CalculationExplanationView: View {
     let value: any ExplainableValue

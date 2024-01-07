@@ -3,8 +3,8 @@
 //
 
 import SwiftUI
-import TaxModels
 import TaxFormatter
+import TaxModels
 
 struct CurrencyViewConfig {
     var title: String = ""

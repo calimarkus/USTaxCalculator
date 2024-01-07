@@ -3,9 +3,9 @@
 //
 
 import SwiftUI
-import TaxModels
 import TaxCalculator
 import TaxFormatter
+import TaxModels
 
 struct ExportAsTextButton: View {
     @Binding var taxDataInput: TaxDataInput

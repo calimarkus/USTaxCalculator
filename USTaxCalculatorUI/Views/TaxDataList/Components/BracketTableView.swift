@@ -3,10 +3,10 @@
 //
 
 import SwiftUI
-import TaxModels
-import TaxRates
 import TaxCalculator
 import TaxFormatter
+import TaxModels
+import TaxRates
 
 extension TaxBracket: Identifiable {
     public var id: Double {

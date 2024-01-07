@@ -17,10 +17,10 @@ struct DeductionsPickerView: View {
         if case .standard = deductions {
             CurrencyValueInputView(caption: "Additional amount:",
                                    amount: DeductionKind.valueBinding($deductions,
-                                                                       isCustomDeduction: false))
+                                                                      isCustomDeduction: false))
         } else {
             CurrencyValueInputView(amount: DeductionKind.valueBinding($deductions,
-                                                                       isCustomDeduction: true))
+                                                                      isCustomDeduction: true))
         }
     }
 }

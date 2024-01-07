@@ -3,10 +3,11 @@
 //
 
 import SwiftUI
-import TaxModels
 import TaxCalculator
+import TaxModels
 
-public extension TaxDataInput {
+public extension TaxDataInput
+{
     static func stateDeductionsBinding(_ stateDeductions: Binding<[TaxState: DeductionKind]>,
                                        for state: TaxState) -> Binding<DeductionKind>
     {

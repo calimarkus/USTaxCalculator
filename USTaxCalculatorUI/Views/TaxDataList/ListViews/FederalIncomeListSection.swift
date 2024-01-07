@@ -3,8 +3,8 @@
 //
 
 import SwiftUI
-import TaxModels
 import TaxCalculator
+import TaxModels
 
 struct FederalIncomeListSection: View {
     @Binding var isExpanded: Bool

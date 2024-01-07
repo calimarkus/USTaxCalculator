@@ -39,6 +39,6 @@ struct MacOnlyPickerStyle<Style: PickerStyle>: ViewModifier {
 @ViewBuilder
 func MacOnlySpacer(height: Double) -> some View {
     #if os(macOS)
-        Spacer().frame(height: height)
+    Spacer().frame(height: height)
     #endif
 }

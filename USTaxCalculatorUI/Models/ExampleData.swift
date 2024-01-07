@@ -2,8 +2,8 @@
 // ExampleData.swift
 //
 
-import TaxModels
 import TaxCalculator
+import TaxModels
 
 enum ExampleData {
     static func exampleTaxDataJohnAndSarah_21() -> CalculatedTaxData {
