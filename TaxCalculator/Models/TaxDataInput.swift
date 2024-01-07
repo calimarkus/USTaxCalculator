@@ -2,7 +2,6 @@
 // TaxDataInput.swift
 //
 
-import TaxPrimitives
 import TaxModels
 
 public struct TaxDataInput: Codable, Equatable {

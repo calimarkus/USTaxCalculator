@@ -2,8 +2,6 @@
 // IncomeAddition.swift
 //
 
-import TaxPrimitives
-
 public enum StateIncomeError: Error {
     case illegalStateIncomeAddition
     case illegalIncomeAmountAddition

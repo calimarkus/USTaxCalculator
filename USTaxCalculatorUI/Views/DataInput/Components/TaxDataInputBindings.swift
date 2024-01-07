@@ -5,7 +5,6 @@
 import SwiftUI
 import TaxModels
 import TaxCalculator
-import TaxPrimitives
 
 public extension TaxDataInput {
     static func stateDeductionsBinding(_ stateDeductions: Binding<[TaxState: DeductionKind]>,

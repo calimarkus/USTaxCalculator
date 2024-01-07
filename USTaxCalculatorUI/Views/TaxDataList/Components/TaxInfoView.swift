@@ -4,7 +4,6 @@
 
 import SwiftUI
 import TaxModels
-import TaxPrimitives
 import TaxRates
 import TaxCalculator
 import TaxFormatter

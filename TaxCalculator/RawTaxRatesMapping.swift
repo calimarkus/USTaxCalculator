@@ -1,7 +1,7 @@
 //
 //
 
-import TaxPrimitives
+import TaxModels
 import TaxRates
 
 fileprivate extension TaxYear {

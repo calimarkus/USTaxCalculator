@@ -2,8 +2,6 @@
 // Income.swift
 //
 
-import TaxPrimitives
-
 public struct Income: Codable, Equatable {
     /// Wages as listed on W-2, Box 1
     public var wages = 0.0

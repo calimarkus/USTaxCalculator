@@ -2,7 +2,6 @@
 // AttributableIncome.swift
 //
 
-import TaxPrimitives
 import TaxModels
 
 private extension IncomeAmount {

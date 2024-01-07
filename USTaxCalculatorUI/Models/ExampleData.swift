@@ -3,7 +3,6 @@
 //
 
 import TaxModels
-import TaxPrimitives
 import TaxCalculator
 
 enum ExampleData {

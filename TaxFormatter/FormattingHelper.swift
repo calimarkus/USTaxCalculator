@@ -3,7 +3,7 @@
 //
 
 import Foundation
-import TaxPrimitives
+import TaxModels
 
 public enum FormattingHelper {
     public static func formattedTaxYear(_ taxyear: TaxYear, _ filingType: FilingType, states: [TaxState]) -> String {

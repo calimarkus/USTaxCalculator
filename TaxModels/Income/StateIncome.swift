@@ -2,8 +2,6 @@
 // StateIncome.swift
 //
 
-import TaxPrimitives
-
 public enum IncomeAmount: Hashable, Codable {
     case fullFederal
     case partial(_ income: Double)

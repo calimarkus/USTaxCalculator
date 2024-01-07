@@ -2,8 +2,6 @@
 // TaxBracket.swift
 //
 
-import TaxPrimitives
-
 indirect public enum BracketType: Hashable {
     /// applies the given rate to the given income
     case basic

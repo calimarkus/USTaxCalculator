@@ -3,8 +3,8 @@
 //
 
 import SwiftUI
+import TaxModels
 import TaxCalculator
-import TaxPrimitives
 
 struct BasicTaxDataEntryView: View {
     @Binding var input: TaxDataInput

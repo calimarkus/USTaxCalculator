@@ -1,7 +1,6 @@
 //
 // Tax.swift
 //
-import TaxPrimitives
 
 public protocol Tax {
     /// The title for this tax
