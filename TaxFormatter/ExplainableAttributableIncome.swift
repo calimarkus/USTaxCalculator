@@ -1,8 +1,9 @@
 //
+// ExplainableAttributableIncome.swift
 //
 
-import TaxModels
 import TaxCalculator
+import TaxModels
 
 extension AttributableIncome: ExplainableValue {
     /// An explanation of how the rate was calculated

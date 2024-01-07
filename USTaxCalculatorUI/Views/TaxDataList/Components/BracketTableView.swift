@@ -186,7 +186,7 @@ struct BracketTableView_Previews: PreviewProvider {
     static let ratesGroup = RawTaxRatesGroup.taxRatesGroup(for: .y2020, .marriedJointly)
     static let fedBrackets = TaxBracketGenerator.bracketGroupForRawTaxRates(ratesGroup.federalRates.incomeRates)
     static let longtermGainsBrackets = TaxBracketGenerator.bracketGroupForRawTaxRates(ratesGroup.federalRates.longtermGainsRates)
-    static let caliLowIncomeBrackets = TaxBracketGenerator.bracketGroupForRawTaxRates(ratesGroup.rawStateTaxRates(for: .CA).incomeRates(forIncome: 60_000))
+    static let caliLowIncomeBrackets = TaxBracketGenerator.bracketGroupForRawTaxRates(ratesGroup.rawStateTaxRates(for: .CA).incomeRates(forIncome: 60000))
 
     static var previews: some View {
         BracketTableView(brackets: fedBrackets.sortedBrackets.reversed(), activeBracket: fedBrackets.sortedBrackets[3])

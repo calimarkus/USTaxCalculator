@@ -1,4 +1,5 @@
 //
+// StaticURLStrings.swift
 //
 
 import Foundation
