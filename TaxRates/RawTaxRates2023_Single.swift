@@ -87,13 +87,34 @@ public extension RawTaxRates2023 {
 
     fileprivate static var newYorkRates: RawNewYorkStateTaxRates {
         RawNewYorkStateTaxRates(
-            incomeRates: RawTaxRates(.simple, [:]), // TBD
+            incomeRates: RawTaxRates(.progressive, [
+                0.0: 0.04,
+                8500.0: 0.045,
+                11700.0: 0.0525,
+                13900.0: 0.055,
+                80650.0: 0.06,
+                215_400.0: 0.0685,
+                1_077_550.0: 0.0965,
+                5_000_000.0: 0.103,
+                25_000_000.0: 0.109,
+            ], sources: [
+                "https://www.nerdwallet.com/article/taxes/new-york-state-tax",
+            ]),
             standardDeductions: RawStandardDeduction(8000.0, sources: [
                 "https://www.tax.ny.gov/pit/file/standard_deductions.htm",
                 "https://www.efile.com/new-york-tax-rates-forms-and-brackets/",
             ]),
             highIncomeRateThreshhold: 107_650,
-            highIncomeRates: RawTaxRates(.simple, [:]), // TBD
+            // These rates are a fairly rough approximation, mostly based on 2021
+            highIncomeRates: RawTaxRates(.simple, [
+                0.0: 0.0625,
+                215_400: 0.0685,
+                1_077_550: 0.0965,
+                5_000_000: 0.103,
+                25_000_000.0: 0.109,
+            ], sources: [
+                "https://www.tax.ny.gov/forms/current-forms/it/it201i.htm#tax-computation",
+            ]),
             // Note: These are full-year resident rates! Part year resident rates might differ
             // Rates apply for incomes > $65,000
             newYorkCityRates: RawTaxRates(.progressive, [
