@@ -13,6 +13,7 @@ private extension TaxYear {
             case .y2020: return RawTaxRates2020()
             case .y2021: return RawTaxRates2021()
             case .y2022: return RawTaxRates2022()
+            case .y2023: return RawTaxRates2023()
         }
     }
 }

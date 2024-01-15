@@ -14,6 +14,7 @@ struct BasicTaxDataEntryView: View {
             TextField("Name", text: $input.title)
 
             Picker("Tax Year", selection: $input.taxYear) {
+                Text("2023").tag(TaxYear.y2023)
                 Text("2022").tag(TaxYear.y2022)
                 Text("2021").tag(TaxYear.y2021)
                 Text("2020").tag(TaxYear.y2020)
