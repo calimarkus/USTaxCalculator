@@ -63,7 +63,22 @@ public extension RawTaxRates2023 {
                 "https://www.ftb.ca.gov/file/personal/deductions/index.html",
             ]),
             lowIncomeRatesLimit: 100_000,
-            lowIncomeRates: RawTaxRates(.interpolated, [:], sources: []), // TBD
+            lowIncomeRates: RawTaxRates(.interpolated, [
+                0: 0.00001,
+                5000: 0.00050,
+                10000: 0.00100,
+                20000: 0.00296,
+                30000: 0.00605,
+                40000: 0.01023,
+                50000: 0.01623,
+                60000: 0.02341,
+                70000: 0.03163,
+                80000: 0.04093,
+                90000: 0.05023,
+                100_000: 0.05951,
+            ], sources: [
+                "https://www.ftb.ca.gov/forms/2023/2023-540-taxtable.pdf",
+            ]),
             mentalHealthRates: RawTaxRates(.progressive, [0.0: 0.0, 1_000_000.0: 0.01], sources: [
                 "https://www.mentalhealthca.org/faq-1",
             ])

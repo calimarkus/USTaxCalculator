@@ -62,12 +62,27 @@ public struct RawTaxRates2023 {
             ], sources: [
                 "https://www.nerdwallet.com/article/taxes/california-state-tax",
                 "https://www.ftb.ca.gov/forms/2020/2020-California-Tax-Rate-Schedules.pdf",
-            ]), // TBD
+            ]),
             standardDeductions: RawStandardDeduction(10726.0, sources: [
                 "https://www.ftb.ca.gov/file/personal/deductions/index.html",
             ]),
             lowIncomeRatesLimit: 100_000,
-            lowIncomeRates: RawTaxRates(.interpolated, [:], sources: []), // TBD
+            lowIncomeRates: RawTaxRates(.interpolated, [
+                0: 0.00001,
+                5000: 0.00050,
+                10000: 0.00100,
+                20000: 0.00200,
+                30000: 0.00392,
+                40000: 0.00592,
+                50000: 0.00804,
+                60000: 0.01204,
+                70000: 0.01604,
+                80000: 0.02046,
+                90000: 0.02646,
+                100_000: 0.03245,
+            ], sources: [
+                "https://www.ftb.ca.gov/forms/2023/2023-540-taxtable.pdf",
+            ]),
             mentalHealthRates: RawTaxRates(.progressive, [0.0: 0.0, 1_000_000.0: 0.01], sources: [
                 "https://www.mentalhealthca.org/faq-1",
             ])
