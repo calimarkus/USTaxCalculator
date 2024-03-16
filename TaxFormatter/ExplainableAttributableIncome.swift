@@ -2,7 +2,6 @@
 // ExplainableAttributableIncome.swift
 //
 
-import TaxCalculator
 import TaxModels
 
 extension AttributableIncome: ExplainableValue {
