@@ -2,8 +2,6 @@
 // AttributableIncome.swift
 //
 
-import TaxModels
-
 private extension IncomeAmount {
     func calculate(for totalIncome: Double) -> Double {
         switch self {
