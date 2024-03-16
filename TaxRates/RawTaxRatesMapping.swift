@@ -3,7 +3,6 @@
 //
 
 import TaxModels
-import TaxRates
 
 private extension TaxYear {
     // MARK: tax year mapping
@@ -40,12 +39,12 @@ extension RawTaxRatesGroup {
 
     // MARK: Additional tax mapping
 
-    func mentalHealthRates(for state: TaxState) -> RawTaxRates? {
+    public func mentalHealthRates(for state: TaxState) -> RawTaxRates? {
         guard state == .CA else { return nil }
         return californiaRates.mentalHealthRates
     }
 
-    func localIncomeRatesForCity(_ city: TaxCity, taxableIncome _: Double) -> RawTaxRates {
+    public func localIncomeRatesForCity(_ city: TaxCity, taxableIncome _: Double) -> RawTaxRates {
         switch city {
             case .NYC: return newYorkRates.newYorkCityRates
         }

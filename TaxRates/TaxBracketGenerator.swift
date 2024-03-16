@@ -3,7 +3,6 @@
 //
 
 import TaxModels
-import TaxRates
 
 public enum TaxBracketGenerator {
     public static func bracketGroupForRawTaxRates(_ rawTaxRates: RawTaxRates) -> TaxBracketGroup {
