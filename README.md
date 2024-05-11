@@ -1,5 +1,5 @@
 # USTaxCalculator
-### Supporting years '20-'22, Federal + CA + NY + NYC
+### Supporting years '20-'23, Federal + CA + NY + NYC
 
 A small universal macOS & iOS app (written using Swift & SwiftUI) to calculate US Taxes (federal & state & local level).
 You can input income & tax data and then see the resulting taxes and how those were calculated. Compile and run the app locally to use it. You can enter new data or edit and play with the example data found in `/Examples/`. All example numbers and names are fully fictional. The macOS app is document-based, whereas the iOS one currently is purely memory based (no persistence).
@@ -32,7 +32,7 @@ The code has code comments with links to the sources of all tax rates etc.
 
 ### Tax Years
 
-- 2020 through 2022
+- 2020 through 2023
 
 ### Filing Modes
 
