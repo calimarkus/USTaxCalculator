@@ -4,7 +4,7 @@
 
 import TaxModels
 
-extension AttributableIncome: ExplainableValue {
+extension AttributableIncome: @retroactive ExplainableValue {
     /// An explanation of how the rate was calculated
     public func calculationExplanation(as type: ExplanationType) -> String {
         switch type {

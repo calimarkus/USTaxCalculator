@@ -5,7 +5,7 @@
 import TaxModels
 import TaxRates
 
-extension RawStandardDeduction: StandardDeduction {}
+extension RawStandardDeduction: @retroactive StandardDeduction {}
 
 public enum TaxCalculator {
     public static func calculateTaxesForInput(_ input: TaxDataInput) -> CalculatedTaxData {

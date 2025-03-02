@@ -4,7 +4,7 @@
 
 import TaxModels
 
-extension Deduction: ExplainableValue {
+extension Deduction: @retroactive ExplainableValue {
     /// a string describing the calculation of the deduction
     public func calculationExplanation(as type: ExplanationType) -> String {
         switch type {

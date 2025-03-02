@@ -4,14 +4,16 @@
 
 import TaxModels
 
-extension BasicTax: ExplainableTax {
+extension BasicTax: @retroactive ExplainableValue {}
+extension BasicTax: @retroactive ExplainableTax {
     /// A string explaining how the tax amount was calculated
     public func calculationExplanation(as type: ExplanationType) -> String {
         activeBracket.taxCalculationExplanation(for: taxableIncome, explanationType: type)
     }
 }
 
-extension AttributableTax: ExplainableTax {
+extension AttributableTax: @retroactive ExplainableValue {}
+extension AttributableTax: @retroactive ExplainableTax {
     /// A string explaining how the tax amount was calculated
     public func calculationExplanation(as type: ExplanationType) -> String {
         activeBracket.taxCalculationExplanation(

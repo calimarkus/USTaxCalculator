@@ -7,7 +7,7 @@ import TaxCalculator
 import TaxFormatter
 import TaxModels
 
-extension AttributableTax: Identifiable {
+extension AttributableTax: @retroactive Identifiable {
     public var id: String { title }
 }
 

@@ -8,7 +8,7 @@ import TaxFormatter
 import TaxModels
 import TaxRates
 
-extension TaxBracket: Identifiable {
+extension TaxBracket: @retroactive Identifiable {
     public var id: Double {
         startingAt
     }
