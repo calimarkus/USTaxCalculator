@@ -137,6 +137,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		282C68AE2D750DB300C7CBB6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7E822CE52804515100096181 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7E9A112A2B2923720059EF08;
+			remoteInfo = TaxModels;
+		};
 		7E4BBB822B49F485008D7182 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 7E822CE52804515100096181 /* Project object */;
@@ -779,6 +786,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				282C68AF2D750DB300C7CBB6 /* PBXTargetDependency */,
 			);
 			name = TaxRates;
 			productName = TaxRates;
@@ -1113,6 +1121,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		282C68AF2D750DB300C7CBB6 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 7E9A112A2B2923720059EF08 /* TaxModels */;
+			targetProxy = 282C68AE2D750DB300C7CBB6 /* PBXContainerItemProxy */;
+		};
 		7E4BBB832B49F485008D7182 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 7E9A112A2B2923720059EF08 /* TaxModels */;
