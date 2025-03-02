@@ -46,7 +46,10 @@ struct FederalIncomeListSection: View {
                     explanation: .deductionInfo(taxdata.deduction)
                 )
             }
-            CurrencyView(.boldSumConfig(title: "Taxable Income", amount: taxdata.totalTaxableIncome))
+            CurrencyView(.boldSumConfig(
+                title: "Taxable Income",
+                amount: taxdata.totalTaxableIncome,
+                showSeparator: isExpanded))
         }
     }
 }
