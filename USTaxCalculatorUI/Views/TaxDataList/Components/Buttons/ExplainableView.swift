@@ -5,7 +5,13 @@
 import SwiftUI
 
 enum ExplainableColumnSize {
-    static let width = 25.0
+    static var width: Double {
+        #if os(visionOS)
+            35.0
+        #else
+            25.0
+        #endif
+    }
 }
 
 struct ExplainableView<Content: View, InfoContent: View>: View {
@@ -45,9 +51,13 @@ struct ExplainableView<Content: View, InfoContent: View>: View {
                             }
                         } label: {
                             EmptyView()
+                                .hidden()
                         }
+                        .hidden()
+                        .frame(width: 0.0)
                     #endif
-                }.frame(width: ExplainableColumnSize.width)
+                }
+                .frame(width: ExplainableColumnSize.width)
             }
         }
         .buttonStyle(.plain)
