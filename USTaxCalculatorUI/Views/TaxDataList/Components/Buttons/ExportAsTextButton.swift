@@ -24,7 +24,7 @@ struct ExportAsTextButton: View {
                 #if os(macOS)
                     NSPasteboard.general.declareTypes([.string], owner: nil)
                     NSPasteboard.general.setString(taxSummary, forType: .string)
-                #elseif os(iOS)
+                #else
                     UIPasteboard.general.string = taxSummary
                 #endif
             }

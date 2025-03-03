@@ -23,7 +23,7 @@ struct CurrencyValueInputView: View {
                 TextField("", value: $amount, format: .currency(code: "USD"))
                     .font(.system(.body, design: .monospaced))
             }
-        #elseif os(iOS)
+        #else
             VStack(alignment: .leading, spacing: 0.0) {
                 if let caption, caption.count > 0 {
                     VStack(alignment: .leading) {

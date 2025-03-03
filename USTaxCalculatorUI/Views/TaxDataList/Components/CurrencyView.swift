@@ -194,7 +194,7 @@ struct LabeledValueView<Content: View>: View {
             HStack {
                 #if os(macOS)
                     titleLabel()
-                #elseif os(iOS)
+                #else
                     VStack(alignment: .leading) {
                         titleLabel()
                     }

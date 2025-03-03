@@ -38,7 +38,7 @@ struct ExplainableView<Content: View, InfoContent: View>: View {
                         }
                     #endif
 
-                    #if os(iOS)
+                    #if !os(macOS)
                         NavigationLink(isActive: $showingPopover) {
                             ScrollView {
                                 infoContent

@@ -38,7 +38,7 @@ struct MainView: View {
     var toolbarPlacement: ToolbarItemPlacement {
         #if os(macOS)
             return .automatic
-        #elseif os(iOS)
+        #else
             return .navigationBarTrailing
         #endif
     }

@@ -43,7 +43,7 @@ struct StateIncomeEntryView: View {
     func labelAlignment() -> HorizontalAlignment {
         #if os(macOS)
             .trailing
-        #elseif os(iOS)
+        #else
             .leading
         #endif
     }
